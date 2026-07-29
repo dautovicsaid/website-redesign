@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  a{text-decoration:none;}
+</style>
+</helmet>
+<div style="position:fixed;top:0;left:0;right:0;z-index:50;background:linear-gradient(135deg,#062A52,#0E4A8C);box-shadow:0 2px 14px rgba(6,42,82,0.22);font-family:'Work Sans',sans-serif;">
+  <div style="max-width:1280px;margin:0 auto;padding:14px {{ containerPad }}px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
+    <a href="./Homepage.dc.html"><img src="assets/kips-logo-white.png" alt="KIPS Gradnja" style="height:30px;width:auto;flex-shrink:0;display:block;"></a>
+
+    <sc-if value="{{ showNavLinks }}" hint-placeholder-val="{{ true }}">
+      <nav style="display:flex;align-items:center;gap:28px;flex:1;justify-content:center;">
+        <div style="position:relative;" onMouseEnter="{{ ponudaMenu.open }}" onMouseLeave="{{ scheduleCloseMenu }}">
+          <a href="./Ponuda Stanova Page.dc.html" style="{{ linkStyles.ponuda }}" style-hover="color:#FAE100;">Ponuda stanova</a>
+          <div style="{{ ponudaMenu.panelStyle }}">
+            <div style="align-self:stretch;border-right:1px solid #E4E7EC;">
+              <sc-for list="{{ ponudaMenu.projects }}" as="proj" hint-placeholder-count="3">
+                <a href="./Project Page.dc.html" onMouseEnter="{{ proj.onEnter }}" style="{{ proj.rowStyle }}" style-active="background:#E8EBF0;">{{ proj.label }}</a>
+              </sc-for>
+            </div>
+            <sc-if value="{{ ponudaMenu.showCategories }}" hint-placeholder-val="{{ false }}">
+              <div>
+                <sc-for list="{{ ponudaMenu.categories }}" as="cat" hint-placeholder-count="3">
+                  <a href="./Category Floor Plan Page.dc.html" style="display:block;padding:14px 20px;color:#334155;font-size:14px;font-weight:500;transition:background 0.15s ease,color 0.15s ease;" style-hover="background:#F7F8FA;color:#004FA3;" style-active="background:#EEF2F6;">{{ cat }}</a>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+
+        <div style="position:relative;" onMouseEnter="{{ referenceMenu.open }}" onMouseLeave="{{ scheduleCloseMenu }}">
+          <a href="./Reference Page.dc.html" style="{{ linkStyles.reference }}" style-hover="color:#FAE100;">Reference</a>
+          <div style="{{ referenceMenu.panelStyle }}">
+            <div style="align-self:stretch;border-right:1px solid #E4E7EC;">
+              <sc-for list="{{ referenceMenu.projects }}" as="proj" hint-placeholder-count="1">
+                <a href="./Project Page.dc.html" onMouseEnter="{{ proj.onEnter }}" style="{{ proj.rowStyle }}" style-active="background:#E8EBF0;">{{ proj.label }}</a>
+              </sc-for>
+            </div>
+            <sc-if value="{{ referenceMenu.showCategories }}" hint-placeholder-val="{{ false }}">
+              <div>
+                <sc-for list="{{ referenceMenu.categories }}" as="cat" hint-placeholder-count="3">
+                  <a href="./Category Floor Plan Page.dc.html" style="display:block;padding:14px 20px;color:#334155;font-size:14px;font-weight:500;transition:background 0.15s ease,color 0.15s ease;" style-hover="background:#F7F8FA;color:#004FA3;" style-active="background:#EEF2F6;">{{ cat }}</a>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+        </div>
+
+        <a href="./Ponuda Zemljista Page.dc.html" style="{{ linkStyles.zemljiste }}" style-hover="color:#FAE100;">Ponuda zemlji&scaron;ta</a>
+        <a href="./About Us Page.dc.html" style="{{ linkStyles.onama }}" style-hover="color:#FAE100;">O nama</a>
+      </nav>
+    </sc-if>
+
+    <sc-if value="{{ showNavLinks }}" hint-placeholder-val="{{ true }}">
+      <div style="display:flex;align-items:center;gap:16px;flex-shrink:0;">
+        <sc-if value="{{ showPhone }}" hint-placeholder-val="{{ true }}">
+          <a href="tel:+38267134134" style="display:flex;align-items:center;gap:6px;color:#DCE3EE;font-size:13px;white-space:nowrap;" style-hover="color:#FAE100;">
+            <div style="width:6px;height:6px;border-radius:50%;background:#FAE100;"></div>
+            <span>+382 67 134 134</span>
+          </a>
+        </sc-if>
+        <div style="display:flex;background:rgba(255,255,255,0.1);border-radius:999px;padding:3px;">
+          <span style="padding:5px 10px;border-radius:999px;background:#FAE100;color:#062A52;font-size:12px;font-weight:600;cursor:pointer;">ME</span>
+          <span style="padding:5px 10px;border-radius:999px;color:#B9C4D9;font-size:12px;font-weight:600;cursor:pointer;">EN</span>
+        </div>
+        <a href="./Contact Page.dc.html" style="background:#FAE100;color:#062A52;padding:10px 20px;border-radius:2px;font-weight:600;font-size:13px;white-space:nowrap;" style-hover="background:#E0C900;">Kontakt</a>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isCompactNav }}" hint-placeholder-val="{{ false }}">
+      <button onClick="{{ toggleMobileMenu }}" style="background:none;border:none;width:32px;height:32px;display:flex;flex-direction:column;justify-content:center;gap:5px;cursor:pointer;padding:0;flex-shrink:0;">
+        <span style="display:block;width:100%;height:2px;background:#fff;"></span>
+        <span style="display:block;width:100%;height:2px;background:#fff;"></span>
+        <span style="display:block;width:100%;height:2px;background:#fff;"></span>
+      </button>
+    </sc-if>
+  </div>
+
+  <sc-if value="{{ mobileMenuOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="max-width:1280px;margin:0 auto;padding:0 {{ containerPad }}px 20px;display:flex;flex-direction:column;gap:16px;">
+      <div>
+        <div onClick="{{ ponudaMenu.toggleMobile }}" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+          <span style="color:#DCE3EE;font-size:15px;font-weight:500;">Ponuda stanova</span>
+          <span style="color:#8FA0BC;font-size:11px;">{{ ponudaMenu.mobileChevron }}</span>
+        </div>
+        <sc-if value="{{ ponudaMenu.isExpandedMobile }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:4px;padding:12px 0 4px 14px;">
+            <sc-for list="{{ ponudaMenu.projects }}" as="proj" hint-placeholder-count="3">
+              <div>
+                <div onClick="{{ proj.toggleMobileExpand }}" style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;cursor:pointer;">
+                  <a href="./Project Page.dc.html" style="color:#B9C4D9;font-size:14px;">{{ proj.label }}</a>
+                  <span style="color:#7E8FAA;font-size:10px;">{{ proj.mobileProjectChevron }}</span>
+                </div>
+                <sc-if value="{{ proj.isMobileExpanded }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:8px;padding:2px 0 10px 14px;">
+                    <sc-for list="{{ proj.categories }}" as="cat" hint-placeholder-count="3">
+                      <a href="./Category Floor Plan Page.dc.html" style="color:#7E8FAA;font-size:13px;">{{ cat }}</a>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+
+      <div>
+        <div onClick="{{ referenceMenu.toggleMobile }}" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;">
+          <span style="color:#DCE3EE;font-size:15px;font-weight:500;">Reference</span>
+          <span style="color:#8FA0BC;font-size:11px;">{{ referenceMenu.mobileChevron }}</span>
+        </div>
+        <sc-if value="{{ referenceMenu.isExpandedMobile }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;gap:4px;padding:12px 0 4px 14px;">
+            <sc-for list="{{ referenceMenu.projects }}" as="proj" hint-placeholder-count="1">
+              <div>
+                <div onClick="{{ proj.toggleMobileExpand }}" style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;cursor:pointer;">
+                  <a href="./Project Page.dc.html" style="color:#B9C4D9;font-size:14px;">{{ proj.label }}</a>
+                  <span style="color:#7E8FAA;font-size:10px;">{{ proj.mobileProjectChevron }}</span>
+                </div>
+                <sc-if value="{{ proj.isMobileExpanded }}" hint-placeholder-val="{{ false }}">
+                  <div style="display:flex;flex-direction:column;gap:8px;padding:2px 0 10px 14px;">
+                    <sc-for list="{{ proj.categories }}" as="cat" hint-placeholder-count="3">
+                      <a href="./Category Floor Plan Page.dc.html" style="color:#7E8FAA;font-size:13px;">{{ cat }}</a>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+      </div>
+
+      <a href="./Ponuda Zemljista Page.dc.html" style="color:#DCE3EE;font-size:15px;font-weight:500;">Ponuda zemlji&scaron;ta</a>
+      <a href="./About Us Page.dc.html" style="color:#DCE3EE;font-size:15px;font-weight:500;">O nama</a>
+      <div style="height:1px;background:rgba(255,255,255,0.12);"></div>
+      <a href="tel:+38267134134" style="display:flex;align-items:center;gap:6px;color:#DCE3EE;font-size:14px;" style-hover="color:#FAE100;">
+        <div style="width:6px;height:6px;border-radius:50%;background:#FAE100;"></div>
+        <span>+382 67 134 134</span>
+      </a>
+      <div style="display:flex;background:rgba(255,255,255,0.1);border-radius:999px;padding:3px;width:fit-content;">
+        <span style="padding:5px 12px;border-radius:999px;background:#FAE100;color:#062A52;font-size:12px;font-weight:600;">ME</span>
+        <span style="padding:5px 12px;border-radius:999px;color:#B9C4D9;font-size:12px;font-weight:600;">EN</span>
+      </div>
+      <a href="./Contact Page.dc.html" style="background:#FAE100;color:#062A52;padding:12px 20px;border-radius:2px;font-weight:600;font-size:14px;text-align:center;">Kontakt</a>
+    </div>
+  </sc-if>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:80},&quot;active&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;naslovna&quot;,&quot;options&quot;:[&quot;naslovna&quot;,&quot;ponuda&quot;,&quot;reference&quot;,&quot;zemljiste&quot;,&quot;onama&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+class Component extends DCLogic {
+  state = {
+    width: typeof window !== 'undefined' ? window.innerWidth : 1440,
+    openDropdown: null,
+    mobileMenuOpen: false,
+    hoverIndex: { ponuda: null, reference: null },
+    mobileExpanded: { ponuda: false, reference: false },
+    mobileExpandedProject: { ponuda: null, reference: null }
+  };
+
+  ponudaProjects = [
+    { key: 'central-line', label: 'Central Line', categories: ['Stanovi', 'Poslovni prostori', 'Gara\u017ee'] },
+    { key: 'premium-kvart-2', label: 'Premium Kvart II', categories: ['Stanovi', 'Poslovni prostori', 'Gara\u017ee'] },
+    { key: 'premium-kvart', label: 'Premium kvart', categories: ['Stanovi', 'Poslovni prostori', 'Gara\u017ee'] }
+  ];
+  referenceProjects = [
+    { key: 'premium-kvart-ref', label: 'Premium Kvart', categories: ['Stanovi', 'Poslovni prostori', 'Gara\u017ee'] }
+  ];
+
+  componentDidMount() {
+    this._onResize = () => this.setState({ width: window.innerWidth });
+    window.addEventListener('resize', this._onResize);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize);
+    if (this._closeTimer) clearTimeout(this._closeTimer);
+  }
+
+  toggleMobileMenu() { this.setState(s => ({ mobileMenuOpen: !s.mobileMenuOpen })); }
+  openMenu(name) {
+    if (this._closeTimer) { clearTimeout(this._closeTimer); this._closeTimer = null; }
+    this.setState({ openDropdown: name });
+  }
+  closeMenu() { this.setState(s => ({ openDropdown: null, hoverIndex: { ponuda: null, reference: null } })); }
+  scheduleCloseMenu() {
+    if (this._closeTimer) clearTimeout(this._closeTimer);
+    this._closeTimer = setTimeout(() => { this.setState({ openDropdown: null, hoverIndex: { ponuda: null, reference: null } }); this._closeTimer = null; }, 260);
+  }
+  hoverProject(name, idx) { this.setState(s => ({ hoverIndex: { ...s.hoverIndex, [name]: idx } })); }
+  toggleMobileExpanded(name) { this.setState(s => ({ mobileExpanded: { ...s.mobileExpanded, [name]: !s.mobileExpanded[name] } })); }
+  toggleMobileProject(name, key) { this.setState(s => ({ mobileExpandedProject: { ...s.mobileExpandedProject, [name]: s.mobileExpandedProject[name] === key ? null : key } })); }
+
+  renderVals() {
+    const w = this.state.width || 1440;
+    const isCompactNav = w < 940;
+    const containerPad = w < 640 ? 20 : (w < 1024 ? 40 : 64);
+    const active = this.props.active || 'naslovna';
+
+    const baseLink = { color: '#DCE3EE', fontSize: '14px', fontWeight: 500 };
+    const activeLink = { color: '#FAE100', fontSize: '14px', fontWeight: 600 };
+    const linkStyles = {
+      naslovna: active === 'naslovna' ? activeLink : baseLink,
+      ponuda: active === 'ponuda' ? activeLink : baseLink,
+      reference: active === 'reference' ? activeLink : baseLink,
+      zemljiste: active === 'zemljiste' ? activeLink : baseLink,
+      onama: active === 'onama' ? activeLink : baseLink
+    };
+
+    const makeDropdown = (name, list) => {
+      const hoverIdx = this.state.hoverIndex[name];
+      const showCategories = hoverIdx !== null && hoverIdx !== undefined && !!list[hoverIdx];
+      const expandedProjectKey = this.state.mobileExpandedProject[name];
+      const isOpen = this.state.openDropdown === name;
+      return {
+        isOpen,
+        showCategories,
+        open: () => this.openMenu(name),
+        panelStyle: {
+          position: 'absolute', top: '30px', left: '0', width: showCategories ? '520px' : '240px', background: '#fff',
+          borderRadius: '4px', boxShadow: '0 20px 40px rgba(6,42,82,0.28)', overflow: 'hidden',
+          display: 'grid', gridTemplateColumns: showCategories ? '1fr 1fr' : '1fr', alignItems: 'start', zIndex: 60,
+          opacity: isOpen ? 1 : 0,
+          transform: isOpen ? 'translateY(0)' : 'translateY(-8px)',
+          visibility: isOpen ? 'visible' : 'hidden',
+          pointerEvents: isOpen ? 'auto' : 'none',
+          transition: 'opacity 0.18s ease, transform 0.18s ease, visibility 0.18s, width 0.15s ease'
+        },
+        projects: list.map((p, i) => ({
+          key: p.key,
+          label: p.label,
+          onEnter: () => this.hoverProject(name, i),
+          rowStyle: {
+            display: 'block',
+            padding: '14px 20px',
+            cursor: 'pointer',
+            textDecoration: 'none',
+            fontSize: '14px',
+            fontWeight: i === hoverIdx ? 600 : 500,
+            color: i === hoverIdx ? '#062A52' : '#45536B',
+            background: i === hoverIdx ? '#F1F3F6' : '#FFFFFF',
+            transition: 'background 0.15s ease, color 0.15s ease'
+          },
+          categories: p.categories,
+          isMobileExpanded: expandedProjectKey === p.key,
+          mobileProjectChevron: expandedProjectKey === p.key ? '\u25B2' : '\u25BC',
+          toggleMobileExpand: () => this.toggleMobileProject(name, p.key)
+        })),
+        categories: showCategories ? list[hoverIdx].categories : [],
+        isExpandedMobile: !!this.state.mobileExpanded[name],
+        mobileChevron: this.state.mobileExpanded[name] ? '\u25B2' : '\u25BC',
+        toggleMobile: () => this.toggleMobileExpanded(name)
+      };
+    };
+
+    return {
+      containerPad,
+      showNavLinks: !isCompactNav,
+      isCompactNav,
+      showPhone: w >= 1160,
+      mobileMenuOpen: this.state.mobileMenuOpen,
+      toggleMobileMenu: () => this.toggleMobileMenu(),
+      closeMenu: () => this.closeMenu(),
+      scheduleCloseMenu: () => this.scheduleCloseMenu(),
+      linkStyles,
+      ponudaMenu: makeDropdown('ponuda', this.ponudaProjects),
+      referenceMenu: makeDropdown('reference', this.referenceProjects)
+    };
+  }
+}
+
+</script>
+</body>
+</html>

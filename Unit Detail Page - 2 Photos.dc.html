@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  body{margin:0;font-family:'Work Sans',sans-serif;background:#F7F8FA;-webkit-font-smoothing:antialiased;}
+  a{color:#004FA3;text-decoration:none;}
+  a:hover{color:#00376E;}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  .lightboxViewport::-webkit-scrollbar{display:none}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#F7F8FA;padding-top:60px;">
+
+  <dc-import name="Header" active="ponuda" hint-size="100%,80px"></dc-import>
+
+  <div style="max-width:1280px;margin:0 auto;padding:20px {{ containerPad }}px 0;">
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;color:#63728A;">
+      <a href="./Homepage.dc.html" style="color:#63728A;" style-hover="color:#004FA3;">Naslovna</a>
+      <span>/</span>
+      <a href="{{ parentCrumbHref }}" style="color:#63728A;" style-hover="color:#004FA3;">{{ parentCrumbLabel }}</a>
+      <span>/</span>
+      <a href="./Project Page.dc.html" style="color:#63728A;" style-hover="color:#004FA3;">{{ projectName }}</a>
+      <span>/</span>
+      <a href="./Category Floor Plan Page.dc.html" style="color:#63728A;" style-hover="color:#004FA3;">{{ categoryLabel }}</a>
+      <span>/</span>
+      <span style="color:#10233F;font-weight:600;">{{ unitCode }}</span>
+    </div>
+  </div>
+
+  <div style="max-width:1280px;margin:0 auto;padding:20px {{ containerPad }}px 0;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap;">
+      <div style="text-transform:uppercase;letter-spacing:2px;font-size:12px;color:#004FA3;font-weight:600;">{{ categoryLabel }} &mdash; {{ lamelaLabel }}</div>
+      <div style="display:flex;align-items:center;gap:6px;background:{{ statusBg }};padding:5px 12px;border-radius:999px;">
+        <div style="width:7px;height:7px;border-radius:50%;background:{{ statusColor }};"></div>
+        <span style="font-size:12px;font-weight:600;color:{{ statusColor }};">{{ statusLabel }}</span>
+      </div>
+    </div>
+    <h1 style="font-family:'Oswald',sans-serif;font-weight:600;color:#10233F;font-size:{{ titleSize }}px;margin:0 0 20px;letter-spacing:0.5px;">Stan {{ unitCode }}</h1>
+  </div>
+
+  <div style="max-width:1280px;margin:0 auto;padding:0 {{ containerPad }}px;">
+    <sc-if value="{{ isSingle }}" hint-placeholder-val="{{ true }}">
+      <sc-for list="{{ tiles }}" as="tile" hint-placeholder-count="1">
+        <div onClick="{{ tile.open }}" style="{{ tile.tileStyle }}">
+          <image-slot id="{{ tile.slotId }}" placeholder="{{ tile.placeholder }}" shape="rect" style="width:100%;height:100%;"></image-slot>
+        </div>
+      </sc-for>
+    </sc-if>
+    <sc-if value="{{ isDouble }}" hint-placeholder-val="{{ false }}">
+      <div style="{{ gridStyle }}">
+        <sc-for list="{{ tiles }}" as="tile" hint-placeholder-count="2">
+          <div onClick="{{ tile.open }}" style="{{ tile.tileStyle }}">
+            <image-slot id="{{ tile.slotId }}" placeholder="{{ tile.placeholder }}" shape="rect" style="width:100%;height:100%;"></image-slot>
+          </div>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ isMulti }}" hint-placeholder-val="{{ false }}">
+      <div style="{{ gridStyle }}">
+        <div onClick="{{ mainTile.open }}" style="{{ mainTile.tileStyle }}">
+          <image-slot id="{{ mainTile.slotId }}" placeholder="{{ mainTile.placeholder }}" shape="rect" style="width:100%;height:100%;"></image-slot>
+        </div>
+        <div style="{{ sideColStyle }}">
+          <sc-for list="{{ sideTiles }}" as="tile" hint-placeholder-count="3">
+            <div onClick="{{ tile.open }}" style="{{ tile.tileStyle }}">
+              <image-slot id="{{ tile.slotId }}" placeholder="{{ tile.placeholder }}" shape="rect" style="width:100%;height:100%;"></image-slot>
+              <sc-if value="{{ tile.isLast }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute;inset:0;background:rgba(6,42,82,0.6);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:600;font-size:14px;">+{{ extraCount }} foto</div>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+
+  <div style="max-width:1280px;margin:0 auto;padding:40px {{ containerPad }}px 90px;">
+    <div style="{{ contentGridStyle }}">
+
+      <div style="{{ cellSpecs }}">
+        <div style="{{ specGridStyle }}height:100%;box-sizing:border-box;">
+          <sc-for list="{{ specs }}" as="spec" hint-placeholder-count="3">
+            <div style="border:1px solid #E4E7EC;border-radius:6px;padding:16px;background:#fff;">
+              <div style="color:#94A3B8;font-size:12px;margin-bottom:6px;">{{ spec.label }}</div>
+              <div style="font-family:'Oswald',sans-serif;font-weight:600;color:#10233F;font-size:18px;">{{ spec.value }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="{{ cellSidebar }}">
+        <div style="border:1px solid #E4E7EC;border-radius:8px;background:#fff;padding:28px;box-shadow:0 4px 20px rgba(16,35,63,0.06);height:100%;box-sizing:border-box;">
+          <div style="font-family:'Oswald',sans-serif;font-size:19px;font-weight:600;color:#10233F;margin-bottom:6px;">Zainteresovani ste?</div>
+          <p style="color:#63728A;font-size:14px;line-height:1.6;margin:0 0 20px;">Kontaktirajte nas za dodatne informacije ili zaka&#382;ite razgledanje ove jedinice.</p>
+          <sc-if value="{{ inquiryEnabled }}" hint-placeholder-val="{{ true }}">
+            <a href="mailto:office@kipsgradnja.me?subject=Upit%20za%20{{ unitCode }}" style="display:block;text-align:center;background:#004FA3;color:#fff;padding:14px;border-radius:4px;font-weight:600;font-size:15px;margin-bottom:12px;" style-hover="background:#00376E;">Zaka&#382;ite razgledanje</a>
+            <a href="tel:+38267134134" style="display:block;text-align:center;border:1px solid #10233F;color:#10233F;padding:14px;border-radius:4px;font-weight:600;font-size:15px;margin-bottom:20px;" style-hover="background:#10233F;color:#fff;">+382 67 134 134</a>
+          </sc-if>
+          <sc-if value="{{ inquiryDisabled }}" hint-placeholder-val="{{ false }}">
+            <div style="text-align:center;background:#F1F3F6;color:#94A3B8;padding:14px;border-radius:4px;font-weight:600;font-size:14px;margin-bottom:20px;">Jedinica je zauzeta &mdash; upit nije mogu&#263;</div>
+          </sc-if>
+          <div style="height:1px;background:#E4E7EC;margin-bottom:20px;"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="color:#63728A;font-size:13px;">Lamela</span>
+            <span style="color:#10233F;font-size:13px;font-weight:600;">{{ lamelaLabel }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="{{ cellDescription }}">
+        <div style="font-family:'Oswald',sans-serif;font-size:20px;font-weight:600;color:#10233F;margin-bottom:14px;">Opis</div>
+        <p style="color:#45536B;font-size:15px;line-height:1.7;margin:0;">{{ description }}</p>
+      </div>
+
+      <div style="{{ cellOtherUnits }}">
+        <div style="font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;color:#10233F;margin-bottom:12px;">Ostale jedinice na spratu</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <sc-for list="{{ otherUnits }}" as="unit" hint-placeholder-count="3">
+            <a href="#" style="border:1px solid #E4E7EC;border-radius:6px;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;background:#fff;" style-hover="border-color:#004FA3;">
+              <span style="color:#10233F;font-size:13px;font-weight:600;">{{ unit.code }}</span>
+              <span style="color:#63728A;font-size:12px;">{{ unit.size }}</span>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <dc-import name="Footer" hint-size="100%,400px"></dc-import>
+
+  <sc-if value="{{ galleryOpen }}" hint-placeholder-val="{{ false }}">
+    <div ref="{{ lightboxRef }}" onClick="{{ closeGallery }}" style="position:fixed;inset:0;background:rgba(6,42,82,0.94);z-index:1000;animation:fadeIn 0.2s ease;display:flex;align-items:center;justify-content:center;">
+      <div onClick="{{ stopClick }}" style="position:fixed;top:20px;right:20px;display:flex;align-items:center;gap:8px;z-index:1010;">
+        <button onClick="{{ zoomOut }}" style="background:rgba(255,255,255,0.12);border:none;color:#fff;font-size:20px;width:40px;height:40px;border-radius:50%;cursor:pointer;line-height:1;">&minus;</button>
+        <div style="color:#fff;font-size:13px;font-weight:600;min-width:44px;text-align:center;">{{ zoomLabel }}</div>
+        <button onClick="{{ zoomIn }}" style="background:rgba(255,255,255,0.12);border:none;color:#fff;font-size:20px;width:40px;height:40px;border-radius:50%;cursor:pointer;line-height:1;">+</button>
+        <button onClick="{{ toggleFullscreen }}" style="background:rgba(255,255,255,0.12);border:none;color:#fff;font-size:15px;width:40px;height:40px;border-radius:50%;cursor:pointer;line-height:1;" title="Fullscreen">&#10021;</button>
+        <button onClick="{{ closeGallery }}" style="background:rgba(255,255,255,0.12);border:none;color:#fff;font-size:22px;width:40px;height:40px;border-radius:50%;cursor:pointer;line-height:1;">&times;</button>
+      </div>
+      <button onClick="{{ prevImage }}" style="position:fixed;left:24px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.12);border:none;color:#fff;font-size:24px;width:48px;height:48px;border-radius:50%;cursor:pointer;z-index:1010;">&#8249;</button>
+      <button onClick="{{ nextImage }}" style="position:fixed;right:24px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.12);border:none;color:#fff;font-size:24px;width:48px;height:48px;border-radius:50%;cursor:pointer;z-index:1010;">&#8250;</button>
+      <div class="lightboxViewport" onClick="{{ stopClick }}" style="{{ viewportBoxStyle }}">
+        <div style="{{ zoomInnerStyle }}">
+          <image-slot id="{{ galleryImage.slotId }}" placeholder="{{ galleryImage.placeholder }}" shape="rect" fit="contain" style="width:100%;height:100%;"></image-slot>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440},&quot;unitCode&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;I_101_J&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;projectName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Central Line&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;categoryLabel&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Stanovi&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;lamelaLabel&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Lamela I&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;status&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;available&quot;,&quot;options&quot;:[&quot;available&quot;,&quot;reserved&quot;,&quot;sold&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Behavior&quot;},&quot;isArchived&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+class Component extends DCLogic {
+  state = {
+    width: typeof window !== 'undefined' ? window.innerWidth : 1440,
+    activeImage: 0,
+    galleryOpen: false,
+    zoom: 1,
+    isFullscreen: false
+  };
+  lightboxRef = React.createRef();
+
+  allImages = [
+    { slotId: 'unit-img-1', placeholder: 'Dnevna soba' },
+    { slotId: 'unit-img-2', placeholder: 'Kuhinja' }
+  ];
+
+  otherUnitsData = [
+    { code: 'I_101_J', size: '46.53 m\u00b2' },
+    { code: 'I_103_J', size: '46.04 m\u00b2' },
+    { code: 'I_104_T', size: '105.52 m\u00b2' }
+  ];
+
+  componentDidMount() {
+    this._onResize = () => this.setState({ width: window.innerWidth });
+    window.addEventListener('resize', this._onResize);
+    this._onFsChange = () => this.setState({ isFullscreen: !!document.fullscreenElement });
+    document.addEventListener('fullscreenchange', this._onFsChange);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize);
+    document.removeEventListener('fullscreenchange', this._onFsChange);
+  }
+
+  selectImage(i) { this.setState({ activeImage: i }); }
+  openGallery() { this.setState({ galleryOpen: true, zoom: 1 }); }
+  closeGallery() { this.setState({ galleryOpen: false, zoom: 1 }); }
+  selectAndOpen(i) { this.setState({ activeImage: i, galleryOpen: true, zoom: 1 }); }
+  zoomIn() { this.setState(s => ({ zoom: Math.min(3, Math.round((s.zoom + 0.25) * 100) / 100) })); }
+  zoomOut() { this.setState(s => ({ zoom: Math.max(1, Math.round((s.zoom - 0.25) * 100) / 100) })); }
+  toggleFullscreen() {
+    if (document.fullscreenElement) { document.exitFullscreen(); }
+    else if (this.lightboxRef.current) { this.lightboxRef.current.requestFullscreen(); }
+  }
+
+  buildGallery(images, mainImgHeight, gap) {
+    const count = images.length;
+    const withTile = (img, i) => ({
+      ...img,
+      slotId: img.slotId + '-tile',
+      open: () => this.selectAndOpen(i)
+    });
+
+    if (count <= 1) {
+      const tiles = images.map((img, i) => ({
+        ...withTile(img, i),
+        tileStyle: { position: 'relative', borderRadius: '6px', overflow: 'hidden', height: mainImgHeight + 'px', cursor: 'pointer' }
+      }));
+      return { mode: 'single', tiles };
+    }
+    if (count === 2) {
+      const tiles = images.map((img, i) => ({
+        ...withTile(img, i),
+        tileStyle: { position: 'relative', borderRadius: '6px', overflow: 'hidden', height: mainImgHeight + 'px', cursor: 'pointer' }
+      }));
+      return { mode: 'double', tiles, gridStyle: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: gap + 'px' } };
+    }
+    const sideCount = Math.min(count - 1, 3);
+    const sideHeight = (mainImgHeight - gap * (sideCount - 1)) / sideCount;
+    const mainTile = { ...withTile(images[0], 0), tileStyle: { position: 'relative', borderRadius: '6px', overflow: 'hidden', cursor: 'pointer', height: '100%' } };
+    const sideTiles = images.slice(1, 1 + sideCount).map((img, i) => {
+      const idx = i + 1;
+      const isLast = i === sideCount - 1 && count > 4;
+      return { ...withTile(img, idx), isLast, tileStyle: { position: 'relative', borderRadius: '6px', overflow: 'hidden', cursor: 'pointer', height: sideHeight + 'px' } };
+    });
+    const extraCount = count > 4 ? count - 4 : 0;
+    return {
+      mode: 'multi', mainTile, sideTiles, extraCount,
+      gridStyle: { display: 'grid', gridTemplateColumns: '2fr 1fr', gap: gap + 'px', height: mainImgHeight + 'px' },
+      sideColStyle: { display: 'flex', flexDirection: 'column', gap: gap + 'px' }
+    };
+  }
+
+  renderVals() {
+    const w = this.state.width || 1440;
+    const isMobile = w < 640;
+    const isTablet = w >= 640 && w < 1024;
+    const containerPad = isMobile ? 20 : (w < 1024 ? 40 : 64);
+    const titleSize = isMobile ? 32 : 42;
+
+    const unitCode = this.props.unitCode || 'I_101_J';
+    const projectName = this.props.projectName || 'Central Line';
+    const categoryLabel = this.props.categoryLabel || 'Stanovi';
+    const lamelaLabel = this.props.lamelaLabel || 'Lamela I';
+    const isArchived = !!this.props.isArchived;
+    const parentCrumbLabel = isArchived ? 'Reference' : 'Ponuda stanova';
+    const parentCrumbHref = isArchived ? './Reference Page.dc.html' : './Ponuda Stanova Page.dc.html';
+    const status = this.props.status || 'available';
+
+    const statusMeta = {
+      available: { label: 'Dostupno', color: '#2E9E5B', bg: '#E7F5EC' },
+      reserved: { label: 'Rezervisano', color: '#E2A32D', bg: '#FBF0DD' },
+      sold: { label: 'Zauzeto', color: '#C0392B', bg: '#FBE7E5' }
+    };
+    const meta = statusMeta[status] || statusMeta.available;
+
+    const mainImgHeight = isMobile ? 280 : 460;
+    const activeIdx = this.state.activeImage;
+    const galleryImage = { ...this.allImages[activeIdx], slotId: this.allImages[activeIdx].slotId + '-lightbox' };
+    const gallery = this.buildGallery(this.allImages, mainImgHeight, 12);
+
+    const specs = [
+      { label: 'Povr\u0161ina', value: '46.53 m\u00b2' },
+      { label: 'Sprat', value: '1. sprat' },
+      { label: 'Struktura', value: 'Jednosoban' }
+    ];
+
+    return {
+      containerPad, titleSize,
+      projectName, categoryLabel, unitCode, lamelaLabel, isArchived, parentCrumbLabel, parentCrumbHref,
+      statusLabel: meta.label, statusColor: meta.color, statusBg: meta.bg,
+      mainImgHeight,
+      isSingle: gallery.mode === 'single',
+      isDouble: gallery.mode === 'double',
+      isMulti: gallery.mode === 'multi',
+      tiles: gallery.tiles,
+      mainTile: gallery.mainTile,
+      sideTiles: gallery.sideTiles,
+      extraCount: gallery.extraCount,
+      gridStyle: gallery.gridStyle,
+      sideColStyle: gallery.sideColStyle,
+      contentGridStyle: { display: 'grid', gridTemplateColumns: isMobile || isTablet ? '1fr' : '1.6fr 1fr', gridAutoRows: 'auto', columnGap: '48px', rowGap: '32px', alignItems: 'stretch' },
+      cellSpecs: (isMobile || isTablet) ? {} : { gridColumn: '1', gridRow: '1' },
+      cellSidebar: (isMobile || isTablet) ? {} : { gridColumn: '2', gridRow: '1' },
+      cellDescription: (isMobile || isTablet) ? {} : { gridColumn: '1', gridRow: '2' },
+      cellOtherUnits: (isMobile || isTablet) ? {} : { gridColumn: '2', gridRow: '2' },
+      specGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '12px' },
+      specs,
+      inquiryEnabled: status !== 'sold',
+      inquiryDisabled: status === 'sold',
+      description: 'Svijetao jednosoban stan sa funkcionalnim rasporedom i pogledom na zeleni park. Dnevni boravak povezan sa kuhinjom pru\u017ea prostran i otvoren ambijent, dok spava\u0107a soba obezbje\u0111uje mir i privatnost.',
+      otherUnits: this.otherUnitsData,
+      galleryOpen: this.state.galleryOpen,
+      galleryImage,
+      closeGallery: () => this.closeGallery(),
+      prevImage: (e) => { e.stopPropagation(); this.setState(s => ({ activeImage: (s.activeImage - 1 + this.allImages.length) % this.allImages.length, zoom: 1 })); },
+      nextImage: (e) => { e.stopPropagation(); this.setState(s => ({ activeImage: (s.activeImage + 1) % this.allImages.length, zoom: 1 })); },
+      stopClick: (e) => e.stopPropagation(),
+      lightboxRef: this.lightboxRef,
+      zoomIn: (e) => { e.stopPropagation(); this.zoomIn(); },
+      zoomOut: (e) => { e.stopPropagation(); this.zoomOut(); },
+      zoomLabel: Math.round(this.state.zoom * 100) + '%',
+      toggleFullscreen: (e) => { e.stopPropagation(); this.toggleFullscreen(); },
+      viewportBoxStyle: {
+        width: 'min(92vw, 1400px)', height: 'min(86vh, 900px)',
+        overflow: this.state.zoom > 1 ? 'auto' : 'hidden',
+        scrollbarWidth: 'none', msOverflowStyle: 'none'
+      },
+      zoomInnerStyle: {
+        width: '100%', height: '100%',
+        transform: 'scale(' + this.state.zoom + ')', transformOrigin: 'center center',
+        transition: 'transform 0.15s ease'
+      }
+    };
+  }
+}
+
+</script>
+</body>
+</html>
