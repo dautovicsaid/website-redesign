@@ -156,7 +156,7 @@ class Component extends DCLogic {
       4: { G06: '56.62', G07: '45.57', G01: '74.64', F06: '49.82', F07: '46.54', F01: '107.60', G05: '49.55', G04: '45.56', G03: '46.54', G02: '50.01', F05: '49.82', F04: '46.54', F03: '46.54', F02: '65.58' },
       5: { G06: '56.62', G07: '45.57', G01: '74.64', F06: '49.82', F07: '46.54', F01: '107.60', G05: '49.55', G04: '45.56', G03: '46.54', G02: '50.01', F05: '49.82', F04: '46.54', F03: '46.54', F02: '65.58' }
     };
-    const floorSrc = { 1: './uploads/tlocrt.webp', 2: './uploads/tlocrt_2.jpg', 3: './uploads/tlocrt_3.webp', 4: './uploads/tlocrt_4.webp', 5: './uploads/tlocrt_5.webp' };
+    const floorSrc = { 1: './uploads/tlocrt.webp', 2: './uploads/tlocrt_2.webp', 3: './uploads/tlocrt_3.webp', 4: './uploads/tlocrt_4.webp', 5: './uploads/tlocrt_5.webp' };
     const floorLabels = { 1: 'Prvi sprat', 2: 'Drugi sprat', 3: 'Tre\u0107i sprat', 4: '\u010cetvrti sprat', 5: 'Peti sprat' };
     return [1, 2, 3, 4, 5].map(num => {
       const roomBase = num * 100;
@@ -182,7 +182,7 @@ class Component extends DCLogic {
       { code: 'II_PP_004', size: '147.95 m\u00b2', status: 'available', x: 68, y: 50 },
       { code: 'II_PP_005', size: '159.05 m\u00b2', status: 'sold', x: 85, y: 50 }
     ];
-    return [{ key: 'II-floor-0', label: 'Prizemlje', slotId: 'plan-II-0', placeholder: 'Tlocrt', slotSrc: './uploads/tlocrt_6.png', aspectRatio: '2048/1448', units }];
+    return [{ key: 'II-floor-0', label: 'Prizemlje', slotId: 'plan-II-0', placeholder: 'Tlocrt', slotSrc: './uploads/tlocrt_6.webp', aspectRatio: '2048/1448', units }];
   }
 
   buildLamelaThreeFloors() {
@@ -220,7 +220,7 @@ class Component extends DCLogic {
   }
 
   lamelas = [
-    { key: 'lamela-1', label: 'Lamela I', contextSrc: './uploads/lamela.jpg', floors: this.buildLamelaOneFloors() },
+    { key: 'lamela-1', label: 'Lamela I', contextSrc: './uploads/lamela.webp', floors: this.buildLamelaOneFloors() },
     { key: 'lamela-2', label: 'Lamela II', contextSrc: './uploads/lamela_2.webp', floors: this.buildLamelaTwoFloors() },
     { key: 'lamela-3', label: 'Lamela III', contextSrc: './uploads/lamela_3.webp', floors: this.buildLamelaThreeFloors() }
   ];
