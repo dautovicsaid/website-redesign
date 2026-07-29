@@ -119,7 +119,7 @@
       <div style="{{ galGridStyle }}">
         <sc-for list="{{ galleryImages }}" as="img" hint-placeholder-count="9">
           <div onClick="{{ img.open }}" style="position:relative;border-radius:4px;overflow:hidden;cursor:pointer;aspect-ratio:4/3;transition:transform 0.2s ease;" style-hover="transform:scale(1.02);">
-            <image-slot id="{{ img.slotId }}" placeholder="{{ img.placeholder }}" shape="rect" style="width:100%;height:100%;"></image-slot>
+            <image-slot id="{{ img.slotId }}" src="{{ img.slotSrc }}" placeholder="{{ img.placeholder }}" shape="rect" style="width:100%;height:100%;"></image-slot>
           </div>
         </sc-for>
       </div>
@@ -211,17 +211,17 @@ class Component extends DCLogic {
     { title: 'Laserski rezana keramika', text: 'Plo\u010dice velikih formata, italijanska i \u0161panska keramika i klase.', slotId: 'feat-4', placeholder: 'Keramika', pos: 'right', slotSrc: './uploads/why_5.webp' }
   ];
 
-  galleryImages = [
-    { slotId: 'gal-1', placeholder: 'Glavna fasada' },
-    { slotId: 'gal-2', placeholder: 'Ulazni plato' },
-    { slotId: 'gal-3', placeholder: 'Bo\u010dna fasada' },
-    { slotId: 'gal-4', placeholder: '\u0160iri plan' },
-    { slotId: 'gal-5', placeholder: 'Okolina' },
-    { slotId: 'gal-6', placeholder: 'Pristupni put' },
-    { slotId: 'gal-7', placeholder: 'Dvori\u0161na fasada' },
-    { slotId: 'gal-8', placeholder: 'No\u0107ni prikaz' },
-    { slotId: 'gal-9', placeholder: 'Ugaoni plan' }
-  ];
+ galleryImages = [
+  { slotId: 'gal-1', placeholder: 'Glavna fasada', slotSrc: './uploads/central_line.webp' },
+  { slotId: 'gal-2', placeholder: 'Ulazni plato', slotSrc: './uploads/central_line_2.webp' },
+  { slotId: 'gal-3', placeholder: 'Bočna fasada', slotSrc: './uploads/central_line_3.webp' },
+  { slotId: 'gal-4', placeholder: 'Širi plan', slotSrc: './uploads/central_line_4.webp' },
+  { slotId: 'gal-5', placeholder: 'Okolina', slotSrc: './uploads/central_line_5.webp' },
+  { slotId: 'gal-6', placeholder: 'Pristupni put', slotSrc: './uploads/central_line_6.webp' },
+  { slotId: 'gal-7', placeholder: 'Dvorišna fasada', slotSrc: './uploads/central_line_7.webp' },
+  { slotId: 'gal-8', placeholder: 'Noćni prikaz', slotSrc: './uploads/central_line_8.webp' },
+  { slotId: 'gal-9', placeholder: 'Ugaoni plan', slotSrc: './uploads/central_line_9.webp' }
+];
 
   progressMonths = [
     { label: 'Januar 2026.', photos: [
