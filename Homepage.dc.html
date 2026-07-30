@@ -35,10 +35,8 @@
 
   <div style="{{ navBarStyle }}">
     <div style="{{ navInnerStyle }}">
-      <a href="./Homepage.dc.html" style="{{ logoLinkStyle }}">
-        <div style="{{ logoWordStyle }}">KIPS</div>
-        <div style="{{ logoSubStyle }}">GRADNJA</div>
-      </a>
+      <a href="./Homepage.dc.html"><img src="assets/kips-logo-luxury.png" alt="KIPS Gradnja" style="height:30px;width:auto;flex-shrink:0;display:block;"></a>
+
       <sc-if value="{{ showNavLinks }}" hint-placeholder-val="{{ true }}">
         <nav style="{{ navLinksRowStyle }}">
           <div style="{{ navMegaWrapStyle }}" onMouseEnter="{{ ponudaMenu.open }}" onMouseLeave="{{ scheduleCloseMenu }}">
@@ -184,27 +182,7 @@
     </div>
   </div>
 
-  <div id="rv-about" style="{{ aboutWrapStyle }}">
-    <div style="{{ aboutRevealStyle }}">
-      <div style="{{ aboutHeadGridStyle }}">
-        <div>
-          <div style="{{ sectionEyebrowStyle }}">O kompaniji</div>
-          <div style="{{ sectionTitleStyle }}">Graditeljstvu pristupamo kao umjetnosti</div>
-        </div>
-        <p style="{{ aboutTextStyle }}">Svaki objekat koji potpisujemo nastaje kao spoj in&#382;enjerske preciznosti i arhitektonske vizije. Ne gradimo samo zgrade &mdash; stvaramo prostore koji podi&#382;u standard &#382;ivota u zajednici.</p>
-      </div>
-      <div style="{{ statsGridStyle }}">
-        <sc-for list="{{ displayedStats }}" as="stat" hint-placeholder-count="3">
-          <div style="{{ statItemStyle }}">
-            <div style="{{ statNumberStyle }}" style-hover="{{ statNumberHoverStyle }}">{{ stat.display }}</div>
-            <div style="{{ statLabelStyle }}">{{ stat.label }}</div>
-          </div>
-        </sc-for>
-      </div>
-    </div>
-  </div>
-
-  <div id="projekti" style="{{ sectionWrapStyle }}">
+  <div id="projekti" style="{{ section2WrapStyle }}">
     <div id="rv-projects-head" style="{{ sectionHeadRevealStyle }}">
       <div style="{{ sectionHeadStyle }}">
         <div style="{{ sectionEyebrowStyle }}">Portfolio</div>
@@ -243,7 +221,26 @@
     </sc-if>
   </div>
 
-  <div style="{{ manifestoTransitionStyle }}"></div>
+  <div id="rv-about" style="{{ aboutWrapStyle }}">
+    <div style="{{ aboutRevealStyle }}">
+      <div style="{{ aboutHeadGridStyle }}">
+        <div>
+          <div style="{{ sectionEyebrowStyle }}">O kompaniji</div>
+          <div style="{{ sectionTitleStyle }}">Graditeljstvu pristupamo kao umjetnosti</div>
+        </div>
+        <p style="{{ aboutTextStyle }}">Svaki objekat koji potpisujemo nastaje kao spoj in&#382;enjerske preciznosti i arhitektonske vizije. Ne gradimo samo zgrade &mdash; stvaramo prostore koji podi&#382;u standard &#382;ivota u zajednici.</p>
+      </div>
+      <div style="{{ statsGridStyle }}">
+        <sc-for list="{{ displayedStats }}" as="stat" hint-placeholder-count="3">
+          <div style="{{ statItemStyle }}">
+            <div style="{{ statNumberStyle }}" style-hover="{{ statNumberHoverStyle }}">{{ stat.display }}</div>
+            <div style="{{ statLabelStyle }}">{{ stat.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
   <div id="rv-manifesto" style="{{ manifestoSectionStyle }}">
     <div style="{{ manifestoGridStyle }}">
       <image-slot id="manifesto-img" src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200" placeholder="Arhitektonska fotografija &mdash; detalj fasade / enterijera" shape="rect" style="{{ manifestoImgStyle }}"></image-slot>
@@ -585,7 +582,7 @@ class Component extends DCLogic {
         cardStyle: { display: 'block', minWidth: 0, maxWidth: '100%', transition: 'transform 0.5s ' + easeOut + ', box-shadow 0.5s ease', ...reveal('rv-projects-grid', { delay: i * 0.12 }) },
         statusTagStyle: { position: 'absolute', top: '16px', left: '16px', background: isHovered ? accent : 'rgba(251,251,249,0.92)', color: isHovered ? '#FBFBF9' : charcoal, fontSize: '10.5px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', padding: '6px 12px', transition: 'background 0.35s ease, color 0.35s ease' },
         arrowStyle: { fontSize: '20px', color: accent, display: 'inline-block', transform: isHovered ? 'translateX(4px)' : 'translateX(0)', transition: 'transform 0.35s ' + easeOut },
-        unitsDetailStyle: { fontFamily: sans, fontSize: '12px', color: accent, marginTop: '8px', fontWeight: 500, opacity: isHovered ? 1 : 0, maxHeight: isHovered ? '20px' : '0px', overflow: 'hidden', transition: 'opacity 0.35s ease, max-height 0.35s ease' }
+        unitsDetailStyle: { fontFamily: sans, fontSize: '12px', color: accent, marginTop: '8px', fontWeight: 500, opacity: isHovered ? 1 : 0, visibility: isHovered ? 'visible' : 'hidden', transition: 'opacity 0.35s ease' }
       };
     });
 
@@ -786,8 +783,8 @@ class Component extends DCLogic {
         'heroSecondary'
       ) },
 
-      aboutWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 48 : 150) + 'px ' + containerPad + 'px 0' },
-      aboutRevealStyle: isMobile ? { opacity: 1, transform: 'translateY(0)' } : reveal('rv-about'),
+      aboutWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 48 : 150) + 'px ' + (isMobile ? 32 : 80) + 'px'},
+      aboutRevealStyle: reveal('rv-about'),
       aboutHeadGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '24px' : '64px', marginBottom: isMobile ? '48px' : '72px', alignItems: 'start' },
       aboutTextStyle: { fontFamily: sans, color: muted, fontSize: '15px', lineHeight: 1.8, fontWeight: 300, margin: 0 },
       statsGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + (isMobile ? 1 : 3) + ', 1fr)', gap: isMobile ? '36px' : '24px', borderTop: '1px solid ' + hairline, borderBottom: '1px solid ' + hairline, padding: (isMobile ? '36px 0' : '48px 0') },
@@ -798,6 +795,7 @@ class Component extends DCLogic {
       statLabelStyle: { fontFamily: sans, fontSize: '11.5px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px', marginTop: '10px' },
 
       sectionWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: sectionPadV + 'px ' + containerPad + 'px ' + sectionPadV + 'px' },
+      section2WrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: sectionPadV + 'px ' + containerPad + 'px 0' },
       sectionHeadRevealStyle: reveal('rv-projects-head'),
       sectionHeadStyle: { maxWidth: '640px', margin: '0 0 ' + (isMobile ? 36 : 48) + 'px' },
       sectionEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '11.5px', color: accent, fontWeight: 500, marginBottom: '14px' },
