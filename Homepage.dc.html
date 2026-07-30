@@ -163,7 +163,7 @@
   </div>
 
   <div style="{{ heroWrapStyle }}">
-    <video id="lux-hero" src="./uploads/video.mp4" autoPlay="{{ true }}" loop="{{ true }}" muted="{{ true }}" playsInline="{{ true }}" preload="auto" style="{{ heroImgStyle }}"></video>    <sc-if value="{{ showHeroOverlay }}" hint-placeholder-val="{{ true }}">
+    <video id="lux-hero" src="./uploads/video.mp4" autoPlay="{{ true }}" muted="{{ true }}" playsInline="{{ true }}" preload="auto" style="{{ heroImgStyle }}"></video>
       <div style="{{ heroOverlayStyle }}"></div>
     </sc-if>
     <div style="{{ heroContentWrapStyle }}">
@@ -480,11 +480,15 @@ class Component extends DCLogic {
     if (heroVideo) {
       heroVideo.muted = true;
       heroVideo.defaultMuted = true;
-      heroVideo.loop = true;
       heroVideo.setAttribute('muted', '');
-      heroVideo.setAttribute('loop', '');
       heroVideo.setAttribute('playsinline', '');
       heroVideo.setAttribute('webkit-playsinline', 'true');
+
+      heroVideo.addEventListener('ended', () => {
+        heroVideo.currentTime = 0.01;
+        heroVideo.play().catch(() => {});
+      });
+
       const tryPlay = () => heroVideo.play().catch(() => {});
       tryPlay();
       heroVideo.addEventListener('loadedmetadata', tryPlay);
