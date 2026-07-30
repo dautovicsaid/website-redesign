@@ -456,22 +456,7 @@ class Component extends DCLogic {
         });
       }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
       this.revealIds.forEach(id => { const el = document.getElementById(id); if (el) this._observer.observe(el); });
-      this.revealIds.forEach(id => {
-        const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top < window.innerHeight * 1.1) {
-          this.setState(s => ({ revealed: { ...s.revealed, [id]: true } }));
-          if (id === 'rv-about') this.startStatsCount();
-        }
-      });
     });
-    this._revealFailsafe = setTimeout(() => {
-      this.setState(s => {
-        const revealed = { ...s.revealed };
-        this.revealIds.forEach(id => { revealed[id] = true; });
-        return { revealed };
-      });
-      this.startStatsCount();
-    }, 2500);
 
     const fine = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(pointer:fine)').matches;
     if (fine) {
@@ -498,7 +483,6 @@ class Component extends DCLogic {
   componentWillUnmount() {
     window.removeEventListener('resize', this._onResize);
     window.removeEventListener('scroll', this._onScroll);
-    if (this._revealFailsafe) clearTimeout(this._revealFailsafe);
     const heroVideoEl = document.getElementById('lux-hero');
     if (heroVideoEl && this._onVideoTime) heroVideoEl.removeEventListener('timeupdate', this._onVideoTime);
     if (this._observer) this._observer.disconnect();
