@@ -425,13 +425,6 @@ class Component extends DCLogic {
   revealIds = ['rv-about', 'rv-projects-head', 'rv-projects-grid', 'rv-manifesto', 'rv-craft', 'rv-vip'];
 
   componentDidMount() {
-  const video = document.getElementById('lux-hero');
-
-  video.addEventListener('ended', () => {
-      video.currentTime = 0;
-      video.play();
-  });
-
     this._onResize = () => this.setState({ width: window.innerWidth });
     window.addEventListener('resize', this._onResize);
     this._onScroll = () => {
