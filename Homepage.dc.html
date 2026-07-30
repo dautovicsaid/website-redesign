@@ -787,7 +787,7 @@ class Component extends DCLogic {
       ) },
 
       aboutWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 48 : 150) + 'px ' + containerPad + 'px 0' },
-      aboutRevealStyle: reveal('rv-about'),
+      aboutRevealStyle: isMobile ? { opacity: 1, transform: 'translateY(0)' } : reveal('rv-about'),
       aboutHeadGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '24px' : '64px', marginBottom: isMobile ? '48px' : '72px', alignItems: 'start' },
       aboutTextStyle: { fontFamily: sans, color: muted, fontSize: '15px', lineHeight: 1.8, fontWeight: 300, margin: 0 },
       statsGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + (isMobile ? 1 : 3) + ', 1fr)', gap: isMobile ? '36px' : '24px', borderTop: '1px solid ' + hairline, borderBottom: '1px solid ' + hairline, padding: (isMobile ? '36px 0' : '48px 0') },
