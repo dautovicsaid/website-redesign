@@ -8,28 +8,28 @@
 <body>
 <x-dc>
 <helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="./image-slot.js"></script>
-<style>
-  html{scroll-behavior:smooth;}
-  body{margin:0;background:#F7F6F3;-webkit-font-smoothing:antialiased;}
-  a{color:#9C7A4A;text-decoration:none;}
-  a:hover{color:#7E623B;}
-  select{-webkit-appearance:none;appearance:none;}
-  input::placeholder{color:rgba(26,26,26,0.35);}
-  @keyframes shimmerMove{0%{background-position:0% 50%;}100%{background-position:200% 50%;}}
-  @keyframes ctaPulseGlow{0%{box-shadow:0 0 0 0 rgba(156,122,74,0.45);}70%{box-shadow:0 0 0 14px rgba(156,122,74,0);}100%{box-shadow:0 0 0 0 rgba(156,122,74,0);}}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="./image-slot.js"></script>
+  <style>
+    html{scroll-behavior:smooth;}
+    body{margin:0;background:#F7F6F3;-webkit-font-smoothing:antialiased;}
+    a{color:#9C7A4A;text-decoration:none;}
+    a:hover{color:#7E623B;}
+    select{-webkit-appearance:none;appearance:none;}
+    input::placeholder{color:rgba(26,26,26,0.35);}
+    @keyframes shimmerMove{0%{background-position:0% 50%;}100%{background-position:200% 50%;}}
+    @keyframes ctaPulseGlow{0%{box-shadow:0 0 0 0 rgba(156,122,74,0.45);}70%{box-shadow:0 0 0 14px rgba(156,122,74,0);}}
 
-  *, *::before, *::after {
-    cursor: none !important;
-  }
+    *, *::before, *::after {
+      cursor: none !important;
+    }
 
-  image-slot {
-    pointer-events: none;
-  }
-</style>
+    image-slot {
+      pointer-events: none;
+    }
+  </style>
 </helmet>
 <div style="{{ pageStyle }}">
 
@@ -162,7 +162,7 @@
 
   <div style="{{ heroWrapStyle }}">
     <video id="lux-hero" src="https://res.cloudinary.com/keexypxe/video/upload/v1785433756/video_hukvfh.mp4" autoPlay="{{ true }}" muted="{{ true }}" playsInline="{{ true }}" preload="auto" style="{{ heroImgStyle }}"></video>
-<div style="{{ heroOverlayStyle }}"></div>
+    <div style="{{ heroOverlayStyle }}"></div>
     <div style="{{ heroContentWrapStyle }}">
       <div style="{{ heroContentInnerStyle }}">
         <sc-if value="{{ showHeroSubtext }}" hint-placeholder-val="{{ true }}">
@@ -544,10 +544,10 @@ class Component extends DCLogic {
 
     const containerPad = isMobile ? 22 : (isTablet ? 48 : 80);
     const navPadV = scrolled ? (isMobile ? 10 : 12) : (isMobile ? 16 : 22);
-    const sectionPadV = isMobile ? 72 : (isTablet ? 108 : 150);
-    const heroHeight = isMobile ? 580 : (isTablet ? 700 : 840);
-    const heroTitleSize = isMobile ? 34 : (isTablet ? 48 : 66);
-    const sectionTitleSize = isMobile ? 30 : (isTablet ? 38 : 46);
+    const sectionPadV = isMobile ? 36 : (isTablet ? 108 : 150);
+    const heroHeight = isMobile ? 360 : (isTablet ? 700 : 840);
+    const heroTitleSize = isMobile ? 28 : (isTablet ? 48 : 66);
+    const sectionTitleSize = isMobile ? 26 : (isTablet ? 38 : 46);
     const projectCols = isMobile ? 1 : (isTablet ? 2 : 3);
     const craftCols = isMobile ? 1 : (isTablet ? 2 : 4);
 
@@ -756,7 +756,7 @@ class Component extends DCLogic {
       mobileCtaStyle: { border: '1px solid rgba(251,251,249,0.6)', color: '#FBFBF9', padding: '11px 22px', textAlign: 'center', fontSize: '13px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease', flexShrink: 0 },
 
       heroWrapStyle: isHeroMobile
-        ? { position: 'relative', overflow: 'hidden', aspectRatio: '3/4' }
+        ? { position: 'relative', overflow: 'hidden', aspectRatio: '4/3' }
         : { position: 'relative', height: '100vh', minHeight: heroHeight + 'px', overflow: 'hidden' },
       heroImgStyle: isHeroMobile
         ? { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 25%' }
@@ -765,10 +765,10 @@ class Component extends DCLogic {
       heroOverlayStyle: { position: 'absolute', inset: 0, background: isHeroMobile ? 'linear-gradient(to top, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.15) 40%, rgba(10,10,10,0) 65%)' : 'linear-gradient(to top, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.25) 45%, rgba(10,10,10,0) 70%), linear-gradient(to right, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.15) 45%, rgba(10,10,10,0) 70%)', pointerEvents: 'none' },
       heroContentWrapStyle: { position: 'absolute', inset: 0, display: 'flex', alignItems: 'flex-end', pointerEvents: 'none' },
       heroContentInnerStyle: isHeroMobile
-        ? { width: '100%', padding: '0 ' + containerPad + 'px', paddingBottom: '36px', ...heroReveal }
+        ? { width: '100%', padding: '0 ' + containerPad + 'px', paddingBottom: '20px', ...heroReveal }
         : { maxWidth: '1320px', margin: '0 auto', width: '100%', padding: '0 ' + containerPad + 'px', paddingBottom: '130px', ...heroReveal },
       heroEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '4px', fontSize: '12px', color: accent, fontWeight: 500, marginBottom: '20px' },
-      heroTitleStyle: { fontFamily: serif, fontWeight: 500, color: '#FBFBF9', fontSize: (isHeroMobile ? 32 : heroTitleSize) + 'px', lineHeight: 1.15, margin: 0, maxWidth: '780px' },
+      heroTitleStyle: { fontFamily: serif, fontWeight: 500, color: '#FBFBF9', fontSize: (isHeroMobile ? 26 : heroTitleSize) + 'px', lineHeight: 1.15, margin: 0, maxWidth: '780px' },
       showHeroSubtext: !isHeroMobile,
       heroSubStyle: { fontFamily: sans, color: 'rgba(251,251,249,0.82)', fontSize: '16px', lineHeight: 1.7, margin: '0 0 34px', maxWidth: '480px', fontWeight: 300 },
       heroCtaRowStyle: { display: 'flex', gap: '16px', flexWrap: 'wrap', pointerEvents: 'auto' },
@@ -795,22 +795,22 @@ class Component extends DCLogic {
       statLabelStyle: { fontFamily: sans, fontSize: '11.5px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px', marginTop: '10px' },
 
       sectionWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: sectionPadV + 'px ' + containerPad + 'px ' + sectionPadV + 'px' },
-      section2WrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: sectionPadV + 'px ' + containerPad + 'px 0' },
+      section2WrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? '36px' : sectionPadV + 'px') + ' ' + containerPad + 'px 0' },
       sectionHeadRevealStyle: reveal('rv-projects-head'),
-      sectionHeadStyle: { maxWidth: '640px', margin: '0 0 ' + (isMobile ? 36 : 48) + 'px' },
+      sectionHeadStyle: { maxWidth: '640px', margin: '0 0 ' + (isMobile ? 24 : 48) + 'px' },
       sectionEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '11.5px', color: accent, fontWeight: 500, marginBottom: '14px' },
       sectionTitleStyle: { fontFamily: serif, fontWeight: 500, fontSize: sectionTitleSize + 'px', color: charcoal, margin: '0 0 20px', lineHeight: 1.15 },
       sectionDividerStyle: { width: '48px', height: '2px', margin: '0 0 20px', backgroundImage: 'linear-gradient(90deg, ' + accent + ' 0%, #E8D9BE 25%, ' + accent + ' 50%, #E8D9BE 75%, ' + accent + ' 100%)', backgroundSize: '200% 100%', animation: 'shimmerMove 5s linear infinite' },
       sectionSubStyle: { fontFamily: sans, color: muted, fontSize: '15px', lineHeight: 1.7, margin: 0, fontWeight: 300 },
 
-      locationTabRowStyle: { display: 'flex', overflowX: 'auto', borderBottom: '1px solid ' + hairline, marginBottom: isMobile ? '36px' : '48px' },
+      locationTabRowStyle: { display: 'flex', overflowX: 'auto', borderBottom: '1px solid ' + hairline, marginBottom: isMobile ? '24px' : '48px' },
       locationTabs,
       hasProjects: projects.length > 0,
       showEmptyState: projects.length === 0,
       emptyStateStyle: { fontFamily: sans, color: muted, fontSize: '15px', padding: '40px 0', textAlign: 'center' },
       projects,
       onLeaveProject: () => this.setHoveredProject(null),
-      projectGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + projectCols + ', minmax(0, 1fr))', gap: isMobile ? '40px' : '48px' },
+      projectGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + projectCols + ', minmax(0, 1fr))', gap: isMobile ? '30px' : '48px' },
       cardHoverStyle: { transform: 'translateY(-10px)', boxShadow: '0 34px 64px rgba(26,26,26,0.16)' },
       imgFrameStyle: { position: 'relative', overflow: 'hidden', width: '100%', aspectRatio: '4/5', background: '#EAE8E3' },
       cardImgStyle: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', maxWidth: '100%', objectFit: 'cover', transition: 'transform 0.7s ' + easeOut },
