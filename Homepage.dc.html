@@ -161,7 +161,7 @@
   </div>
 
   <div style="{{ heroWrapStyle }}">
-    <video id="lux-hero" src="./uploads/video.mp4" autoPlay="{{ true }}" loop="{{ true }}" muted="{{ true }}" playsInline="{{ true }}" style="{{ heroImgStyle }}"></video>
+    <video id="lux-hero" src="./uploads/video.mp4" autoPlay="{{ true }}" muted="{{ true }}" playsInline="{{ true }}" preload="auto" style="{{ heroImgStyle }}"></video>
     <sc-if value="{{ showHeroOverlay }}" hint-placeholder-val="{{ true }}">
       <div style="{{ heroOverlayStyle }}"></div>
     </sc-if>
@@ -456,10 +456,37 @@ class Component extends DCLogic {
         });
       }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
       this.revealIds.forEach(id => { const el = document.getElementById(id); if (el) this._observer.observe(el); });
+      // Safari/iOS IntersectionObserver can miss elements already in/near the viewport on load — check manually as a fallback.
+      this.revealIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top < window.innerHeight * 1.1) {
+          this.setState(s => ({ revealed: { ...s.revealed, [id]: true } }));
+          if (id === 'rv-about') this.startStatsCount();
+        }
+      });
     });
+    // Absolute safety net: never leave content permanently hidden if IO fails on a device.
+    this._revealFailsafe = setTimeout(() => {
+      this.setState(s => {
+        const revealed = { ...s.revealed };
+        this.revealIds.forEach(id => { revealed[id] = true; });
+        return { revealed };
+      });
+      this.startStatsCount();
+    }, 2500);
     this._heroTimer = setTimeout(() => this.setState({ heroRevealed: true }), 120);
     const heroVideo = document.getElementById('lux-hero');
-    if (heroVideo) { heroVideo.muted = true; heroVideo.play().catch(() => {}); }
+    if (heroVideo) {
+      heroVideo.muted = true;
+      heroVideo.play().catch(() => {});
+      this._onVideoTime = () => {
+        if (heroVideo.duration && heroVideo.currentTime > heroVideo.duration - 0.15) {
+          heroVideo.currentTime = 0;
+          heroVideo.play().catch(() => {});
+        }
+      };
+      heroVideo.addEventListener('timeupdate', this._onVideoTime);
+    }
 
     const fine = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(pointer:fine)').matches;
     if (fine) {
@@ -486,6 +513,9 @@ class Component extends DCLogic {
   componentWillUnmount() {
     window.removeEventListener('resize', this._onResize);
     window.removeEventListener('scroll', this._onScroll);
+    if (this._revealFailsafe) clearTimeout(this._revealFailsafe);
+    const heroVideoEl = document.getElementById('lux-hero');
+    if (heroVideoEl && this._onVideoTime) heroVideoEl.removeEventListener('timeupdate', this._onVideoTime);
     if (this._observer) this._observer.disconnect();
     if (this._statRAF) cancelAnimationFrame(this._statRAF);
     if (this._heroTimer) clearTimeout(this._heroTimer);
