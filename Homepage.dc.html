@@ -163,8 +163,8 @@
   </div>
 
   <div style="{{ heroWrapStyle }}">
-    <img id="lux-hero" src="./uploads/hero_loop.webp" alt="KIPS Gradnja Hero" style="{{ heroImgStyle }}">      <div style="{{ heroOverlayStyle }}"></div>
-    </sc-if>
+    <video id="lux-hero" src="./uploads/video.mp4" autoPlay="{{ true }}" muted="{{ true }}" playsInline="{{ true }}" preload="auto" style="{{ heroImgStyle }}"></video>
+<div style="{{ heroOverlayStyle }}"></div>
     <div style="{{ heroContentWrapStyle }}">
       <div style="{{ heroContentInnerStyle }}">
         <sc-if value="{{ showHeroSubtext }}" hint-placeholder-val="{{ true }}">
@@ -366,7 +366,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#9C7A4A&quot;,&quot;options&quot;:[&quot;#9C7A4A&quot;,&quot;#B8934F&quot;,&quot;#7A8A78&quot;,&quot;#8C7A6B&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Theme&quot;}}">
 class Component extends DCLogic {
-  state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440, mobileOpen: false, scrolled: false, pastHero: false, heroRevealed: false, revealed: {}, statProgress: 0, modalOpen: false, formSubmitted: false, activeLocation: 'all', hoveredProjectKey: null, openDropdown: null, hoverLevel2: { ponuda: null, reference: null }, mobileExpanded: { ponuda: false, reference: false }, mobileExpandedLevel2: { ponuda: null, reference: null } };
+  state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440, mobileOpen: false, scrolled: false, pastHero: false, heroRevealed: true, revealed: {}, statProgress: 0, modalOpen: false, formSubmitted: false, activeLocation: 'all', hoveredProjectKey: null, openDropdown: null, hoverLevel2: { ponuda: null, reference: null }, mobileExpanded: { ponuda: false, reference: false }, mobileExpandedLevel2: { ponuda: null, reference: null } };
 
   navLinks = [
     { label: 'Ponuda stanova', href: './Ponuda Stanova Page.dc.html' },
@@ -456,7 +456,6 @@ class Component extends DCLogic {
         });
       }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
       this.revealIds.forEach(id => { const el = document.getElementById(id); if (el) this._observer.observe(el); });
-      // Safari/iOS IntersectionObserver can miss elements already in/near the viewport on load — check manually as a fallback.
       this.revealIds.forEach(id => {
         const el = document.getElementById(id);
         if (el && el.getBoundingClientRect().top < window.innerHeight * 1.1) {
@@ -465,7 +464,6 @@ class Component extends DCLogic {
         }
       });
     });
-    // Absolute safety net: never leave content permanently hidden if IO fails on a device.
     this._revealFailsafe = setTimeout(() => {
       this.setState(s => {
         const revealed = { ...s.revealed };
