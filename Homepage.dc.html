@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="../../../../Downloads/WordPress%20site%20redesign%20project%20(2)/image-slot.js"></script>
+<script src="./image-slot.js"></script>
 <style>
   html{scroll-behavior:smooth;}
   body{margin:0;background:#F7F6F3;-webkit-font-smoothing:antialiased;}
@@ -27,14 +27,14 @@
 
   <div style="{{ navBarStyle }}">
     <div style="{{ navInnerStyle }}">
-      <a href="../../../../Downloads/WordPress%20site%20redesign%20project%20(2)/Homepage.dc.html" style="{{ logoLinkStyle }}">
+      <a href="./Homepage.dc.html" style="{{ logoLinkStyle }}">
         <div style="{{ logoWordStyle }}">KIPS</div>
         <div style="{{ logoSubStyle }}">GRADNJA</div>
       </a>
       <sc-if value="{{ showNavLinks }}" hint-placeholder-val="{{ true }}">
         <nav style="{{ navLinksRowStyle }}">
           <div style="{{ navMegaWrapStyle }}" onMouseEnter="{{ ponudaMenu.open }}" onMouseLeave="{{ scheduleCloseMenu }}">
-            <a href="../../../../Downloads/WordPress%20site%20redesign%20project%20(2)/Ponuda%20Stanova%20Page.dc.html" onMouseEnter="{{ navPonuda.onMouseEnter }}" onMouseLeave="{{ navPonuda.onMouseLeave }}" style="{{ navPonuda.style }}">Ponuda stanova</a>
+            <a href="./Ponuda Stanova Page.dc.html" onMouseEnter="{{ navPonuda.onMouseEnter }}" onMouseLeave="{{ navPonuda.onMouseLeave }}" style="{{ navPonuda.style }}">Ponuda stanova</a>
             <div style="{{ ponudaMenu.panelStyle }}">
               <sc-for list="{{ ponudaMenu.items }}" as="lvl2" hint-placeholder-count="3">
                 <div style="{{ megaWrapStyle }}" onMouseEnter="{{ lvl2.onEnter }}">
@@ -54,7 +54,7 @@
             </div>
           </div>
           <div style="{{ navMegaWrapStyle }}" onMouseEnter="{{ referenceMenu.open }}" onMouseLeave="{{ scheduleCloseMenu }}">
-            <a href="../../../../Downloads/WordPress%20site%20redesign%20project%20(2)/Reference%20Page.dc.html" onMouseEnter="{{ navReference.onMouseEnter }}" onMouseLeave="{{ navReference.onMouseLeave }}" style="{{ navReference.style }}">Reference</a>
+            <a href="./Reference Page.dc.html" onMouseEnter="{{ navReference.onMouseEnter }}" onMouseLeave="{{ navReference.onMouseLeave }}" style="{{ navReference.style }}">Reference</a>
             <div style="{{ referenceMenu.panelStyle }}">
               <sc-for list="{{ referenceMenu.items }}" as="lvl2" hint-placeholder-count="1">
                 <div style="{{ megaWrapStyle }}" onMouseEnter="{{ lvl2.onEnter }}">
@@ -85,7 +85,7 @@
               <span style="{{ phoneDotStyle }}"></span><span>+382 67 134 134</span>
             </a>
           </sc-if>
-          <a href="../../../../Downloads/WordPress%20site%20redesign%20project%20(2)/Contact%20Page.dc.html" onMouseEnter="{{ navKontakt.onMouseEnter }}" onMouseLeave="{{ navKontakt.onMouseLeave }}" style="{{ navKontakt.style }}">Kontakt</a>
+          <a href="./Contact Page.dc.html" onMouseEnter="{{ navKontakt.onMouseEnter }}" onMouseLeave="{{ navKontakt.onMouseLeave }}" style="{{ navKontakt.style }}">Kontakt</a>
         </div>
       </sc-if>
       <sc-if value="{{ isCompactNav }}" hint-placeholder-val="{{ false }}">
@@ -151,7 +151,7 @@
         </sc-for>
         <div style="{{ mobileHairlineStyle }}"></div>
         <a href="tel:+38267134134" style="{{ mobilePhoneStyle }}">+382 67 134 134</a>
-        <a href="../../../../Downloads/WordPress%20site%20redesign%20project%20(2)/Contact%20Page.dc.html" style="{{ mobileCtaStyle }}">Kontakt</a>
+        <a href="./Contact Page.dc.html" style="{{ mobileCtaStyle }}">Kontakt</a>
       </div>
     </sc-if>
   </div>
@@ -166,7 +166,7 @@
         <p style="{{ heroSubStyle }}">Arhitektonska izvrsnost i moderan na&#269;in &#382;ivota &mdash; kompanija koja gradi sa vizijom, pouzdano&scaron;&#263;u i posve&#263;eno&scaron;&#263;u detalju.</p>
         <div style="{{ heroCtaRowStyle }}">
           <a href="#projekti" onMouseEnter="{{ heroPrimaryBtn.onMouseEnter }}" onMouseLeave="{{ heroPrimaryBtn.onMouseLeave }}" style="{{ heroPrimaryBtn.style }}">Istra&#382;ite portfolio</a>
-          <a href="../../../../Downloads/WordPress%20site%20redesign%20project%20(2)/Contact%20Page.dc.html" onMouseEnter="{{ heroSecondaryBtn.onMouseEnter }}" onMouseLeave="{{ heroSecondaryBtn.onMouseLeave }}" style="{{ heroSecondaryBtn.style }}">Kontaktirajte nas</a>
+          <a href="./Contact Page.dc.html" onMouseEnter="{{ heroSecondaryBtn.onMouseEnter }}" onMouseLeave="{{ heroSecondaryBtn.onMouseLeave }}" style="{{ heroSecondaryBtn.style }}">Kontaktirajte nas</a>
         </div>
       </div>
     </div>
@@ -275,7 +275,7 @@
       <p style="{{ vipTextStyle }}">Zatra&#382;ite VIP katalog kompanije sa detaljnim pregledom portfolija, standarda gradnje i aktuelne ponude.</p>
       <div style="{{ vipBtnRowStyle }}">
         <button onClick="{{ openModal }}" onMouseEnter="{{ vipBtn.onMouseEnter }}" onMouseLeave="{{ vipBtn.onMouseLeave }}" style="{{ vipBtn.style }}">Preuzmite VIP katalog</button>
-        <a href="../../../../Downloads/WordPress%20site%20redesign%20project%20(2)/Contact%20Page.dc.html" onMouseEnter="{{ vipSecondaryLink.onMouseEnter }}" onMouseLeave="{{ vipSecondaryLink.onMouseLeave }}" style="{{ vipSecondaryLink.style }}">Kontaktirajte nas &#8594;</a>
+        <a href="./Contact Page.dc.html" onMouseEnter="{{ vipSecondaryLink.onMouseEnter }}" onMouseLeave="{{ vipSecondaryLink.onMouseLeave }}" style="{{ vipSecondaryLink.style }}">Kontaktirajte nas &#8594;</a>
       </div>
     </div>
   </div>
