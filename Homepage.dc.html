@@ -161,17 +161,25 @@
   </div>
 
   <div style="{{ heroWrapStyle }}">
-    <image-slot id="lux-hero" src="https://images.pexels.com/photos/33619255/pexels-photo-33619255.png?auto=compress&amp;cs=tinysrgb&amp;w=1920" placeholder="Hero &mdash; arhitektonski render / enterijer sa prirodnim svjetlom" shape="rect" style="{{ heroImgStyle }}"></image-slot>
-    <div style="{{ heroOverlayStyle }}"></div>
+    <video id="lux-hero" src="./uploads/video.mp4" autoPlay="{{ true }}" loop="{{ true }}" muted="{{ true }}" playsInline="{{ true }}" style="{{ heroImgStyle }}"></video>
+    <sc-if value="{{ showHeroOverlay }}" hint-placeholder-val="{{ true }}">
+      <div style="{{ heroOverlayStyle }}"></div>
+    </sc-if>
     <div style="{{ heroContentWrapStyle }}">
       <div style="{{ heroContentInnerStyle }}">
-        <div style="{{ heroEyebrowStyle }}">KIPS GRADNJA &middot; INVESTICIJE &amp; RAZVOJ NEKRETNINA</div>
+        <sc-if value="{{ showHeroSubtext }}" hint-placeholder-val="{{ true }}">
+          <div style="{{ heroEyebrowStyle }}">KIPS GRADNJA &middot; INVESTICIJE &amp; RAZVOJ NEKRETNINA</div>
+        </sc-if>
         <h1 style="{{ heroTitleStyle }}">Oblikujemo prostore budu&#263;nosti</h1>
-        <p style="{{ heroSubStyle }}">Arhitektonska izvrsnost i moderan na&#269;in &#382;ivota &mdash; kompanija koja gradi sa vizijom, pouzdano&scaron;&#263;u i posve&#263;eno&scaron;&#263;u detalju.</p>
-        <div style="{{ heroCtaRowStyle }}">
-          <a href="#projekti" onMouseEnter="{{ heroPrimaryBtn.onMouseEnter }}" onMouseLeave="{{ heroPrimaryBtn.onMouseLeave }}" style="{{ heroPrimaryBtn.style }}">Istra&#382;ite portfolio</a>
-          <a href="./Contact Page.dc.html" onMouseEnter="{{ heroSecondaryBtn.onMouseEnter }}" onMouseLeave="{{ heroSecondaryBtn.onMouseLeave }}" style="{{ heroSecondaryBtn.style }}">Kontaktirajte nas</a>
-        </div>
+        <sc-if value="{{ showHeroSubtext }}" hint-placeholder-val="{{ true }}">
+          <p style="{{ heroSubStyle }}">Arhitektonska izvrsnost i moderan na&#269;in &#382;ivota &mdash; kompanija koja gradi sa vizijom, pouzdano&scaron;&#263;u i posve&#263;eno&scaron;&#263;u detalju.</p>
+        </sc-if>
+        <sc-if value="{{ showHeroSubtext }}" hint-placeholder-val="{{ true }}">
+          <div style="{{ heroCtaRowStyle }}">
+            <a href="#projekti" onMouseEnter="{{ heroPrimaryBtn.onMouseEnter }}" onMouseLeave="{{ heroPrimaryBtn.onMouseLeave }}" style="{{ heroPrimaryBtn.style }}">Istra&#382;ite portfolio</a>
+            <a href="./Contact Page.dc.html" onMouseEnter="{{ heroSecondaryBtn.onMouseEnter }}" onMouseLeave="{{ heroSecondaryBtn.onMouseLeave }}" style="{{ heroSecondaryBtn.style }}">Kontaktirajte nas</a>
+          </div>
+        </sc-if>
       </div>
     </div>
   </div>
@@ -450,6 +458,8 @@ class Component extends DCLogic {
       this.revealIds.forEach(id => { const el = document.getElementById(id); if (el) this._observer.observe(el); });
     });
     this._heroTimer = setTimeout(() => this.setState({ heroRevealed: true }), 120);
+    const heroVideo = document.getElementById('lux-hero');
+    if (heroVideo) { heroVideo.muted = true; heroVideo.play().catch(() => {}); }
 
     const fine = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(pointer:fine)').matches;
     if (fine) {
@@ -525,6 +535,7 @@ class Component extends DCLogic {
     const isTablet = w >= 640 && w < 1024;
     const isCompactNav = w < 900;
     const isDesktop = w >= 1024;
+    const isHeroMobile = w < 768;
     const scrolled = this.state.scrolled;
     const scrollY = this.state.scrollY || 0;
 
@@ -716,27 +727,35 @@ class Component extends DCLogic {
       mobilePhoneStyle: { fontSize: '14px', color: muted },
       mobileCtaStyle: { border: '1px solid ' + charcoal, color: charcoal, padding: '12px', textAlign: 'center', fontSize: '13px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase' },
 
-      heroWrapStyle: { position: 'relative', height: heroHeight + 'px', overflow: 'hidden' },
-      heroImgStyle: { width: '100%', height: '130%', transform: 'translateY(' + (-heroParallax) + 'px) scale(1.06)' },
-      heroOverlayStyle: { position: 'absolute', inset: 0, background: 'linear-gradient(100deg, rgba(15,15,15,0.82) 0%, rgba(15,15,15,0.42) 55%, rgba(15,15,15,0.12) 100%)', pointerEvents: 'none' },
+      heroWrapStyle: isHeroMobile
+        ? { position: 'relative', overflow: 'hidden', aspectRatio: '3/4' }
+        : { position: 'relative', height: '100vh', minHeight: heroHeight + 'px', overflow: 'hidden' },
+      heroImgStyle: isHeroMobile
+        ? { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 25%' }
+        : { position: 'absolute', top: 0, left: 0, width: '100%', height: '124%', objectFit: 'cover', objectPosition: 'center', transform: 'translateY(' + (-heroParallax) + 'px)', transformOrigin: 'center center' },
+      showHeroOverlay: true,
+      heroOverlayStyle: { position: 'absolute', inset: 0, background: isHeroMobile ? 'linear-gradient(to top, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.15) 40%, rgba(10,10,10,0) 65%)' : 'linear-gradient(to top, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.25) 45%, rgba(10,10,10,0) 70%), linear-gradient(to right, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.15) 45%, rgba(10,10,10,0) 70%)', pointerEvents: 'none' },
       heroContentWrapStyle: { position: 'absolute', inset: 0, display: 'flex', alignItems: 'flex-end', pointerEvents: 'none' },
-      heroContentInnerStyle: { maxWidth: '1320px', margin: '0 auto', width: '100%', padding: '0 ' + containerPad + 'px', paddingBottom: (isMobile ? 100 : 130) + 'px', ...heroReveal },
+      heroContentInnerStyle: isHeroMobile
+        ? { width: '100%', padding: '0 ' + containerPad + 'px', paddingBottom: '36px', ...heroReveal }
+        : { maxWidth: '1320px', margin: '0 auto', width: '100%', padding: '0 ' + containerPad + 'px', paddingBottom: '130px', ...heroReveal },
       heroEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '4px', fontSize: '12px', color: accent, fontWeight: 500, marginBottom: '20px' },
-      heroTitleStyle: { fontFamily: serif, fontWeight: 500, color: '#FBFBF9', fontSize: heroTitleSize + 'px', lineHeight: 1.12, margin: '0 0 22px', maxWidth: '780px' },
+      heroTitleStyle: { fontFamily: serif, fontWeight: 500, color: '#FBFBF9', fontSize: (isHeroMobile ? 32 : heroTitleSize) + 'px', lineHeight: 1.15, margin: 0, maxWidth: '780px' },
+      showHeroSubtext: !isHeroMobile,
       heroSubStyle: { fontFamily: sans, color: 'rgba(251,251,249,0.82)', fontSize: '16px', lineHeight: 1.7, margin: '0 0 34px', maxWidth: '480px', fontWeight: 300 },
       heroCtaRowStyle: { display: 'flex', gap: '16px', flexWrap: 'wrap', pointerEvents: 'auto' },
       heroPrimaryBtn: { ...hoverProps('heroPrimary'), style: mergeHover(
-        { background: '#FBFBF9', color: charcoal, padding: '16px 30px', fontSize: '13px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', display: 'inline-block', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out' },
-        { background: accent, color: '#FBFBF9', boxShadow: '0 16px 34px rgba(0,0,0,0.3)', transform: 'translateY(-2px) scale(1.01)' },
+        { background: 'transparent', border: '1px solid rgba(251,251,249,0.7)', color: '#FBFBF9', padding: '16px 30px', fontSize: '13px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', display: 'inline-block', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out, backdrop-filter 0.35s ease-out' },
+        { background: 'rgba(251,251,249,0.16)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', borderColor: accent, transform: 'translateY(-2px)' },
         'heroPrimary'
       ) },
       heroSecondaryBtn: { ...hoverProps('heroSecondary'), style: mergeHover(
-        { border: '1px solid rgba(251,251,249,0.6)', color: '#FBFBF9', padding: '16px 30px', fontSize: '13px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', display: 'inline-block', transition: 'background 0.35s ease-out, border-color 0.35s ease-out, transform 0.35s ease-out' },
-        { background: 'rgba(251,251,249,0.14)', borderColor: accent, transform: 'translateY(-2px)' },
+        { border: '1px solid rgba(251,251,249,0.6)', color: '#FBFBF9', padding: '16px 30px', fontSize: '13px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', display: 'inline-block', transition: 'background 0.35s ease-out, border-color 0.35s ease-out, transform 0.35s ease-out, backdrop-filter 0.35s ease-out' },
+        { background: 'rgba(251,251,249,0.14)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', borderColor: accent, transform: 'translateY(-2px)' },
         'heroSecondary'
       ) },
 
-      aboutWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 96 : 150) + 'px ' + containerPad + 'px 0' },
+      aboutWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 48 : 150) + 'px ' + containerPad + 'px 0' },
       aboutRevealStyle: reveal('rv-about'),
       aboutHeadGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '24px' : '64px', marginBottom: isMobile ? '48px' : '72px', alignItems: 'start' },
       aboutTextStyle: { fontFamily: sans, color: muted, fontSize: '15px', lineHeight: 1.8, fontWeight: 300, margin: 0 },
