@@ -163,8 +163,7 @@
   </div>
 
   <div style="{{ heroWrapStyle }}">
-    <video id="lux-hero" src="./uploads/video.mp4" autoPlay="{{ true }}" muted="{{ true }}" playsInline="{{ true }}" preload="auto" style="{{ heroImgStyle }}"></video>
-    <sc-if value="{{ showHeroOverlay }}" hint-placeholder-val="{{ true }}">
+    <video id="lux-hero" src="./uploads/video.mp4" autoPlay="{{ true }}" loop="{{ true }}" muted="{{ true }}" playsInline="{{ true }}" preload="auto" style="{{ heroImgStyle }}"></video>    <sc-if value="{{ showHeroOverlay }}" hint-placeholder-val="{{ true }}">
       <div style="{{ heroOverlayStyle }}"></div>
     </sc-if>
     <div style="{{ heroContentWrapStyle }}">
@@ -481,7 +480,10 @@ class Component extends DCLogic {
     if (heroVideo) {
       heroVideo.muted = true;
       heroVideo.defaultMuted = true;
+      heroVideo.loop = true;
       heroVideo.setAttribute('muted', '');
+      heroVideo.setAttribute('loop', '');
+      heroVideo.setAttribute('playsinline', '');
       heroVideo.setAttribute('webkit-playsinline', 'true');
       const tryPlay = () => heroVideo.play().catch(() => {});
       tryPlay();
@@ -489,13 +491,6 @@ class Component extends DCLogic {
       heroVideo.addEventListener('canplay', tryPlay);
       this._onFirstTouch = () => { tryPlay(); window.removeEventListener('touchstart', this._onFirstTouch); };
       window.addEventListener('touchstart', this._onFirstTouch, { passive: true, once: true });
-      this._onVideoTime = () => {
-        if (heroVideo.duration && heroVideo.currentTime > heroVideo.duration - 0.15) {
-          heroVideo.currentTime = 0;
-          tryPlay();
-        }
-      };
-      heroVideo.addEventListener('timeupdate', this._onVideoTime);
     }
 
     const fine = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(pointer:fine)').matches;
