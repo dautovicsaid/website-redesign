@@ -25,6 +25,10 @@
   *, *::before, *::after {
     cursor: none !important;
   }
+
+  image-slot {
+    pointer-events: none;
+  }
 </style>
 </helmet>
 <div style="{{ pageStyle }}">
@@ -94,74 +98,72 @@
       </sc-if>
       <sc-if value="{{ isCompactNav }}" hint-placeholder-val="{{ false }}">
         <button onClick="{{ toggleMobile }}" style="{{ hamburgerBtnStyle }}">
-          <span style="{{ hamburgerLineStyle }}"></span><span style="{{ hamburgerLineStyle }}"></span><span style="{{ hamburgerLineStyle }}"></span>
+          <span style="{{ hamburgerLine1Style }}"></span><span style="{{ hamburgerLine2Style }}"></span><span style="{{ hamburgerLine3Style }}"></span>
         </button>
       </sc-if>
     </div>
-    <sc-if value="{{ mobileOpen }}" hint-placeholder-val="{{ false }}">
-      <div style="{{ mobileMenuStyle }}">
-        <div>
-          <div onClick="{{ ponudaMenu.toggleMobile }}" style="{{ mobileAccordionHeadStyle }}">
+    <div style="{{ mobileMenuOuterStyle }}">
+      <div style="{{ mobileMenuInnerStyle }}">
+        <div style="{{ mobileItemReveal0 }}">
+          <div onClick="{{ ponudaMenu.toggleMobile }}" style="{{ mobileAccordionHeadStyle }}" style-active="{{ touchActiveStyle }}">
             <span>Ponuda stanova</span>
-            <span style="{{ mobileChevronStyle }}">{{ ponudaMenu.mobileChevron }}</span>
+            <span style="{{ ponudaMenu.mobileChevronStyle }}">{{ ponudaMenu.mobileChevron }}</span>
           </div>
-          <sc-if value="{{ ponudaMenu.isExpandedMobile }}" hint-placeholder-val="{{ false }}">
-            <div style="{{ mobileAccordionBodyStyle }}">
-              <sc-for list="{{ ponudaMenu.items }}" as="lvl2" hint-placeholder-count="3">
-                <div>
-                  <div onClick="{{ lvl2.toggleMobileExpand }}" style="{{ mobileLevel2HeadStyle }}">
-                    <span>{{ lvl2.label }}</span>
-                    <span style="{{ mobileChevronSmallStyle }}">{{ lvl2.mobileChevron }}</span>
-                  </div>
-                  <sc-if value="{{ lvl2.isMobileExpanded }}" hint-placeholder-val="{{ false }}">
-                    <div style="{{ mobileLevel3BodyStyle }}">
-                      <sc-for list="{{ lvl2.children }}" as="leaf" hint-placeholder-count="3">
-                        <a href="{{ leaf.href }}" style="{{ mobileLevel3LinkStyle }}">{{ leaf.label }}</a>
-                      </sc-for>
-                    </div>
-                  </sc-if>
+          <div style="{{ ponudaMenu.mobileBodyStyle }}">
+            <sc-for list="{{ ponudaMenu.items }}" as="lvl2" hint-placeholder-count="3">
+              <div>
+                <div onClick="{{ lvl2.toggleMobileExpand }}" style="{{ mobileLevel2HeadStyle }}" style-active="{{ touchActiveStyle }}">
+                  <span>{{ lvl2.label }}</span>
+                  <span style="{{ lvl2.mobileChevronSmallStyle }}">{{ lvl2.mobileChevron }}</span>
                 </div>
-              </sc-for>
-            </div>
-          </sc-if>
+                <div style="{{ lvl2.mobileBodyStyle }}">
+                  <sc-for list="{{ lvl2.children }}" as="leaf" hint-placeholder-count="3">
+                    <a href="{{ leaf.href }}" style="{{ mobileLevel3LinkStyle }}" style-active="{{ touchActiveStyle }}">{{ leaf.label }}</a>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
         </div>
-        <div>
-          <div onClick="{{ referenceMenu.toggleMobile }}" style="{{ mobileAccordionHeadStyle }}">
+        <div style="{{ mobileItemReveal1 }}">
+          <div onClick="{{ referenceMenu.toggleMobile }}" style="{{ mobileAccordionHeadStyle }}" style-active="{{ touchActiveStyle }}">
             <span>Reference</span>
-            <span style="{{ mobileChevronStyle }}">{{ referenceMenu.mobileChevron }}</span>
+            <span style="{{ referenceMenu.mobileChevronStyle }}">{{ referenceMenu.mobileChevron }}</span>
           </div>
-          <sc-if value="{{ referenceMenu.isExpandedMobile }}" hint-placeholder-val="{{ false }}">
-            <div style="{{ mobileAccordionBodyStyle }}">
-              <sc-for list="{{ referenceMenu.items }}" as="lvl2" hint-placeholder-count="1">
-                <div>
-                  <div onClick="{{ lvl2.toggleMobileExpand }}" style="{{ mobileLevel2HeadStyle }}">
-                    <span>{{ lvl2.label }}</span>
-                    <span style="{{ mobileChevronSmallStyle }}">{{ lvl2.mobileChevron }}</span>
-                  </div>
-                  <sc-if value="{{ lvl2.isMobileExpanded }}" hint-placeholder-val="{{ false }}">
-                    <div style="{{ mobileLevel3BodyStyle }}">
-                      <sc-for list="{{ lvl2.children }}" as="leaf" hint-placeholder-count="3">
-                        <a href="{{ leaf.href }}" style="{{ mobileLevel3LinkStyle }}">{{ leaf.label }}</a>
-                      </sc-for>
-                    </div>
-                  </sc-if>
+          <div style="{{ referenceMenu.mobileBodyStyle }}">
+            <sc-for list="{{ referenceMenu.items }}" as="lvl2" hint-placeholder-count="1">
+              <div>
+                <div onClick="{{ lvl2.toggleMobileExpand }}" style="{{ mobileLevel2HeadStyle }}" style-active="{{ touchActiveStyle }}">
+                  <span>{{ lvl2.label }}</span>
+                  <span style="{{ lvl2.mobileChevronSmallStyle }}">{{ lvl2.mobileChevron }}</span>
                 </div>
-              </sc-for>
-            </div>
-          </sc-if>
+                <div style="{{ lvl2.mobileBodyStyle }}">
+                  <sc-for list="{{ lvl2.children }}" as="leaf" hint-placeholder-count="3">
+                    <a href="{{ leaf.href }}" style="{{ mobileLevel3LinkStyle }}" style-active="{{ touchActiveStyle }}">{{ leaf.label }}</a>
+                  </sc-for>
+                </div>
+              </div>
+            </sc-for>
+          </div>
         </div>
-        <sc-for list="{{ secondaryNavLinks }}" as="link" hint-placeholder-count="2">
-          <a href="{{ link.href }}" style="{{ mobileLinkStyle }}">{{ link.label }}</a>
+        <sc-for list="{{ secondaryNavLinksMobile }}" as="link" hint-placeholder-count="2">
+          <div style="{{ link.revealStyle }}">
+            <a href="{{ link.href }}" style="{{ mobileLinkStyle }}" style-active="{{ touchActiveStyle }}">{{ link.label }}</a>
+          </div>
         </sc-for>
-        <div style="{{ mobileHairlineStyle }}"></div>
-        <a href="tel:+38267134134" style="{{ mobilePhoneStyle }}">+382 67 134 134</a>
-        <a href="./Contact Page.dc.html" style="{{ mobileCtaStyle }}">Kontakt</a>
+        <div style="{{ mobileItemReveal4 }}">
+          <div style="{{ mobileHairlineStyle }}"></div>
+          <div style="{{ mobileBottomRowStyle }}">
+            <a href="tel:+38267134134" style="{{ mobilePhoneStyle }}" style-active="{{ touchActiveStyle }}">+382 67 134 134</a>
+            <a href="./Contact Page.dc.html" style="{{ mobileCtaStyle }}" style-active="{{ touchActiveStyle }}">Kontakt</a>
+          </div>
+        </div>
       </div>
-    </sc-if>
+    </div>
   </div>
 
   <div style="{{ heroWrapStyle }}">
-    <video id="lux-hero" src="./uploads/video.mp4" autoPlay="{{ true }}" muted="{{ true }}" playsInline="{{ true }}" preload="auto" style="{{ heroImgStyle }}"></video>
+    <video id="lux-hero" src="./uploads/dreamina-2026-07-30-6033-A_dramatic_dolly_zoom_vertigo_effect_o....mp4" autoPlay="{{ true }}" muted="{{ true }}" playsInline="{{ true }}" preload="auto" style="{{ heroImgStyle }}"></video>
     <sc-if value="{{ showHeroOverlay }}" hint-placeholder-val="{{ true }}">
       <div style="{{ heroOverlayStyle }}"></div>
     </sc-if>
@@ -478,11 +480,19 @@ class Component extends DCLogic {
     const heroVideo = document.getElementById('lux-hero');
     if (heroVideo) {
       heroVideo.muted = true;
-      heroVideo.play().catch(() => {});
+      heroVideo.defaultMuted = true;
+      heroVideo.setAttribute('muted', '');
+      heroVideo.setAttribute('webkit-playsinline', 'true');
+      const tryPlay = () => heroVideo.play().catch(() => {});
+      tryPlay();
+      heroVideo.addEventListener('loadedmetadata', tryPlay);
+      heroVideo.addEventListener('canplay', tryPlay);
+      this._onFirstTouch = () => { tryPlay(); window.removeEventListener('touchstart', this._onFirstTouch); };
+      window.addEventListener('touchstart', this._onFirstTouch, { passive: true, once: true });
       this._onVideoTime = () => {
         if (heroVideo.duration && heroVideo.currentTime > heroVideo.duration - 0.15) {
           heroVideo.currentTime = 0;
-          heroVideo.play().catch(() => {});
+          tryPlay();
         }
       };
       heroVideo.addEventListener('timeupdate', this._onVideoTime);
@@ -591,6 +601,8 @@ class Component extends DCLogic {
     const hk = this.state.hoverKey;
     const hoverProps = (key) => ({ onMouseEnter: () => this.setHoverKey(key), onMouseLeave: () => this.clearHoverKey() });
     const mergeHover = (base, hoverStyle, key) => (hk === key ? { ...base, ...hoverStyle } : base);
+    const mobileIsOpen = this.state.mobileOpen;
+    const mobileItemRevealFn = (i) => ({ opacity: mobileIsOpen ? 1 : 0, transform: mobileIsOpen ? 'translateY(0)' : 'translateY(8px)', transition: 'opacity 0.35s ease-out ' + (mobileIsOpen ? i * 0.05 : 0) + 's, transform 0.35s ease-out ' + (mobileIsOpen ? i * 0.05 : 0) + 's' });
 
     const reveal = (id, opts) => {
       const isRevealed = !!this.state.revealed[id];
@@ -611,7 +623,7 @@ class Component extends DCLogic {
       return {
         ...p,
         onEnter: () => this.setHoveredProject(p.key),
-        cardStyle: { display: 'block', transition: 'transform 0.5s ' + easeOut + ', box-shadow 0.5s ease', ...reveal('rv-projects-grid', { delay: i * 0.12 }) },
+        cardStyle: { display: 'block', minWidth: 0, maxWidth: '100%', transition: 'transform 0.5s ' + easeOut + ', box-shadow 0.5s ease', ...reveal('rv-projects-grid', { delay: i * 0.12 }) },
         statusTagStyle: { position: 'absolute', top: '16px', left: '16px', background: isHovered ? accent : 'rgba(251,251,249,0.92)', color: isHovered ? '#FBFBF9' : charcoal, fontSize: '10.5px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', padding: '6px 12px', transition: 'background 0.35s ease, color 0.35s ease' },
         arrowStyle: { fontSize: '20px', color: accent, display: 'inline-block', transform: isHovered ? 'translateX(4px)' : 'translateX(0)', transition: 'transform 0.35s ' + easeOut },
         unitsDetailStyle: { fontFamily: sans, fontSize: '12px', color: accent, marginTop: '8px', fontWeight: 500, opacity: isHovered ? 1 : 0, maxHeight: isHovered ? '20px' : '0px', overflow: 'hidden', transition: 'opacity 0.35s ease, max-height 0.35s ease' }
@@ -717,12 +729,20 @@ class Component extends DCLogic {
               };
             }),
             isMobileExpanded: expandedLevel2Key === item.key,
-            mobileChevron: expandedLevel2Key === item.key ? '\u25B2' : '\u25BC',
+            mobileBodyStyle: expandedLevel2Key === item.key
+              ? { display: 'flex', flexDirection: 'column', gap: '9px', padding: '4px 0 12px 14px', maxHeight: '500px', overflow: 'hidden', opacity: 1, transition: 'max-height 0.35s ' + easeOut + ', opacity 0.35s ' + easeOut + ', padding 0.35s ' + easeOut }
+              : { display: 'flex', flexDirection: 'column', gap: '9px', padding: '0 0 0 14px', maxHeight: '0px', overflow: 'hidden', opacity: 0, transition: 'max-height 0.35s ' + easeOut + ', opacity 0.35s ' + easeOut + ', padding 0.35s ' + easeOut },
+            mobileChevronSmallStyle: { color: 'rgba(251,251,249,0.45)', fontSize: '10px', display: 'inline-block', transition: 'transform 0.3s ease', transform: expandedLevel2Key === item.key ? 'rotate(180deg)' : 'rotate(0deg)' },
+            mobileChevron: '\u25BC',
             toggleMobileExpand: () => this.toggleMobileLevel2(name, item.key)
           };
         }),
         isExpandedMobile: !!this.state.mobileExpanded[name],
-        mobileChevron: this.state.mobileExpanded[name] ? '\u25B2' : '\u25BC',
+        mobileChevronStyle: { color: 'rgba(251,251,249,0.55)', fontSize: '11px', display: 'inline-block', transition: 'transform 0.3s ease', transform: this.state.mobileExpanded[name] ? 'rotate(180deg)' : 'rotate(0deg)' },
+        mobileBodyStyle: this.state.mobileExpanded[name]
+          ? { display: 'flex', flexDirection: 'column', gap: '4px', padding: '12px 0 6px 12px', maxHeight: '900px', overflow: 'hidden', opacity: 1, transition: 'max-height 0.4s ' + easeOut + ', opacity 0.4s ' + easeOut + ', padding 0.4s ' + easeOut }
+          : { display: 'flex', flexDirection: 'column', gap: '4px', padding: '0 0 0 12px', maxHeight: '0px', overflow: 'hidden', opacity: 0, transition: 'max-height 0.4s ' + easeOut + ', opacity 0.4s ' + easeOut + ', padding 0.4s ' + easeOut },
+        mobileChevron: '\u25BC',
         toggleMobile: () => this.toggleMobileMegaExpanded(name)
       };
     };
@@ -747,15 +767,37 @@ class Component extends DCLogic {
       phoneDotStyle: { width: '5px', height: '5px', borderRadius: '50%', background: accent, display: 'inline-block' },
       navCtaStyle: { border: '1px solid ' + charcoal, color: charcoal, padding: '10px 24px', fontSize: '12px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', whiteSpace: 'nowrap', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out' },
       navCtaHoverStyle: { background: charcoal, color: ivory, boxShadow: '0 10px 22px rgba(26,26,26,0.22)', transform: 'translateY(-1px)' },
-      hamburgerBtnStyle: { background: 'none', border: 'none', width: '30px', height: '26px', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '6px', cursor: 'pointer', padding: 0, flexShrink: 0 },
-      hamburgerLineStyle: { display: 'block', width: '100%', height: '1px', background: charcoal },
+      hamburgerBtnStyle: { background: 'none', border: 'none', width: '30px', height: '22px', position: 'relative', cursor: 'pointer', padding: 0, flexShrink: 0 },
+      hamburgerLine1Style: { position: 'absolute', left: 0, top: this.state.mobileOpen ? '10px' : '2px', width: '100%', height: '1.5px', background: charcoal, transformOrigin: 'center', transform: this.state.mobileOpen ? 'rotate(45deg)' : 'rotate(0deg)', transition: 'top 0.3s ease-in-out, transform 0.3s ease-in-out' },
+      hamburgerLine2Style: { position: 'absolute', left: 0, top: '10px', width: '100%', height: '1.5px', background: charcoal, opacity: this.state.mobileOpen ? 0 : 1, transition: 'opacity 0.25s ease-in-out' },
+      hamburgerLine3Style: { position: 'absolute', left: 0, top: this.state.mobileOpen ? '10px' : '18px', width: '100%', height: '1.5px', background: charcoal, transformOrigin: 'center', transform: this.state.mobileOpen ? 'rotate(-45deg)' : 'rotate(0deg)', transition: 'top 0.3s ease-in-out, transform 0.3s ease-in-out' },
+      touchActiveStyle: { transform: 'scale(0.98)', background: 'rgba(251,251,249,0.08)' },
       mobileOpen: this.state.mobileOpen,
       toggleMobile: () => this.toggleMobile(),
-      mobileMenuStyle: { maxWidth: '1320px', margin: '0 auto', padding: '4px ' + containerPad + 'px 26px', display: 'flex', flexDirection: 'column', gap: '18px' },
-      mobileLinkStyle: { fontFamily: sans, fontSize: '15px', fontWeight: 500, color: charcoal, textTransform: 'uppercase', letterSpacing: '1px' },
-      mobileHairlineStyle: { height: '1px', background: hairline, margin: '4px 0' },
-      mobilePhoneStyle: { fontSize: '14px', color: muted },
-      mobileCtaStyle: { border: '1px solid ' + charcoal, color: charcoal, padding: '12px', textAlign: 'center', fontSize: '13px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase' },
+      mobileMenuOuterStyle: {
+        position: 'absolute', top: '100%', left: 0, right: 0, zIndex: 49,
+        maxHeight: this.state.mobileOpen ? '85vh' : '0px', overflowY: 'auto', overflowX: 'hidden',
+        background: 'rgba(15,15,15,0.97)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)',
+        opacity: this.state.mobileOpen ? 1 : 0,
+        transition: 'max-height 0.45s ' + easeOut + ', opacity 0.45s ' + easeOut,
+        pointerEvents: this.state.mobileOpen ? 'auto' : 'none',
+        boxShadow: this.state.mobileOpen ? '0 24px 48px rgba(0,0,0,0.35)' : 'none'
+      },
+      mobileMenuInnerStyle: {
+        maxWidth: '1320px', margin: '0 auto', padding: '10px ' + containerPad + 'px 30px', display: 'flex', flexDirection: 'column', gap: '18px',
+        opacity: this.state.mobileOpen ? 1 : 0, transform: this.state.mobileOpen ? 'translateY(0)' : 'translateY(-14px)',
+        transition: 'opacity 0.4s ease-out, transform 0.4s ease-out'
+      },
+      mobileItemReveal: (i) => ({ opacity: this.state.mobileOpen ? 1 : 0, transform: this.state.mobileOpen ? 'translateY(0)' : 'translateY(8px)', transition: 'opacity 0.35s ease-out ' + (this.state.mobileOpen ? i * 0.05 : 0) + 's, transform 0.35s ease-out ' + (this.state.mobileOpen ? i * 0.05 : 0) + 's' }),
+      mobileItemReveal0: mobileItemRevealFn(0),
+      mobileItemReveal1: mobileItemRevealFn(1),
+      mobileItemReveal4: mobileItemRevealFn(2 + this.secondaryNavLinksData.length),
+      secondaryNavLinksMobile: this.secondaryNavLinksData.map((l, i) => ({ ...l, revealStyle: mobileItemRevealFn(2 + i) })),
+      mobileLinkStyle: { fontFamily: sans, fontSize: '15px', fontWeight: 500, color: '#FBFBF9', textTransform: 'uppercase', letterSpacing: '1px', display: 'block', padding: '10px 4px', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease' },
+      mobileHairlineStyle: { height: '1px', background: 'rgba(251,251,249,0.14)', margin: '4px 0' },
+      mobileBottomRowStyle: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', padding: '4px' },
+      mobilePhoneStyle: { fontSize: '14px', color: 'rgba(251,251,249,0.75)', fontWeight: 500, borderRadius: '4px', transition: 'transform 0.2s ease, color 0.2s ease', whiteSpace: 'nowrap' },
+      mobileCtaStyle: { border: '1px solid rgba(251,251,249,0.6)', color: '#FBFBF9', padding: '11px 22px', textAlign: 'center', fontSize: '13px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease', flexShrink: 0 },
 
       heroWrapStyle: isHeroMobile
         ? { position: 'relative', overflow: 'hidden', aspectRatio: '3/4' }
@@ -811,10 +853,10 @@ class Component extends DCLogic {
       emptyStateStyle: { fontFamily: sans, color: muted, fontSize: '15px', padding: '40px 0', textAlign: 'center' },
       projects,
       onLeaveProject: () => this.setHoveredProject(null),
-      projectGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + projectCols + ', 1fr)', gap: isMobile ? '40px' : '48px' },
+      projectGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + projectCols + ', minmax(0, 1fr))', gap: isMobile ? '40px' : '48px' },
       cardHoverStyle: { transform: 'translateY(-10px)', boxShadow: '0 34px 64px rgba(26,26,26,0.16)' },
-      imgFrameStyle: { position: 'relative', overflow: 'hidden', aspectRatio: '4/5', background: '#EAE8E3' },
-      cardImgStyle: { width: '100%', height: '100%', transition: 'transform 0.7s ' + easeOut },
+      imgFrameStyle: { position: 'relative', overflow: 'hidden', width: '100%', aspectRatio: '4/5', background: '#EAE8E3' },
+      cardImgStyle: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', maxWidth: '100%', objectFit: 'cover', transition: 'transform 0.7s ' + easeOut },
       cardImgHoverStyle: { transform: 'scale(1.06)' },
       captionRowStyle: { display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', padding: '20px 2px 0', borderTop: '1px solid ' + hairline, marginTop: '18px' },
       cardNameStyle: { fontFamily: serif, fontWeight: 500, fontSize: '22px', color: charcoal, marginBottom: '4px' },
@@ -822,7 +864,7 @@ class Component extends DCLogic {
 
       manifestoTransitionStyle: { height: (isMobile ? 70 : 120) + 'px', background: 'linear-gradient(to bottom, ' + ivory + ' 0%, ' + darkBg + ' 100%)' },
       manifestoSectionStyle: { background: darkBg, padding: (isMobile ? 80 : 140) + 'px ' + containerPad + 'px' },
-      manifestoGridStyle: { maxWidth: '1320px', margin: '0 auto', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1.2fr', gap: isMobile ? '36px' : '80px', alignItems: 'center' },
+      manifestoGridStyle: { maxWidth: '1320px', margin: '0 auto', display: 'grid', gridTemplateColumns: isMobile ? 'minmax(0,1fr)' : 'minmax(0,1fr) minmax(0,1.2fr)', gap: isMobile ? '36px' : '80px', alignItems: 'center' },
       manifestoImgStyle: { width: '100%', aspectRatio: isMobile ? '4/3' : '4/5', background: '#1E1E1E', ...reveal('rv-manifesto', { distance: 20 }) },
       manifestoEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '11.5px', color: accent, fontWeight: 500, marginBottom: '20px', ...reveal('rv-manifesto', { distance: 14 }) },
       manifestoQuoteStyle: { fontFamily: serif, fontStyle: 'italic', fontWeight: 500, fontSize: isMobile ? '26px' : '36px', color: '#FBFBF9', lineHeight: 1.35, margin: '0 0 26px' },
@@ -935,13 +977,9 @@ class Component extends DCLogic {
       scheduleCloseMenu: () => this.scheduleCloseMenu(),
       ponudaMenu: makeMegaMenu('ponuda', this.ponudaItems),
       referenceMenu: makeMegaMenu('reference', this.referenceItems),
-      mobileAccordionHeadStyle: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', fontFamily: sans, fontSize: '15px', fontWeight: 500, color: charcoal, textTransform: 'uppercase', letterSpacing: '1px' },
-      mobileChevronStyle: { color: muted, fontSize: '11px' },
-      mobileAccordionBodyStyle: { display: 'flex', flexDirection: 'column', gap: '4px', padding: '14px 0 6px 12px' },
-      mobileLevel2HeadStyle: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '9px 0', cursor: 'pointer', fontFamily: serif, fontSize: '15px', fontWeight: 500, color: charcoal },
-      mobileChevronSmallStyle: { color: muted, fontSize: '10px' },
-      mobileLevel3BodyStyle: { display: 'flex', flexDirection: 'column', gap: '9px', padding: '2px 0 12px 14px' },
-      mobileLevel3LinkStyle: { color: muted, fontSize: '13.5px', fontFamily: sans }
+      mobileAccordionHeadStyle: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', fontFamily: sans, fontSize: '15px', fontWeight: 500, color: '#FBFBF9', textTransform: 'uppercase', letterSpacing: '1px', padding: '10px 4px', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease' },
+      mobileLevel2HeadStyle: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '9px 4px', borderRadius: '4px', cursor: 'pointer', fontFamily: serif, fontSize: '15px', fontWeight: 500, transition: 'transform 0.2s ease, background 0.2s ease', color: '#FBFBF9' },
+      mobileLevel3LinkStyle: { color: 'rgba(251,251,249,0.55)', fontSize: '13.5px', fontFamily: sans, display: 'block', padding: '4px', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease' }
     };
   }
 }
