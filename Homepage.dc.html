@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../../../../Downloads/WordPress%20site%20redesign%20project%20(2)/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="../../../../Downloads/WordPress%20site%20redesign%20project%20(2)/image-slot.js"></script>
+<style>
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:#F7F6F3;-webkit-font-smoothing:antialiased;}
+  a{color:#9C7A4A;text-decoration:none;}
+  a:hover{color:#7E623B;}
+  select{-webkit-appearance:none;appearance:none;}
+  input::placeholder{color:rgba(26,26,26,0.35);}
+  @keyframes shimmerMove{0%{background-position:0% 50%;}100%{background-position:200% 50%;}}
+  @keyframes ctaPulseGlow{0%{box-shadow:0 0 0 0 rgba(156,122,74,0.45);}70%{box-shadow:0 0 0 14px rgba(156,122,74,0);}100%{box-shadow:0 0 0 0 rgba(156,122,74,0);}}
+</style>
+</helmet>
+<div style="{{ pageStyle }}">
+
+  <div style="{{ navBarStyle }}">
+    <div style="{{ navInnerStyle }}">
+      <a href="../../../../Downloads/WordPress%20site%20redesign%20project%20(2)/Homepage.dc.html" style="{{ logoLinkStyle }}">
+        <div style="{{ logoWordStyle }}">KIPS</div>
+        <div style="{{ logoSubStyle }}">GRADNJA</div>
+      </a>
+      <sc-if value="{{ showNavLinks }}" hint-placeholder-val="{{ true }}">
+        <nav style="{{ navLinksRowStyle }}">
+          <div style="{{ navMegaWrapStyle }}" onMouseEnter="{{ ponudaMenu.open }}" onMouseLeave="{{ scheduleCloseMenu }}">
+            <a href="../../../../Downloads/WordPress%20site%20redesign%20project%20(2)/Ponuda%20Stanova%20Page.dc.html" onMouseEnter="{{ navPonuda.onMouseEnter }}" onMouseLeave="{{ navPonuda.onMouseLeave }}" style="{{ navPonuda.style }}">Ponuda stanova</a>
+            <div style="{{ ponudaMenu.panelStyle }}">
+              <sc-for list="{{ ponudaMenu.items }}" as="lvl2" hint-placeholder-count="3">
+                <div style="{{ megaWrapStyle }}" onMouseEnter="{{ lvl2.onEnter }}">
+                  <div style="{{ lvl2.rowStyle }}" style-hover="{{ megaRowHoverStyle }}">
+                    <span>{{ lvl2.label }}</span>
+                    <span style="{{ lvl2.chevronStyle }}">&#8250;</span>
+                  </div>
+                  <sc-if value="{{ lvl2.showFlyout }}" hint-placeholder-val="{{ false }}">
+                    <div style="{{ lvl2.flyoutStyle }}">
+                      <sc-for list="{{ lvl2.children }}" as="leaf" hint-placeholder-count="3">
+                        <a href="{{ leaf.href }}" onMouseEnter="{{ leaf.onMouseEnter }}" onMouseLeave="{{ leaf.onMouseLeave }}" style="{{ leaf.rowStyle }}">{{ leaf.label }}</a>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="{{ navMegaWrapStyle }}" onMouseEnter="{{ referenceMenu.open }}" onMouseLeave="{{ scheduleCloseMenu }}">
+            <a href="../../../../Downloads/WordPress%20site%20redesign%20project%20(2)/Reference%20Page.dc.html" onMouseEnter="{{ navReference.onMouseEnter }}" onMouseLeave="{{ navReference.onMouseLeave }}" style="{{ navReference.style }}">Reference</a>
+            <div style="{{ referenceMenu.panelStyle }}">
+              <sc-for list="{{ referenceMenu.items }}" as="lvl2" hint-placeholder-count="1">
+                <div style="{{ megaWrapStyle }}" onMouseEnter="{{ lvl2.onEnter }}">
+                  <div style="{{ lvl2.rowStyle }}" style-hover="{{ megaRowHoverStyle }}">
+                    <span>{{ lvl2.label }}</span>
+                    <span style="{{ lvl2.chevronStyle }}">&#8250;</span>
+                  </div>
+                  <sc-if value="{{ lvl2.showFlyout }}" hint-placeholder-val="{{ false }}">
+                    <div style="{{ lvl2.flyoutStyle }}">
+                      <sc-for list="{{ lvl2.children }}" as="leaf" hint-placeholder-count="3">
+                        <a href="{{ leaf.href }}" onMouseEnter="{{ leaf.onMouseEnter }}" onMouseLeave="{{ leaf.onMouseLeave }}" style="{{ leaf.rowStyle }}">{{ leaf.label }}</a>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+          <sc-for list="{{ secondaryNavLinks }}" as="link" hint-placeholder-count="2">
+            <a href="{{ link.href }}" onMouseEnter="{{ link.onMouseEnter }}" onMouseLeave="{{ link.onMouseLeave }}" style="{{ link.style }}">{{ link.label }}</a>
+          </sc-for>
+        </nav>
+      </sc-if>
+      <sc-if value="{{ showNavLinks }}" hint-placeholder-val="{{ true }}">
+        <div style="{{ navRightStyle }}">
+          <sc-if value="{{ showPhone }}" hint-placeholder-val="{{ true }}">
+            <a href="tel:+38267134134" style="{{ phoneStyle }}" style-hover="{{ phoneHoverStyle }}">
+              <span style="{{ phoneDotStyle }}"></span><span>+382 67 134 134</span>
+            </a>
+          </sc-if>
+          <a href="../../../../Downloads/WordPress%20site%20redesign%20project%20(2)/Contact%20Page.dc.html" onMouseEnter="{{ navKontakt.onMouseEnter }}" onMouseLeave="{{ navKontakt.onMouseLeave }}" style="{{ navKontakt.style }}">Kontakt</a>
+        </div>
+      </sc-if>
+      <sc-if value="{{ isCompactNav }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ toggleMobile }}" style="{{ hamburgerBtnStyle }}">
+          <span style="{{ hamburgerLineStyle }}"></span><span style="{{ hamburgerLineStyle }}"></span><span style="{{ hamburgerLineStyle }}"></span>
+        </button>
+      </sc-if>
+    </div>
+    <sc-if value="{{ mobileOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="{{ mobileMenuStyle }}">
+        <div>
+          <div onClick="{{ ponudaMenu.toggleMobile }}" style="{{ mobileAccordionHeadStyle }}">
+            <span>Ponuda stanova</span>
+            <span style="{{ mobileChevronStyle }}">{{ ponudaMenu.mobileChevron }}</span>
+          </div>
+          <sc-if value="{{ ponudaMenu.isExpandedMobile }}" hint-placeholder-val="{{ false }}">
+            <div style="{{ mobileAccordionBodyStyle }}">
+              <sc-for list="{{ ponudaMenu.items }}" as="lvl2" hint-placeholder-count="3">
+                <div>
+                  <div onClick="{{ lvl2.toggleMobileExpand }}" style="{{ mobileLevel2HeadStyle }}">
+                    <span>{{ lvl2.label }}</span>
+                    <span style="{{ mobileChevronSmallStyle }}">{{ lvl2.mobileChevron }}</span>
+                  </div>
+                  <sc-if value="{{ lvl2.isMobileExpanded }}" hint-placeholder-val="{{ false }}">
+                    <div style="{{ mobileLevel3BodyStyle }}">
+                      <sc-for list="{{ lvl2.children }}" as="leaf" hint-placeholder-count="3">
+                        <a href="{{ leaf.href }}" style="{{ mobileLevel3LinkStyle }}">{{ leaf.label }}</a>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+        <div>
+          <div onClick="{{ referenceMenu.toggleMobile }}" style="{{ mobileAccordionHeadStyle }}">
+            <span>Reference</span>
+            <span style="{{ mobileChevronStyle }}">{{ referenceMenu.mobileChevron }}</span>
+          </div>
+          <sc-if value="{{ referenceMenu.isExpandedMobile }}" hint-placeholder-val="{{ false }}">
+            <div style="{{ mobileAccordionBodyStyle }}">
+              <sc-for list="{{ referenceMenu.items }}" as="lvl2" hint-placeholder-count="1">
+                <div>
+                  <div onClick="{{ lvl2.toggleMobileExpand }}" style="{{ mobileLevel2HeadStyle }}">
+                    <span>{{ lvl2.label }}</span>
+                    <span style="{{ mobileChevronSmallStyle }}">{{ lvl2.mobileChevron }}</span>
+                  </div>
+                  <sc-if value="{{ lvl2.isMobileExpanded }}" hint-placeholder-val="{{ false }}">
+                    <div style="{{ mobileLevel3BodyStyle }}">
+                      <sc-for list="{{ lvl2.children }}" as="leaf" hint-placeholder-count="3">
+                        <a href="{{ leaf.href }}" style="{{ mobileLevel3LinkStyle }}">{{ leaf.label }}</a>
+                      </sc-for>
+                    </div>
+                  </sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </sc-if>
+        </div>
+        <sc-for list="{{ secondaryNavLinks }}" as="link" hint-placeholder-count="2">
+          <a href="{{ link.href }}" style="{{ mobileLinkStyle }}">{{ link.label }}</a>
+        </sc-for>
+        <div style="{{ mobileHairlineStyle }}"></div>
+        <a href="tel:+38267134134" style="{{ mobilePhoneStyle }}">+382 67 134 134</a>
+        <a href="../../../../Downloads/WordPress%20site%20redesign%20project%20(2)/Contact%20Page.dc.html" style="{{ mobileCtaStyle }}">Kontakt</a>
+      </div>
+    </sc-if>
+  </div>
+
+  <div style="{{ heroWrapStyle }}">
+    <image-slot id="lux-hero" src="https://images.pexels.com/photos/33619255/pexels-photo-33619255.png?auto=compress&amp;cs=tinysrgb&amp;w=1920" placeholder="Hero &mdash; arhitektonski render / enterijer sa prirodnim svjetlom" shape="rect" style="{{ heroImgStyle }}"></image-slot>
+    <div style="{{ heroOverlayStyle }}"></div>
+    <div style="{{ heroContentWrapStyle }}">
+      <div style="{{ heroContentInnerStyle }}">
+        <div style="{{ heroEyebrowStyle }}">KIPS GRADNJA &middot; INVESTICIJE &amp; RAZVOJ NEKRETNINA</div>
+        <h1 style="{{ heroTitleStyle }}">Oblikujemo prostore budu&#263;nosti</h1>
+        <p style="{{ heroSubStyle }}">Arhitektonska izvrsnost i moderan na&#269;in &#382;ivota &mdash; kompanija koja gradi sa vizijom, pouzdano&scaron;&#263;u i posve&#263;eno&scaron;&#263;u detalju.</p>
+        <div style="{{ heroCtaRowStyle }}">
+          <a href="#projekti" onMouseEnter="{{ heroPrimaryBtn.onMouseEnter }}" onMouseLeave="{{ heroPrimaryBtn.onMouseLeave }}" style="{{ heroPrimaryBtn.style }}">Istra&#382;ite portfolio</a>
+          <a href="../../../../Downloads/WordPress%20site%20redesign%20project%20(2)/Contact%20Page.dc.html" onMouseEnter="{{ heroSecondaryBtn.onMouseEnter }}" onMouseLeave="{{ heroSecondaryBtn.onMouseLeave }}" style="{{ heroSecondaryBtn.style }}">Kontaktirajte nas</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="rv-about" style="{{ aboutWrapStyle }}">
+    <div style="{{ aboutRevealStyle }}">
+      <div style="{{ aboutHeadGridStyle }}">
+        <div>
+          <div style="{{ sectionEyebrowStyle }}">O kompaniji</div>
+          <div style="{{ sectionTitleStyle }}">Graditeljstvu pristupamo kao umjetnosti</div>
+        </div>
+        <p style="{{ aboutTextStyle }}">Svaki objekat koji potpisujemo nastaje kao spoj in&#382;enjerske preciznosti i arhitektonske vizije. Ne gradimo samo zgrade &mdash; stvaramo prostore koji podi&#382;u standard &#382;ivota u zajednici.</p>
+      </div>
+      <div style="{{ statsGridStyle }}">
+        <sc-for list="{{ displayedStats }}" as="stat" hint-placeholder-count="3">
+          <div style="{{ statItemStyle }}">
+            <div style="{{ statNumberStyle }}" style-hover="{{ statNumberHoverStyle }}">{{ stat.display }}</div>
+            <div style="{{ statLabelStyle }}">{{ stat.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div id="projekti" style="{{ sectionWrapStyle }}">
+    <div id="rv-projects-head" style="{{ sectionHeadRevealStyle }}">
+      <div style="{{ sectionHeadStyle }}">
+        <div style="{{ sectionEyebrowStyle }}">Portfolio</div>
+        <div style="{{ sectionTitleStyle }}">Aktivni projekti</div>
+        <div style="{{ sectionDividerStyle }}"></div>
+        <p style="{{ sectionSubStyle }}">Pregledajte na&scaron;e aktivne projekte po lokaciji i statusu izgradnje.</p>
+      </div>
+      <div style="{{ locationTabRowStyle }}">
+        <sc-for list="{{ locationTabs }}" as="tab" hint-placeholder-count="3">
+          <button onClick="{{ tab.onClick }}" onMouseEnter="{{ tab.onMouseEnter }}" onMouseLeave="{{ tab.onMouseLeave }}" style="{{ tab.tabStyle }}">{{ tab.label }}</button>
+        </sc-for>
+      </div>
+    </div>
+    <sc-if value="{{ hasProjects }}" hint-placeholder-val="{{ true }}">
+      <div id="rv-projects-grid" style="{{ projectGridStyle }}">
+        <sc-for list="{{ projects }}" as="proj" hint-placeholder-count="3">
+          <a href="{{ proj.href }}" onMouseEnter="{{ proj.onEnter }}" onMouseLeave="{{ onLeaveProject }}" style="{{ proj.cardStyle }}" style-hover="{{ cardHoverStyle }}">
+            <div style="{{ imgFrameStyle }}">
+              <image-slot id="{{ proj.slotId }}" src="{{ proj.slotSrc }}" placeholder="{{ proj.placeholder }}" shape="rect" style="{{ cardImgStyle }}" style-hover="{{ cardImgHoverStyle }}"></image-slot>
+              <div style="{{ proj.statusTagStyle }}">{{ proj.statusLabel }}</div>
+            </div>
+            <div style="{{ captionRowStyle }}">
+              <div>
+                <div style="{{ cardNameStyle }}">{{ proj.name }}</div>
+                <div style="{{ cardLocStyle }}">{{ proj.locationLabel }}</div>
+                <div style="{{ proj.unitsDetailStyle }}">{{ proj.unitsLabel }}</div>
+              </div>
+              <span style="{{ proj.arrowStyle }}">&#8594;</span>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+    </sc-if>
+    <sc-if value="{{ showEmptyState }}" hint-placeholder-val="{{ false }}">
+      <div style="{{ emptyStateStyle }}">Nema projekata koji odgovaraju izabranom filteru.</div>
+    </sc-if>
+  </div>
+
+  <div style="{{ manifestoTransitionStyle }}"></div>
+  <div id="rv-manifesto" style="{{ manifestoSectionStyle }}">
+    <div style="{{ manifestoGridStyle }}">
+      <image-slot id="manifesto-img" src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200" placeholder="Arhitektonska fotografija &mdash; detalj fasade / enterijera" shape="rect" style="{{ manifestoImgStyle }}"></image-slot>
+      <div>
+        <div style="{{ manifestoEyebrowStyle }}">Manifest</div>
+        <p style="{{ manifestoQuoteStyle }}">
+          <span style="{{ manifestoLine1Style }}">Arhitektura nije samo sklonište</span><br></br>
+          <span style="{{ manifestoLine2Style }}">&mdash; ona je okvir za &#382;ivot koji tek dolazi.</span>
+        </p>
+        <p style="{{ manifestoTextStyle }}">Vjerujemo u promi&scaron;ljen prostor, u materijale koji traju i u detalje koji se osjete, ali se ne name&#263;u. Svaki projekat nosi istu posve&#263;enost &mdash; bez kompromisa na kvalitetu.</p>
+        <div style="{{ manifestoAttrStyle }}">&mdash; KIPS Gradnja</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="{{ sectionWrapStyle }}">
+    <div id="rv-craft" style="{{ sectionHeadRevealStyle }}">
+      <div style="{{ sectionHeadStyle }}">
+        <div style="{{ sectionEyebrowStyle }}">Standardi izrade</div>
+        <div style="{{ sectionTitleStyle }}">Kvalitet koji se osje&#263;a u detalju</div>
+        <div style="{{ sectionDividerStyle }}"></div>
+      </div>
+      <div style="{{ craftGridStyle }}">
+        <sc-for list="{{ craftItems }}" as="item" hint-placeholder-count="4">
+          <div onMouseEnter="{{ item.onMouseEnter }}" onMouseLeave="{{ item.onMouseLeave }}" style="{{ item.cardStyle }}">
+            <div style="{{ item.iconWrapStyle }}">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="{{ item.iconPath }}" style="{{ item.iconPathStyle }}"></path></svg>
+            </div>
+            <div style="{{ craftTitleStyle }}">{{ item.title }}</div>
+            <div style="{{ craftTextStyle }}">{{ item.desc }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div id="rv-vip" style="{{ vipSectionStyle }}">
+    <div style="{{ vipInnerStyle }}">
+      <div style="{{ sectionEyebrowStyle }}">Za investitore i partnere</div>
+      <div style="{{ vipTitleStyle }}">Preuzmite korporativni profil</div>
+      <p style="{{ vipTextStyle }}">Zatra&#382;ite VIP katalog kompanije sa detaljnim pregledom portfolija, standarda gradnje i aktuelne ponude.</p>
+      <div style="{{ vipBtnRowStyle }}">
+        <button onClick="{{ openModal }}" onMouseEnter="{{ vipBtn.onMouseEnter }}" onMouseLeave="{{ vipBtn.onMouseLeave }}" style="{{ vipBtn.style }}">Preuzmite VIP katalog</button>
+        <a href="../../../../Downloads/WordPress%20site%20redesign%20project%20(2)/Contact%20Page.dc.html" onMouseEnter="{{ vipSecondaryLink.onMouseEnter }}" onMouseLeave="{{ vipSecondaryLink.onMouseLeave }}" style="{{ vipSecondaryLink.style }}">Kontaktirajte nas &#8594;</a>
+      </div>
+    </div>
+  </div>
+
+  <div id="lux-footer" style="{{ footerStyle }}">
+    <div style="{{ footerInnerStyle }}">
+      <div style="{{ footerTopGridStyle }}">
+        <div>
+          <div style="{{ footerLogoStyle }}">KIPS <span style="{{ footerLogoAccentStyle }}">GRADNJA</span></div>
+          <p style="{{ footerBlurbStyle }}">Gradimo prostore po najvi&scaron;im standardima kvaliteta.</p>
+        </div>
+        <div>
+          <div style="{{ footerColTitleStyle }}">Navigacija</div>
+          <div style="{{ footerLinkColStyle }}">
+            <sc-for list="{{ footerNavLinks }}" as="link" hint-placeholder-count="4">
+              <a href="{{ link.href }}" onMouseEnter="{{ link.onMouseEnter }}" onMouseLeave="{{ link.onMouseLeave }}" style="{{ link.style }}">{{ link.label }}</a>
+            </sc-for>
+          </div>
+        </div>
+        <div>
+          <div style="{{ footerColTitleStyle }}">Kontakt</div>
+          <div style="{{ footerLinkColStyle }}">
+            <a href="tel:+38267134134" onMouseEnter="{{ footerPhoneLink.onMouseEnter }}" onMouseLeave="{{ footerPhoneLink.onMouseLeave }}" style="{{ footerPhoneLink.style }}">+382 67 134 134</a>
+            <a href="mailto:office@kipsgradnja.me" onMouseEnter="{{ footerEmailLink.onMouseEnter }}" onMouseLeave="{{ footerEmailLink.onMouseLeave }}" style="{{ footerEmailLink.style }}">office@kipsgradnja.me</a>
+          </div>
+        </div>
+      </div>
+      <div style="{{ footerHairlineStyle }}"></div>
+      <div style="{{ footerBottomRowStyle }}">
+        <p style="{{ footerCopyStyle }}">&copy; 2026 KIPS Gradnja d.o.o.</p>
+        <p style="{{ footerCreditStyle }}">Powered by: <a href="https://adlogic.me" target="_blank" rel="noopener" onMouseEnter="{{ footerCreditLink.onMouseEnter }}" onMouseLeave="{{ footerCreditLink.onMouseLeave }}" style="{{ footerCreditLink.style }}">ADLOGIC</a></p>
+      </div>
+    </div>
+  </div>
+
+  <button onClick="{{ openModal }}" onMouseEnter="{{ floatingBtn.onMouseEnter }}" onMouseLeave="{{ floatingBtn.onMouseLeave }}" style="{{ floatingBtn.style }}">VIP katalog</button>
+
+  <sc-if value="{{ showCustomCursor }}" hint-placeholder-val="{{ false }}">
+    <div id="lux-cursor" style="{{ cursorDotStyle }}"></div>
+  </sc-if>
+
+  <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="{{ overlayStyle }}" onClick="{{ closeModal }}">
+      <div style="{{ modalCardStyle }}" onClick="{{ stopClick }}">
+        <button onClick="{{ closeModal }}" style="{{ modalCloseStyle }}">&times;</button>
+        <sc-if value="{{ formSubmitted }}" hint-placeholder-val="{{ false }}">
+          <div style="{{ modalEyebrowStyle }}">Hvala Vam</div>
+          <div style="{{ modalTitleStyle }}">Zahtjev je poslat</div>
+          <p style="{{ modalSubStyle }}">VIP katalog i korporativni profil kompanije sti&#382;u vam na email u najkra&#263;em roku.</p>
+        </sc-if>
+        <sc-if value="{{ formVisible }}" hint-placeholder-val="{{ true }}">
+          <div style="{{ modalEyebrowStyle }}">VIP katalog</div>
+          <div style="{{ modalTitleStyle }}">Zatra&#382;ite korporativni profil</div>
+          <p style="{{ modalSubStyle }}">Ostavite kontakt i po&scaron;aljemo vam PDF katalog sa pregledom portfolija i ponude.</p>
+          <form onSubmit="{{ submitForm }}" style="{{ modalFormStyle }}">
+            <div style="{{ modalFieldStyle }}">
+              <label style="{{ modalLabelStyle }}">Ime i prezime</label>
+              <input type="text" placeholder="Va&scaron;e ime" style="{{ modalInputStyle }}"></input>
+            </div>
+            <div style="{{ modalFieldStyle }}">
+              <label style="{{ modalLabelStyle }}">Telefon</label>
+              <input type="tel" placeholder="+382" style="{{ modalInputStyle }}"></input>
+            </div>
+            <div style="{{ modalFieldStyle }}">
+              <label style="{{ modalLabelStyle }}">Email</label>
+              <input type="email" placeholder="vas@email.com" style="{{ modalInputStyle }}"></input>
+            </div>
+            <button type="submit" onMouseEnter="{{ modalSubmit.onMouseEnter }}" onMouseLeave="{{ modalSubmit.onMouseLeave }}" style="{{ modalSubmit.style }}">Poslati zahtjev</button>
+          </form>
+        </sc-if>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#9C7A4A&quot;,&quot;options&quot;:[&quot;#9C7A4A&quot;,&quot;#B8934F&quot;,&quot;#7A8A78&quot;,&quot;#8C7A6B&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Theme&quot;}}">
+class Component extends DCLogic {
+  state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440, mobileOpen: false, scrolled: false, pastHero: false, heroRevealed: false, revealed: {}, statProgress: 0, modalOpen: false, formSubmitted: false, activeLocation: 'all', hoveredProjectKey: null, openDropdown: null, hoverLevel2: { ponuda: null, reference: null }, mobileExpanded: { ponuda: false, reference: false }, mobileExpandedLevel2: { ponuda: null, reference: null } };
+
+  navLinks = [
+    { label: 'Ponuda stanova', href: './Ponuda Stanova Page.dc.html' },
+    { label: 'Reference', href: './Reference Page.dc.html' },
+    { label: 'Ponuda zemlji\u0161ta', href: './Ponuda Zemljista Page.dc.html' },
+    { label: 'O nama', href: './About Us Page.dc.html' }
+  ];
+  secondaryNavLinksData = [
+    { label: 'Ponuda zemlji\u0161ta', href: './Ponuda Zemljista Page.dc.html' },
+    { label: 'O nama', href: './About Us Page.dc.html' }
+  ];
+  ponudaItems = [
+    { key: 'stambeni', label: 'Stambeni kompleksi', children: [
+      { label: 'Central Line', href: './Project Page.dc.html' },
+      { label: 'Premium Kvart II', href: './Project Page.dc.html' },
+      { label: 'Premium Kvart', href: './Project Page.dc.html' }
+    ] },
+    { key: 'poslovni', label: 'Poslovni prostori', children: [
+      { label: 'Central Line', href: './Category Floor Plan Page.dc.html' },
+      { label: 'Premium Kvart II', href: './Category Floor Plan Page.dc.html' },
+      { label: 'Premium Kvart', href: './Category Floor Plan Page.dc.html' }
+    ] },
+    { key: 'garaze', label: 'Gara\u017ee', children: [
+      { label: 'Central Line', href: './Category Floor Plan Page.dc.html' },
+      { label: 'Premium Kvart II', href: './Category Floor Plan Page.dc.html' },
+      { label: 'Premium Kvart', href: './Category Floor Plan Page.dc.html' }
+    ] }
+  ];
+  referenceItems = [
+    { key: 'portfolio', label: 'Izgra\u0111eni objekti', children: [
+      { label: 'Rezidencijalni kompleksi', href: './Reference Page.dc.html' },
+      { label: 'Poslovni objekti', href: './Reference Page.dc.html' },
+      { label: 'Arhitektonske nagrade', href: './About Us Page.dc.html' }
+    ] }
+  ];
+
+  projectsData = [
+    { key: 'central-line', name: 'Central Line', locationSlug: 'stari-aerodrom', locationLabel: 'Stari Aerodrom, Podgorica', statusSlug: 'u-izgradnji', statusLabel: 'U izgradnji \u2013 rok 2026', unitsLabel: 'Preostalo 18 jedinica u ponudi', slotId: 'lux-cl', placeholder: 'Central Line', slotSrc: './uploads/central_line.webp', href: './Project Page.dc.html' },
+    { key: 'premium-kvart-2', name: 'Premium Kvart II', locationSlug: 'city-kvart', locationLabel: 'City Kvart, Podgorica', statusSlug: 'u-izgradnji', statusLabel: 'U izgradnji \u2013 rok 2027', unitsLabel: 'Preostalo 24 jedinice u ponudi', slotId: 'lux-pk2', placeholder: 'Premium Kvart II', slotSrc: './uploads/premium_kvart_2.webp', href: './Project Page.dc.html' },
+    { key: 'premium-kvart', name: 'Premium Kvart', locationSlug: 'city-kvart', locationLabel: 'City Kvart, Podgorica', statusSlug: 'useljivo', statusLabel: 'Useljivo', unitsLabel: 'Poslednje jedinice u ponudi', slotId: 'lux-pk', placeholder: 'Premium Kvart', slotSrc: './uploads/premium_kvart.webp', href: './Project Page.dc.html' }
+  ];
+
+  statsData = [
+    { target: 3, label: 'Aktivna projekta' },
+    { target: 3, label: 'Tipa nepokretnosti u ponudi' },
+    { target: 2, label: 'Lokacije u razvoju' }
+  ];
+
+  craftItemsData = [
+    { title: 'Smart Home sistemi', desc: 'Pametno upravljanje osvjetljenjem, klimatizacijom i sigurno\u0161\u0107u kroz jedinstven sistem.', iconPath: 'M4 11 12 4l8 7 M6 10v10h12V10 M10 20v-6h4v6' },
+    { title: 'Energetska efikasnost', desc: 'Premium izolacija i energetski efikasna rje\u0161enja za ni\u017eu potro\u0161nju i vi\u0161i standard \u017eivota.', iconPath: 'M13 3 4 14h6l-1 7 9-11h-6l1-7Z' },
+    { title: 'Italijanska keramika i stolarija', desc: 'Zavr\u0161na obrada uvoznim materijalima vrhunskog kvaliteta u svim jedinicama.', iconPath: 'M4 4h7v7H4Z M13 4h7v7h-7Z M4 13h7v7H4Z M13 13h7v7h-7Z' },
+    { title: 'Privatnost i bezbjednost', desc: 'Video nadzor, kontrolisan pristup i sigurnosni sistemi u svim na\u0161im objektima.', iconPath: 'M12 3 5 6v5c0 5 3 8.5 7 10 4-1.5 7-5 7-10V6l-7-3Z' }
+  ];
+
+  revealIds = ['rv-about', 'rv-projects-head', 'rv-projects-grid', 'rv-manifesto', 'rv-craft', 'rv-vip'];
+
+  componentDidMount() {
+    this._onResize = () => this.setState({ width: window.innerWidth });
+    window.addEventListener('resize', this._onResize);
+    this._onScroll = () => {
+      if (this._scrollTicking) return;
+      this._scrollTicking = true;
+      requestAnimationFrame(() => {
+        const nearBottom = (window.innerHeight + window.scrollY) > (document.documentElement.scrollHeight - 420);
+        let overDark = false;
+        const btnPoint = { x: window.innerWidth - 60, y: window.innerHeight - 60 };
+        const manifesto = document.getElementById('rv-manifesto');
+        if (manifesto) {
+          const r = manifesto.getBoundingClientRect();
+          if (btnPoint.y >= r.top && btnPoint.y <= r.bottom) overDark = true;
+        }
+        this.setState({ scrolled: window.scrollY > 40, pastHero: window.scrollY > (window.innerHeight * 0.6), scrollY: window.scrollY, nearFooter: nearBottom, overDark });
+        this._scrollTicking = false;
+      });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    requestAnimationFrame(() => {
+      this._observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            this.setState(s => ({ revealed: { ...s.revealed, [id]: true } }));
+            if (id === 'rv-about') this.startStatsCount();
+            this._observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+      this.revealIds.forEach(id => { const el = document.getElementById(id); if (el) this._observer.observe(el); });
+    });
+    this._heroTimer = setTimeout(() => this.setState({ heroRevealed: true }), 120);
+
+    const fine = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(pointer:fine)').matches;
+    if (fine) {
+      this._onCursorMove = (e) => {
+        const el = document.getElementById('lux-cursor');
+        if (el) el.style.transform = 'translate(' + (e.clientX - 9) + 'px,' + (e.clientY - 9) + 'px)';
+      };
+      this._onCursorOver = (e) => {
+        const el = document.getElementById('lux-cursor');
+        if (!el) return;
+        if (e.target.closest && e.target.closest('a,button')) { el.style.width = '34px'; el.style.height = '34px'; el.style.background = 'transparent'; }
+      };
+      this._onCursorOut = (e) => {
+        const el = document.getElementById('lux-cursor');
+        if (!el) return;
+        if (e.target.closest && e.target.closest('a,button')) { el.style.width = '18px'; el.style.height = '18px'; el.style.background = 'rgba(156,122,74,0.35)'; }
+      };
+      document.addEventListener('mousemove', this._onCursorMove);
+      document.addEventListener('mouseover', this._onCursorOver);
+      document.addEventListener('mouseout', this._onCursorOut);
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize);
+    window.removeEventListener('scroll', this._onScroll);
+    if (this._observer) this._observer.disconnect();
+    if (this._statRAF) cancelAnimationFrame(this._statRAF);
+    if (this._heroTimer) clearTimeout(this._heroTimer);
+    if (this._onCursorMove) document.removeEventListener('mousemove', this._onCursorMove);
+    if (this._onCursorOver) document.removeEventListener('mouseover', this._onCursorOver);
+    if (this._onCursorOut) document.removeEventListener('mouseout', this._onCursorOut);
+  }
+
+  toggleMobile() { this.setState(s => ({ mobileOpen: !s.mobileOpen })); }
+  setLocation(slug) { this.setState({ activeLocation: slug }); }
+  openDropdown(name) {
+    if (this._closeTimer) { clearTimeout(this._closeTimer); this._closeTimer = null; }
+    this.setState({ openDropdown: name });
+  }
+  scheduleCloseMenu() {
+    if (this._closeTimer) clearTimeout(this._closeTimer);
+    this._closeTimer = setTimeout(() => { this.setState({ openDropdown: null, hoverLevel2: { ponuda: null, reference: null } }); this._closeTimer = null; }, 260);
+  }
+  hoverLevel2Item(name, idx) { this.setState(s => ({ hoverLevel2: { ...s.hoverLevel2, [name]: idx } })); }
+  toggleMobileMegaExpanded(name) { this.setState(s => ({ mobileExpanded: { ...s.mobileExpanded, [name]: !s.mobileExpanded[name] } })); }
+  toggleMobileLevel2(name, key) { this.setState(s => ({ mobileExpandedLevel2: { ...s.mobileExpandedLevel2, [name]: s.mobileExpandedLevel2[name] === key ? null : key } })); }
+  openModal() { this.setState({ modalOpen: true, formSubmitted: false }); }
+  closeModal() { this.setState({ modalOpen: false }); }
+  stopClick(e) { e.stopPropagation(); }
+  submitForm(e) { e.preventDefault(); this.setState({ formSubmitted: true }); }
+  setHoveredProject(key) { this.setState({ hoveredProjectKey: key }); }
+  setHoverKey(key) { this.setState({ hoverKey: key }); }
+  clearHoverKey() { this.setState({ hoverKey: null }); }
+
+  startStatsCount() {
+    if (this._statStarted) return;
+    this._statStarted = true;
+    const duration = 1400;
+    const start = performance.now();
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+    const step = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      this.setState({ statProgress: easeOutCubic(t) });
+      if (t < 1) { this._statRAF = requestAnimationFrame(step); }
+    };
+    this._statRAF = requestAnimationFrame(step);
+  }
+
+  renderVals() {
+    const w = this.state.width || 1440;
+    const isMobile = w < 640;
+    const isTablet = w >= 640 && w < 1024;
+    const isCompactNav = w < 900;
+    const isDesktop = w >= 1024;
+    const scrolled = this.state.scrolled;
+    const scrollY = this.state.scrollY || 0;
+
+    const accent = this.props.accentColor || '#9C7A4A';
+    const charcoal = '#1A1A1A';
+    const ivory = '#F7F6F3';
+    const hairline = 'rgba(26,26,26,0.10)';
+    const muted = 'rgba(26,26,26,0.58)';
+    const darkBg = '#0F0F0F';
+
+    const containerPad = isMobile ? 22 : (isTablet ? 48 : 80);
+    const navPadV = scrolled ? (isMobile ? 10 : 12) : (isMobile ? 16 : 22);
+    const sectionPadV = isMobile ? 72 : (isTablet ? 108 : 150);
+    const heroHeight = isMobile ? 580 : (isTablet ? 700 : 840);
+    const heroTitleSize = isMobile ? 34 : (isTablet ? 48 : 66);
+    const sectionTitleSize = isMobile ? 30 : (isTablet ? 38 : 46);
+    const projectCols = isMobile ? 1 : (isTablet ? 2 : 3);
+    const craftCols = isMobile ? 1 : (isTablet ? 2 : 4);
+
+    const serif = "'Cormorant Garamond', serif";
+    const sans = "'Jost', sans-serif";
+    const easeOut = 'cubic-bezier(0.16,1,0.3,1)';
+    const hk = this.state.hoverKey;
+    const hoverProps = (key) => ({ onMouseEnter: () => this.setHoverKey(key), onMouseLeave: () => this.clearHoverKey() });
+    const mergeHover = (base, hoverStyle, key) => (hk === key ? { ...base, ...hoverStyle } : base);
+
+    const reveal = (id, opts) => {
+      const isRevealed = !!this.state.revealed[id];
+      const delay = (opts && opts.delay) || 0;
+      const distance = (opts && opts.distance) || 30;
+      return { opacity: isRevealed ? 1 : 0, transform: isRevealed ? 'translateY(0)' : 'translateY(' + distance + 'px)', transition: 'opacity 0.9s ' + easeOut + ' ' + delay + 's, transform 0.9s ' + easeOut + ' ' + delay + 's' };
+    };
+    const heroReveal = { opacity: this.state.heroRevealed ? 1 : 0, transform: this.state.heroRevealed ? 'translateY(0)' : 'translateY(26px)', transition: 'opacity 1s ' + easeOut + ' 0.1s, transform 1s ' + easeOut + ' 0.1s' };
+
+    const progress = this.state.statProgress || 0;
+    const displayedStats = this.statsData.map(s => ({ ...s, display: Math.round(s.target * progress) }));
+
+    const activeLocation = this.state.activeLocation;
+    const filteredProjects = this.projectsData.filter(p => activeLocation === 'all' || p.locationSlug === activeLocation);
+    const hoveredKey = this.state.hoveredProjectKey;
+    const projects = filteredProjects.map((p, i) => {
+      const isHovered = hoveredKey === p.key;
+      return {
+        ...p,
+        onEnter: () => this.setHoveredProject(p.key),
+        cardStyle: { display: 'block', transition: 'transform 0.5s ' + easeOut + ', box-shadow 0.5s ease', ...reveal('rv-projects-grid', { delay: i * 0.12 }) },
+        statusTagStyle: { position: 'absolute', top: '16px', left: '16px', background: isHovered ? accent : 'rgba(251,251,249,0.92)', color: isHovered ? '#FBFBF9' : charcoal, fontSize: '10.5px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', padding: '6px 12px', transition: 'background 0.35s ease, color 0.35s ease' },
+        arrowStyle: { fontSize: '20px', color: accent, display: 'inline-block', transform: isHovered ? 'translateX(4px)' : 'translateX(0)', transition: 'transform 0.35s ' + easeOut },
+        unitsDetailStyle: { fontFamily: sans, fontSize: '12px', color: accent, marginTop: '8px', fontWeight: 500, opacity: isHovered ? 1 : 0, maxHeight: isHovered ? '20px' : '0px', overflow: 'hidden', transition: 'opacity 0.35s ease, max-height 0.35s ease' }
+      };
+    });
+
+    const locationTabDefs = [{ value: 'all', label: 'Svi projekti' }, { value: 'stari-aerodrom', label: 'Stari Aerodrom' }, { value: 'city-kvart', label: 'City Kvart' }];
+    const locationTabs = locationTabDefs.map(t => {
+      const tabKey = 'tab-' + t.value;
+      const isHov = hk === tabKey;
+      const isActive = activeLocation === t.value;
+      return {
+        label: t.label,
+        onClick: () => this.setLocation(t.value),
+        onMouseEnter: () => this.setHoverKey(tabKey),
+        onMouseLeave: () => this.clearHoverKey(),
+        tabStyle: { background: 'none', border: 'none', borderBottom: (isActive || isHov) ? '2px solid ' + accent : '2px solid transparent', padding: '9px 4px', marginRight: isMobile ? '20px' : '32px', fontFamily: sans, fontSize: '13px', fontWeight: isActive ? 600 : 400, color: isActive ? charcoal : (isHov ? accent : muted), cursor: 'pointer', whiteSpace: 'nowrap', transform: isHov ? 'translateY(-1px)' : 'translateY(0)', transition: 'color 0.3s ease-out, border-color 0.3s ease-out, transform 0.3s ease-out' }
+      };
+    });
+
+    const craftRevealed = !!this.state.revealed['rv-craft'];
+    const craftItems = this.craftItemsData.map((item, i) => {
+      const craftKey = 'craft-' + i;
+      const isHov = hk === craftKey;
+      return {
+        ...item,
+        onMouseEnter: () => this.setHoverKey(craftKey),
+        onMouseLeave: () => this.clearHoverKey(),
+        cardStyle: { background: isHov ? 'color-mix(in srgb, ' + accent + ' 5%, ' + ivory + ')' : ivory, padding: isMobile ? '32px 26px' : '44px 32px', transform: isHov ? 'translateY(-4px)' : 'translateY(0)', transition: 'background 0.4s ease-out, transform 0.4s ease-out', ...reveal('rv-craft', { delay: i * 0.08, distance: 18 }) },
+        iconWrapStyle: { width: '46px', height: '46px', borderRadius: '50%', border: '1px solid ' + (isHov ? accent : hairline), display: 'flex', alignItems: 'center', justifyContent: 'center', color: accent, marginBottom: '22px', transform: isHov ? 'scale(1.1)' : 'scale(1)', transition: 'transform 0.35s ease-out, border-color 0.35s ease-out' },
+        iconPathStyle: { strokeDasharray: 1, strokeDashoffset: craftRevealed ? 0 : 1, transition: 'stroke-dashoffset 0.9s ' + easeOut + ' ' + (0.15 + i * 0.08) + 's' }
+      };
+    });
+
+    const hoveredNav = this.state.hoveredNav;
+    const navHover = (key, extra) => ({
+      onMouseEnter: () => this.setState({ hoveredNav: key }),
+      onMouseLeave: () => this.setState({ hoveredNav: null }),
+      style: { fontFamily: sans, fontSize: '12.5px', fontWeight: 500, color: hoveredNav === key ? charcoal : 'rgba(26,26,26,0.75)', textTransform: 'uppercase', letterSpacing: '1.5px', paddingBottom: '4px', borderBottom: hoveredNav === key ? '1px solid ' + accent : '1px solid transparent', transition: 'color 0.3s ease-out, border-color 0.3s ease-out', ...(extra || {}) }
+    });
+    const secondaryNavLinks = this.secondaryNavLinksData.map((l, i) => ({ ...l, ...navHover('sec' + i) }));
+    const navKontakt = {
+      onMouseEnter: () => this.setState({ hoveredNav: 'kontakt' }),
+      onMouseLeave: () => this.setState({ hoveredNav: null }),
+      style: { border: '1px solid ' + charcoal, color: hoveredNav === 'kontakt' ? ivory : charcoal, background: hoveredNav === 'kontakt' ? charcoal : 'none', padding: '10px 24px', fontSize: '12px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', whiteSpace: 'nowrap', transform: hoveredNav === 'kontakt' ? 'translateY(-1px)' : 'translateY(0)', boxShadow: hoveredNav === 'kontakt' ? '0 10px 22px rgba(26,26,26,0.22)' : 'none', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out' }
+    };
+
+    const modalOpen = this.state.modalOpen;
+    const heroParallax = Math.min(scrollY * 0.25, 120);
+
+    const glassPanel = { background: 'rgba(251,251,249,0.86)', backdropFilter: 'blur(22px)', WebkitBackdropFilter: 'blur(22px)', border: '1px solid rgba(26,26,26,0.08)', boxShadow: '0 30px 60px rgba(26,26,26,0.18)', borderRadius: '8px' };
+    const makeMegaMenu = (name, list) => {
+      const hoverIdx = this.state.hoverLevel2[name];
+      const expandedLevel2Key = this.state.mobileExpandedLevel2[name];
+      const isOpen = this.state.openDropdown === name;
+      return {
+        isOpen,
+        open: () => this.openDropdown(name),
+        panelStyle: {
+          position: 'absolute', top: '30px', left: '0', width: '260px', padding: '8px', zIndex: 60,
+          ...glassPanel,
+          opacity: isOpen ? 1 : 0,
+          transform: isOpen ? 'translateY(0) scale(1)' : 'translateY(-6px) scale(0.95)',
+          visibility: isOpen ? 'visible' : 'hidden',
+          pointerEvents: isOpen ? 'auto' : 'none',
+          transformOrigin: 'top left',
+          transition: 'opacity 0.25s ease, transform 0.25s ease, visibility 0.25s'
+        },
+        items: list.map((item, i) => {
+          const showFlyout = hoverIdx === i;
+          return {
+            key: item.key,
+            label: item.label,
+            onEnter: () => this.hoverLevel2Item(name, i),
+            rowStyle: {
+              display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '14px',
+              padding: '13px 16px', borderRadius: '5px', cursor: 'pointer',
+              fontFamily: serif, fontSize: '16px', fontWeight: 500,
+              color: showFlyout ? accent : charcoal,
+              background: showFlyout ? 'rgba(156,122,74,0.07)' : 'transparent',
+              borderLeft: showFlyout ? '2px solid ' + accent : '2px solid transparent',
+              transition: 'background 0.3s ease, color 0.3s ease, transform 0.3s ease, border-color 0.3s ease'
+            },
+            showFlyout,
+            chevronStyle: { color: showFlyout ? accent : 'rgba(26,26,26,0.4)', fontSize: '15px', lineHeight: 1, marginLeft: '8px', opacity: showFlyout ? 1 : 0.5, transform: showFlyout ? 'translateX(3px)' : 'translateX(0)', transition: 'transform 0.3s ease, opacity 0.3s ease, color 0.3s ease' },
+            flyoutStyle: {
+              position: 'absolute', top: '0', left: 'calc(100% + 12px)', width: '230px', padding: '8px', zIndex: 61,
+              ...glassPanel,
+              opacity: showFlyout ? 1 : 0,
+              transform: showFlyout ? 'translateX(0)' : 'translateX(8px)',
+              visibility: showFlyout ? 'visible' : 'hidden',
+              pointerEvents: showFlyout ? 'auto' : 'none',
+              transition: 'opacity 0.3s ease, transform 0.3s ease, visibility 0.3s'
+            },
+            children: item.children.map((leaf, li) => {
+              const leafKey = name + '-' + item.key + '-' + li;
+              const leafHov = hk === leafKey;
+              return {
+                ...leaf,
+                onMouseEnter: () => this.setHoverKey(leafKey),
+                onMouseLeave: () => this.clearHoverKey(),
+                rowStyle: { display: 'block', padding: '11px 16px', borderRadius: '5px', color: leafHov ? accent : charcoal, background: leafHov ? 'rgba(156,122,74,0.12)' : 'transparent', fontFamily: sans, fontSize: '13.5px', fontWeight: 400, borderLeft: leafHov ? '2px solid ' + accent : '2px solid transparent', transform: leafHov ? 'translateX(4px)' : 'translateX(0)', transition: 'background 0.25s ease-out, color 0.25s ease-out, transform 0.25s ease-out, border-color 0.25s ease-out' }
+              };
+            }),
+            isMobileExpanded: expandedLevel2Key === item.key,
+            mobileChevron: expandedLevel2Key === item.key ? '\u25B2' : '\u25BC',
+            toggleMobileExpand: () => this.toggleMobileLevel2(name, item.key)
+          };
+        }),
+        isExpandedMobile: !!this.state.mobileExpanded[name],
+        mobileChevron: this.state.mobileExpanded[name] ? '\u25B2' : '\u25BC',
+        toggleMobile: () => this.toggleMobileMegaExpanded(name)
+      };
+    };
+
+    return {
+      pageStyle: { background: ivory, color: charcoal, fontFamily: sans, minHeight: '100vh', position: 'relative' },
+
+      navBarStyle: { position: 'sticky', top: 0, zIndex: 50, background: scrolled ? 'rgba(247,246,243,0.95)' : 'rgba(247,246,243,0.86)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', borderBottom: '1px solid ' + hairline, boxShadow: scrolled ? '0 8px 24px rgba(26,26,26,0.06)' : 'none', transition: 'background 0.35s ease, box-shadow 0.35s ease' },
+      navInnerStyle: { maxWidth: '1320px', margin: '0 auto', padding: navPadV + 'px ' + containerPad + 'px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '32px', transition: 'padding 0.35s ease' },
+      logoLinkStyle: { display: 'flex', flexDirection: 'column', lineHeight: 1, flexShrink: 0 },
+      logoWordStyle: { fontFamily: serif, fontWeight: 600, fontSize: '22px', color: charcoal, letterSpacing: '1px' },
+      logoSubStyle: { fontFamily: sans, fontWeight: 500, fontSize: '9px', color: accent, letterSpacing: '3px', marginTop: '3px' },
+      showNavLinks: !isCompactNav,
+      isCompactNav,
+      navLinksRowStyle: { display: 'flex', alignItems: 'center', gap: '36px', flex: 1, justifyContent: 'center' },
+      navLinkStyle: { fontFamily: sans, fontSize: '12.5px', fontWeight: 500, color: 'rgba(26,26,26,0.75)', textTransform: 'uppercase', letterSpacing: '1.5px', paddingBottom: '4px', backgroundImage: 'linear-gradient(' + accent + ',' + accent + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center bottom', backgroundSize: '0% 1px', transition: 'color 0.3s ease-out, background-size 0.35s ease-out' },
+      navLinkHoverStyle: { color: charcoal, backgroundSize: '100% 1px', opacity: 0.92 },
+      navRightStyle: { display: 'flex', alignItems: 'center', gap: '22px', flexShrink: 0 },
+      showPhone: w >= 1180,
+      phoneStyle: { display: 'flex', alignItems: 'center', gap: '8px', color: muted, fontSize: '13px', whiteSpace: 'nowrap', transition: 'color 0.3s ease' },
+      phoneHoverStyle: { color: accent },
+      phoneDotStyle: { width: '5px', height: '5px', borderRadius: '50%', background: accent, display: 'inline-block' },
+      navCtaStyle: { border: '1px solid ' + charcoal, color: charcoal, padding: '10px 24px', fontSize: '12px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', whiteSpace: 'nowrap', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out' },
+      navCtaHoverStyle: { background: charcoal, color: ivory, boxShadow: '0 10px 22px rgba(26,26,26,0.22)', transform: 'translateY(-1px)' },
+      hamburgerBtnStyle: { background: 'none', border: 'none', width: '30px', height: '26px', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '6px', cursor: 'pointer', padding: 0, flexShrink: 0 },
+      hamburgerLineStyle: { display: 'block', width: '100%', height: '1px', background: charcoal },
+      mobileOpen: this.state.mobileOpen,
+      toggleMobile: () => this.toggleMobile(),
+      mobileMenuStyle: { maxWidth: '1320px', margin: '0 auto', padding: '4px ' + containerPad + 'px 26px', display: 'flex', flexDirection: 'column', gap: '18px' },
+      mobileLinkStyle: { fontFamily: sans, fontSize: '15px', fontWeight: 500, color: charcoal, textTransform: 'uppercase', letterSpacing: '1px' },
+      mobileHairlineStyle: { height: '1px', background: hairline, margin: '4px 0' },
+      mobilePhoneStyle: { fontSize: '14px', color: muted },
+      mobileCtaStyle: { border: '1px solid ' + charcoal, color: charcoal, padding: '12px', textAlign: 'center', fontSize: '13px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase' },
+
+      heroWrapStyle: { position: 'relative', height: heroHeight + 'px', overflow: 'hidden' },
+      heroImgStyle: { width: '100%', height: '130%', transform: 'translateY(' + (-heroParallax) + 'px) scale(1.06)' },
+      heroOverlayStyle: { position: 'absolute', inset: 0, background: 'linear-gradient(100deg, rgba(15,15,15,0.82) 0%, rgba(15,15,15,0.42) 55%, rgba(15,15,15,0.12) 100%)', pointerEvents: 'none' },
+      heroContentWrapStyle: { position: 'absolute', inset: 0, display: 'flex', alignItems: 'flex-end', pointerEvents: 'none' },
+      heroContentInnerStyle: { maxWidth: '1320px', margin: '0 auto', width: '100%', padding: '0 ' + containerPad + 'px', paddingBottom: (isMobile ? 100 : 130) + 'px', ...heroReveal },
+      heroEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '4px', fontSize: '12px', color: accent, fontWeight: 500, marginBottom: '20px' },
+      heroTitleStyle: { fontFamily: serif, fontWeight: 500, color: '#FBFBF9', fontSize: heroTitleSize + 'px', lineHeight: 1.12, margin: '0 0 22px', maxWidth: '780px' },
+      heroSubStyle: { fontFamily: sans, color: 'rgba(251,251,249,0.82)', fontSize: '16px', lineHeight: 1.7, margin: '0 0 34px', maxWidth: '480px', fontWeight: 300 },
+      heroCtaRowStyle: { display: 'flex', gap: '16px', flexWrap: 'wrap', pointerEvents: 'auto' },
+      heroPrimaryBtn: { ...hoverProps('heroPrimary'), style: mergeHover(
+        { background: '#FBFBF9', color: charcoal, padding: '16px 30px', fontSize: '13px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', display: 'inline-block', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out' },
+        { background: accent, color: '#FBFBF9', boxShadow: '0 16px 34px rgba(0,0,0,0.3)', transform: 'translateY(-2px) scale(1.01)' },
+        'heroPrimary'
+      ) },
+      heroSecondaryBtn: { ...hoverProps('heroSecondary'), style: mergeHover(
+        { border: '1px solid rgba(251,251,249,0.6)', color: '#FBFBF9', padding: '16px 30px', fontSize: '13px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', display: 'inline-block', transition: 'background 0.35s ease-out, border-color 0.35s ease-out, transform 0.35s ease-out' },
+        { background: 'rgba(251,251,249,0.14)', borderColor: accent, transform: 'translateY(-2px)' },
+        'heroSecondary'
+      ) },
+
+      aboutWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 96 : 150) + 'px ' + containerPad + 'px 0' },
+      aboutRevealStyle: reveal('rv-about'),
+      aboutHeadGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '24px' : '64px', marginBottom: isMobile ? '48px' : '72px', alignItems: 'start' },
+      aboutTextStyle: { fontFamily: sans, color: muted, fontSize: '15px', lineHeight: 1.8, fontWeight: 300, margin: 0 },
+      statsGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + (isMobile ? 1 : 3) + ', 1fr)', gap: isMobile ? '36px' : '24px', borderTop: '1px solid ' + hairline, borderBottom: '1px solid ' + hairline, padding: (isMobile ? '36px 0' : '48px 0') },
+      displayedStats,
+      statItemStyle: { textAlign: 'center' },
+      statNumberStyle: { fontFamily: serif, fontWeight: 500, fontSize: isMobile ? '46px' : '58px', color: accent, lineHeight: 1, transform: 'scale(' + (0.9 + progress * 0.1) + ')', display: 'inline-block', transition: 'text-shadow 0.4s ease' },
+      statNumberHoverStyle: { textShadow: '0 0 22px rgba(156,122,74,0.55)' },
+      statLabelStyle: { fontFamily: sans, fontSize: '11.5px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px', marginTop: '10px' },
+
+      sectionWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: sectionPadV + 'px ' + containerPad + 'px ' + sectionPadV + 'px' },
+      sectionHeadRevealStyle: reveal('rv-projects-head'),
+      sectionHeadStyle: { maxWidth: '640px', margin: '0 0 ' + (isMobile ? 36 : 48) + 'px' },
+      sectionEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '11.5px', color: accent, fontWeight: 500, marginBottom: '14px' },
+      sectionTitleStyle: { fontFamily: serif, fontWeight: 500, fontSize: sectionTitleSize + 'px', color: charcoal, margin: '0 0 20px', lineHeight: 1.15 },
+      sectionDividerStyle: { width: '48px', height: '2px', margin: '0 0 20px', backgroundImage: 'linear-gradient(90deg, ' + accent + ' 0%, #E8D9BE 25%, ' + accent + ' 50%, #E8D9BE 75%, ' + accent + ' 100%)', backgroundSize: '200% 100%', animation: 'shimmerMove 5s linear infinite' },
+      sectionSubStyle: { fontFamily: sans, color: muted, fontSize: '15px', lineHeight: 1.7, margin: 0, fontWeight: 300 },
+
+      locationTabRowStyle: { display: 'flex', overflowX: 'auto', borderBottom: '1px solid ' + hairline, marginBottom: isMobile ? '36px' : '48px' },
+      locationTabs,
+      hasProjects: projects.length > 0,
+      showEmptyState: projects.length === 0,
+      emptyStateStyle: { fontFamily: sans, color: muted, fontSize: '15px', padding: '40px 0', textAlign: 'center' },
+      projects,
+      onLeaveProject: () => this.setHoveredProject(null),
+      projectGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + projectCols + ', 1fr)', gap: isMobile ? '40px' : '48px' },
+      cardHoverStyle: { transform: 'translateY(-10px)', boxShadow: '0 34px 64px rgba(26,26,26,0.16)' },
+      imgFrameStyle: { position: 'relative', overflow: 'hidden', aspectRatio: '4/5', background: '#EAE8E3' },
+      cardImgStyle: { width: '100%', height: '100%', transition: 'transform 0.7s ' + easeOut },
+      cardImgHoverStyle: { transform: 'scale(1.06)' },
+      captionRowStyle: { display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', padding: '20px 2px 0', borderTop: '1px solid ' + hairline, marginTop: '18px' },
+      cardNameStyle: { fontFamily: serif, fontWeight: 500, fontSize: '22px', color: charcoal, marginBottom: '4px' },
+      cardLocStyle: { fontFamily: sans, fontSize: '11.5px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px' },
+
+      manifestoTransitionStyle: { height: (isMobile ? 70 : 120) + 'px', background: 'linear-gradient(to bottom, ' + ivory + ' 0%, ' + darkBg + ' 100%)' },
+      manifestoSectionStyle: { background: darkBg, padding: (isMobile ? 80 : 140) + 'px ' + containerPad + 'px' },
+      manifestoGridStyle: { maxWidth: '1320px', margin: '0 auto', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1.2fr', gap: isMobile ? '36px' : '80px', alignItems: 'center' },
+      manifestoImgStyle: { width: '100%', aspectRatio: isMobile ? '4/3' : '4/5', background: '#1E1E1E', ...reveal('rv-manifesto', { distance: 20 }) },
+      manifestoEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '11.5px', color: accent, fontWeight: 500, marginBottom: '20px', ...reveal('rv-manifesto', { distance: 14 }) },
+      manifestoQuoteStyle: { fontFamily: serif, fontStyle: 'italic', fontWeight: 500, fontSize: isMobile ? '26px' : '36px', color: '#FBFBF9', lineHeight: 1.35, margin: '0 0 26px' },
+      manifestoLine1Style: { ...reveal('rv-manifesto', { delay: 0.15, distance: 16 }) },
+      manifestoLine2Style: { ...reveal('rv-manifesto', { delay: 0.4, distance: 16 }) },
+      manifestoTextStyle: { fontFamily: sans, color: 'rgba(251,251,249,0.62)', fontSize: '15px', lineHeight: 1.8, fontWeight: 300, margin: '0 0 22px', ...reveal('rv-manifesto', { delay: 0.55, distance: 14 }) },
+      manifestoAttrStyle: { fontFamily: sans, fontSize: '12px', color: 'rgba(251,251,249,0.45)', textTransform: 'uppercase', letterSpacing: '2px', ...reveal('rv-manifesto', { delay: 0.65, distance: 10 }) },
+
+      craftGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + craftCols + ', 1fr)', gap: isMobile ? '24px' : '1px', background: isMobile ? 'transparent' : hairline, border: isMobile ? 'none' : '1px solid ' + hairline },
+      craftItems,
+      craftCardHoverStyle: { background: 'color-mix(in srgb, ' + accent + ' 4%, ' + ivory + ')' },
+      craftIconHoverStyle: { transform: 'scale(1.08)', borderColor: accent },
+      craftTitleStyle: { fontFamily: serif, fontSize: '19px', fontWeight: 500, color: charcoal, marginBottom: '10px' },
+      craftTextStyle: { fontFamily: sans, fontSize: '13.5px', color: muted, lineHeight: 1.7, fontWeight: 300 },
+
+      vipSectionStyle: { borderTop: '1px solid ' + hairline, padding: (isMobile ? 80 : 130) + 'px ' + containerPad + 'px', textAlign: 'center' },
+      vipInnerStyle: { maxWidth: '640px', margin: '0 auto', ...reveal('rv-vip') },
+      vipTitleStyle: { fontFamily: serif, fontSize: isMobile ? '28px' : '40px', fontWeight: 500, color: charcoal, margin: '0 0 18px', lineHeight: 1.2 },
+      vipTextStyle: { fontFamily: sans, color: muted, fontSize: '15px', lineHeight: 1.7, margin: '0 0 34px', fontWeight: 300 },
+      vipBtnRowStyle: { display: 'flex', gap: '24px', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' },
+      vipBtn: { ...hoverProps('vipBtn'), style: mergeHover(
+        { border: '1px solid ' + charcoal, background: 'none', color: charcoal, padding: '16px 34px', fontSize: '13px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', cursor: 'pointer', transition: 'background 0.35s ease-out, color 0.35s ease-out, transform 0.35s ease-out, box-shadow 0.35s ease-out', borderRadius: '2px' },
+        { background: charcoal, color: ivory, transform: 'translateY(-2px) scale(1.01)', boxShadow: '0 14px 30px rgba(26,26,26,0.25)' },
+        'vipBtn'
+      ) },
+      vipSecondaryLink: { ...hoverProps('vipSecondary'), style: mergeHover(
+        { color: muted, fontSize: '13px', letterSpacing: '0.5px', transition: 'color 0.3s ease-out, transform 0.3s ease-out', display: 'inline-block' },
+        { color: accent, transform: 'translateX(3px)' },
+        'vipSecondary'
+      ) },
+
+      footerStyle: { background: '#141412', padding: (isMobile ? 60 : 90) + 'px ' + containerPad + 'px 32px' },
+      footerInnerStyle: { maxWidth: '1320px', margin: '0 auto' },
+      footerTopGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : (isTablet ? '1.4fr 1fr 1fr' : '1.6fr 1fr 1fr'), gap: isMobile ? '40px' : '56px', marginBottom: '52px' },
+      footerLogoStyle: { fontFamily: serif, fontSize: '24px', fontWeight: 500, color: '#F7F6F3', marginBottom: '16px' },
+      footerLogoAccentStyle: { color: accent },
+      footerBlurbStyle: { fontFamily: sans, fontSize: '14px', color: 'rgba(247,246,243,0.55)', lineHeight: 1.7, maxWidth: '320px', fontWeight: 300 },
+      footerColTitleStyle: { fontFamily: sans, fontSize: '11px', color: 'rgba(247,246,243,0.4)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '20px' },
+      footerLinkColStyle: { display: 'flex', flexDirection: 'column', gap: '13px' },
+      footerNavLinks: this.navLinks.map((l, i) => ({ ...l, ...hoverProps('footerNav' + i), style: mergeHover(
+        { fontFamily: sans, fontSize: '14px', color: 'rgba(247,246,243,0.75)', fontWeight: 300, display: 'inline-block', transition: 'color 0.3s ease-out, transform 0.3s ease-out' },
+        { color: accent, transform: 'translateX(3px)' },
+        'footerNav' + i
+      ) })),
+      footerPhoneLink: { ...hoverProps('footerPhone'), style: mergeHover(
+        { fontFamily: sans, fontSize: '14px', color: 'rgba(247,246,243,0.75)', fontWeight: 300, display: 'inline-block', transition: 'color 0.3s ease-out, transform 0.3s ease-out' },
+        { color: accent, transform: 'translateX(3px)' },
+        'footerPhone'
+      ) },
+      footerEmailLink: { ...hoverProps('footerEmail'), style: mergeHover(
+        { fontFamily: sans, fontSize: '14px', color: 'rgba(247,246,243,0.75)', fontWeight: 300, display: 'inline-block', transition: 'color 0.3s ease-out, transform 0.3s ease-out' },
+        { color: accent, transform: 'translateX(3px)' },
+        'footerEmail'
+      ) },
+      footerLinkStyle: { fontFamily: sans, fontSize: '14px', color: 'rgba(247,246,243,0.75)', fontWeight: 300, transition: 'color 0.3s ease' },
+      footerLinkHoverStyle: { color: accent },
+      footerHairlineStyle: { height: '1px', background: 'rgba(247,246,243,0.1)', margin: '0 0 26px' },
+      footerBottomRowStyle: { display: 'flex', flexWrap: 'wrap', gap: '10px', alignItems: 'center', justifyContent: 'space-between' },
+      footerCopyStyle: { color: 'rgba(247,246,243,0.4)', fontSize: '12px', margin: 0 },
+      footerCreditStyle: { color: 'rgba(247,246,243,0.4)', fontSize: '12px', margin: 0 },
+      footerCreditLink: { ...hoverProps('footerCredit'), style: mergeHover(
+        { color: 'rgba(247,246,243,0.65)', display: 'inline-block', transition: 'color 0.3s ease-out, transform 0.3s ease-out' },
+        { color: accent, transform: 'translateX(2px)' },
+        'footerCredit'
+      ) },
+
+      floatingBtn: { ...hoverProps('floatingBtn'), style: mergeHover(
+        { position: 'fixed', bottom: (isMobile ? 18 : 28) + 'px', right: (isMobile ? 18 : 28) + 'px', zIndex: 90, background: this.state.overDark ? '#FBFBF9' : charcoal, color: this.state.overDark ? charcoal : ivory, border: 'none', padding: isMobile ? '14px 20px' : '16px 26px', borderRadius: '999px', fontFamily: sans, fontSize: isMobile ? '11.5px' : '12.5px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', cursor: 'pointer', boxShadow: this.state.overDark ? '0 16px 32px rgba(0,0,0,0.45)' : '0 16px 32px rgba(26,26,26,0.28)', opacity: (modalOpen || !this.state.pastHero || this.state.nearFooter) ? 0 : 1, pointerEvents: (modalOpen || !this.state.pastHero || this.state.nearFooter) ? 'none' : 'auto', transition: 'transform 0.35s ease-out, box-shadow 0.35s ease-out, background 0.35s ease-out, color 0.35s ease-out, opacity 0.3s ease' },
+        { transform: 'translateY(-3px) scale(1.02)', boxShadow: this.state.overDark ? '0 22px 40px rgba(0,0,0,0.5)' : '0 22px 40px rgba(26,26,26,0.36)', background: accent, color: '#FBFBF9' },
+        'floatingBtn'
+      ) },
+
+      showCustomCursor: isDesktop,
+      cursorDotStyle: { position: 'fixed', top: 0, left: 0, width: '18px', height: '18px', borderRadius: '50%', border: '1px solid ' + accent, background: 'rgba(156,122,74,0.35)', pointerEvents: 'none', zIndex: 9999, transform: 'translate(-100px,-100px)', transition: 'width 0.25s ease, height 0.25s ease, background 0.25s ease' },
+
+      modalOpen,
+      openModal: () => this.openModal(),
+      closeModal: () => this.closeModal(),
+      stopClick: (e) => this.stopClick(e),
+      submitForm: (e) => this.submitForm(e),
+      formSubmitted: this.state.formSubmitted,
+      formVisible: !this.state.formSubmitted,
+      overlayStyle: { position: 'fixed', inset: 0, background: 'rgba(15,15,15,0.55)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: containerPad + 'px' },
+      modalCardStyle: { background: '#FBFBF9', borderRadius: '6px', padding: isMobile ? '36px 26px' : '48px 44px', maxWidth: '480px', width: '100%', boxShadow: '0 40px 80px rgba(0,0,0,0.35)', position: 'relative' },
+      modalCloseStyle: { position: 'absolute', top: '18px', right: '18px', background: 'none', border: 'none', fontSize: '22px', color: muted, cursor: 'pointer', lineHeight: 1 },
+      modalEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '11px', color: accent, fontWeight: 500, marginBottom: '12px' },
+      modalTitleStyle: { fontFamily: serif, fontWeight: 500, fontSize: '28px', color: charcoal, margin: '0 0 14px' },
+      modalSubStyle: { fontFamily: sans, fontSize: '14px', color: muted, lineHeight: 1.7, margin: '0 0 26px', fontWeight: 300 },
+      modalFormStyle: { display: 'flex', flexDirection: 'column', gap: '20px' },
+      modalFieldStyle: { display: 'flex', flexDirection: 'column', gap: '8px' },
+      modalLabelStyle: { fontSize: '10.5px', fontWeight: 500, color: muted, textTransform: 'uppercase', letterSpacing: '1.5px' },
+      modalInputStyle: { border: 'none', borderBottom: '1px solid ' + hairline, background: 'transparent', padding: '6px 0 10px', fontFamily: sans, fontSize: '14.5px', color: charcoal, outline: 'none' },
+      modalSubmit: { ...hoverProps('modalSubmit'), style: mergeHover(
+        { background: charcoal, color: ivory, border: 'none', padding: '15px', fontSize: '12.5px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', cursor: 'pointer', borderRadius: '3px', marginTop: '8px', transition: 'background 0.35s ease-out, transform 0.35s ease-out, box-shadow 0.35s ease-out' },
+        { background: accent, transform: 'translateY(-2px)', boxShadow: '0 12px 24px rgba(156,122,74,0.35)' },
+        'modalSubmit'
+      ) },
+
+      navLinks: this.navLinks,
+      secondaryNavLinks,
+      navPonuda: navHover('ponuda'),
+      navReference: navHover('reference'),
+      navKontakt,
+      megaWrapStyle: { position: 'relative' },
+      navMegaWrapStyle: { position: 'relative', display: 'inline-flex', alignItems: 'center' },
+      megaRowHoverStyle: { background: 'rgba(156,122,74,0.09)', color: accent, transform: 'translateX(4px)' },
+      chevronStyle: { color: 'rgba(26,26,26,0.4)', fontSize: '15px', lineHeight: 1, marginLeft: '8px' },
+      leafRowStyle: { display: 'block', padding: '11px 16px', borderRadius: '5px', color: charcoal, fontFamily: sans, fontSize: '13.5px', fontWeight: 400, borderLeft: '2px solid transparent', transition: 'background 0.25s ease, color 0.25s ease, transform 0.25s ease, border-color 0.25s ease' },
+      leafRowHoverStyle: { background: 'rgba(156,122,74,0.12)', color: accent, transform: 'translateX(4px)', borderLeft: '2px solid ' + accent },
+      scheduleCloseMenu: () => this.scheduleCloseMenu(),
+      ponudaMenu: makeMegaMenu('ponuda', this.ponudaItems),
+      referenceMenu: makeMegaMenu('reference', this.referenceItems),
+      mobileAccordionHeadStyle: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', fontFamily: sans, fontSize: '15px', fontWeight: 500, color: charcoal, textTransform: 'uppercase', letterSpacing: '1px' },
+      mobileChevronStyle: { color: muted, fontSize: '11px' },
+      mobileAccordionBodyStyle: { display: 'flex', flexDirection: 'column', gap: '4px', padding: '14px 0 6px 12px' },
+      mobileLevel2HeadStyle: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '9px 0', cursor: 'pointer', fontFamily: serif, fontSize: '15px', fontWeight: 500, color: charcoal },
+      mobileChevronSmallStyle: { color: muted, fontSize: '10px' },
+      mobileLevel3BodyStyle: { display: 'flex', flexDirection: 'column', gap: '9px', padding: '2px 0 12px 14px' },
+      mobileLevel3LinkStyle: { color: muted, fontSize: '13.5px', fontFamily: sans }
+    };
+  }
+}
+</script>
+</body>
+</html>
