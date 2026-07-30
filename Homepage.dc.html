@@ -163,8 +163,7 @@
   </div>
 
   <div style="{{ heroWrapStyle }}">
-    <video id="lux-hero" src="https://res.cloudinary.com/keexypxe/video/upload/v1785433756/video_hukvfh.mp4" autoPlay="{{ true }}" muted="{{ true }}" playsInline="{{ true }}" preload="auto" style="{{ heroImgStyle }}"></video>
-      <div style="{{ heroOverlayStyle }}"></div>
+    <img id="lux-hero" src="./uploads/hero_loop.webp" alt="KIPS Gradnja Hero" style="{{ heroImgStyle }}">      <div style="{{ heroOverlayStyle }}"></div>
     </sc-if>
     <div style="{{ heroContentWrapStyle }}">
       <div style="{{ heroContentInnerStyle }}">
@@ -475,27 +474,6 @@ class Component extends DCLogic {
       });
       this.startStatsCount();
     }, 2500);
-    this._heroTimer = setTimeout(() => this.setState({ heroRevealed: true }), 120);
-    const heroVideo = document.getElementById('lux-hero');
-    if (heroVideo) {
-      heroVideo.muted = true;
-      heroVideo.defaultMuted = true;
-      heroVideo.setAttribute('muted', '');
-      heroVideo.setAttribute('playsinline', '');
-      heroVideo.setAttribute('webkit-playsinline', 'true');
-
-      heroVideo.addEventListener('ended', () => {
-        heroVideo.currentTime = 0.01;
-        heroVideo.play().catch(() => {});
-      });
-
-      const tryPlay = () => heroVideo.play().catch(() => {});
-      tryPlay();
-      heroVideo.addEventListener('loadedmetadata', tryPlay);
-      heroVideo.addEventListener('canplay', tryPlay);
-      this._onFirstTouch = () => { tryPlay(); window.removeEventListener('touchstart', this._onFirstTouch); };
-      window.addEventListener('touchstart', this._onFirstTouch, { passive: true, once: true });
-    }
 
     const fine = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(pointer:fine)').matches;
     if (fine) {
