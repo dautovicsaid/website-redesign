@@ -10,7 +10,7 @@
 <helmet>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&display=swap" rel="stylesheet">
   <script src="./image-slot.js"></script>
   <style>
     html{scroll-behavior:smooth;}
@@ -87,7 +87,7 @@
       <sc-if value="{{ showNavLinks }}" hint-placeholder-val="{{ true }}">
         <div style="{{ navRightStyle }}">
           <sc-if value="{{ showPhone }}" hint-placeholder-val="{{ true }}">
-            <a href="tel:+38267134134" style="{{ phoneStyle }}" style-hover="{{ phoneHoverStyle }}">
+            <a href="tel:+38267134134" onMouseEnter="{{ navPhone.onMouseEnter }}" onMouseLeave="{{ navPhone.onMouseLeave }}" style="{{ navPhone.style }}">
               <span style="{{ phoneDotStyle }}"></span><span>+382 67 134 134</span>
             </a>
           </sc-if>
@@ -436,7 +436,9 @@ class Component extends DCLogic {
           const r = manifesto.getBoundingClientRect();
           if (btnPoint.y >= r.top && btnPoint.y <= r.bottom) overDark = true;
         }
-        this.setState({ scrolled: window.scrollY > 40, pastHero: window.scrollY > (window.innerHeight * 0.6), scrollY: window.scrollY, nearFooter: nearBottom, overDark });
+        const projectsGrid = document.getElementById('rv-projects-grid');
+        const pastProjects = projectsGrid ? projectsGrid.getBoundingClientRect().bottom < window.innerHeight : window.scrollY > (window.innerHeight * 0.6);
+        this.setState({ scrolled: window.scrollY > 40, pastHero: pastProjects, scrollY: window.scrollY, nearFooter: nearBottom, overDark });
         this._scrollTicking = false;
       });
     };
@@ -546,13 +548,13 @@ class Component extends DCLogic {
     const navPadV = scrolled ? (isMobile ? 10 : 12) : (isMobile ? 16 : 22);
     const sectionPadV = isMobile ? 36 : (isTablet ? 108 : 150);
     const heroHeight = isMobile ? 360 : (isTablet ? 700 : 840);
-    const heroTitleSize = isMobile ? 28 : (isTablet ? 48 : 66);
-    const sectionTitleSize = isMobile ? 26 : (isTablet ? 38 : 46);
+    const heroTitleSize = isMobile ? 34 : (isTablet ? 52 : 64);
+    const sectionTitleSize = isMobile ? 28 : (isTablet ? 40 : 44);
     const projectCols = isMobile ? 1 : (isTablet ? 2 : 3);
     const craftCols = isMobile ? 1 : (isTablet ? 2 : 4);
 
-    const serif = "'Cormorant Garamond', serif";
-    const sans = "'Jost', sans-serif";
+    const serif = "'Fraunces', serif";
+    const sans = "'Fraunces', serif";
     const easeOut = 'cubic-bezier(0.16,1,0.3,1)';
     const hk = this.state.hoverKey;
     const hoverProps = (key) => ({ onMouseEnter: () => this.setHoverKey(key), onMouseLeave: () => this.clearHoverKey() });
@@ -618,13 +620,13 @@ class Component extends DCLogic {
     const navHover = (key, extra) => ({
       onMouseEnter: () => this.setState({ hoveredNav: key }),
       onMouseLeave: () => this.setState({ hoveredNav: null }),
-      style: { fontFamily: sans, fontSize: '12.5px', fontWeight: 500, color: hoveredNav === key ? charcoal : 'rgba(26,26,26,0.75)', textTransform: 'uppercase', letterSpacing: '1.5px', paddingBottom: '4px', borderBottom: hoveredNav === key ? '1px solid ' + accent : '1px solid transparent', transition: 'color 0.3s ease-out, border-color 0.3s ease-out', ...(extra || {}) }
+      style: { fontFamily: sans, fontSize: '14px', fontWeight: 500, color: hoveredNav === key ? charcoal : 'rgba(26,26,26,0.75)', textTransform: 'uppercase', letterSpacing: '1.5px', paddingBottom: '4px', borderBottom: hoveredNav === key ? '1px solid ' + accent : '1px solid transparent', transition: 'color 0.3s ease-out, border-color 0.3s ease-out', ...(extra || {}) }
     });
     const secondaryNavLinks = this.secondaryNavLinksData.map((l, i) => ({ ...l, ...navHover('sec' + i) }));
     const navKontakt = {
       onMouseEnter: () => this.setState({ hoveredNav: 'kontakt' }),
       onMouseLeave: () => this.setState({ hoveredNav: null }),
-      style: { border: '1px solid ' + charcoal, color: hoveredNav === 'kontakt' ? ivory : charcoal, background: hoveredNav === 'kontakt' ? charcoal : 'none', padding: '10px 24px', fontSize: '12px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', whiteSpace: 'nowrap', transform: hoveredNav === 'kontakt' ? 'translateY(-1px)' : 'translateY(0)', boxShadow: hoveredNav === 'kontakt' ? '0 10px 22px rgba(26,26,26,0.22)' : 'none', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out' }
+      style: { border: '1px solid ' + charcoal, color: hoveredNav === 'kontakt' ? ivory : charcoal, background: hoveredNav === 'kontakt' ? charcoal : 'none', padding: '10px 24px', fontSize: '14px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', whiteSpace: 'nowrap', transform: hoveredNav === 'kontakt' ? 'translateY(-1px)' : 'translateY(0)', boxShadow: hoveredNav === 'kontakt' ? '0 10px 22px rgba(26,26,26,0.22)' : 'none', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out' }
     };
 
     const modalOpen = this.state.modalOpen;
@@ -714,14 +716,13 @@ class Component extends DCLogic {
       showNavLinks: !isCompactNav,
       isCompactNav,
       navLinksRowStyle: { display: 'flex', alignItems: 'center', gap: '36px', flex: 1, justifyContent: 'center' },
-      navLinkStyle: { fontFamily: sans, fontSize: '12.5px', fontWeight: 500, color: 'rgba(26,26,26,0.75)', textTransform: 'uppercase', letterSpacing: '1.5px', paddingBottom: '4px', backgroundImage: 'linear-gradient(' + accent + ',' + accent + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center bottom', backgroundSize: '0% 1px', transition: 'color 0.3s ease-out, background-size 0.35s ease-out' },
+      navLinkStyle: { fontFamily: sans, fontSize: '14px', fontWeight: 500, color: 'rgba(26,26,26,0.75)', textTransform: 'uppercase', letterSpacing: '1.5px', paddingBottom: '4px', backgroundImage: 'linear-gradient(' + accent + ',' + accent + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center bottom', backgroundSize: '0% 1px', transition: 'color 0.3s ease-out, background-size 0.35s ease-out' },
       navLinkHoverStyle: { color: charcoal, backgroundSize: '100% 1px', opacity: 0.92 },
       navRightStyle: { display: 'flex', alignItems: 'center', gap: '22px', flexShrink: 0 },
       showPhone: w >= 1180,
-      phoneStyle: { display: 'flex', alignItems: 'center', gap: '8px', color: muted, fontSize: '13px', whiteSpace: 'nowrap', transition: 'color 0.3s ease' },
-      phoneHoverStyle: { color: accent },
+      navPhone: navHover('phone', { display: 'flex', alignItems: 'center', gap: '8px', paddingBottom: '4px' }),
       phoneDotStyle: { width: '5px', height: '5px', borderRadius: '50%', background: accent, display: 'inline-block' },
-      navCtaStyle: { border: '1px solid ' + charcoal, color: charcoal, padding: '10px 24px', fontSize: '12px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', whiteSpace: 'nowrap', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out' },
+      navCtaStyle: { border: '1px solid ' + charcoal, color: charcoal, padding: '10px 24px', fontSize: '14px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', whiteSpace: 'nowrap', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out' },
       navCtaHoverStyle: { background: charcoal, color: ivory, boxShadow: '0 10px 22px rgba(26,26,26,0.22)', transform: 'translateY(-1px)' },
       hamburgerBtnStyle: { background: 'none', border: 'none', width: '30px', height: '22px', position: 'relative', cursor: 'pointer', padding: 0, flexShrink: 0 },
       hamburgerLine1Style: { position: 'absolute', left: 0, top: this.state.mobileOpen ? '10px' : '2px', width: '100%', height: '1.5px', background: charcoal, transformOrigin: 'center', transform: this.state.mobileOpen ? 'rotate(45deg)' : 'rotate(0deg)', transition: 'top 0.3s ease-in-out, transform 0.3s ease-in-out' },
@@ -749,11 +750,11 @@ class Component extends DCLogic {
       mobileItemReveal1: mobileItemRevealFn(1),
       mobileItemReveal4: mobileItemRevealFn(2 + this.secondaryNavLinksData.length),
       secondaryNavLinksMobile: this.secondaryNavLinksData.map((l, i) => ({ ...l, revealStyle: mobileItemRevealFn(2 + i) })),
-      mobileLinkStyle: { fontFamily: sans, fontSize: '15px', fontWeight: 500, color: '#FBFBF9', textTransform: 'uppercase', letterSpacing: '1px', display: 'block', padding: '10px 4px', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease' },
+      mobileLinkStyle: { fontFamily: sans, fontSize: '16px', fontWeight: 500, color: '#FBFBF9', textTransform: 'uppercase', letterSpacing: '1px', display: 'block', padding: '10px 4px', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease' },
       mobileHairlineStyle: { height: '1px', background: 'rgba(251,251,249,0.14)', margin: '4px 0' },
       mobileBottomRowStyle: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', padding: '4px' },
-      mobilePhoneStyle: { fontSize: '14px', color: 'rgba(251,251,249,0.75)', fontWeight: 500, borderRadius: '4px', transition: 'transform 0.2s ease, color 0.2s ease', whiteSpace: 'nowrap' },
-      mobileCtaStyle: { border: '1px solid rgba(251,251,249,0.6)', color: '#FBFBF9', padding: '11px 22px', textAlign: 'center', fontSize: '13px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease', flexShrink: 0 },
+      mobilePhoneStyle: { fontFamily: sans, fontSize: '15px', color: 'rgba(251,251,249,0.75)', fontWeight: 500, borderRadius: '4px', transition: 'transform 0.2s ease, color 0.2s ease', whiteSpace: 'nowrap' },
+      mobileCtaStyle: { border: '1px solid rgba(251,251,249,0.6)', color: '#FBFBF9', padding: '11px 22px', textAlign: 'center', fontSize: '14px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease', flexShrink: 0 },
 
       heroWrapStyle: isHeroMobile
         ? { position: 'relative', overflow: 'hidden', aspectRatio: '3/4' }
@@ -768,7 +769,7 @@ class Component extends DCLogic {
         ? { width: '100%', padding: '0 ' + containerPad + 'px', paddingBottom: '20px', ...heroReveal }
         : { maxWidth: '1320px', margin: '0 auto', width: '100%', padding: '0 ' + containerPad + 'px', paddingBottom: '130px', ...heroReveal },
       heroEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '4px', fontSize: '12px', color: accent, fontWeight: 500, marginBottom: '20px' },
-      heroTitleStyle: { fontFamily: serif, fontWeight: 500, color: '#FBFBF9', fontSize: (isHeroMobile ? 26 : heroTitleSize) + 'px', lineHeight: 1.15, margin: 0, maxWidth: '780px' },
+      heroTitleStyle: { fontFamily: serif, fontWeight: 500, color: '#FBFBF9', fontSize: (isHeroMobile ? 34 : heroTitleSize) + 'px', lineHeight: 1.15, margin: 0, maxWidth: '780px' },
       showHeroSubtext: !isHeroMobile,
       heroSubStyle: { fontFamily: sans, color: 'rgba(251,251,249,0.82)', fontSize: (isHeroMobile ? 14 : 16) + 'px', lineHeight: 1.7, margin: '0 0 34px', maxWidth: '480px', fontWeight: 300 },
       heroCtaRowStyle: { display: 'flex', gap: '16px', flexWrap: 'wrap', pointerEvents: 'auto' },
@@ -786,19 +787,19 @@ class Component extends DCLogic {
       aboutWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 48 : 150) + 'px ' + (isMobile ? 32 : 80) + 'px'},
       aboutRevealStyle: reveal('rv-about'),
       aboutHeadGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '24px' : '64px', marginBottom: isMobile ? '48px' : '72px', alignItems: 'start' },
-      aboutTextStyle: { fontFamily: sans, color: muted, fontSize: '15px', lineHeight: 1.8, fontWeight: 300, margin: 0 },
+      aboutTextStyle: { fontFamily: sans, color: muted, fontSize: (isMobile ? 16 : 18) + 'px', lineHeight: 1.8, fontWeight: 400, margin: 0 },
       statsGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + (isMobile ? 1 : 3) + ', 1fr)', gap: isMobile ? '36px' : '24px', borderTop: '1px solid ' + hairline, borderBottom: '1px solid ' + hairline, padding: (isMobile ? '36px 0' : '48px 0') },
       displayedStats,
       statItemStyle: { textAlign: 'center' },
       statNumberStyle: { fontFamily: serif, fontWeight: 500, fontSize: isMobile ? '46px' : '58px', color: accent, lineHeight: 1, transform: 'scale(' + (0.9 + progress * 0.1) + ')', display: 'inline-block', transition: 'text-shadow 0.4s ease' },
       statNumberHoverStyle: { textShadow: '0 0 22px rgba(156,122,74,0.55)' },
-      statLabelStyle: { fontFamily: sans, fontSize: '11.5px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px', marginTop: '10px' },
+      statLabelStyle: { fontFamily: sans, fontSize: '12px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px', marginTop: '10px' },
 
       sectionWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: sectionPadV + 'px ' + containerPad + 'px ' + sectionPadV + 'px' },
       section2WrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '36px'  + ' ' + containerPad + 'px 0' },
       sectionHeadRevealStyle: reveal('rv-projects-head'),
       sectionHeadStyle: { maxWidth: '640px', margin: '0 0 ' + (isMobile ? 24 : 36) + 'px' },
-      sectionEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '11.5px', color: accent, fontWeight: 500, marginBottom: '14px' },
+      sectionEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '12px', color: accent, fontWeight: 500, marginBottom: '14px' },
       sectionTitleStyle: { fontFamily: serif, fontWeight: 500, fontSize: sectionTitleSize + 'px', color: charcoal, margin: '0 0 20px', lineHeight: 1.15 },
       sectionDividerStyle: { width: '48px', height: '2px', margin: '0 0 20px', backgroundImage: 'linear-gradient(90deg, ' + accent + ' 0%, #E8D9BE 25%, ' + accent + ' 50%, #E8D9BE 75%, ' + accent + ' 100%)', backgroundSize: '200% 100%', animation: 'shimmerMove 5s linear infinite' },
       sectionSubStyle: { fontFamily: sans, color: muted, fontSize: '15px', lineHeight: 1.7, margin: 0, fontWeight: 300 },
@@ -817,7 +818,7 @@ class Component extends DCLogic {
       cardImgHoverStyle: { transform: 'scale(1.06)' },
       captionRowStyle: { display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', padding: '20px 2px 0', borderTop: '1px solid ' + hairline, marginTop: '18px' },
       cardNameStyle: { fontFamily: serif, fontWeight: 500, fontSize: '22px', color: charcoal, marginBottom: '4px' },
-      cardLocStyle: { fontFamily: sans, fontSize: '11.5px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px' },
+      cardLocStyle: { fontFamily: sans, fontSize: '12px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px' },
 
       manifestoTransitionStyle: { height: (isMobile ? 70 : 120) + 'px', background: 'linear-gradient(to bottom, ' + ivory + ' 0%, ' + darkBg + ' 100%)' },
       manifestoSectionStyle: { background: darkBg, padding: (isMobile ? 80 : 140) + 'px ' + containerPad + 'px' },
@@ -827,7 +828,7 @@ class Component extends DCLogic {
       manifestoQuoteStyle: { fontFamily: serif, fontStyle: 'italic', fontWeight: 500, fontSize: isMobile ? '26px' : '36px', color: '#FBFBF9', lineHeight: 1.35, margin: '0 0 26px' },
       manifestoLine1Style: { ...reveal('rv-manifesto', { delay: 0.15, distance: 16 }) },
       manifestoLine2Style: { ...reveal('rv-manifesto', { delay: 0.4, distance: 16 }) },
-      manifestoTextStyle: { fontFamily: sans, color: 'rgba(251,251,249,0.62)', fontSize: '15px', lineHeight: 1.8, fontWeight: 300, margin: '0 0 22px', ...reveal('rv-manifesto', { delay: 0.55, distance: 14 }) },
+      manifestoTextStyle: { fontFamily: sans, color: 'rgba(251,251,249,0.62)', fontSize: (isMobile ? 16 : 18) + 'px', lineHeight: 1.8, fontWeight: 400, margin: '0 0 22px', ...reveal('rv-manifesto', { delay: 0.55, distance: 14 }) },
       manifestoAttrStyle: { fontFamily: sans, fontSize: '12px', color: 'rgba(251,251,249,0.45)', textTransform: 'uppercase', letterSpacing: '2px', ...reveal('rv-manifesto', { delay: 0.65, distance: 10 }) },
 
       craftGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + craftCols + ', 1fr)', gap: isMobile ? '24px' : '1px', background: isMobile ? 'transparent' : hairline, border: isMobile ? 'none' : '1px solid ' + hairline },
@@ -835,12 +836,12 @@ class Component extends DCLogic {
       craftCardHoverStyle: { background: 'color-mix(in srgb, ' + accent + ' 4%, ' + ivory + ')' },
       craftIconHoverStyle: { transform: 'scale(1.08)', borderColor: accent },
       craftTitleStyle: { fontFamily: serif, fontSize: '19px', fontWeight: 500, color: charcoal, marginBottom: '10px' },
-      craftTextStyle: { fontFamily: sans, fontSize: '13.5px', color: muted, lineHeight: 1.7, fontWeight: 300 },
+      craftTextStyle: { fontFamily: sans, fontSize: '15px', color: muted, lineHeight: 1.7, fontWeight: 400 },
 
       vipSectionStyle: { borderTop: '1px solid ' + hairline, padding: (isMobile ? 80 : 130) + 'px ' + containerPad + 'px', textAlign: 'center' },
       vipInnerStyle: { maxWidth: '640px', margin: '0 auto', ...reveal('rv-vip') },
       vipTitleStyle: { fontFamily: serif, fontSize: isMobile ? '28px' : '40px', fontWeight: 500, color: charcoal, margin: '0 0 18px', lineHeight: 1.2 },
-      vipTextStyle: { fontFamily: sans, color: muted, fontSize: '15px', lineHeight: 1.7, margin: '0 0 34px', fontWeight: 300 },
+      vipTextStyle: { fontFamily: sans, color: muted, fontSize: (isMobile ? 16 : 18) + 'px', lineHeight: 1.7, margin: '0 0 34px', fontWeight: 400 },
       vipBtnRowStyle: { display: 'flex', gap: '24px', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' },
       vipBtn: { ...hoverProps('vipBtn'), style: mergeHover(
         { border: '1px solid ' + charcoal, background: 'none', color: charcoal, padding: '16px 34px', fontSize: '13px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', cursor: 'pointer', transition: 'background 0.35s ease-out, color 0.35s ease-out, transform 0.35s ease-out, box-shadow 0.35s ease-out', borderRadius: '2px' },
@@ -858,7 +859,7 @@ class Component extends DCLogic {
       footerTopGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : (isTablet ? '1.4fr 1fr 1fr' : '1.6fr 1fr 1fr'), gap: isMobile ? '40px' : '56px', marginBottom: '52px' },
       footerLogoStyle: { fontFamily: serif, fontSize: '24px', fontWeight: 500, color: '#F7F6F3', marginBottom: '16px' },
       footerLogoAccentStyle: { color: accent },
-      footerBlurbStyle: { fontFamily: sans, fontSize: '14px', color: 'rgba(247,246,243,0.55)', lineHeight: 1.7, maxWidth: '320px', fontWeight: 300 },
+      footerBlurbStyle: { fontFamily: sans, fontSize: '15px', color: 'rgba(247,246,243,0.55)', lineHeight: 1.7, maxWidth: '320px', fontWeight: 400 },
       footerColTitleStyle: { fontFamily: sans, fontSize: '11px', color: 'rgba(247,246,243,0.4)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '20px' },
       footerLinkColStyle: { display: 'flex', flexDirection: 'column', gap: '13px' },
       footerNavLinks: this.navLinks.map((l, i) => ({ ...l, ...hoverProps('footerNav' + i), style: mergeHover(
@@ -909,7 +910,7 @@ class Component extends DCLogic {
       modalCloseStyle: { position: 'absolute', top: '18px', right: '18px', background: 'none', border: 'none', fontSize: '22px', color: muted, cursor: 'pointer', lineHeight: 1 },
       modalEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '11px', color: accent, fontWeight: 500, marginBottom: '12px' },
       modalTitleStyle: { fontFamily: serif, fontWeight: 500, fontSize: '28px', color: charcoal, margin: '0 0 14px' },
-      modalSubStyle: { fontFamily: sans, fontSize: '14px', color: muted, lineHeight: 1.7, margin: '0 0 26px', fontWeight: 300 },
+      modalSubStyle: { fontFamily: sans, fontSize: '15px', color: muted, lineHeight: 1.7, margin: '0 0 26px', fontWeight: 400 },
       modalFormStyle: { display: 'flex', flexDirection: 'column', gap: '20px' },
       modalFieldStyle: { display: 'flex', flexDirection: 'column', gap: '8px' },
       modalLabelStyle: { fontSize: '10.5px', fontWeight: 500, color: muted, textTransform: 'uppercase', letterSpacing: '1.5px' },
