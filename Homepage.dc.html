@@ -844,7 +844,7 @@ class Component extends DCLogic {
       vipTextStyle: { fontFamily: sans, color: muted, fontSize: (isMobile ? 16 : 18) + 'px', lineHeight: 1.7, margin: '0 0 34px', fontWeight: 400 },
       vipBtnRowStyle: { display: 'flex', gap: '24px', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' },
       vipBtn: { ...hoverProps('vipBtn'), style: mergeHover(
-        { border: '1px solid ' + charcoal, background: 'none', color: charcoal, padding: '16px 34px', fontSize: '13px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', cursor: 'pointer', transition: 'background 0.35s ease-out, color 0.35s ease-out, transform 0.35s ease-out, box-shadow 0.35s ease-out', borderRadius: '2px' },
+        { fontFamily: sans, border: '1px solid ' + charcoal, background: 'none', color: charcoal, padding: '16px 34px', fontSize: '13px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', cursor: 'pointer', transition: 'background 0.35s ease-out, color 0.35s ease-out, transform 0.35s ease-out, box-shadow 0.35s ease-out', borderRadius: '2px' },
         { background: charcoal, color: ivory, transform: 'translateY(-2px) scale(1.01)', boxShadow: '0 14px 30px rgba(26,26,26,0.25)' },
         'vipBtn'
       ) },
