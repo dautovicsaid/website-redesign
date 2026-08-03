@@ -3,41 +3,38 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<script src="../support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
-  <script src="./image-slot.js"></script>
-  <style>
-    html{scroll-behavior:smooth;}
-    body{margin:0;background:#F7F6F3;-webkit-font-smoothing:antialiased;}
-    a{color:#9C7A4A;text-decoration:none;}
-    a:hover{color:#7E623B;}
-    select{-webkit-appearance:none;appearance:none;}
-    input::placeholder{color:rgba(26,26,26,0.35);}
-    @keyframes shimmerMove{0%{background-position:0% 50%;}100%{background-position:200% 50%;}}
-    @keyframes ctaPulseGlow{0%{box-shadow:0 0 0 0 rgba(156,122,74,0.45);}70%{box-shadow:0 0 0 14px rgba(156,122,74,0);}}
-
-
-    image-slot {
-      pointer-events: none;
-    }
-  </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="../image-slot.js"></script>
+<style>
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:#F7F6F3;-webkit-font-smoothing:antialiased;}
+  a{color:#9C7A4A;text-decoration:none;}
+  a:hover{color:#7E623B;}
+  select{-webkit-appearance:none;appearance:none;}
+  input::placeholder{color:rgba(26,26,26,0.35);}
+  @keyframes shimmerMove{0%{background-position:0% 50%;}100%{background-position:200% 50%;}}
+  @keyframes ctaPulseGlow{0%{box-shadow:0 0 0 0 rgba(156,122,74,0.45);}70%{box-shadow:0 0 0 14px rgba(156,122,74,0);}100%{box-shadow:0 0 0 0 rgba(156,122,74,0);}}
+</style>
 </helmet>
 <div style="{{ pageStyle }}">
 
   <div style="{{ navBarStyle }}">
     <div style="{{ navInnerStyle }}">
-      <a href="./Homepage.dc.html"><img src="assets/kips-logo-luxury.png" alt="KIPS Gradnja" style="height:30px;width:auto;flex-shrink:0;display:block;"></a>
-
+      <a href="Homepage.dc.html" style="{{ logoLinkStyle }}">
+        <div style="{{ logoWordStyle }}">KIPS</div>
+        <div style="{{ logoSubStyle }}">GRADNJA</div>
+      </a>
       <sc-if value="{{ showNavLinks }}" hint-placeholder-val="{{ true }}">
         <nav style="{{ navLinksRowStyle }}">
           <div style="{{ navMegaWrapStyle }}" onMouseEnter="{{ ponudaMenu.open }}" onMouseLeave="{{ scheduleCloseMenu }}">
-            <a href="./Ponuda Stanova Page.dc.html" onMouseEnter="{{ navPonuda.onMouseEnter }}" onMouseLeave="{{ navPonuda.onMouseLeave }}" style="{{ navPonuda.style }}">Ponuda stanova</a>
+            <a href="../Ponuda%20Stanova%20Page.dc.html" onMouseEnter="{{ navPonuda.onMouseEnter }}" onMouseLeave="{{ navPonuda.onMouseLeave }}" style="{{ navPonuda.style }}">Ponuda stanova</a>
             <div style="{{ ponudaMenu.panelStyle }}">
               <sc-for list="{{ ponudaMenu.items }}" as="lvl2" hint-placeholder-count="3">
                 <div style="{{ megaWrapStyle }}" onMouseEnter="{{ lvl2.onEnter }}">
@@ -57,7 +54,7 @@
             </div>
           </div>
           <div style="{{ navMegaWrapStyle }}" onMouseEnter="{{ referenceMenu.open }}" onMouseLeave="{{ scheduleCloseMenu }}">
-            <a href="./Reference Page.dc.html" onMouseEnter="{{ navReference.onMouseEnter }}" onMouseLeave="{{ navReference.onMouseLeave }}" style="{{ navReference.style }}">Reference</a>
+            <a href="../Reference%20Page.dc.html" onMouseEnter="{{ navReference.onMouseEnter }}" onMouseLeave="{{ navReference.onMouseLeave }}" style="{{ navReference.style }}">Reference</a>
             <div style="{{ referenceMenu.panelStyle }}">
               <sc-for list="{{ referenceMenu.items }}" as="lvl2" hint-placeholder-count="1">
                 <div style="{{ megaWrapStyle }}" onMouseEnter="{{ lvl2.onEnter }}">
@@ -84,11 +81,11 @@
       <sc-if value="{{ showNavLinks }}" hint-placeholder-val="{{ true }}">
         <div style="{{ navRightStyle }}">
           <sc-if value="{{ showPhone }}" hint-placeholder-val="{{ true }}">
-            <a href="tel:+38267134134" onMouseEnter="{{ navPhone.onMouseEnter }}" onMouseLeave="{{ navPhone.onMouseLeave }}" style="{{ navPhone.style }}">
+            <a href="tel:+38267134134" style="{{ phoneStyle }}" style-hover="{{ phoneHoverStyle }}">
               <span style="{{ phoneDotStyle }}"></span><span>+382 67 134 134</span>
             </a>
           </sc-if>
-          <a href="./Contact Page.dc.html" onMouseEnter="{{ navKontakt.onMouseEnter }}" onMouseLeave="{{ navKontakt.onMouseLeave }}" style="{{ navKontakt.style }}">Kontakt</a>
+          <a href="Contact%20Page.dc.html" onMouseEnter="{{ navKontakt.onMouseEnter }}" onMouseLeave="{{ navKontakt.onMouseLeave }}" style="{{ navKontakt.style }}">Kontakt</a>
         </div>
       </sc-if>
       <sc-if value="{{ isCompactNav }}" hint-placeholder-val="{{ false }}">
@@ -150,36 +147,58 @@
           <div style="{{ mobileHairlineStyle }}"></div>
           <div style="{{ mobileBottomRowStyle }}">
             <a href="tel:+38267134134" style="{{ mobilePhoneStyle }}" style-active="{{ touchActiveStyle }}">+382 67 134 134</a>
-            <a href="./Contact Page.dc.html" style="{{ mobileCtaStyle }}" style-active="{{ touchActiveStyle }}">Kontakt</a>
+            <a href="Contact%20Page.dc.html" style="{{ mobileCtaStyle }}" style-active="{{ touchActiveStyle }}">Kontakt</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-<!--  <div style="{{ heroWrapStyle }}">
-    <video id="lux-hero" src="https://res.cloudinary.com/keexypxe/video/upload/v1785433756/video_hukvfh.mp4" autoPlay="{{ true }}" muted="{{ true }}" playsInline="{{ true }}" preload="auto" style="{{ heroImgStyle }}"></video>
-    <div style="{{ heroOverlayStyle }}"></div>
+  <div style="{{ heroWrapStyle }}">
+    <video id="lux-hero" src="./uploads/dreamina-2026-07-30-6033-A_dramatic_dolly_zoom_vertigo_effect_o....mp4" autoPlay="{{ true }}" muted="{{ true }}" playsInline="{{ true }}" preload="auto" style="{{ heroImgStyle }}"></video>
+    <sc-if value="{{ showHeroOverlay }}" hint-placeholder-val="{{ true }}">
+      <div style="{{ heroOverlayStyle }}"></div>
+    </sc-if>
     <div style="{{ heroContentWrapStyle }}">
       <div style="{{ heroContentInnerStyle }}">
         <sc-if value="{{ showHeroSubtext }}" hint-placeholder-val="{{ true }}">
           <div style="{{ heroEyebrowStyle }}">KIPS GRADNJA &middot; INVESTICIJE &amp; RAZVOJ NEKRETNINA</div>
         </sc-if>
         <h1 style="{{ heroTitleStyle }}">Oblikujemo prostore budu&#263;nosti</h1>
-        <sc-if value="{{ true }}" hint-placeholder-val="{{ true }}">
+        <sc-if value="{{ showHeroSubtext }}" hint-placeholder-val="{{ true }}">
           <p style="{{ heroSubStyle }}">Arhitektonska izvrsnost i moderan na&#269;in &#382;ivota &mdash; kompanija koja gradi sa vizijom, pouzdano&scaron;&#263;u i posve&#263;eno&scaron;&#263;u detalju.</p>
         </sc-if>
         <sc-if value="{{ showHeroSubtext }}" hint-placeholder-val="{{ true }}">
           <div style="{{ heroCtaRowStyle }}">
             <a href="#projekti" onMouseEnter="{{ heroPrimaryBtn.onMouseEnter }}" onMouseLeave="{{ heroPrimaryBtn.onMouseLeave }}" style="{{ heroPrimaryBtn.style }}">Istra&#382;ite portfolio</a>
-            <a href="./Contact Page.dc.html" onMouseEnter="{{ heroSecondaryBtn.onMouseEnter }}" onMouseLeave="{{ heroSecondaryBtn.onMouseLeave }}" style="{{ heroSecondaryBtn.style }}">Kontaktirajte nas</a>
+            <a href="Contact%20Page.dc.html" onMouseEnter="{{ heroSecondaryBtn.onMouseEnter }}" onMouseLeave="{{ heroSecondaryBtn.onMouseLeave }}" style="{{ heroSecondaryBtn.style }}">Kontaktirajte nas</a>
           </div>
         </sc-if>
       </div>
     </div>
-  </div>-->
+  </div>
 
-  <div id="projekti" style="{{ section2WrapStyle }}">
+  <div id="rv-about" style="{{ aboutWrapStyle }}">
+    <div style="{{ aboutRevealStyle }}">
+      <div style="{{ aboutHeadGridStyle }}">
+        <div>
+          <div style="{{ sectionEyebrowStyle }}">O kompaniji</div>
+          <div style="{{ sectionTitleStyle }}">Graditeljstvu pristupamo kao umjetnosti</div>
+        </div>
+        <p style="{{ aboutTextStyle }}">Svaki objekat koji potpisujemo nastaje kao spoj in&#382;enjerske preciznosti i arhitektonske vizije. Ne gradimo samo zgrade &mdash; stvaramo prostore koji podi&#382;u standard &#382;ivota u zajednici.</p>
+      </div>
+      <div style="{{ statsGridStyle }}">
+        <sc-for list="{{ displayedStats }}" as="stat" hint-placeholder-count="3">
+          <div style="{{ statItemStyle }}">
+            <div style="{{ statNumberStyle }}" style-hover="{{ statNumberHoverStyle }}">{{ stat.display }}</div>
+            <div style="{{ statLabelStyle }}">{{ stat.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+
+  <div id="projekti" style="{{ sectionWrapStyle }}">
     <div id="rv-projects-head" style="{{ sectionHeadRevealStyle }}">
       <div style="{{ sectionHeadStyle }}">
         <div style="{{ sectionEyebrowStyle }}">Portfolio</div>
@@ -218,26 +237,7 @@
     </sc-if>
   </div>
 
-  <div id="rv-about" style="{{ aboutWrapStyle }}">
-    <div style="{{ aboutRevealStyle }}">
-      <div style="{{ aboutHeadGridStyle }}">
-        <div>
-          <div style="{{ sectionEyebrowStyle }}">O kompaniji</div>
-          <div style="{{ sectionTitleStyle }}">Graditeljstvu pristupamo kao umjetnosti</div>
-        </div>
-        <p style="{{ aboutTextStyle }}">Svaki objekat koji potpisujemo nastaje kao spoj in&#382;enjerske preciznosti i arhitektonske vizije. Ne gradimo samo zgrade &mdash; stvaramo prostore koji podi&#382;u standard &#382;ivota u zajednici.</p>
-      </div>
-      <div style="{{ statsGridStyle }}">
-        <sc-for list="{{ displayedStats }}" as="stat" hint-placeholder-count="3">
-          <div style="{{ statItemStyle }}">
-            <div style="{{ statNumberStyle }}" style-hover="{{ statNumberHoverStyle }}">{{ stat.display }}</div>
-            <div style="{{ statLabelStyle }}">{{ stat.label }}</div>
-          </div>
-        </sc-for>
-      </div>
-    </div>
-  </div>
-
+  <div style="{{ manifestoTransitionStyle }}"></div>
   <div id="rv-manifesto" style="{{ manifestoSectionStyle }}">
     <div style="{{ manifestoGridStyle }}">
       <image-slot id="manifesto-img" src="https://images.pexels.com/photos/1571460/pexels-photo-1571460.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1200" placeholder="Arhitektonska fotografija &mdash; detalj fasade / enterijera" shape="rect" style="{{ manifestoImgStyle }}"></image-slot>
@@ -281,7 +281,7 @@
       <p style="{{ vipTextStyle }}">Zatra&#382;ite VIP katalog kompanije sa detaljnim pregledom portfolija, standarda gradnje i aktuelne ponude.</p>
       <div style="{{ vipBtnRowStyle }}">
         <button onClick="{{ openModal }}" onMouseEnter="{{ vipBtn.onMouseEnter }}" onMouseLeave="{{ vipBtn.onMouseLeave }}" style="{{ vipBtn.style }}">Preuzmite VIP katalog</button>
-        <a href="./Contact Page.dc.html" onMouseEnter="{{ vipSecondaryLink.onMouseEnter }}" onMouseLeave="{{ vipSecondaryLink.onMouseLeave }}" style="{{ vipSecondaryLink.style }}">Kontaktirajte nas &#8594;</a>
+        <a href="Contact%20Page.dc.html" onMouseEnter="{{ vipSecondaryLink.onMouseEnter }}" onMouseLeave="{{ vipSecondaryLink.onMouseLeave }}" style="{{ vipSecondaryLink.style }}">Kontaktirajte nas &#8594;</a>
       </div>
     </div>
   </div>
@@ -290,7 +290,7 @@
     <div style="{{ footerInnerStyle }}">
       <div style="{{ footerTopGridStyle }}">
         <div>
-          <img src="assets/kips-logo-luxury.png" alt="KIPS Gradnja" style="height:38px;width:auto;">
+          <div style="{{ footerLogoStyle }}">KIPS <span style="{{ footerLogoAccentStyle }}">GRADNJA</span></div>
           <p style="{{ footerBlurbStyle }}">Gradimo prostore po najvi&scaron;im standardima kvaliteta.</p>
         </div>
         <div>
@@ -318,6 +318,10 @@
   </div>
 
   <button onClick="{{ openModal }}" onMouseEnter="{{ floatingBtn.onMouseEnter }}" onMouseLeave="{{ floatingBtn.onMouseLeave }}" style="{{ floatingBtn.style }}">VIP katalog</button>
+
+  <sc-if value="{{ showCustomCursor }}" hint-placeholder-val="{{ false }}">
+    <div id="lux-cursor" style="{{ cursorDotStyle }}"></div>
+  </sc-if>
 
   <sc-if value="{{ modalOpen }}" hint-placeholder-val="{{ false }}">
     <div style="{{ overlayStyle }}" onClick="{{ closeModal }}">
@@ -356,7 +360,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#9C7A4A&quot;,&quot;options&quot;:[&quot;#9C7A4A&quot;,&quot;#B8934F&quot;,&quot;#7A8A78&quot;,&quot;#8C7A6B&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Theme&quot;}}">
 class Component extends DCLogic {
-  state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440, mobileOpen: false, scrolled: false, pastHero: false, heroRevealed: true, revealed: {}, statProgress: 0, modalOpen: false, formSubmitted: false, activeLocation: 'all', hoveredProjectKey: null, openDropdown: null, hoverLevel2: { ponuda: null, reference: null }, mobileExpanded: { ponuda: false, reference: false }, mobileExpandedLevel2: { ponuda: null, reference: null } };
+  state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440, mobileOpen: false, scrolled: false, pastHero: false, heroRevealed: false, revealed: {}, statProgress: 0, modalOpen: false, formSubmitted: false, activeLocation: 'all', hoveredProjectKey: null, openDropdown: null, hoverLevel2: { ponuda: null, reference: null }, mobileExpanded: { ponuda: false, reference: false }, mobileExpandedLevel2: { ponuda: null, reference: null } };
 
   navLinks = [
     { label: 'Ponuda stanova', href: './Ponuda Stanova Page.dc.html' },
@@ -429,9 +433,7 @@ class Component extends DCLogic {
           const r = manifesto.getBoundingClientRect();
           if (btnPoint.y >= r.top && btnPoint.y <= r.bottom) overDark = true;
         }
-        const projectsGrid = document.getElementById('rv-projects-grid');
-        const pastProjects = projectsGrid ? projectsGrid.getBoundingClientRect().bottom < window.innerHeight : window.scrollY > (window.innerHeight * 0.6);
-        this.setState({ scrolled: window.scrollY > 40, pastHero: pastProjects, scrollY: window.scrollY, nearFooter: nearBottom, overDark });
+        this.setState({ scrolled: window.scrollY > 40, pastHero: window.scrollY > (window.innerHeight * 0.6), scrollY: window.scrollY, nearFooter: nearBottom, overDark });
         this._scrollTicking = false;
       });
     };
@@ -448,18 +450,80 @@ class Component extends DCLogic {
         });
       }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
       this.revealIds.forEach(id => { const el = document.getElementById(id); if (el) this._observer.observe(el); });
+      // Safari/iOS IntersectionObserver can miss elements already in/near the viewport on load — check manually as a fallback.
+      this.revealIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top < window.innerHeight * 1.1) {
+          this.setState(s => ({ revealed: { ...s.revealed, [id]: true } }));
+          if (id === 'rv-about') this.startStatsCount();
+        }
+      });
     });
+    // Absolute safety net: never leave content permanently hidden if IO fails on a device.
+    this._revealFailsafe = setTimeout(() => {
+      this.setState(s => {
+        const revealed = { ...s.revealed };
+        this.revealIds.forEach(id => { revealed[id] = true; });
+        return { revealed };
+      });
+      this.startStatsCount();
+    }, 2500);
+    this._heroTimer = setTimeout(() => this.setState({ heroRevealed: true }), 120);
+    const heroVideo = document.getElementById('lux-hero');
+    if (heroVideo) {
+      heroVideo.muted = true;
+      heroVideo.defaultMuted = true;
+      heroVideo.setAttribute('muted', '');
+      heroVideo.setAttribute('webkit-playsinline', 'true');
+      const tryPlay = () => heroVideo.play().catch(() => {});
+      tryPlay();
+      heroVideo.addEventListener('loadedmetadata', tryPlay);
+      heroVideo.addEventListener('canplay', tryPlay);
+      this._onFirstTouch = () => { tryPlay(); window.removeEventListener('touchstart', this._onFirstTouch); };
+      window.addEventListener('touchstart', this._onFirstTouch, { passive: true, once: true });
+      this._onVideoTime = () => {
+        if (heroVideo.duration && heroVideo.currentTime > heroVideo.duration - 0.15) {
+          heroVideo.currentTime = 0;
+          tryPlay();
+        }
+      };
+      heroVideo.addEventListener('timeupdate', this._onVideoTime);
+    }
 
+    const fine = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(pointer:fine)').matches;
+    if (fine) {
+      this._onCursorMove = (e) => {
+        const el = document.getElementById('lux-cursor');
+        if (el) el.style.transform = 'translate(' + (e.clientX - 9) + 'px,' + (e.clientY - 9) + 'px)';
+      };
+      this._onCursorOver = (e) => {
+        const el = document.getElementById('lux-cursor');
+        if (!el) return;
+        if (e.target.closest && e.target.closest('a,button')) { el.style.width = '34px'; el.style.height = '34px'; el.style.background = 'transparent'; }
+      };
+      this._onCursorOut = (e) => {
+        const el = document.getElementById('lux-cursor');
+        if (!el) return;
+        if (e.target.closest && e.target.closest('a,button')) { el.style.width = '18px'; el.style.height = '18px'; el.style.background = 'rgba(156,122,74,0.35)'; }
+      };
+      document.addEventListener('mousemove', this._onCursorMove);
+      document.addEventListener('mouseover', this._onCursorOver);
+      document.addEventListener('mouseout', this._onCursorOut);
+    }
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this._onResize);
     window.removeEventListener('scroll', this._onScroll);
+    if (this._revealFailsafe) clearTimeout(this._revealFailsafe);
     const heroVideoEl = document.getElementById('lux-hero');
     if (heroVideoEl && this._onVideoTime) heroVideoEl.removeEventListener('timeupdate', this._onVideoTime);
     if (this._observer) this._observer.disconnect();
     if (this._statRAF) cancelAnimationFrame(this._statRAF);
     if (this._heroTimer) clearTimeout(this._heroTimer);
+    if (this._onCursorMove) document.removeEventListener('mousemove', this._onCursorMove);
+    if (this._onCursorOver) document.removeEventListener('mouseover', this._onCursorOver);
+    if (this._onCursorOut) document.removeEventListener('mouseout', this._onCursorOut);
   }
 
   toggleMobile() { this.setState(s => ({ mobileOpen: !s.mobileOpen })); }
@@ -516,15 +580,15 @@ class Component extends DCLogic {
 
     const containerPad = isMobile ? 22 : (isTablet ? 48 : 80);
     const navPadV = scrolled ? (isMobile ? 10 : 12) : (isMobile ? 16 : 22);
-    const sectionPadV = isMobile ? 36 : (isTablet ? 108 : 150);
-    const heroHeight = isMobile ? 360 : (isTablet ? 600 : 720);
-    const heroTitleSize = isMobile ? 34 : (isTablet ? 52 : 64);
-    const sectionTitleSize = isMobile ? 28 : (isTablet ? 40 : 44);
+    const sectionPadV = isMobile ? 72 : (isTablet ? 108 : 150);
+    const heroHeight = isMobile ? 580 : (isTablet ? 700 : 840);
+    const heroTitleSize = isMobile ? 34 : (isTablet ? 48 : 66);
+    const sectionTitleSize = isMobile ? 30 : (isTablet ? 38 : 46);
     const projectCols = isMobile ? 1 : (isTablet ? 2 : 3);
     const craftCols = isMobile ? 1 : (isTablet ? 2 : 4);
 
     const serif = "'Cormorant Garamond', serif";
-    const sans = "'Cormorant Garamond', serif";
+    const sans = "'Jost', sans-serif";
     const easeOut = 'cubic-bezier(0.16,1,0.3,1)';
     const hk = this.state.hoverKey;
     const hoverProps = (key) => ({ onMouseEnter: () => this.setHoverKey(key), onMouseLeave: () => this.clearHoverKey() });
@@ -554,7 +618,7 @@ class Component extends DCLogic {
         cardStyle: { display: 'block', minWidth: 0, maxWidth: '100%', transition: 'transform 0.5s ' + easeOut + ', box-shadow 0.5s ease', ...reveal('rv-projects-grid', { delay: i * 0.12 }) },
         statusTagStyle: { position: 'absolute', top: '16px', left: '16px', background: isHovered ? accent : 'rgba(251,251,249,0.92)', color: isHovered ? '#FBFBF9' : charcoal, fontSize: '10.5px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', padding: '6px 12px', transition: 'background 0.35s ease, color 0.35s ease' },
         arrowStyle: { fontSize: '20px', color: accent, display: 'inline-block', transform: isHovered ? 'translateX(4px)' : 'translateX(0)', transition: 'transform 0.35s ' + easeOut },
-        unitsDetailStyle: { fontFamily: sans, fontSize: '12px', color: accent, marginTop: '8px', fontWeight: 500, opacity: isHovered ? 1 : 0, visibility: isHovered ? 'visible' : 'hidden', transition: 'opacity 0.35s ease' }
+        unitsDetailStyle: { fontFamily: sans, fontSize: '12px', color: accent, marginTop: '8px', fontWeight: 500, opacity: isHovered ? 1 : 0, maxHeight: isHovered ? '20px' : '0px', overflow: 'hidden', transition: 'opacity 0.35s ease, max-height 0.35s ease' }
       };
     });
 
@@ -590,13 +654,13 @@ class Component extends DCLogic {
     const navHover = (key, extra) => ({
       onMouseEnter: () => this.setState({ hoveredNav: key }),
       onMouseLeave: () => this.setState({ hoveredNav: null }),
-      style: { fontFamily: sans, fontSize: '14px', fontWeight: 500, color: hoveredNav === key ? charcoal : 'rgba(26,26,26,0.75)', textTransform: 'uppercase', letterSpacing: '1.5px', paddingBottom: '4px', borderBottom: hoveredNav === key ? '1px solid ' + accent : '1px solid transparent', transition: 'color 0.3s ease-out, border-color 0.3s ease-out', ...(extra || {}) }
+      style: { fontFamily: sans, fontSize: '12.5px', fontWeight: 500, color: hoveredNav === key ? charcoal : 'rgba(26,26,26,0.75)', textTransform: 'uppercase', letterSpacing: '1.5px', paddingBottom: '4px', borderBottom: hoveredNav === key ? '1px solid ' + accent : '1px solid transparent', transition: 'color 0.3s ease-out, border-color 0.3s ease-out', ...(extra || {}) }
     });
     const secondaryNavLinks = this.secondaryNavLinksData.map((l, i) => ({ ...l, ...navHover('sec' + i) }));
     const navKontakt = {
       onMouseEnter: () => this.setState({ hoveredNav: 'kontakt' }),
       onMouseLeave: () => this.setState({ hoveredNav: null }),
-      style: { border: '1px solid ' + charcoal, color: hoveredNav === 'kontakt' ? ivory : charcoal, background: hoveredNav === 'kontakt' ? charcoal : 'none', padding: '10px 24px', fontSize: '14px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', whiteSpace: 'nowrap', transform: hoveredNav === 'kontakt' ? 'translateY(-1px)' : 'translateY(0)', boxShadow: hoveredNav === 'kontakt' ? '0 10px 22px rgba(26,26,26,0.22)' : 'none', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out' }
+      style: { border: '1px solid ' + charcoal, color: hoveredNav === 'kontakt' ? ivory : charcoal, background: hoveredNav === 'kontakt' ? charcoal : 'none', padding: '10px 24px', fontSize: '12px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', whiteSpace: 'nowrap', transform: hoveredNav === 'kontakt' ? 'translateY(-1px)' : 'translateY(0)', boxShadow: hoveredNav === 'kontakt' ? '0 10px 22px rgba(26,26,26,0.22)' : 'none', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out' }
     };
 
     const modalOpen = this.state.modalOpen;
@@ -686,13 +750,14 @@ class Component extends DCLogic {
       showNavLinks: !isCompactNav,
       isCompactNav,
       navLinksRowStyle: { display: 'flex', alignItems: 'center', gap: '36px', flex: 1, justifyContent: 'center' },
-      navLinkStyle: { fontFamily: sans, fontSize: '14px', fontWeight: 500, color: 'rgba(26,26,26,0.75)', textTransform: 'uppercase', letterSpacing: '1.5px', paddingBottom: '4px', backgroundImage: 'linear-gradient(' + accent + ',' + accent + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center bottom', backgroundSize: '0% 1px', transition: 'color 0.3s ease-out, background-size 0.35s ease-out' },
+      navLinkStyle: { fontFamily: sans, fontSize: '12.5px', fontWeight: 500, color: 'rgba(26,26,26,0.75)', textTransform: 'uppercase', letterSpacing: '1.5px', paddingBottom: '4px', backgroundImage: 'linear-gradient(' + accent + ',' + accent + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center bottom', backgroundSize: '0% 1px', transition: 'color 0.3s ease-out, background-size 0.35s ease-out' },
       navLinkHoverStyle: { color: charcoal, backgroundSize: '100% 1px', opacity: 0.92 },
       navRightStyle: { display: 'flex', alignItems: 'center', gap: '22px', flexShrink: 0 },
       showPhone: w >= 1180,
-      navPhone: navHover('phone', { display: 'flex', alignItems: 'center', gap: '8px', paddingBottom: '4px' }),
+      phoneStyle: { display: 'flex', alignItems: 'center', gap: '8px', color: muted, fontSize: '13px', whiteSpace: 'nowrap', transition: 'color 0.3s ease' },
+      phoneHoverStyle: { color: accent },
       phoneDotStyle: { width: '5px', height: '5px', borderRadius: '50%', background: accent, display: 'inline-block' },
-      navCtaStyle: { border: '1px solid ' + charcoal, color: charcoal, padding: '10px 24px', fontSize: '14px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', whiteSpace: 'nowrap', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out' },
+      navCtaStyle: { border: '1px solid ' + charcoal, color: charcoal, padding: '10px 24px', fontSize: '12px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', whiteSpace: 'nowrap', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out' },
       navCtaHoverStyle: { background: charcoal, color: ivory, boxShadow: '0 10px 22px rgba(26,26,26,0.22)', transform: 'translateY(-1px)' },
       hamburgerBtnStyle: { background: 'none', border: 'none', width: '30px', height: '22px', position: 'relative', cursor: 'pointer', padding: 0, flexShrink: 0 },
       hamburgerLine1Style: { position: 'absolute', left: 0, top: this.state.mobileOpen ? '10px' : '2px', width: '100%', height: '1.5px', background: charcoal, transformOrigin: 'center', transform: this.state.mobileOpen ? 'rotate(45deg)' : 'rotate(0deg)', transition: 'top 0.3s ease-in-out, transform 0.3s ease-in-out' },
@@ -720,11 +785,11 @@ class Component extends DCLogic {
       mobileItemReveal1: mobileItemRevealFn(1),
       mobileItemReveal4: mobileItemRevealFn(2 + this.secondaryNavLinksData.length),
       secondaryNavLinksMobile: this.secondaryNavLinksData.map((l, i) => ({ ...l, revealStyle: mobileItemRevealFn(2 + i) })),
-      mobileLinkStyle: { fontFamily: sans, fontSize: '16px', fontWeight: 500, color: '#FBFBF9', textTransform: 'uppercase', letterSpacing: '1px', display: 'block', padding: '10px 4px', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease' },
+      mobileLinkStyle: { fontFamily: sans, fontSize: '15px', fontWeight: 500, color: '#FBFBF9', textTransform: 'uppercase', letterSpacing: '1px', display: 'block', padding: '10px 4px', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease' },
       mobileHairlineStyle: { height: '1px', background: 'rgba(251,251,249,0.14)', margin: '4px 0' },
       mobileBottomRowStyle: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', padding: '4px' },
-      mobilePhoneStyle: { fontFamily: sans, fontSize: '15px', color: 'rgba(251,251,249,0.75)', fontWeight: 500, borderRadius: '4px', transition: 'transform 0.2s ease, color 0.2s ease', whiteSpace: 'nowrap' },
-      mobileCtaStyle: { border: '1px solid rgba(251,251,249,0.6)', color: '#FBFBF9', padding: '11px 22px', textAlign: 'center', fontSize: '14px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease', flexShrink: 0 },
+      mobilePhoneStyle: { fontSize: '14px', color: 'rgba(251,251,249,0.75)', fontWeight: 500, borderRadius: '4px', transition: 'transform 0.2s ease, color 0.2s ease', whiteSpace: 'nowrap' },
+      mobileCtaStyle: { border: '1px solid rgba(251,251,249,0.6)', color: '#FBFBF9', padding: '11px 22px', textAlign: 'center', fontSize: '13px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease', flexShrink: 0 },
 
       heroWrapStyle: isHeroMobile
         ? { position: 'relative', overflow: 'hidden', aspectRatio: '3/4' }
@@ -736,12 +801,12 @@ class Component extends DCLogic {
       heroOverlayStyle: { position: 'absolute', inset: 0, background: isHeroMobile ? 'linear-gradient(to top, rgba(10,10,10,0.55) 0%, rgba(10,10,10,0.15) 40%, rgba(10,10,10,0) 65%)' : 'linear-gradient(to top, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.25) 45%, rgba(10,10,10,0) 70%), linear-gradient(to right, rgba(10,10,10,0.6) 0%, rgba(10,10,10,0.15) 45%, rgba(10,10,10,0) 70%)', pointerEvents: 'none' },
       heroContentWrapStyle: { position: 'absolute', inset: 0, display: 'flex', alignItems: 'flex-end', pointerEvents: 'none' },
       heroContentInnerStyle: isHeroMobile
-        ? { width: '100%', padding: '0 ' + containerPad + 'px', paddingBottom: '20px', ...heroReveal }
+        ? { width: '100%', padding: '0 ' + containerPad + 'px', paddingBottom: '36px', ...heroReveal }
         : { maxWidth: '1320px', margin: '0 auto', width: '100%', padding: '0 ' + containerPad + 'px', paddingBottom: '130px', ...heroReveal },
       heroEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '4px', fontSize: '12px', color: accent, fontWeight: 500, marginBottom: '20px' },
-      heroTitleStyle: { fontFamily: serif, fontWeight: 500, color: '#FBFBF9', fontSize: (isHeroMobile ? 34 : heroTitleSize) + 'px', lineHeight: 1.15, margin: 0, maxWidth: '780px' },
+      heroTitleStyle: { fontFamily: serif, fontWeight: 500, color: '#FBFBF9', fontSize: (isHeroMobile ? 32 : heroTitleSize) + 'px', lineHeight: 1.15, margin: 0, maxWidth: '780px' },
       showHeroSubtext: !isHeroMobile,
-      heroSubStyle: { fontFamily: sans, color: 'rgba(251,251,249,0.82)', fontSize: (isHeroMobile ? 14 : 16) + 'px', lineHeight: 1.7, margin: '0 0 34px', maxWidth: '480px', fontWeight: 300 },
+      heroSubStyle: { fontFamily: sans, color: 'rgba(251,251,249,0.82)', fontSize: '16px', lineHeight: 1.7, margin: '0 0 34px', maxWidth: '480px', fontWeight: 300 },
       heroCtaRowStyle: { display: 'flex', gap: '16px', flexWrap: 'wrap', pointerEvents: 'auto' },
       heroPrimaryBtn: { ...hoverProps('heroPrimary'), style: mergeHover(
         { background: 'transparent', border: '1px solid rgba(251,251,249,0.7)', color: '#FBFBF9', padding: '16px 30px', fontSize: '13px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', display: 'inline-block', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out, backdrop-filter 0.35s ease-out' },
@@ -754,41 +819,40 @@ class Component extends DCLogic {
         'heroSecondary'
       ) },
 
-      aboutWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 48 : 150) + 'px ' + (isMobile ? 32 : 80) + 'px'},
+      aboutWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 48 : 150) + 'px ' + containerPad + 'px 0' },
       aboutRevealStyle: reveal('rv-about'),
       aboutHeadGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '24px' : '64px', marginBottom: isMobile ? '48px' : '72px', alignItems: 'start' },
-      aboutTextStyle: { fontFamily: sans, color: muted, fontSize: (isMobile ? 16 : 18) + 'px', lineHeight: 1.8, fontWeight: 400, margin: 0 },
+      aboutTextStyle: { fontFamily: sans, color: muted, fontSize: '15px', lineHeight: 1.8, fontWeight: 300, margin: 0 },
       statsGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + (isMobile ? 1 : 3) + ', 1fr)', gap: isMobile ? '36px' : '24px', borderTop: '1px solid ' + hairline, borderBottom: '1px solid ' + hairline, padding: (isMobile ? '36px 0' : '48px 0') },
       displayedStats,
       statItemStyle: { textAlign: 'center' },
       statNumberStyle: { fontFamily: serif, fontWeight: 500, fontSize: isMobile ? '46px' : '58px', color: accent, lineHeight: 1, transform: 'scale(' + (0.9 + progress * 0.1) + ')', display: 'inline-block', transition: 'text-shadow 0.4s ease' },
       statNumberHoverStyle: { textShadow: '0 0 22px rgba(156,122,74,0.55)' },
-      statLabelStyle: { fontFamily: sans, fontSize: '12px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px', marginTop: '10px' },
+      statLabelStyle: { fontFamily: sans, fontSize: '11.5px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px', marginTop: '10px' },
 
       sectionWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: sectionPadV + 'px ' + containerPad + 'px ' + sectionPadV + 'px' },
-      section2WrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px'  + ' ' + containerPad + 'px 0' },
       sectionHeadRevealStyle: reveal('rv-projects-head'),
-      sectionHeadStyle: { maxWidth: '640px', margin: '0 0 ' + (isMobile ? 18 : 24) + 'px' },
-      sectionEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '12px', color: accent, fontWeight: 500, marginBottom: '10px' },
-      sectionTitleStyle: { fontFamily: serif, fontWeight: 500, fontSize: sectionTitleSize + 'px', color: charcoal, margin: '0 0 14px', lineHeight: 1.15 },
-      sectionDividerStyle: { width: '48px', height: '2px', margin: '0 0 14px', backgroundImage: 'linear-gradient(90deg, ' + accent + ' 0%, #E8D9BE 25%, ' + accent + ' 50%, #E8D9BE 75%, ' + accent + ' 100%)', backgroundSize: '200% 100%', animation: 'shimmerMove 5s linear infinite' },
+      sectionHeadStyle: { maxWidth: '640px', margin: '0 0 ' + (isMobile ? 36 : 48) + 'px' },
+      sectionEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '11.5px', color: accent, fontWeight: 500, marginBottom: '14px' },
+      sectionTitleStyle: { fontFamily: serif, fontWeight: 500, fontSize: sectionTitleSize + 'px', color: charcoal, margin: '0 0 20px', lineHeight: 1.15 },
+      sectionDividerStyle: { width: '48px', height: '2px', margin: '0 0 20px', backgroundImage: 'linear-gradient(90deg, ' + accent + ' 0%, #E8D9BE 25%, ' + accent + ' 50%, #E8D9BE 75%, ' + accent + ' 100%)', backgroundSize: '200% 100%', animation: 'shimmerMove 5s linear infinite' },
       sectionSubStyle: { fontFamily: sans, color: muted, fontSize: '15px', lineHeight: 1.7, margin: 0, fontWeight: 300 },
 
-      locationTabRowStyle: { display: 'flex', overflowX: 'auto', borderBottom: '1px solid ' + hairline, marginBottom: isMobile ? '18px' : '28px' },
+      locationTabRowStyle: { display: 'flex', overflowX: 'auto', borderBottom: '1px solid ' + hairline, marginBottom: isMobile ? '36px' : '48px' },
       locationTabs,
       hasProjects: projects.length > 0,
       showEmptyState: projects.length === 0,
       emptyStateStyle: { fontFamily: sans, color: muted, fontSize: '15px', padding: '40px 0', textAlign: 'center' },
       projects,
       onLeaveProject: () => this.setHoveredProject(null),
-      projectGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + projectCols + ', minmax(0, 1fr))', gap: isMobile ? '30px' : '48px' },
+      projectGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + projectCols + ', minmax(0, 1fr))', gap: isMobile ? '40px' : '48px' },
       cardHoverStyle: { transform: 'translateY(-10px)', boxShadow: '0 34px 64px rgba(26,26,26,0.16)' },
-      imgFrameStyle: { position: 'relative', overflow: 'hidden', width: '100%', aspectRatio: '1/1', background: '#EAE8E3' },
+      imgFrameStyle: { position: 'relative', overflow: 'hidden', width: '100%', aspectRatio: '4/5', background: '#EAE8E3' },
       cardImgStyle: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', maxWidth: '100%', objectFit: 'cover', transition: 'transform 0.7s ' + easeOut },
       cardImgHoverStyle: { transform: 'scale(1.06)' },
       captionRowStyle: { display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', padding: '20px 2px 0', borderTop: '1px solid ' + hairline, marginTop: '18px' },
       cardNameStyle: { fontFamily: serif, fontWeight: 500, fontSize: '22px', color: charcoal, marginBottom: '4px' },
-      cardLocStyle: { fontFamily: sans, fontSize: '12px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px' },
+      cardLocStyle: { fontFamily: sans, fontSize: '11.5px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px' },
 
       manifestoTransitionStyle: { height: (isMobile ? 70 : 120) + 'px', background: 'linear-gradient(to bottom, ' + ivory + ' 0%, ' + darkBg + ' 100%)' },
       manifestoSectionStyle: { background: darkBg, padding: (isMobile ? 80 : 140) + 'px ' + containerPad + 'px' },
@@ -798,7 +862,7 @@ class Component extends DCLogic {
       manifestoQuoteStyle: { fontFamily: serif, fontStyle: 'italic', fontWeight: 500, fontSize: isMobile ? '26px' : '36px', color: '#FBFBF9', lineHeight: 1.35, margin: '0 0 26px' },
       manifestoLine1Style: { ...reveal('rv-manifesto', { delay: 0.15, distance: 16 }) },
       manifestoLine2Style: { ...reveal('rv-manifesto', { delay: 0.4, distance: 16 }) },
-      manifestoTextStyle: { fontFamily: sans, color: 'rgba(251,251,249,0.62)', fontSize: (isMobile ? 16 : 18) + 'px', lineHeight: 1.8, fontWeight: 400, margin: '0 0 22px', ...reveal('rv-manifesto', { delay: 0.55, distance: 14 }) },
+      manifestoTextStyle: { fontFamily: sans, color: 'rgba(251,251,249,0.62)', fontSize: '15px', lineHeight: 1.8, fontWeight: 300, margin: '0 0 22px', ...reveal('rv-manifesto', { delay: 0.55, distance: 14 }) },
       manifestoAttrStyle: { fontFamily: sans, fontSize: '12px', color: 'rgba(251,251,249,0.45)', textTransform: 'uppercase', letterSpacing: '2px', ...reveal('rv-manifesto', { delay: 0.65, distance: 10 }) },
 
       craftGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + craftCols + ', 1fr)', gap: isMobile ? '24px' : '1px', background: isMobile ? 'transparent' : hairline, border: isMobile ? 'none' : '1px solid ' + hairline },
@@ -806,15 +870,15 @@ class Component extends DCLogic {
       craftCardHoverStyle: { background: 'color-mix(in srgb, ' + accent + ' 4%, ' + ivory + ')' },
       craftIconHoverStyle: { transform: 'scale(1.08)', borderColor: accent },
       craftTitleStyle: { fontFamily: serif, fontSize: '19px', fontWeight: 500, color: charcoal, marginBottom: '10px' },
-      craftTextStyle: { fontFamily: sans, fontSize: '15px', color: muted, lineHeight: 1.7, fontWeight: 400 },
+      craftTextStyle: { fontFamily: sans, fontSize: '13.5px', color: muted, lineHeight: 1.7, fontWeight: 300 },
 
       vipSectionStyle: { borderTop: '1px solid ' + hairline, padding: (isMobile ? 80 : 130) + 'px ' + containerPad + 'px', textAlign: 'center' },
       vipInnerStyle: { maxWidth: '640px', margin: '0 auto', ...reveal('rv-vip') },
       vipTitleStyle: { fontFamily: serif, fontSize: isMobile ? '28px' : '40px', fontWeight: 500, color: charcoal, margin: '0 0 18px', lineHeight: 1.2 },
-      vipTextStyle: { fontFamily: sans, color: muted, fontSize: (isMobile ? 16 : 18) + 'px', lineHeight: 1.7, margin: '0 0 34px', fontWeight: 400 },
+      vipTextStyle: { fontFamily: sans, color: muted, fontSize: '15px', lineHeight: 1.7, margin: '0 0 34px', fontWeight: 300 },
       vipBtnRowStyle: { display: 'flex', gap: '24px', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' },
       vipBtn: { ...hoverProps('vipBtn'), style: mergeHover(
-        { fontFamily: sans, border: '1px solid ' + charcoal, background: 'none', color: charcoal, padding: '16px 34px', fontSize: '13px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', cursor: 'pointer', transition: 'background 0.35s ease-out, color 0.35s ease-out, transform 0.35s ease-out, box-shadow 0.35s ease-out', borderRadius: '2px' },
+        { border: '1px solid ' + charcoal, background: 'none', color: charcoal, padding: '16px 34px', fontSize: '13px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', cursor: 'pointer', transition: 'background 0.35s ease-out, color 0.35s ease-out, transform 0.35s ease-out, box-shadow 0.35s ease-out', borderRadius: '2px' },
         { background: charcoal, color: ivory, transform: 'translateY(-2px) scale(1.01)', boxShadow: '0 14px 30px rgba(26,26,26,0.25)' },
         'vipBtn'
       ) },
@@ -829,7 +893,7 @@ class Component extends DCLogic {
       footerTopGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : (isTablet ? '1.4fr 1fr 1fr' : '1.6fr 1fr 1fr'), gap: isMobile ? '40px' : '56px', marginBottom: '52px' },
       footerLogoStyle: { fontFamily: serif, fontSize: '24px', fontWeight: 500, color: '#F7F6F3', marginBottom: '16px' },
       footerLogoAccentStyle: { color: accent },
-      footerBlurbStyle: { fontFamily: sans, fontSize: '15px', color: 'rgba(247,246,243,0.55)', lineHeight: 1.7, maxWidth: '320px', fontWeight: 400 },
+      footerBlurbStyle: { fontFamily: sans, fontSize: '14px', color: 'rgba(247,246,243,0.55)', lineHeight: 1.7, maxWidth: '320px', fontWeight: 300 },
       footerColTitleStyle: { fontFamily: sans, fontSize: '11px', color: 'rgba(247,246,243,0.4)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '20px' },
       footerLinkColStyle: { display: 'flex', flexDirection: 'column', gap: '13px' },
       footerNavLinks: this.navLinks.map((l, i) => ({ ...l, ...hoverProps('footerNav' + i), style: mergeHover(
@@ -865,6 +929,8 @@ class Component extends DCLogic {
         'floatingBtn'
       ) },
 
+      showCustomCursor: isDesktop,
+      cursorDotStyle: { position: 'fixed', top: 0, left: 0, width: '18px', height: '18px', borderRadius: '50%', border: '1px solid ' + accent, background: 'rgba(156,122,74,0.35)', pointerEvents: 'none', zIndex: 9999, transform: 'translate(-100px,-100px)', transition: 'width 0.25s ease, height 0.25s ease, background 0.25s ease' },
 
       modalOpen,
       openModal: () => this.openModal(),
@@ -878,13 +944,13 @@ class Component extends DCLogic {
       modalCloseStyle: { position: 'absolute', top: '18px', right: '18px', background: 'none', border: 'none', fontSize: '22px', color: muted, cursor: 'pointer', lineHeight: 1 },
       modalEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '11px', color: accent, fontWeight: 500, marginBottom: '12px' },
       modalTitleStyle: { fontFamily: serif, fontWeight: 500, fontSize: '28px', color: charcoal, margin: '0 0 14px' },
-      modalSubStyle: { fontFamily: sans, fontSize: '15px', color: muted, lineHeight: 1.7, margin: '0 0 26px', fontWeight: 400 },
+      modalSubStyle: { fontFamily: sans, fontSize: '14px', color: muted, lineHeight: 1.7, margin: '0 0 26px', fontWeight: 300 },
       modalFormStyle: { display: 'flex', flexDirection: 'column', gap: '20px' },
       modalFieldStyle: { display: 'flex', flexDirection: 'column', gap: '8px' },
       modalLabelStyle: { fontSize: '10.5px', fontWeight: 500, color: muted, textTransform: 'uppercase', letterSpacing: '1.5px' },
       modalInputStyle: { border: 'none', borderBottom: '1px solid ' + hairline, background: 'transparent', padding: '6px 0 10px', fontFamily: sans, fontSize: '14.5px', color: charcoal, outline: 'none' },
       modalSubmit: { ...hoverProps('modalSubmit'), style: mergeHover(
-        { fontFamily: sans, background: charcoal, color: ivory, border: 'none', padding: '15px', fontSize: '12.5px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', cursor: 'pointer', borderRadius: '3px', marginTop: '8px', transition: 'background 0.35s ease-out, transform 0.35s ease-out, box-shadow 0.35s ease-out' },
+        { background: charcoal, color: ivory, border: 'none', padding: '15px', fontSize: '12.5px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', cursor: 'pointer', borderRadius: '3px', marginTop: '8px', transition: 'background 0.35s ease-out, transform 0.35s ease-out, box-shadow 0.35s ease-out' },
         { background: accent, transform: 'translateY(-2px)', boxShadow: '0 12px 24px rgba(156,122,74,0.35)' },
         'modalSubmit'
       ) },

@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<script src="../support.js"></script>
 </head>
 <body>
 <x-dc>
 <helmet>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
-  <script src="./image-slot.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <script src="../image-slot.js"></script>
   <style>
     html{scroll-behavior:smooth;}
     body{margin:0;background:#F7F6F3;-webkit-font-smoothing:antialiased;}
@@ -32,12 +32,12 @@
 
   <div style="{{ navBarStyle }}">
     <div style="{{ navInnerStyle }}">
-      <a href="./index.dc.html"><img src="assets/kips-logo-white.png" alt="KIPS Gradnja" style="height:30px;width:auto;flex-shrink:0;display:block;"></a>
+      <a href="./Homepage.dc.html"><img src="../assets/kips-logo-luxury.png" alt="KIPS Gradnja" style="height:30px;width:auto;flex-shrink:0;display:block;"></a>
 
       <sc-if value="{{ showNavLinks }}" hint-placeholder-val="{{ true }}">
         <nav style="{{ navLinksRowStyle }}">
           <div style="{{ navMegaWrapStyle }}" onMouseEnter="{{ ponudaMenu.open }}" onMouseLeave="{{ scheduleCloseMenu }}">
-            <a href="Ponuda%20Stanova%20Page.dc.html" onMouseEnter="{{ navPonuda.onMouseEnter }}" onMouseLeave="{{ navPonuda.onMouseLeave }}" style="{{ navPonuda.style }}">Ponuda stanova</a>
+            <a href="../Ponuda%20Stanova%20Page.dc.html" onMouseEnter="{{ navPonuda.onMouseEnter }}" onMouseLeave="{{ navPonuda.onMouseLeave }}" style="{{ navPonuda.style }}">Ponuda stanova</a>
             <div style="{{ ponudaMenu.panelStyle }}">
               <sc-for list="{{ ponudaMenu.items }}" as="lvl2" hint-placeholder-count="3">
                 <div style="{{ megaWrapStyle }}" onMouseEnter="{{ lvl2.onEnter }}">
@@ -57,7 +57,7 @@
             </div>
           </div>
           <div style="{{ navMegaWrapStyle }}" onMouseEnter="{{ referenceMenu.open }}" onMouseLeave="{{ scheduleCloseMenu }}">
-            <a href="./Reference Page.dc.html" onMouseEnter="{{ navReference.onMouseEnter }}" onMouseLeave="{{ navReference.onMouseLeave }}" style="{{ navReference.style }}">Reference</a>
+            <a href="../Reference%20Page.dc.html" onMouseEnter="{{ navReference.onMouseEnter }}" onMouseLeave="{{ navReference.onMouseLeave }}" style="{{ navReference.style }}">Reference</a>
             <div style="{{ referenceMenu.panelStyle }}">
               <sc-for list="{{ referenceMenu.items }}" as="lvl2" hint-placeholder-count="1">
                 <div style="{{ megaWrapStyle }}" onMouseEnter="{{ lvl2.onEnter }}">
@@ -88,7 +88,7 @@
               <span style="{{ phoneDotStyle }}"></span><span>+382 67 134 134</span>
             </a>
           </sc-if>
-          <a href="./Contact Page.dc.html" onMouseEnter="{{ navKontakt.onMouseEnter }}" onMouseLeave="{{ navKontakt.onMouseLeave }}" style="{{ navKontakt.style }}">Kontakt</a>
+          <a href="Contact%20Page.dc.html" onMouseEnter="{{ navKontakt.onMouseEnter }}" onMouseLeave="{{ navKontakt.onMouseLeave }}" style="{{ navKontakt.style }}">Kontakt</a>
         </div>
       </sc-if>
       <sc-if value="{{ isCompactNav }}" hint-placeholder-val="{{ false }}">
@@ -150,7 +150,7 @@
           <div style="{{ mobileHairlineStyle }}"></div>
           <div style="{{ mobileBottomRowStyle }}">
             <a href="tel:+38267134134" style="{{ mobilePhoneStyle }}" style-active="{{ touchActiveStyle }}">+382 67 134 134</a>
-            <a href="./Contact Page.dc.html" style="{{ mobileCtaStyle }}" style-active="{{ touchActiveStyle }}">Kontakt</a>
+            <a href="Contact%20Page.dc.html" style="{{ mobileCtaStyle }}" style-active="{{ touchActiveStyle }}">Kontakt</a>
           </div>
         </div>
       </div>
@@ -281,7 +281,7 @@
       <p style="{{ vipTextStyle }}">Zatra&#382;ite VIP katalog kompanije sa detaljnim pregledom portfolija, standarda gradnje i aktuelne ponude.</p>
       <div style="{{ vipBtnRowStyle }}">
         <button onClick="{{ openModal }}" onMouseEnter="{{ vipBtn.onMouseEnter }}" onMouseLeave="{{ vipBtn.onMouseLeave }}" style="{{ vipBtn.style }}">Preuzmite VIP katalog</button>
-        <a href="./Contact Page.dc.html" onMouseEnter="{{ vipSecondaryLink.onMouseEnter }}" onMouseLeave="{{ vipSecondaryLink.onMouseLeave }}" style="{{ vipSecondaryLink.style }}">Kontaktirajte nas &#8594;</a>
+        <a href="Contact%20Page.dc.html" onMouseEnter="{{ vipSecondaryLink.onMouseEnter }}" onMouseLeave="{{ vipSecondaryLink.onMouseLeave }}" style="{{ vipSecondaryLink.style }}">Kontaktirajte nas &#8594;</a>
       </div>
     </div>
   </div>
@@ -290,7 +290,7 @@
     <div style="{{ footerInnerStyle }}">
       <div style="{{ footerTopGridStyle }}">
         <div>
-          <div style="{{ footerLogoStyle }}">KIPS <span style="{{ footerLogoAccentStyle }}">GRADNJA</span></div>
+          <img src="../assets/kips-logo-luxury.png" alt="KIPS Gradnja" style="height:38px;width:auto;">
           <p style="{{ footerBlurbStyle }}">Gradimo prostore po najvi&scaron;im standardima kvaliteta.</p>
         </div>
         <div>
@@ -525,7 +525,6 @@ class Component extends DCLogic {
 
     const serif = "'Cormorant Garamond', serif";
     const sans = "'Cormorant Garamond', serif";
-    const numFont = "'Cormorant Garamond', serif";
     const easeOut = 'cubic-bezier(0.16,1,0.3,1)';
     const hk = this.state.hoverKey;
     const hoverProps = (key) => ({ onMouseEnter: () => this.setHoverKey(key), onMouseLeave: () => this.clearHoverKey() });
@@ -553,9 +552,9 @@ class Component extends DCLogic {
         ...p,
         onEnter: () => this.setHoveredProject(p.key),
         cardStyle: { display: 'block', minWidth: 0, maxWidth: '100%', transition: 'transform 0.5s ' + easeOut + ', box-shadow 0.5s ease', ...reveal('rv-projects-grid', { delay: i * 0.12 }) },
-        statusTagStyle: { fontFamily: numFont, position: 'absolute', top: '16px', left: '16px', background: isHovered ? accent : 'rgba(251,251,249,0.92)', color: isHovered ? '#FBFBF9' : charcoal, fontSize: '10.5px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', padding: '6px 12px', whiteSpace: 'nowrap', transition: 'background 0.35s ease, color 0.35s ease' },
+        statusTagStyle: { position: 'absolute', top: '16px', left: '16px', background: isHovered ? accent : 'rgba(251,251,249,0.92)', color: isHovered ? '#FBFBF9' : charcoal, fontSize: '10.5px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', padding: '6px 12px', transition: 'background 0.35s ease, color 0.35s ease' },
         arrowStyle: { fontSize: '20px', color: accent, display: 'inline-block', transform: isHovered ? 'translateX(4px)' : 'translateX(0)', transition: 'transform 0.35s ' + easeOut },
-        unitsDetailStyle: { fontFamily: numFont, fontSize: '12px', color: accent, marginTop: '8px', fontWeight: 700, opacity: isHovered ? 1 : 0, visibility: isHovered ? 'visible' : 'hidden', transition: 'opacity 0.35s ease' }
+        unitsDetailStyle: { fontFamily: sans, fontSize: '12px', color: accent, marginTop: '8px', fontWeight: 500, opacity: isHovered ? 1 : 0, visibility: isHovered ? 'visible' : 'hidden', transition: 'opacity 0.35s ease' }
       };
     });
 
@@ -569,7 +568,7 @@ class Component extends DCLogic {
         onClick: () => this.setLocation(t.value),
         onMouseEnter: () => this.setHoverKey(tabKey),
         onMouseLeave: () => this.clearHoverKey(),
-        tabStyle: { background: 'none', border: 'none', borderBottom: (isActive || isHov) ? '2px solid ' + accent : '2px solid transparent', padding: '9px 4px', marginRight: isMobile ? '20px' : '32px', fontFamily: sans, fontSize: '13px', fontWeight: isActive ? 700 : 500, color: isActive ? charcoal : (isHov ? accent : muted), cursor: 'pointer', whiteSpace: 'nowrap', transform: isHov ? 'translateY(-1px)' : 'translateY(0)', transition: 'color 0.3s ease-out, border-color 0.3s ease-out, transform 0.3s ease-out' }
+        tabStyle: { background: 'none', border: 'none', borderBottom: (isActive || isHov) ? '2px solid ' + accent : '2px solid transparent', padding: '9px 4px', marginRight: isMobile ? '20px' : '32px', fontFamily: sans, fontSize: '13px', fontWeight: isActive ? 600 : 400, color: isActive ? charcoal : (isHov ? accent : muted), cursor: 'pointer', whiteSpace: 'nowrap', transform: isHov ? 'translateY(-1px)' : 'translateY(0)', transition: 'color 0.3s ease-out, border-color 0.3s ease-out, transform 0.3s ease-out' }
       };
     });
 
@@ -591,13 +590,13 @@ class Component extends DCLogic {
     const navHover = (key, extra) => ({
       onMouseEnter: () => this.setState({ hoveredNav: key }),
       onMouseLeave: () => this.setState({ hoveredNav: null }),
-      style: { fontFamily: key === 'phone' ? numFont : sans, fontSize: '14px', fontWeight: 700, color: hoveredNav === key ? '#FFFFFF' : 'rgba(255,255,255,0.82)', textTransform: 'uppercase', letterSpacing: '1.5px', paddingBottom: '4px', borderBottom: hoveredNav === key ? '1px solid #FFFFFF' : '1px solid transparent', transition: 'color 0.3s ease-out, border-color 0.3s ease-out', ...(extra || {}) }
+      style: { fontFamily: sans, fontSize: '14px', fontWeight: 500, color: hoveredNav === key ? charcoal : 'rgba(26,26,26,0.75)', textTransform: 'uppercase', letterSpacing: '1.5px', paddingBottom: '4px', borderBottom: hoveredNav === key ? '1px solid ' + accent : '1px solid transparent', transition: 'color 0.3s ease-out, border-color 0.3s ease-out', ...(extra || {}) }
     });
     const secondaryNavLinks = this.secondaryNavLinksData.map((l, i) => ({ ...l, ...navHover('sec' + i) }));
     const navKontakt = {
       onMouseEnter: () => this.setState({ hoveredNav: 'kontakt' }),
       onMouseLeave: () => this.setState({ hoveredNav: null }),
-      style: { border: '1px solid rgba(255,255,255,0.7)', color: hoveredNav === 'kontakt' ? charcoal : '#FFFFFF', background: hoveredNav === 'kontakt' ? '#FBFBF9' : 'none', padding: '10px 24px', fontSize: '14px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', whiteSpace: 'nowrap', transform: hoveredNav === 'kontakt' ? 'translateY(-1px)' : 'translateY(0)', boxShadow: hoveredNav === 'kontakt' ? '0 10px 22px rgba(0,0,0,0.28)' : 'none', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out' }
+      style: { border: '1px solid ' + charcoal, color: hoveredNav === 'kontakt' ? ivory : charcoal, background: hoveredNav === 'kontakt' ? charcoal : 'none', padding: '10px 24px', fontSize: '14px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', whiteSpace: 'nowrap', transform: hoveredNav === 'kontakt' ? 'translateY(-1px)' : 'translateY(0)', boxShadow: hoveredNav === 'kontakt' ? '0 10px 22px rgba(26,26,26,0.22)' : 'none', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out' }
     };
 
     const modalOpen = this.state.modalOpen;
@@ -630,7 +629,7 @@ class Component extends DCLogic {
             rowStyle: {
               display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '14px',
               padding: '13px 16px', borderRadius: '5px', cursor: 'pointer',
-              fontFamily: serif, fontSize: '16px', fontWeight: 600,
+              fontFamily: serif, fontSize: '16px', fontWeight: 500,
               color: showFlyout ? accent : charcoal,
               background: showFlyout ? 'rgba(156,122,74,0.07)' : 'transparent',
               borderLeft: showFlyout ? '2px solid ' + accent : '2px solid transparent',
@@ -654,7 +653,7 @@ class Component extends DCLogic {
                 ...leaf,
                 onMouseEnter: () => this.setHoverKey(leafKey),
                 onMouseLeave: () => this.clearHoverKey(),
-                rowStyle: { display: 'block', padding: '11px 16px', borderRadius: '5px', color: leafHov ? accent : charcoal, background: leafHov ? 'rgba(156,122,74,0.12)' : 'transparent', fontFamily: sans, fontSize: '13.5px', fontWeight: 500, borderLeft: leafHov ? '2px solid ' + accent : '2px solid transparent', transform: leafHov ? 'translateX(4px)' : 'translateX(0)', transition: 'background 0.25s ease-out, color 0.25s ease-out, transform 0.25s ease-out, border-color 0.25s ease-out' }
+                rowStyle: { display: 'block', padding: '11px 16px', borderRadius: '5px', color: leafHov ? accent : charcoal, background: leafHov ? 'rgba(156,122,74,0.12)' : 'transparent', fontFamily: sans, fontSize: '13.5px', fontWeight: 400, borderLeft: leafHov ? '2px solid ' + accent : '2px solid transparent', transform: leafHov ? 'translateX(4px)' : 'translateX(0)', transition: 'background 0.25s ease-out, color 0.25s ease-out, transform 0.25s ease-out, border-color 0.25s ease-out' }
               };
             }),
             isMobileExpanded: expandedLevel2Key === item.key,
@@ -679,26 +678,26 @@ class Component extends DCLogic {
     return {
       pageStyle: { background: ivory, color: charcoal, fontFamily: sans, minHeight: '100vh', position: 'relative' },
 
-      navBarStyle: { position: 'sticky', top: 0, zIndex: 50, background: scrolled ? accent : 'color-mix(in srgb, ' + accent + ' 94%, transparent)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', borderBottom: '1px solid rgba(255,255,255,0.18)', boxShadow: scrolled ? '0 8px 24px rgba(0,0,0,0.18)' : 'none', transition: 'background 0.35s ease, box-shadow 0.35s ease' },
+      navBarStyle: { position: 'sticky', top: 0, zIndex: 50, background: scrolled ? 'rgba(247,246,243,0.95)' : 'rgba(247,246,243,0.86)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', borderBottom: '1px solid ' + hairline, boxShadow: scrolled ? '0 8px 24px rgba(26,26,26,0.06)' : 'none', transition: 'background 0.35s ease, box-shadow 0.35s ease' },
       navInnerStyle: { maxWidth: '1320px', margin: '0 auto', padding: navPadV + 'px ' + containerPad + 'px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '32px', transition: 'padding 0.35s ease' },
       logoLinkStyle: { display: 'flex', flexDirection: 'column', lineHeight: 1, flexShrink: 0 },
-      logoWordStyle: { fontFamily: serif, fontWeight: 700, fontSize: '22px', color: charcoal, letterSpacing: '1px' },
-      logoSubStyle: { fontFamily: sans, fontWeight: 600, fontSize: '9px', color: accent, letterSpacing: '3px', marginTop: '3px' },
+      logoWordStyle: { fontFamily: serif, fontWeight: 600, fontSize: '22px', color: charcoal, letterSpacing: '1px' },
+      logoSubStyle: { fontFamily: sans, fontWeight: 500, fontSize: '9px', color: accent, letterSpacing: '3px', marginTop: '3px' },
       showNavLinks: !isCompactNav,
       isCompactNav,
       navLinksRowStyle: { display: 'flex', alignItems: 'center', gap: '36px', flex: 1, justifyContent: 'center' },
-      navLinkStyle: { fontFamily: sans, fontSize: '14px', fontWeight: 700, color: 'rgba(255,255,255,0.82)', textTransform: 'uppercase', letterSpacing: '1.5px', paddingBottom: '4px', backgroundImage: 'linear-gradient(#FBFBF9,#FBFBF9)', backgroundRepeat: 'no-repeat', backgroundPosition: 'center bottom', backgroundSize: '0% 1px', transition: 'color 0.3s ease-out, background-size 0.35s ease-out' },
-      navLinkHoverStyle: { color: '#FFFFFF', backgroundSize: '100% 1px', opacity: 1 },
+      navLinkStyle: { fontFamily: sans, fontSize: '14px', fontWeight: 500, color: 'rgba(26,26,26,0.75)', textTransform: 'uppercase', letterSpacing: '1.5px', paddingBottom: '4px', backgroundImage: 'linear-gradient(' + accent + ',' + accent + ')', backgroundRepeat: 'no-repeat', backgroundPosition: 'center bottom', backgroundSize: '0% 1px', transition: 'color 0.3s ease-out, background-size 0.35s ease-out' },
+      navLinkHoverStyle: { color: charcoal, backgroundSize: '100% 1px', opacity: 0.92 },
       navRightStyle: { display: 'flex', alignItems: 'center', gap: '22px', flexShrink: 0 },
       showPhone: w >= 1180,
       navPhone: navHover('phone', { display: 'flex', alignItems: 'center', gap: '8px', paddingBottom: '4px' }),
-      phoneDotStyle: { width: '5px', height: '5px', borderRadius: '50%', background: '#FFFFFF', display: 'inline-block' },
-      navCtaStyle: { border: '1px solid rgba(255,255,255,0.7)', color: '#FFFFFF', padding: '10px 24px', fontSize: '14px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', whiteSpace: 'nowrap', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out' },
-      navCtaHoverStyle: { background: '#FBFBF9', color: charcoal, boxShadow: '0 10px 22px rgba(0,0,0,0.28)', transform: 'translateY(-1px)' },
+      phoneDotStyle: { width: '5px', height: '5px', borderRadius: '50%', background: accent, display: 'inline-block' },
+      navCtaStyle: { border: '1px solid ' + charcoal, color: charcoal, padding: '10px 24px', fontSize: '14px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', whiteSpace: 'nowrap', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out' },
+      navCtaHoverStyle: { background: charcoal, color: ivory, boxShadow: '0 10px 22px rgba(26,26,26,0.22)', transform: 'translateY(-1px)' },
       hamburgerBtnStyle: { background: 'none', border: 'none', width: '30px', height: '22px', position: 'relative', cursor: 'pointer', padding: 0, flexShrink: 0 },
-      hamburgerLine1Style: { position: 'absolute', left: 0, top: this.state.mobileOpen ? '10px' : '2px', width: '100%', height: '1.5px', background: '#FFFFFF', transformOrigin: 'center', transform: this.state.mobileOpen ? 'rotate(45deg)' : 'rotate(0deg)', transition: 'top 0.3s ease-in-out, transform 0.3s ease-in-out' },
-      hamburgerLine2Style: { position: 'absolute', left: 0, top: '10px', width: '100%', height: '1.5px', background: '#FFFFFF', opacity: this.state.mobileOpen ? 0 : 1, transition: 'opacity 0.25s ease-in-out' },
-      hamburgerLine3Style: { position: 'absolute', left: 0, top: this.state.mobileOpen ? '10px' : '18px', width: '100%', height: '1.5px', background: '#FFFFFF', transformOrigin: 'center', transform: this.state.mobileOpen ? 'rotate(-45deg)' : 'rotate(0deg)', transition: 'top 0.3s ease-in-out, transform 0.3s ease-in-out' },
+      hamburgerLine1Style: { position: 'absolute', left: 0, top: this.state.mobileOpen ? '10px' : '2px', width: '100%', height: '1.5px', background: charcoal, transformOrigin: 'center', transform: this.state.mobileOpen ? 'rotate(45deg)' : 'rotate(0deg)', transition: 'top 0.3s ease-in-out, transform 0.3s ease-in-out' },
+      hamburgerLine2Style: { position: 'absolute', left: 0, top: '10px', width: '100%', height: '1.5px', background: charcoal, opacity: this.state.mobileOpen ? 0 : 1, transition: 'opacity 0.25s ease-in-out' },
+      hamburgerLine3Style: { position: 'absolute', left: 0, top: this.state.mobileOpen ? '10px' : '18px', width: '100%', height: '1.5px', background: charcoal, transformOrigin: 'center', transform: this.state.mobileOpen ? 'rotate(-45deg)' : 'rotate(0deg)', transition: 'top 0.3s ease-in-out, transform 0.3s ease-in-out' },
       touchActiveStyle: { transform: 'scale(0.98)', background: 'rgba(251,251,249,0.08)' },
       mobileOpen: this.state.mobileOpen,
       toggleMobile: () => this.toggleMobile(),
@@ -721,11 +720,11 @@ class Component extends DCLogic {
       mobileItemReveal1: mobileItemRevealFn(1),
       mobileItemReveal4: mobileItemRevealFn(2 + this.secondaryNavLinksData.length),
       secondaryNavLinksMobile: this.secondaryNavLinksData.map((l, i) => ({ ...l, revealStyle: mobileItemRevealFn(2 + i) })),
-      mobileLinkStyle: { fontFamily: sans, fontSize: '16px', fontWeight: 600, color: '#FBFBF9', textTransform: 'uppercase', letterSpacing: '1px', display: 'block', padding: '10px 4px', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease' },
+      mobileLinkStyle: { fontFamily: sans, fontSize: '16px', fontWeight: 500, color: '#FBFBF9', textTransform: 'uppercase', letterSpacing: '1px', display: 'block', padding: '10px 4px', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease' },
       mobileHairlineStyle: { height: '1px', background: 'rgba(251,251,249,0.14)', margin: '4px 0' },
       mobileBottomRowStyle: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', padding: '4px' },
-      mobilePhoneStyle: { fontFamily: numFont, fontSize: '15px', color: 'rgba(251,251,249,0.75)', fontWeight: 700, borderRadius: '4px', transition: 'transform 0.2s ease, color 0.2s ease', whiteSpace: 'nowrap' },
-      mobileCtaStyle: { border: '1px solid rgba(251,251,249,0.6)', color: '#FBFBF9', padding: '11px 22px', textAlign: 'center', fontSize: '14px', fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease', flexShrink: 0 },
+      mobilePhoneStyle: { fontFamily: sans, fontSize: '15px', color: 'rgba(251,251,249,0.75)', fontWeight: 500, borderRadius: '4px', transition: 'transform 0.2s ease, color 0.2s ease', whiteSpace: 'nowrap' },
+      mobileCtaStyle: { border: '1px solid rgba(251,251,249,0.6)', color: '#FBFBF9', padding: '11px 22px', textAlign: 'center', fontSize: '14px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease', flexShrink: 0 },
 
       heroWrapStyle: isHeroMobile
         ? { position: 'relative', overflow: 'hidden', aspectRatio: '3/4' }
@@ -739,18 +738,18 @@ class Component extends DCLogic {
       heroContentInnerStyle: isHeroMobile
         ? { width: '100%', padding: '0 ' + containerPad + 'px', paddingBottom: '20px', ...heroReveal }
         : { maxWidth: '1320px', margin: '0 auto', width: '100%', padding: '0 ' + containerPad + 'px', paddingBottom: '130px', ...heroReveal },
-      heroEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '4px', fontSize: '12px', color: accent, fontWeight: 600, marginBottom: '20px' },
-      heroTitleStyle: { fontFamily: serif, fontWeight: 600, color: '#FBFBF9', fontSize: (isHeroMobile ? 34 : heroTitleSize) + 'px', lineHeight: 1.15, margin: 0, maxWidth: '780px' },
+      heroEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '4px', fontSize: '12px', color: accent, fontWeight: 500, marginBottom: '20px' },
+      heroTitleStyle: { fontFamily: serif, fontWeight: 500, color: '#FBFBF9', fontSize: (isHeroMobile ? 34 : heroTitleSize) + 'px', lineHeight: 1.15, margin: 0, maxWidth: '780px' },
       showHeroSubtext: !isHeroMobile,
-      heroSubStyle: { fontFamily: sans, color: 'rgba(251,251,249,0.82)', fontSize: (isHeroMobile ? 14 : 16) + 'px', lineHeight: 1.7, margin: '0 0 34px', maxWidth: '480px', fontWeight: 400 },
+      heroSubStyle: { fontFamily: sans, color: 'rgba(251,251,249,0.82)', fontSize: (isHeroMobile ? 14 : 16) + 'px', lineHeight: 1.7, margin: '0 0 34px', maxWidth: '480px', fontWeight: 300 },
       heroCtaRowStyle: { display: 'flex', gap: '16px', flexWrap: 'wrap', pointerEvents: 'auto' },
       heroPrimaryBtn: { ...hoverProps('heroPrimary'), style: mergeHover(
-        { background: 'transparent', border: '1px solid rgba(251,251,249,0.7)', color: '#FBFBF9', padding: '16px 30px', fontSize: '13px', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', display: 'inline-block', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out, backdrop-filter 0.35s ease-out' },
+        { background: 'transparent', border: '1px solid rgba(251,251,249,0.7)', color: '#FBFBF9', padding: '16px 30px', fontSize: '13px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', display: 'inline-block', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out, backdrop-filter 0.35s ease-out' },
         { background: 'rgba(251,251,249,0.16)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', borderColor: accent, transform: 'translateY(-2px)' },
         'heroPrimary'
       ) },
       heroSecondaryBtn: { ...hoverProps('heroSecondary'), style: mergeHover(
-        { border: '1px solid rgba(251,251,249,0.6)', color: '#FBFBF9', padding: '16px 30px', fontSize: '13px', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', display: 'inline-block', transition: 'background 0.35s ease-out, border-color 0.35s ease-out, transform 0.35s ease-out, backdrop-filter 0.35s ease-out' },
+        { border: '1px solid rgba(251,251,249,0.6)', color: '#FBFBF9', padding: '16px 30px', fontSize: '13px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', display: 'inline-block', transition: 'background 0.35s ease-out, border-color 0.35s ease-out, transform 0.35s ease-out, backdrop-filter 0.35s ease-out' },
         { background: 'rgba(251,251,249,0.14)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', borderColor: accent, transform: 'translateY(-2px)' },
         'heroSecondary'
       ) },
@@ -758,11 +757,11 @@ class Component extends DCLogic {
       aboutWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 48 : 150) + 'px ' + (isMobile ? 32 : 80) + 'px'},
       aboutRevealStyle: reveal('rv-about'),
       aboutHeadGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '24px' : '64px', marginBottom: isMobile ? '48px' : '72px', alignItems: 'start' },
-      aboutTextStyle: { fontFamily: sans, color: muted, fontSize: (isMobile ? 16 : 18) + 'px', lineHeight: 1.8, fontWeight: 500, margin: 0 },
+      aboutTextStyle: { fontFamily: sans, color: muted, fontSize: (isMobile ? 16 : 18) + 'px', lineHeight: 1.8, fontWeight: 400, margin: 0 },
       statsGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + (isMobile ? 1 : 3) + ', 1fr)', gap: isMobile ? '36px' : '24px', borderTop: '1px solid ' + hairline, borderBottom: '1px solid ' + hairline, padding: (isMobile ? '36px 0' : '48px 0') },
       displayedStats,
       statItemStyle: { textAlign: 'center' },
-      statNumberStyle: { fontFamily: numFont, fontWeight: 700, fontSize: isMobile ? '46px' : '58px', color: accent, lineHeight: 1, transform: 'scale(' + (0.9 + progress * 0.1) + ')', display: 'inline-block', transition: 'text-shadow 0.4s ease' },
+      statNumberStyle: { fontFamily: serif, fontWeight: 500, fontSize: isMobile ? '46px' : '58px', color: accent, lineHeight: 1, transform: 'scale(' + (0.9 + progress * 0.1) + ')', display: 'inline-block', transition: 'text-shadow 0.4s ease' },
       statNumberHoverStyle: { textShadow: '0 0 22px rgba(156,122,74,0.55)' },
       statLabelStyle: { fontFamily: sans, fontSize: '12px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px', marginTop: '10px' },
 
@@ -770,10 +769,10 @@ class Component extends DCLogic {
       section2WrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px'  + ' ' + containerPad + 'px 0' },
       sectionHeadRevealStyle: reveal('rv-projects-head'),
       sectionHeadStyle: { maxWidth: '640px', margin: '0 0 ' + (isMobile ? 18 : 24) + 'px' },
-      sectionEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '12px', color: accent, fontWeight: 600, marginBottom: '10px' },
-      sectionTitleStyle: { fontFamily: serif, fontWeight: 600, fontSize: sectionTitleSize + 'px', color: charcoal, margin: '0 0 14px', lineHeight: 1.15 },
+      sectionEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '12px', color: accent, fontWeight: 500, marginBottom: '10px' },
+      sectionTitleStyle: { fontFamily: serif, fontWeight: 500, fontSize: sectionTitleSize + 'px', color: charcoal, margin: '0 0 14px', lineHeight: 1.15 },
       sectionDividerStyle: { width: '48px', height: '2px', margin: '0 0 14px', backgroundImage: 'linear-gradient(90deg, ' + accent + ' 0%, #E8D9BE 25%, ' + accent + ' 50%, #E8D9BE 75%, ' + accent + ' 100%)', backgroundSize: '200% 100%', animation: 'shimmerMove 5s linear infinite' },
-      sectionSubStyle: { fontFamily: sans, color: muted, fontSize: '15px', lineHeight: 1.7, margin: 0, fontWeight: 400 },
+      sectionSubStyle: { fontFamily: sans, color: muted, fontSize: '15px', lineHeight: 1.7, margin: 0, fontWeight: 300 },
 
       locationTabRowStyle: { display: 'flex', overflowX: 'auto', borderBottom: '1px solid ' + hairline, marginBottom: isMobile ? '18px' : '28px' },
       locationTabs,
@@ -788,34 +787,34 @@ class Component extends DCLogic {
       cardImgStyle: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', maxWidth: '100%', objectFit: 'cover', transition: 'transform 0.7s ' + easeOut },
       cardImgHoverStyle: { transform: 'scale(1.06)' },
       captionRowStyle: { display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', padding: '20px 2px 0', borderTop: '1px solid ' + hairline, marginTop: '18px' },
-      cardNameStyle: { fontFamily: serif, fontWeight: 600, fontSize: '22px', color: charcoal, marginBottom: '4px' },
+      cardNameStyle: { fontFamily: serif, fontWeight: 500, fontSize: '22px', color: charcoal, marginBottom: '4px' },
       cardLocStyle: { fontFamily: sans, fontSize: '12px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px' },
 
       manifestoTransitionStyle: { height: (isMobile ? 70 : 120) + 'px', background: 'linear-gradient(to bottom, ' + ivory + ' 0%, ' + darkBg + ' 100%)' },
       manifestoSectionStyle: { background: darkBg, padding: (isMobile ? 80 : 140) + 'px ' + containerPad + 'px' },
       manifestoGridStyle: { maxWidth: '1320px', margin: '0 auto', display: 'grid', gridTemplateColumns: isMobile ? 'minmax(0,1fr)' : 'minmax(0,1fr) minmax(0,1.2fr)', gap: isMobile ? '36px' : '80px', alignItems: 'center' },
       manifestoImgStyle: { width: '100%', aspectRatio: isMobile ? '4/3' : '4/5', background: '#1E1E1E', ...reveal('rv-manifesto', { distance: 20 }) },
-      manifestoEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '11.5px', color: accent, fontWeight: 600, marginBottom: '20px', ...reveal('rv-manifesto', { distance: 14 }) },
-      manifestoQuoteStyle: { fontFamily: serif, fontStyle: 'italic', fontWeight: 600, fontSize: isMobile ? '26px' : '36px', color: '#FBFBF9', lineHeight: 1.35, margin: '0 0 26px' },
+      manifestoEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '11.5px', color: accent, fontWeight: 500, marginBottom: '20px', ...reveal('rv-manifesto', { distance: 14 }) },
+      manifestoQuoteStyle: { fontFamily: serif, fontStyle: 'italic', fontWeight: 500, fontSize: isMobile ? '26px' : '36px', color: '#FBFBF9', lineHeight: 1.35, margin: '0 0 26px' },
       manifestoLine1Style: { ...reveal('rv-manifesto', { delay: 0.15, distance: 16 }) },
       manifestoLine2Style: { ...reveal('rv-manifesto', { delay: 0.4, distance: 16 }) },
-      manifestoTextStyle: { fontFamily: sans, color: 'rgba(251,251,249,0.62)', fontSize: (isMobile ? 16 : 18) + 'px', lineHeight: 1.8, fontWeight: 500, margin: '0 0 22px', ...reveal('rv-manifesto', { delay: 0.55, distance: 14 }) },
+      manifestoTextStyle: { fontFamily: sans, color: 'rgba(251,251,249,0.62)', fontSize: (isMobile ? 16 : 18) + 'px', lineHeight: 1.8, fontWeight: 400, margin: '0 0 22px', ...reveal('rv-manifesto', { delay: 0.55, distance: 14 }) },
       manifestoAttrStyle: { fontFamily: sans, fontSize: '12px', color: 'rgba(251,251,249,0.45)', textTransform: 'uppercase', letterSpacing: '2px', ...reveal('rv-manifesto', { delay: 0.65, distance: 10 }) },
 
       craftGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + craftCols + ', 1fr)', gap: isMobile ? '24px' : '1px', background: isMobile ? 'transparent' : hairline, border: isMobile ? 'none' : '1px solid ' + hairline },
       craftItems,
       craftCardHoverStyle: { background: 'color-mix(in srgb, ' + accent + ' 4%, ' + ivory + ')' },
       craftIconHoverStyle: { transform: 'scale(1.08)', borderColor: accent },
-      craftTitleStyle: { fontFamily: serif, fontSize: '19px', fontWeight: 600, color: charcoal, marginBottom: '10px' },
-      craftTextStyle: { fontFamily: sans, fontSize: '15px', color: muted, lineHeight: 1.7, fontWeight: 500 },
+      craftTitleStyle: { fontFamily: serif, fontSize: '19px', fontWeight: 500, color: charcoal, marginBottom: '10px' },
+      craftTextStyle: { fontFamily: sans, fontSize: '15px', color: muted, lineHeight: 1.7, fontWeight: 400 },
 
       vipSectionStyle: { borderTop: '1px solid ' + hairline, padding: (isMobile ? 80 : 130) + 'px ' + containerPad + 'px', textAlign: 'center' },
       vipInnerStyle: { maxWidth: '640px', margin: '0 auto', ...reveal('rv-vip') },
-      vipTitleStyle: { fontFamily: serif, fontSize: isMobile ? '28px' : '40px', fontWeight: 600, color: charcoal, margin: '0 0 18px', lineHeight: 1.2 },
-      vipTextStyle: { fontFamily: sans, color: muted, fontSize: (isMobile ? 16 : 18) + 'px', lineHeight: 1.7, margin: '0 0 34px', fontWeight: 500 },
+      vipTitleStyle: { fontFamily: serif, fontSize: isMobile ? '28px' : '40px', fontWeight: 500, color: charcoal, margin: '0 0 18px', lineHeight: 1.2 },
+      vipTextStyle: { fontFamily: sans, color: muted, fontSize: (isMobile ? 16 : 18) + 'px', lineHeight: 1.7, margin: '0 0 34px', fontWeight: 400 },
       vipBtnRowStyle: { display: 'flex', gap: '24px', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' },
       vipBtn: { ...hoverProps('vipBtn'), style: mergeHover(
-        { fontFamily: sans, border: '1px solid ' + charcoal, background: 'none', color: charcoal, padding: '16px 34px', fontSize: '13px', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', cursor: 'pointer', transition: 'background 0.35s ease-out, color 0.35s ease-out, transform 0.35s ease-out, box-shadow 0.35s ease-out', borderRadius: '2px' },
+        { fontFamily: sans, border: '1px solid ' + charcoal, background: 'none', color: charcoal, padding: '16px 34px', fontSize: '13px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', cursor: 'pointer', transition: 'background 0.35s ease-out, color 0.35s ease-out, transform 0.35s ease-out, box-shadow 0.35s ease-out', borderRadius: '2px' },
         { background: charcoal, color: ivory, transform: 'translateY(-2px) scale(1.01)', boxShadow: '0 14px 30px rgba(26,26,26,0.25)' },
         'vipBtn'
       ) },
@@ -828,31 +827,31 @@ class Component extends DCLogic {
       footerStyle: { background: '#141412', padding: (isMobile ? 60 : 90) + 'px ' + containerPad + 'px 32px' },
       footerInnerStyle: { maxWidth: '1320px', margin: '0 auto' },
       footerTopGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : (isTablet ? '1.4fr 1fr 1fr' : '1.6fr 1fr 1fr'), gap: isMobile ? '40px' : '56px', marginBottom: '52px' },
-      footerLogoStyle: { fontFamily: serif, fontSize: '24px', fontWeight: 600, color: '#F7F6F3', marginBottom: '16px' },
+      footerLogoStyle: { fontFamily: serif, fontSize: '24px', fontWeight: 500, color: '#F7F6F3', marginBottom: '16px' },
       footerLogoAccentStyle: { color: accent },
-      footerBlurbStyle: { fontFamily: sans, fontSize: '15px', color: 'rgba(247,246,243,0.55)', lineHeight: 1.7, maxWidth: '320px', fontWeight: 500 },
+      footerBlurbStyle: { fontFamily: sans, fontSize: '15px', color: 'rgba(247,246,243,0.55)', lineHeight: 1.7, maxWidth: '320px', fontWeight: 400 },
       footerColTitleStyle: { fontFamily: sans, fontSize: '11px', color: 'rgba(247,246,243,0.4)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '20px' },
       footerLinkColStyle: { display: 'flex', flexDirection: 'column', gap: '13px' },
       footerNavLinks: this.navLinks.map((l, i) => ({ ...l, ...hoverProps('footerNav' + i), style: mergeHover(
-        { fontFamily: sans, fontSize: '14px', color: 'rgba(247,246,243,0.75)', fontWeight: 400, display: 'inline-block', transition: 'color 0.3s ease-out, transform 0.3s ease-out' },
+        { fontFamily: sans, fontSize: '14px', color: 'rgba(247,246,243,0.75)', fontWeight: 300, display: 'inline-block', transition: 'color 0.3s ease-out, transform 0.3s ease-out' },
         { color: accent, transform: 'translateX(3px)' },
         'footerNav' + i
       ) })),
       footerPhoneLink: { ...hoverProps('footerPhone'), style: mergeHover(
-        { fontFamily: numFont, fontSize: '14px', color: 'rgba(247,246,243,0.75)', fontWeight: 700, display: 'inline-block', transition: 'color 0.3s ease-out, transform 0.3s ease-out' },
+        { fontFamily: sans, fontSize: '14px', color: 'rgba(247,246,243,0.75)', fontWeight: 300, display: 'inline-block', transition: 'color 0.3s ease-out, transform 0.3s ease-out' },
         { color: accent, transform: 'translateX(3px)' },
         'footerPhone'
       ) },
       footerEmailLink: { ...hoverProps('footerEmail'), style: mergeHover(
-        { fontFamily: sans, fontSize: '14px', color: 'rgba(247,246,243,0.75)', fontWeight: 400, display: 'inline-block', transition: 'color 0.3s ease-out, transform 0.3s ease-out' },
+        { fontFamily: sans, fontSize: '14px', color: 'rgba(247,246,243,0.75)', fontWeight: 300, display: 'inline-block', transition: 'color 0.3s ease-out, transform 0.3s ease-out' },
         { color: accent, transform: 'translateX(3px)' },
         'footerEmail'
       ) },
-      footerLinkStyle: { fontFamily: sans, fontSize: '14px', color: 'rgba(247,246,243,0.75)', fontWeight: 400, transition: 'color 0.3s ease' },
+      footerLinkStyle: { fontFamily: sans, fontSize: '14px', color: 'rgba(247,246,243,0.75)', fontWeight: 300, transition: 'color 0.3s ease' },
       footerLinkHoverStyle: { color: accent },
       footerHairlineStyle: { height: '1px', background: 'rgba(247,246,243,0.1)', margin: '0 0 26px' },
       footerBottomRowStyle: { display: 'flex', flexWrap: 'wrap', gap: '10px', alignItems: 'center', justifyContent: 'space-between' },
-      footerCopyStyle: { fontFamily: numFont, fontWeight: 700, color: 'rgba(247,246,243,0.4)', fontSize: '12px', margin: 0 },
+      footerCopyStyle: { color: 'rgba(247,246,243,0.4)', fontSize: '12px', margin: 0 },
       footerCreditStyle: { color: 'rgba(247,246,243,0.4)', fontSize: '12px', margin: 0 },
       footerCreditLink: { ...hoverProps('footerCredit'), style: mergeHover(
         { color: 'rgba(247,246,243,0.65)', display: 'inline-block', transition: 'color 0.3s ease-out, transform 0.3s ease-out' },
@@ -861,7 +860,7 @@ class Component extends DCLogic {
       ) },
 
       floatingBtn: { ...hoverProps('floatingBtn'), style: mergeHover(
-        { position: 'fixed', bottom: (isMobile ? 18 : 28) + 'px', right: (isMobile ? 18 : 28) + 'px', zIndex: 90, background: this.state.overDark ? '#FBFBF9' : charcoal, color: this.state.overDark ? charcoal : ivory, border: 'none', padding: isMobile ? '14px 20px' : '16px 26px', borderRadius: '999px', fontFamily: sans, fontSize: isMobile ? '11.5px' : '12.5px', fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase', cursor: 'pointer', boxShadow: this.state.overDark ? '0 16px 32px rgba(0,0,0,0.45)' : '0 16px 32px rgba(26,26,26,0.28)', opacity: (modalOpen || !this.state.pastHero || this.state.nearFooter) ? 0 : 1, pointerEvents: (modalOpen || !this.state.pastHero || this.state.nearFooter) ? 'none' : 'auto', transition: 'transform 0.35s ease-out, box-shadow 0.35s ease-out, background 0.35s ease-out, color 0.35s ease-out, opacity 0.3s ease' },
+        { position: 'fixed', bottom: (isMobile ? 18 : 28) + 'px', right: (isMobile ? 18 : 28) + 'px', zIndex: 90, background: this.state.overDark ? '#FBFBF9' : charcoal, color: this.state.overDark ? charcoal : ivory, border: 'none', padding: isMobile ? '14px 20px' : '16px 26px', borderRadius: '999px', fontFamily: sans, fontSize: isMobile ? '11.5px' : '12.5px', fontWeight: 500, letterSpacing: '1px', textTransform: 'uppercase', cursor: 'pointer', boxShadow: this.state.overDark ? '0 16px 32px rgba(0,0,0,0.45)' : '0 16px 32px rgba(26,26,26,0.28)', opacity: (modalOpen || !this.state.pastHero || this.state.nearFooter) ? 0 : 1, pointerEvents: (modalOpen || !this.state.pastHero || this.state.nearFooter) ? 'none' : 'auto', transition: 'transform 0.35s ease-out, box-shadow 0.35s ease-out, background 0.35s ease-out, color 0.35s ease-out, opacity 0.3s ease' },
         { transform: 'translateY(-3px) scale(1.02)', boxShadow: this.state.overDark ? '0 22px 40px rgba(0,0,0,0.5)' : '0 22px 40px rgba(26,26,26,0.36)', background: accent, color: '#FBFBF9' },
         'floatingBtn'
       ) },
@@ -877,15 +876,15 @@ class Component extends DCLogic {
       overlayStyle: { position: 'fixed', inset: 0, background: 'rgba(15,15,15,0.55)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)', zIndex: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: containerPad + 'px' },
       modalCardStyle: { background: '#FBFBF9', borderRadius: '6px', padding: isMobile ? '36px 26px' : '48px 44px', maxWidth: '480px', width: '100%', boxShadow: '0 40px 80px rgba(0,0,0,0.35)', position: 'relative' },
       modalCloseStyle: { position: 'absolute', top: '18px', right: '18px', background: 'none', border: 'none', fontSize: '22px', color: muted, cursor: 'pointer', lineHeight: 1 },
-      modalEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '11px', color: accent, fontWeight: 600, marginBottom: '12px' },
-      modalTitleStyle: { fontFamily: serif, fontWeight: 600, fontSize: '28px', color: charcoal, margin: '0 0 14px' },
-      modalSubStyle: { fontFamily: sans, fontSize: '15px', color: muted, lineHeight: 1.7, margin: '0 0 26px', fontWeight: 500 },
+      modalEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '11px', color: accent, fontWeight: 500, marginBottom: '12px' },
+      modalTitleStyle: { fontFamily: serif, fontWeight: 500, fontSize: '28px', color: charcoal, margin: '0 0 14px' },
+      modalSubStyle: { fontFamily: sans, fontSize: '15px', color: muted, lineHeight: 1.7, margin: '0 0 26px', fontWeight: 400 },
       modalFormStyle: { display: 'flex', flexDirection: 'column', gap: '20px' },
       modalFieldStyle: { display: 'flex', flexDirection: 'column', gap: '8px' },
-      modalLabelStyle: { fontSize: '10.5px', fontWeight: 600, color: muted, textTransform: 'uppercase', letterSpacing: '1.5px' },
+      modalLabelStyle: { fontSize: '10.5px', fontWeight: 500, color: muted, textTransform: 'uppercase', letterSpacing: '1.5px' },
       modalInputStyle: { border: 'none', borderBottom: '1px solid ' + hairline, background: 'transparent', padding: '6px 0 10px', fontFamily: sans, fontSize: '14.5px', color: charcoal, outline: 'none' },
       modalSubmit: { ...hoverProps('modalSubmit'), style: mergeHover(
-        { background: charcoal, color: ivory, border: 'none', padding: '15px', fontSize: '12.5px', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', cursor: 'pointer', borderRadius: '3px', marginTop: '8px', transition: 'background 0.35s ease-out, transform 0.35s ease-out, box-shadow 0.35s ease-out' },
+        { fontFamily: sans, background: charcoal, color: ivory, border: 'none', padding: '15px', fontSize: '12.5px', fontWeight: 500, letterSpacing: '1.5px', textTransform: 'uppercase', cursor: 'pointer', borderRadius: '3px', marginTop: '8px', transition: 'background 0.35s ease-out, transform 0.35s ease-out, box-shadow 0.35s ease-out' },
         { background: accent, transform: 'translateY(-2px)', boxShadow: '0 12px 24px rgba(156,122,74,0.35)' },
         'modalSubmit'
       ) },
@@ -899,13 +898,13 @@ class Component extends DCLogic {
       navMegaWrapStyle: { position: 'relative', display: 'inline-flex', alignItems: 'center' },
       megaRowHoverStyle: { background: 'rgba(156,122,74,0.09)', color: accent, transform: 'translateX(4px)' },
       chevronStyle: { color: 'rgba(26,26,26,0.4)', fontSize: '15px', lineHeight: 1, marginLeft: '8px' },
-      leafRowStyle: { display: 'block', padding: '11px 16px', borderRadius: '5px', color: charcoal, fontFamily: sans, fontSize: '13.5px', fontWeight: 500, borderLeft: '2px solid transparent', transition: 'background 0.25s ease, color 0.25s ease, transform 0.25s ease, border-color 0.25s ease' },
+      leafRowStyle: { display: 'block', padding: '11px 16px', borderRadius: '5px', color: charcoal, fontFamily: sans, fontSize: '13.5px', fontWeight: 400, borderLeft: '2px solid transparent', transition: 'background 0.25s ease, color 0.25s ease, transform 0.25s ease, border-color 0.25s ease' },
       leafRowHoverStyle: { background: 'rgba(156,122,74,0.12)', color: accent, transform: 'translateX(4px)', borderLeft: '2px solid ' + accent },
       scheduleCloseMenu: () => this.scheduleCloseMenu(),
       ponudaMenu: makeMegaMenu('ponuda', this.ponudaItems),
       referenceMenu: makeMegaMenu('reference', this.referenceItems),
-      mobileAccordionHeadStyle: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', fontFamily: sans, fontSize: '15px', fontWeight: 600, color: '#FBFBF9', textTransform: 'uppercase', letterSpacing: '1px', padding: '10px 4px', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease' },
-      mobileLevel2HeadStyle: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '9px 4px', borderRadius: '4px', cursor: 'pointer', fontFamily: serif, fontSize: '15px', fontWeight: 600, transition: 'transform 0.2s ease, background 0.2s ease', color: '#FBFBF9' },
+      mobileAccordionHeadStyle: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', fontFamily: sans, fontSize: '15px', fontWeight: 500, color: '#FBFBF9', textTransform: 'uppercase', letterSpacing: '1px', padding: '10px 4px', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease' },
+      mobileLevel2HeadStyle: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '9px 4px', borderRadius: '4px', cursor: 'pointer', fontFamily: serif, fontSize: '15px', fontWeight: 500, transition: 'transform 0.2s ease, background 0.2s ease', color: '#FBFBF9' },
       mobileLevel3LinkStyle: { color: 'rgba(251,251,249,0.55)', fontSize: '13.5px', fontFamily: sans, display: 'block', padding: '4px', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease' }
     };
   }

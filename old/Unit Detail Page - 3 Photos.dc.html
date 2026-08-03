@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<script src="../support.js"></script>
 </head>
 <body>
 <x-dc>
@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="./image-slot.js"></script>
+<script src="../image-slot.js"></script>
 <style>
   body{margin:0;font-family:'Work Sans',sans-serif;background:#F7F8FA;-webkit-font-smoothing:antialiased;}
   a{color:#004FA3;text-decoration:none;}
@@ -30,9 +30,9 @@
       <span>/</span>
       <a href="{{ parentCrumbHref }}" style="color:#63728A;" style-hover="color:#004FA3;">{{ parentCrumbLabel }}</a>
       <span>/</span>
-      <a href="./Project Page.dc.html" style="color:#63728A;" style-hover="color:#004FA3;">{{ projectName }}</a>
+      <a href="Project%20Page.dc.html" style="color:#63728A;" style-hover="color:#004FA3;">{{ projectName }}</a>
       <span>/</span>
-      <a href="./Category Floor Plan Page.dc.html" style="color:#63728A;" style-hover="color:#004FA3;">{{ categoryLabel }}</a>
+      <a href="Category%20Floor%20Plan%20Page.dc.html" style="color:#63728A;" style-hover="color:#004FA3;">{{ categoryLabel }}</a>
       <span>/</span>
       <span style="color:#10233F;font-weight:600;">{{ unitCode }}</span>
     </div>
@@ -176,9 +176,7 @@ class Component extends DCLogic {
   allImages = [
     { slotId: 'unit-img-1', placeholder: 'Dnevna soba' },
     { slotId: 'unit-img-2', placeholder: 'Kuhinja' },
-    { slotId: 'unit-img-3', placeholder: 'Spava\u0107a soba' },
-    { slotId: 'unit-img-4', placeholder: 'Kupatilo' },
-    { slotId: 'unit-img-5', placeholder: 'Tlocrt' }
+    { slotId: 'unit-img-3', placeholder: 'Spava\u0107a soba' }
   ];
 
   otherUnitsData = [

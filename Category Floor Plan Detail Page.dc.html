@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="./image-slot.js"></script>
+  <style>
+    html{scroll-behavior:smooth;}
+    body{margin:0;background:#F7F6F3;-webkit-font-smoothing:antialiased;}
+    a{color:#9C7A4A;text-decoration:none;}
+    a:hover{color:#7E623B;}
+    #floorTabScroll::-webkit-scrollbar{display:none}
+    image-slot { pointer-events: none; }
+  </style>
+</helmet>
+<div style="{{ pageStyle }}">
+
+  <dc-import name="Navigation" accent-color="{{ accent }}" current-page="{{ navCurrentPage }}" hint-size="100%,80px"></dc-import>
+
+  <div style="{{ crumbWrapStyle }}">
+    <a href="index.dc.html" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">Naslovna</a>
+    <span style="{{ crumbSepStyle }}">/</span>
+    <a href="{{ parentCrumbHref }}" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">{{ parentCrumbLabel }}</a>
+    <span style="{{ crumbSepStyle }}">/</span>
+    <a href="Project%20Page.dc.html" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">{{ projectName }}</a>
+    <span style="{{ crumbSepStyle }}">/</span>
+    <a href="{{ categoryHref }}" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">{{ categoryLabel }}</a>
+    <span style="{{ crumbSepStyle }}">/</span>
+    <span style="{{ crumbActiveStyle }}">{{ activeLamela.label }}</span>
+  </div>
+
+  <div style="{{ headWrapStyle }}">
+    <div style="{{ eyebrowStyle }}">{{ categoryLabel }} &mdash; {{ projectName }}</div>
+    <h1 style="{{ titleStyle }}">{{ activeLamela.label }}</h1>
+    <p style="{{ leadStyle }}">Pomjerite kursor preko oznake na tlocrtu za pregled jedinice, ili izaberite iz liste ispod.</p>
+  </div>
+
+  <div id="rv-body" style="{{ bodyWrapStyle }}">
+    <div id="floorTabScroll" style="{{ floorTabRowStyle }}">
+      <sc-for list="{{ floorTabs }}" as="tab" hint-placeholder-count="3">
+        <button onClick="{{ tab.select }}" onMouseEnter="{{ tab.onMouseEnter }}" onMouseLeave="{{ clearHover }}" style="{{ tab.style }}">{{ tab.label }}</button>
+      </sc-for>
+    </div>
+
+    <div style="{{ legendRowStyle }}">
+      <sc-for list="{{ statusLegend }}" as="item" hint-placeholder-count="3">
+        <div style="{{ legendItemStyle }}">
+          <div style="{{ item.dotStyle }}"></div>
+          <span>{{ item.label }}</span>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="{{ planFrameStyle }}">
+      <image-slot id="{{ currentFloor.slotId }}" src="{{ currentFloor.slotSrc }}" placeholder="{{ currentFloor.placeholder }}" shape="rect" fit="contain" style="width:100%;height:100%;"></image-slot>
+      <sc-for list="{{ currentFloor.units }}" as="unit" hint-placeholder-count="5">
+        <a href="Unit%20Detail%20Page.dc.html" onMouseEnter="{{ unit.onEnter }}" onMouseLeave="{{ clearHover }}" style="{{ unit.pinStyle }}"></a>
+      </sc-for>
+      <sc-if value="{{ hasDisplayedUnit }}" hint-placeholder-val="{{ false }}">
+        <div onMouseEnter="{{ keepTooltip }}" onMouseLeave="{{ clearHover }}" style="{{ tooltipStyle }}">
+          <div style="{{ tooltipThumbWrapStyle }}">
+            <image-slot id="{{ hoveredUnit.thumbSlotId }}" placeholder="{{ hoveredUnit.thumbPlaceholder }}" shape="rect" style="width:100%;height:100%;"></image-slot>
+          </div>
+          <div style="{{ tooltipBodyStyle }}">
+            <div style="{{ tooltipCodeStyle }}">{{ hoveredUnit.code }}</div>
+            <div style="{{ tooltipSizeStyle }}">{{ hoveredUnit.size }}</div>
+            <div style="{{ legendItemStyle }}">
+              <div style="{{ hoveredUnit.dotStyle }}"></div>
+              <span>{{ hoveredUnit.statusLabel }}</span>
+            </div>
+          </div>
+        </div>
+      </sc-if>
+    </div>
+
+    <div style="{{ unitsHeadStyle }}">Jedinice na ovom spratu</div>
+    <div style="{{ chipGridStyle }}">
+      <sc-for list="{{ currentFloor.units }}" as="unit" hint-placeholder-count="5">
+        <a href="Unit%20Detail%20Page.dc.html" onMouseEnter="{{ unit.onChipEnter }}" onMouseLeave="{{ clearHover }}" style="{{ unit.chipStyle }}">
+          <div>
+            <div style="{{ chipCodeStyle }}">{{ unit.code }}</div>
+            <div style="{{ chipSizeStyle }}">{{ unit.size }}</div>
+          </div>
+          <div style="{{ legendItemStyle }}">
+            <div style="{{ unit.dotStyle }}"></div>
+            <span>{{ unit.statusLabel }}</span>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="{{ bottomSpacerStyle }}"></div>
+
+  <dc-import name="Footer" accent-color="{{ accent }}" hint-size="100%,400px"></dc-import>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#9C7A4A&quot;,&quot;options&quot;:[&quot;#9C7A4A&quot;,&quot;#B8934F&quot;,&quot;#7A8A78&quot;,&quot;#8C7A6B&quot;],&quot;tsType&quot;:&quot;string&quot;},&quot;projectName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Central Line&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;categoryLabel&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Stanovi&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;isArchived&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+class Component extends DCLogic {
+  state = {
+    width: typeof window !== 'undefined' ? window.innerWidth : 1440,
+    activeLamela: null,
+    activeFloor: null,
+    hoveredKey: null,
+    revealed: {}
+  };
+
+  revealIds = ['rv-body'];
+
+  statusMeta = {
+    available: { label: 'Dostupno', color: '#4C8B5F' },
+    reserved: { label: 'Rezervisano', color: '#B8934F' },
+    sold: { label: 'Prodato', color: '#9C4A45' }
+  };
+
+  buildLamelaOneFloors() {
+    const layout = [
+      { wing: 'G', n: '06', type: 'D', x: 6, y: 22 },
+      { wing: 'G', n: '07', type: 'J', x: 18, y: 22 },
+      { wing: 'G', n: '01', type: 'D', x: 38, y: 22 },
+      { wing: 'F', n: '06', type: 'J', x: 53, y: 22 },
+      { wing: 'F', n: '07', type: 'J', x: 63, y: 22 },
+      { wing: 'F', n: '01', type: 'T', x: 87, y: 20 },
+      { wing: 'G', n: '05', type: 'J', x: 6, y: 74 },
+      { wing: 'G', n: '04', type: 'J', x: 18, y: 74 },
+      { wing: 'G', n: '03', type: 'J', x: 30, y: 74 },
+      { wing: 'G', n: '02', type: 'J', x: 41, y: 74 },
+      { wing: 'F', n: '05', type: 'J', x: 53, y: 74 },
+      { wing: 'F', n: '04', type: 'J', x: 63, y: 74 },
+      { wing: 'F', n: '03', type: 'J', x: 73, y: 74 },
+      { wing: 'F', n: '02', type: 'D', x: 89, y: 74 }
+    ];
+    const statusCycle = ['available', 'available', 'reserved', 'available', 'sold', 'available', 'available'];
+    const sizesByFloor = {
+      1: { G06: '56.82', G07: '45.76', G01: '74.71', F06: '50.02', F07: '46.72', F01: '107.94', G05: '49.73', G04: '45.76', G03: '46.72', G02: '50.12', F05: '50.02', F04: '46.72', F03: '46.72', F02: '65.76' },
+      2: { G06: '56.72', G07: '45.66', G01: '74.68', F06: '49.89', F07: '46.65', F01: '107.75', G05: '49.60', G04: '45.66', G03: '46.65', G02: '50.06', F05: '49.89', F04: '46.65', F03: '46.65', F02: '65.68' },
+      3: { G06: '56.64', G07: '45.64', G01: '74.66', F06: '49.89', F07: '46.62', F01: '107.64', G05: '49.60', G04: '45.64', G03: '46.62', G02: '50.06', F05: '49.89', F04: '46.62', F03: '46.62', F02: '65.67' },
+      4: { G06: '56.62', G07: '45.57', G01: '74.64', F06: '49.82', F07: '46.54', F01: '107.60', G05: '49.55', G04: '45.56', G03: '46.54', G02: '50.01', F05: '49.82', F04: '46.54', F03: '46.54', F02: '65.58' },
+      5: { G06: '56.62', G07: '45.57', G01: '74.64', F06: '49.82', F07: '46.54', F01: '107.60', G05: '49.55', G04: '45.56', G03: '46.54', G02: '50.01', F05: '49.82', F04: '46.54', F03: '46.54', F02: '65.58' }
+    };
+    const floorSrc = { 1: './uploads/tlocrt.webp', 2: './uploads/tlocrt_2.jpg', 3: './uploads/tlocrt_3.webp', 4: './uploads/tlocrt_4.webp', 5: './uploads/tlocrt_5.webp' };
+    const floorLabels = { 1: 'Prvi sprat', 2: 'Drugi sprat', 3: 'Tre\u0107i sprat', 4: '\u010cetvrti sprat', 5: 'Peti sprat' };
+    return [1, 2, 3, 4, 5].map(num => {
+      const roomBase = num * 100;
+      const units = layout.map((u, i) => {
+        const key = u.wing + u.n;
+        const roomNum = roomBase + parseInt(u.n, 10);
+        return { code: u.wing + '_' + roomNum + '_' + u.type, size: sizesByFloor[num][key] + ' m\u00b2', status: statusCycle[i % statusCycle.length], x: u.x, y: u.y };
+      });
+      return { key: 'I-floor-' + num, label: floorLabels[num], slotId: 'plan-I-' + num, placeholder: 'Tlocrt', slotSrc: floorSrc[num], aspectRatio: '2048/761', units };
+    });
+  }
+
+  buildLamelaTwoFloors() {
+    const units = [
+      { code: 'II_PP_001', size: '105.55 m\u00b2', status: 'available', x: 9, y: 50 },
+      { code: 'II_PP_002', size: '104.70 m\u00b2', status: 'available', x: 25, y: 50 },
+      { code: 'II_PP_003', size: '167.50 m\u00b2', status: 'reserved', x: 40, y: 50 },
+      { code: 'II_PP_004', size: '147.95 m\u00b2', status: 'available', x: 68, y: 50 },
+      { code: 'II_PP_005', size: '159.05 m\u00b2', status: 'sold', x: 85, y: 50 }
+    ];
+    return [{ key: 'II-floor-0', label: 'Prizemlje', slotId: 'plan-II-0', placeholder: 'Tlocrt', slotSrc: './uploads/tlocrt_6.png', aspectRatio: '2048/1448', units }];
+  }
+
+  buildLamelaThreeFloors() {
+    const layout = [
+      { n: '02', type: 'D', x: 13, y: 24 },
+      { n: '01', type: 'J', x: 30, y: 24 },
+      { n: '11', type: 'J', x: 50, y: 24 },
+      { n: '10', type: 'J', x: 65, y: 24 },
+      { n: '09', type: 'J', x: 82, y: 22 },
+      { n: '03', type: 'J', x: 13, y: 75 },
+      { n: '04', type: 'J', x: 25, y: 75 },
+      { n: '05', type: 'J', x: 38, y: 75 },
+      { n: '06', type: 'J', x: 50, y: 75 },
+      { n: '07', type: 'J', x: 65, y: 75 },
+      { n: '08', type: 'J', x: 80, y: 75 }
+    ];
+    const statusCycle = ['available', 'available', 'reserved', 'available', 'sold', 'available'];
+    const sizesByFloor = {
+      1: { '02': '71.04', '01': '45.55', '11': '45.57', '10': '45.66', '09': '46.55', '03': '45.28', '04': '45.02', '05': '45.04', '06': '45.66', '07': '45.66', '08': '46.54' },
+      2: { '02': '71.03', '01': '45.55', '11': '45.57', '10': '45.66', '09': '46.55', '03': '45.28', '04': '45.03', '05': '45.06', '06': '45.66', '07': '45.66', '08': '46.54' },
+      3: { '02': '71.03', '01': '45.52', '11': '45.53', '10': '45.62', '09': '46.55', '03': '45.28', '04': '44.78', '05': '45.03', '06': '45.63', '07': '45.63', '08': '46.55' }
+    };
+    const floorSrc = { 1: './uploads/tlocrt_7.webp', 2: './uploads/tlocrt_8.webp', 3: './uploads/tlocrt_9.webp' };
+    const floorLabels = { 1: 'Prvi sprat', 2: 'Drugi sprat', 3: 'Tre\u0107i sprat' };
+    return [1, 2, 3].map(num => {
+      const roomBase = num * 100;
+      const units = layout.map((u, i) => ({ code: 'III_' + (roomBase + parseInt(u.n, 10)) + '_' + u.type, size: sizesByFloor[num][u.n] + ' m\u00b2', status: statusCycle[i % statusCycle.length], x: u.x, y: u.y }));
+      return { key: 'III-floor-' + num, label: floorLabels[num], slotId: 'plan-III-' + num, placeholder: 'Tlocrt', slotSrc: floorSrc[num], aspectRatio: '2048/1448', units };
+    });
+  }
+
+  lamelas = [
+    { key: 'lamela-1', label: 'Lamela I', floors: this.buildLamelaOneFloors() },
+    { key: 'lamela-2', label: 'Lamela II', floors: this.buildLamelaTwoFloors() },
+    { key: 'lamela-3', label: 'Lamela III', floors: this.buildLamelaThreeFloors() }
+  ];
+
+  componentDidMount() {
+    this._onResize = () => this.setState({ width: window.innerWidth });
+    window.addEventListener('resize', this._onResize);
+    if (typeof window !== 'undefined') {
+      const q = new URLSearchParams(window.location.search).get('lamela');
+      if (q && this.lamelas.some(l => l.key === q)) this.setState({ activeLamela: q });
+    }
+    this._observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          this.setState(s => ({ revealed: { ...s.revealed, [id]: true } }));
+          this._observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+    this.revealIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        this.setState(s => ({ revealed: { ...s.revealed, [id]: true } }));
+      } else {
+        this._observer.observe(el);
+      }
+    });
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize);
+    if (this._observer) this._observer.disconnect();
+    if (this._hoverTimer) clearTimeout(this._hoverTimer);
+  }
+
+  setFloor(key) { this.setState({ activeFloor: key, hoveredKey: null }); }
+  setHover(code) {
+    if (this._hoverTimer) { clearTimeout(this._hoverTimer); this._hoverTimer = null; }
+    this.setState({ hoveredKey: code, displayedKey: code });
+  }
+  clearHover() {
+    if (this._hoverTimer) clearTimeout(this._hoverTimer);
+    this._hoverTimer = setTimeout(() => { this.setState({ hoveredKey: null }); this._hoverTimer = null; }, 300);
+  }
+  keepTooltip() {
+    if (this._hoverTimer) { clearTimeout(this._hoverTimer); this._hoverTimer = null; }
+  }
+
+  renderVals() {
+    const w = this.state.width || 1440;
+    const isMobile = w < 640;
+    const isTablet = w >= 640 && w < 1024;
+
+    const projectName = this.props.projectName || 'Central Line';
+    const categoryLabel = this.props.categoryLabel || 'Stanovi';
+    const isArchived = !!this.props.isArchived;
+    const navCurrentPage = isArchived ? 'reference' : 'ponuda-stanova';
+    const parentCrumbLabel = isArchived ? 'Reference' : 'Ponuda stanova';
+    const parentCrumbHref = isArchived ? './Reference Page.dc.html' : './Ponuda Stanova Page.dc.html';
+
+    const accent = this.props.accentColor || '#9C7A4A';
+    const charcoal = '#1A1A1A';
+    const ivory = '#F7F6F3';
+    const hairline = 'rgba(26,26,26,0.10)';
+    const muted = 'rgba(26,26,26,0.58)';
+    const serif = "'Cormorant Garamond', serif";
+    const sans = "'Cormorant Garamond', serif";
+    const numFont = "'Cormorant Garamond', serif";
+    const easeOut = 'cubic-bezier(0.16,1,0.3,1)';
+
+    const containerPad = isMobile ? 22 : (isTablet ? 48 : 80);
+    const titleSize = isMobile ? 30 : (isTablet ? 42 : 46);
+    const reveal = (opts) => {
+      const isRevealed = !!this.state.revealed['rv-body'];
+      const delay = (opts && opts.delay) || 0;
+      return { opacity: isRevealed ? 1 : 0, transform: isRevealed ? 'translateY(0)' : 'translateY(24px)', transition: 'opacity 0.8s ' + easeOut + ' ' + delay + 's, transform 0.8s ' + easeOut + ' ' + delay + 's' };
+    };
+
+    const activeLamelaKey = this.state.activeLamela || this.lamelas[0].key;
+    const activeLamela = this.lamelas.find(l => l.key === activeLamelaKey) || this.lamelas[0];
+    const activeFloorKey = this.state.activeFloor || activeLamela.floors[0].key;
+    const activeFloor = activeLamela.floors.find(f => f.key === activeFloorKey) || activeLamela.floors[0];
+
+    const hk = this.state.hoveredKey;
+    const floorTabs = activeLamela.floors.map(f => {
+      const isActive = f.key === activeFloorKey;
+      const isHov = hk === 'tab-' + f.key;
+      return {
+        key: f.key,
+        label: f.label,
+        select: () => this.setFloor(f.key),
+        onMouseEnter: () => this.setHover('tab-' + f.key),
+        style: {
+          padding: '9px 2px', marginRight: isMobile ? '22px' : '32px', background: 'none', border: 'none',
+          borderBottom: (isActive || isHov) ? '2px solid ' + accent : '2px solid transparent',
+          color: isActive ? charcoal : (isHov ? accent : muted),
+          transform: isHov ? 'translateY(-1px)' : 'translateY(0)',
+          fontFamily: sans, fontWeight: isActive ? 700 : 500, fontSize: '14px', textTransform: 'uppercase', letterSpacing: '1px',
+          whiteSpace: 'nowrap', cursor: 'pointer', flexShrink: 0, transition: 'color 0.25s ease, border-color 0.25s ease, transform 0.25s ease'
+        }
+      };
+    });
+
+    const unitThumbIds = ['unit-img-1-tile', 'unit-img-2-tile', 'unit-img-3-tile', 'unit-img-4-tile'];
+    const chipBaseStyle = { border: '1px solid', borderColor: hairline, padding: '14px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', background: '#FFFFFF', transform: 'translateY(0)', boxShadow: 'none', transition: 'border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease' };
+    const units = activeFloor.units.map((u, ui) => {
+      const meta = this.statusMeta[u.status];
+      const isHovered = hk === u.code;
+      const isChipHov = hk === 'chip-' + u.code;
+      return {
+        ...u,
+        statusLabel: meta.label,
+        thumbSlotId: unitThumbIds[ui % unitThumbIds.length],
+        thumbPlaceholder: 'Stan ' + u.code,
+        dotStyle: { width: '8px', height: '8px', borderRadius: '50%', background: meta.color, flexShrink: 0 },
+        onEnter: () => this.setHover(u.code),
+        onChipEnter: () => this.setHover('chip-' + u.code),
+        chipStyle: isChipHov
+          ? { ...chipBaseStyle, borderColor: accent, boxShadow: '0 8px 20px rgba(26,26,26,0.08), 0 0 20px rgba(156,122,74,0.16)', transform: 'translateY(-2px)' }
+          : chipBaseStyle,
+        pinStyle: {
+          position: 'absolute', left: u.x + '%', top: u.y + '%', width: '8%', aspectRatio: '1 / 1',
+          transform: 'translate(-50%,-50%)', borderRadius: '6px',
+          background: isHovered ? 'rgba(156,122,74,0.4)' : 'rgba(156,122,74,0.22)',
+          border: (isHovered ? '2.5px' : '2px') + ' solid ' + (isHovered ? accent : charcoal),
+          boxShadow: isHovered ? '0 10px 22px rgba(26,26,26,0.32), 0 0 20px rgba(156,122,74,0.45)' : '0 3px 10px rgba(26,26,26,0.14)',
+          cursor: 'pointer', display: 'block', transition: 'all 0.25s ' + easeOut
+        }
+      };
+    });
+    const currentFloor = { ...activeFloor, units };
+
+    const hoveredUnit = this.state.hoveredKey ? units.find(u => u.code === this.state.hoveredKey) : null;
+    const displayedUnit = this.state.displayedKey ? units.find(u => u.code === this.state.displayedKey) : null;
+    const tooltipVisible = !!hoveredUnit;
+    const tooltipStyle = displayedUnit ? {
+      position: 'absolute', left: displayedUnit.x + '%', top: displayedUnit.y + '%',
+      transform: tooltipVisible ? 'translate(-50%, calc(-100% - 20px)) scale(1)' : 'translate(-50%, calc(-100% - 10px)) scale(0.94)',
+      opacity: tooltipVisible ? 1 : 0, pointerEvents: tooltipVisible ? 'auto' : 'none',
+      background: '#FBFBF9', boxShadow: '0 16px 32px rgba(26,26,26,0.22)',
+      display: 'flex', flexDirection: 'column', overflow: 'hidden',
+      width: '170px', zIndex: 20, transformOrigin: 'bottom center',
+      transition: 'opacity 0.3s ' + easeOut + ', transform 0.3s ' + easeOut
+    } : {};
+    const tooltipThumbWrapStyle = { width: '100%', height: '110px', overflow: 'hidden', background: '#EAE8E3', flexShrink: 0 };
+    const tooltipBodyStyle = { padding: '10px 14px', display: 'flex', flexDirection: 'column', gap: '6px' };
+
+    const chipCols = isMobile ? 1 : (isTablet ? 2 : 3);
+
+    return {
+      accent,
+      pageStyle: { background: ivory, color: charcoal, fontFamily: sans, minHeight: '100vh', position: 'relative', paddingTop: (isMobile ? 64 : 80) + 'px' },
+      crumbWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px ' + containerPad + 'px 0', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', fontSize: '13px', color: muted, fontFamily: sans },
+      crumbLinkStyle: { color: muted, transition: 'color 0.25s ease' },
+      crumbLinkHoverStyle: { color: accent },
+      crumbSepStyle: { color: muted },
+      crumbActiveStyle: { color: charcoal, fontWeight: 600 },
+      categoryHref: './Category Floor Plan Page.dc.html',
+
+      headWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px ' + containerPad + 'px ' + (isMobile ? 26 : 36) + 'px' },
+      eyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '12px', color: accent, fontWeight: 600, marginBottom: '10px' },
+      titleStyle: { fontFamily: serif, fontWeight: 600, fontSize: titleSize + 'px', color: charcoal, margin: '0 0 12px', lineHeight: 1.15 },
+      leadStyle: { fontFamily: sans, color: muted, fontSize: '15px', lineHeight: 1.7, maxWidth: '640px', margin: 0, fontWeight: 400 },
+
+      bodyWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '0 ' + containerPad + 'px ' + (isMobile ? 70 : 130) + 'px' },
+      floorTabRowStyle: { display: 'flex', gap: '10px', overflowX: 'auto', scrollbarWidth: 'none', marginBottom: '28px' },
+      floorTabs,
+      legendRowStyle: { display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '20px', flexWrap: 'wrap', marginBottom: '20px' },
+      legendItemStyle: { display: 'flex', alignItems: 'center', gap: '8px', fontFamily: sans, fontSize: '13px', color: muted },
+      statusLegend: Object.values(this.statusMeta).map(m => ({ label: m.label, dotStyle: { width: '8px', height: '8px', borderRadius: '50%', background: m.color, flexShrink: 0 } })),
+
+      planFrameStyle: { position: 'relative', width: '100%', aspectRatio: currentFloor.aspectRatio, border: '1px solid ' + hairline, overflow: 'visible', background: '#FFFFFF', marginBottom: isMobile ? '32px' : '44px', ...reveal() },
+      currentFloor,
+      clearHover: () => this.clearHover(),
+      hoveredUnit: displayedUnit,
+      hasDisplayedUnit: !!displayedUnit,
+      keepTooltip: () => this.keepTooltip(),
+      tooltipStyle,
+      tooltipThumbWrapStyle,
+      tooltipBodyStyle,
+      tooltipCodeStyle: { fontFamily: serif, fontWeight: 600, color: charcoal, fontSize: '14px', marginBottom: '4px', whiteSpace: 'nowrap' },
+      tooltipSizeStyle: { color: muted, fontSize: '12px', marginBottom: '6px', whiteSpace: 'nowrap', fontFamily: numFont, fontWeight: 700 },
+
+      unitsHeadStyle: { fontFamily: serif, fontSize: '19px', fontWeight: 600, color: charcoal, marginBottom: '16px', ...reveal({ delay: 0.1 }) },
+      chipGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + chipCols + ', 1fr)', gap: '12px', ...reveal({ delay: 0.16 }) },
+      chipCodeStyle: { fontFamily: serif, fontWeight: 600, color: charcoal, fontSize: '15px' },
+      chipSizeStyle: { color: muted, fontSize: '12px', fontFamily: numFont, fontWeight: 700 },
+      bottomSpacerStyle: { height: '1px' },
+
+      projectName, categoryLabel, activeLamela, isArchived, parentCrumbLabel, parentCrumbHref, navCurrentPage
+    };
+  }
+}
+</script>
+</body>
+</html>

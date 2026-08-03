@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <script src="./image-slot.js"></script>
+  <style>
+    html{scroll-behavior:smooth;}
+    body{margin:0;background:#F7F6F3;-webkit-font-smoothing:antialiased;}
+    a{color:#9C7A4A;text-decoration:none;}
+    a:hover{color:#7E623B;}
+    @keyframes shimmerMove{0%{background-position:0% 50%;}100%{background-position:200% 50%;}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    image-slot { pointer-events: none; }
+  </style>
+</helmet>
+<div style="{{ pageStyle }}">
+
+  <dc-import name="Navigation" accent-color="{{ accent }}" current-page="{{ navCurrentPage }}" hint-size="100%,80px"></dc-import>
+
+  <div style="{{ crumbWrapStyle }}">
+    <a href="index.dc.html" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">Naslovna</a>
+    <span style="{{ crumbSepStyle }}">/</span>
+    <a href="{{ parentCrumbHref }}" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">{{ parentCrumbLabel }}</a>
+    <span style="{{ crumbSepStyle }}">/</span>
+    <a href="Project%20Page.dc.html" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">{{ projectName }}</a>
+    <span style="{{ crumbSepStyle }}">/</span>
+    <span style="{{ crumbActiveStyle }}">Napredak radova</span>
+  </div>
+
+  <div style="{{ headWrapStyle }}">
+    <div style="{{ eyebrowStyle }}">{{ projectName }}</div>
+    <h1 style="{{ titleStyle }}">Napredak radova</h1>
+    <div style="{{ dividerStyle }}"></div>
+    <p style="{{ leadStyle }}">Pratite dinamiku izgradnje projekta {{ projectName }} iz mjeseca u mjesec.</p>
+  </div>
+
+  <div style="{{ monthsWrapStyle }}">
+    <div style="{{ railLineStyle }}"></div>
+    <sc-for list="{{ progressMonths }}" as="month" hint-placeholder-count="5">
+      <div id="{{ month.rowId }}" style="{{ month.rowStyle }}">
+        <div style="{{ railColStyle }}">
+          <div style="{{ month.dotStyle }}"></div>
+        </div>
+        <div style="{{ contentColStyle }}">
+          <div onClick="{{ month.toggle }}" onMouseEnter="{{ month.onRowEnter }}" onMouseLeave="{{ month.onRowLeave }}" style="{{ month.headStyle }}">
+            <div>
+              <div style="{{ month.monthLabelStyle }}">{{ month.label }}</div>
+              <div style="{{ month.statusStyle }}">{{ month.statusText }}</div>
+            </div>
+            <sc-if value="{{ month.hasPhotos }}" hint-placeholder-val="{{ false }}">
+              <div style="{{ month.chevronStyle }}">&#9662;</div>
+            </sc-if>
+          </div>
+          <sc-if value="{{ month.hasPhotos }}" hint-placeholder-val="{{ false }}">
+            <div style="{{ month.collapseStyle }}">
+              <div style="overflow:hidden;">
+                <div style="{{ month.gridStyle }}">
+                  <sc-for list="{{ month.photos }}" as="photo" hint-placeholder-count="4">
+                    <div onClick="{{ photo.open }}" style="{{ progPhotoStyle }}" style-hover="{{ progPhotoHoverStyle }}">
+                      <image-slot id="{{ photo.slotId }}" src="{{ photo.slotSrc }}" placeholder="{{ photo.placeholder }}" shape="rect" style="width:100%;height:100%;"></image-slot>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+
+  <div style="{{ bottomSpacerStyle }}"></div>
+
+  <dc-import name="Footer" accent-color="{{ accent }}" hint-size="100%,400px"></dc-import>
+
+  <sc-if value="{{ progLightboxOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeProgLightbox }}" style="{{ lightboxOverlayStyle }}">
+      <button onClick="{{ closeProgLightbox }}" style="{{ lightboxCloseStyle }}">&times;</button>
+      <button onClick="{{ prevProgImage }}" style="{{ lightboxNavStyle }}">&#8249;</button>
+      <button onClick="{{ nextProgImage }}" style="{{ lightboxNavRightStyle }}">&#8250;</button>
+      <div onClick="{{ stopClick }}" onTouchStart="{{ onTouchStart }}" onTouchEnd="{{ onTouchEnd }}" style="{{ lightboxImgWrapStyle }}">
+        <image-slot id="{{ progLightboxImage.slotId }}" src="{{ progLightboxImage.slotSrc }}" placeholder="{{ progLightboxImage.placeholder }}" shape="rect" fit="contain" style="width:100%;height:100%;"></image-slot>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#9C7A4A&quot;,&quot;options&quot;:[&quot;#9C7A4A&quot;,&quot;#B8934F&quot;,&quot;#7A8A78&quot;,&quot;#8C7A6B&quot;],&quot;tsType&quot;:&quot;string&quot;},&quot;projectName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Central Line&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;isArchived&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+class Component extends DCLogic {
+  state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440, openMonths: { 'Januar 2026.': true, 'Septembar 2025.': true }, progLightbox: null, revealed: { 'prog-row-0': true }, hoveredMonth: null };
+
+  progressMonths = [
+    { label: 'Januar 2026.', photos: [
+      { slotId: 'prog-jan-1', placeholder: 'Krov detalj', slotSrc: './uploads/napredak_radova_6.jpg' },
+      { slotId: 'prog-jan-2', placeholder: 'Enterijer \u2014 soba', slotSrc: './uploads/napredak_radova_5.jpg' },
+      { slotId: 'prog-jan-3', placeholder: 'Enterijer \u2014 hodnik', slotSrc: './uploads/napredak_radova_4.jpg' },
+      { slotId: 'prog-jan-4', placeholder: 'Enterijer \u2014 instalacije', slotSrc: './uploads/napredak_radova_3.jpg' },
+      { slotId: 'prog-jan-5', placeholder: 'Fasada \u2014 skela', slotSrc: './uploads/napredak_radova_2.jpg' },
+      { slotId: 'prog-jan-6', placeholder: 'Fasada \u2014 detalj', slotSrc: './uploads/napredak_radova.jpg' }
+    ]},
+    { label: 'Septembar 2025.', photos: [
+      { slotId: 'prog-sep-1', placeholder: 'Konstrukcija', slotSrc: './uploads/napredak_radova_10.jpg' },
+      { slotId: 'prog-sep-2', placeholder: 'Konstrukcija \u2014 kran', slotSrc: './uploads/napredak_radova_9.jpg' },
+      { slotId: 'prog-sep-3', placeholder: 'Konstrukcija \u2014 skelet', slotSrc: './uploads/napredak_radova_8.jpg' },
+      { slotId: 'prog-sep-4', placeholder: 'Konstrukcija \u2014 opeka', slotSrc: './uploads/napredak_radova_7.jpg' }
+    ]},
+    { label: 'Jul 2025.', photos: [] },
+    { label: 'Jun 2025.', photos: [] },
+    { label: 'Po\u010detak radova - Maj 2025.', photos: [] }
+  ];
+
+  revealIds = ['prog-row-1', 'prog-row-2', 'prog-row-3', 'prog-row-4'];
+
+  checkReveal() {
+    const vh = window.innerHeight;
+    if (vh > 1600) return;
+    this.revealIds.forEach(id => {
+      if (this.state.revealed[id]) return;
+      const el = document.getElementById(id);
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < vh - 40 && r.bottom > 0) {
+        this.setState(s => ({ revealed: { ...s.revealed, [id]: true } }));
+      }
+    });
+  }
+
+  componentDidMount() {
+    this._onResize = () => this.setState({ width: window.innerWidth });
+    this._onScroll = () => this.checkReveal();
+    window.addEventListener('resize', this._onResize);
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize);
+    window.removeEventListener('scroll', this._onScroll);
+  }
+
+  toggleMonth(label) { this.setState(s => ({ openMonths: { ...s.openMonths, [label]: !s.openMonths[label] } })); }
+  setHoveredMonth(label) { this.setState({ hoveredMonth: label }); }
+  clearHoveredMonth() { this.setState({ hoveredMonth: null }); }
+  openProgImage(monthIdx, photoIdx) { this.setState({ progLightbox: { monthIdx, photoIdx } }); }
+  closeProgLightbox() { this.setState({ progLightbox: null }); }
+  stepProgImage(delta) {
+    this.setState(s => {
+      if (!s.progLightbox) return s;
+      const photos = this.progressMonths[s.progLightbox.monthIdx].photos;
+      const photoIdx = (s.progLightbox.photoIdx + delta + photos.length) % photos.length;
+      return { progLightbox: { monthIdx: s.progLightbox.monthIdx, photoIdx } };
+    });
+  }
+  handleTouchStart(e) { this._touchStartX = e.touches[0].clientX; }
+  handleTouchEnd(e) {
+    if (this._touchStartX == null) return;
+    const dx = e.changedTouches[0].clientX - this._touchStartX;
+    this._touchStartX = null;
+    if (Math.abs(dx) < 40) return;
+    if (dx > 0) this.stepProgImage(-1); else this.stepProgImage(1);
+  }
+
+  renderVals() {
+    const w = this.state.width || 1440;
+    const isMobile = w < 640;
+    const isTablet = w >= 640 && w < 1024;
+    const projectName = this.props.projectName || 'Central Line';
+    const isArchived = !!this.props.isArchived;
+    const navCurrentPage = isArchived ? 'reference' : 'ponuda-stanova';
+    const parentCrumbLabel = isArchived ? 'Reference' : 'Ponuda stanova';
+    const parentCrumbHref = isArchived ? './Reference Page.dc.html' : './Ponuda Stanova Page.dc.html';
+
+    const accent = this.props.accentColor || '#9C7A4A';
+    const charcoal = '#1A1A1A';
+    const ivory = '#F7F6F3';
+    const hairline = 'rgba(26,26,26,0.10)';
+    const muted = 'rgba(26,26,26,0.58)';
+    const serif = "'Cormorant Garamond', serif";
+    const sans = "'Cormorant Garamond', serif";
+    const numFont = "'Cormorant Garamond', serif";
+    const easeOut = 'cubic-bezier(0.16,1,0.3,1)';
+    const containerPad = isMobile ? 22 : (isTablet ? 48 : 80);
+    const titleSize = isMobile ? 34 : (isTablet ? 44 : 52);
+    const railW = isMobile ? 22 : 28;
+    const photoCols = isMobile ? 2 : 3;
+
+    const reveal = (id, opts) => {
+      const isRevealed = !!this.state.revealed[id];
+      const delay = (opts && opts.delay) || 0;
+      return { opacity: isRevealed ? 1 : 0, transform: isRevealed ? 'translateY(0)' : 'translateY(22px)', transition: 'opacity 0.8s ' + easeOut + ' ' + delay + 's, transform 0.8s ' + easeOut + ' ' + delay + 's' };
+    };
+
+    const hoveredMonth = this.state.hoveredMonth;
+    const progressMonths = this.progressMonths.map((m, mi) => {
+      const isOpen = !!this.state.openMonths[m.label];
+      const hasPhotos = m.photos.length > 0;
+      const photos = m.photos.map((p, pi) => ({ ...p, open: () => this.openProgImage(mi, pi) }));
+      const rowId = 'prog-row-' + mi;
+      const isRowHov = hasPhotos && hoveredMonth === m.label;
+      return {
+        ...m,
+        rowId,
+        photos,
+        isOpen,
+        hasPhotos,
+        toggle: hasPhotos ? (() => this.toggleMonth(m.label)) : undefined,
+        onRowEnter: hasPhotos ? (() => this.setHoveredMonth(m.label)) : undefined,
+        onRowLeave: () => this.clearHoveredMonth(),
+        rowStyle: { display: 'grid', gridTemplateColumns: railW + 'px 1fr', gap: isMobile ? '14px' : '20px', paddingBottom: isMobile ? '34px' : '46px', position: 'relative', zIndex: 1 },
+        dotStyle: { width: '11px', height: '11px', borderRadius: '50%', marginTop: '7px', background: hasPhotos ? accent : 'transparent', border: '1.5px solid ' + accent, opacity: hasPhotos ? 1 : 0.5, boxSizing: 'border-box', boxShadow: isRowHov ? '0 0 10px rgba(156,122,74,0.55)' : 'none', transition: 'box-shadow 0.3s ease' },
+        headStyle: { display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: '14px', cursor: hasPhotos ? 'pointer' : 'default', transform: isRowHov ? 'translateX(4px)' : 'translateX(0)', transition: 'transform 0.3s ' + easeOut },
+        monthLabelStyle: { fontFamily: serif, fontSize: isMobile ? '19px' : '21px', fontWeight: 600, color: isRowHov ? accent : charcoal, transition: 'color 0.3s ease' },
+        statusStyle: { fontFamily: numFont, fontSize: '12.5px', color: hasPhotos ? accent : muted, textTransform: 'uppercase', letterSpacing: '1px', marginTop: '6px', fontWeight: 700 },
+        statusText: hasPhotos ? (m.photos.length + (m.photos.length === 1 ? ' fotografija' : ' fotografije')) : 'Fotografije uskoro',
+        chevronStyle: { color: accent, fontSize: '15px', marginTop: '4px', transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.3s ' + easeOut },
+        collapseStyle: { display: 'grid', gridTemplateRows: isOpen ? '1fr' : '0fr', transition: 'grid-template-rows 0.4s ' + easeOut, marginTop: isOpen ? '20px' : '0px' },
+        gridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + photoCols + ', 1fr)', gap: isMobile ? '8px' : '14px', ...reveal(rowId) }
+      };
+    });
+
+    return {
+      accent,
+      pageStyle: { background: ivory, color: charcoal, fontFamily: sans, minHeight: '100vh', position: 'relative', paddingTop: (isMobile ? 64 : 80) + 'px' },
+      crumbWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px ' + containerPad + 'px 0', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', fontSize: '13px', color: muted, fontFamily: sans },
+      crumbLinkStyle: { color: muted, transition: 'color 0.25s ease' },
+      crumbLinkHoverStyle: { color: accent },
+      crumbSepStyle: { color: muted },
+      crumbActiveStyle: { color: charcoal, fontWeight: 600 },
+
+      headWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px ' + containerPad + 'px ' + (isMobile ? 40 : 60) + 'px' },
+      eyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '12px', color: accent, fontWeight: 600, marginBottom: '10px' },
+      titleStyle: { fontFamily: serif, fontWeight: 600, fontSize: titleSize + 'px', color: charcoal, margin: '0 0 14px', lineHeight: 1.15 },
+      dividerStyle: { width: '48px', height: '2px', margin: '0 0 18px', backgroundImage: 'linear-gradient(90deg, ' + accent + ' 0%, #E8D9BE 25%, ' + accent + ' 50%, #E8D9BE 75%, ' + accent + ' 100%)', backgroundSize: '200% 100%', animation: 'shimmerMove 5s linear infinite' },
+      leadStyle: { fontFamily: sans, color: muted, fontSize: '16px', lineHeight: 1.7, maxWidth: '640px', margin: 0, fontWeight: 400 },
+
+      monthsWrapStyle: { maxWidth: '900px', margin: '0 auto', padding: '0 ' + containerPad + 'px ' + (isMobile ? 60 : 100) + 'px', position: 'relative' },
+      railLineStyle: { position: 'absolute', left: (containerPad + railW / 2 - 0.5) + 'px', top: '10px', bottom: '46px', width: '1px', background: hairline },
+      progressMonths,
+      railColStyle: { display: 'flex', justifyContent: 'center' },
+      contentColStyle: { minWidth: 0 },
+      progPhotoStyle: { position: 'relative', cursor: 'pointer', aspectRatio: '4/3', overflow: 'hidden', transition: 'transform 0.4s ' + easeOut + ', box-shadow 0.4s ease' },
+      progPhotoHoverStyle: { transform: 'scale(1.03)', boxShadow: '0 14px 30px rgba(26,26,26,0.20), 0 0 22px rgba(156,122,74,0.20)' },
+      bottomSpacerStyle: { height: '1px' },
+
+      projectName, isArchived, parentCrumbLabel, parentCrumbHref, navCurrentPage,
+      progLightboxOpen: !!this.state.progLightbox,
+      progLightboxImage: this.state.progLightbox ? this.progressMonths[this.state.progLightbox.monthIdx].photos[this.state.progLightbox.photoIdx] : null,
+      closeProgLightbox: () => this.closeProgLightbox(),
+      prevProgImage: (e) => { e.stopPropagation(); this.stepProgImage(-1); },
+      nextProgImage: (e) => { e.stopPropagation(); this.stepProgImage(1); },
+      stopClick: (e) => e.stopPropagation(),
+      onTouchStart: (e) => this.handleTouchStart(e),
+      onTouchEnd: (e) => this.handleTouchEnd(e),
+      lightboxOverlayStyle: { position: 'fixed', inset: 0, background: 'rgba(15,15,15,0.94)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', animation: 'fadeIn 0.2s ease' },
+      lightboxCloseStyle: { position: 'absolute', top: '18px', right: isMobile ? '14px' : '24px', background: 'rgba(0,0,0,0.4)', border: 'none', color: '#FBFBF9', fontSize: '28px', width: '42px', height: '42px', borderRadius: '50%', cursor: 'pointer', lineHeight: 1, zIndex: 5 },
+      lightboxNavStyle: { position: 'absolute', left: isMobile ? '8px' : '24px', top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.45)', border: '1px solid rgba(255,255,255,0.2)', color: '#FBFBF9', fontSize: '22px', width: isMobile ? '40px' : '48px', height: isMobile ? '40px' : '48px', borderRadius: '50%', cursor: 'pointer', zIndex: 5 },
+      lightboxNavRightStyle: { position: 'absolute', right: isMobile ? '8px' : '24px', top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.45)', border: '1px solid rgba(255,255,255,0.2)', color: '#FBFBF9', fontSize: '22px', width: isMobile ? '40px' : '48px', height: isMobile ? '40px' : '48px', borderRadius: '50%', cursor: 'pointer', zIndex: 5 },
+      lightboxImgWrapStyle: { width: isMobile ? 'calc(100vw - 110px)' : 'min(900px,86vw)', height: isMobile ? '70vh' : 'min(600px,80vh)', touchAction: 'pan-y' }
+    };
+  }
+}
+</script>
+</body>
+</html>

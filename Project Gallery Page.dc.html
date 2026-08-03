@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="./image-slot.js"></script>
+  <style>
+    html{scroll-behavior:smooth;}
+    body{margin:0;background:#F7F6F3;-webkit-font-smoothing:antialiased;}
+    a{color:#9C7A4A;text-decoration:none;}
+    a:hover{color:#7E623B;}
+    @keyframes shimmerMove{0%{background-position:0% 50%;}100%{background-position:200% 50%;}}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    image-slot { pointer-events: none; }
+  </style>
+</helmet>
+<div style="{{ pageStyle }}">
+
+  <dc-import name="Navigation" accent-color="{{ accent }}" current-page="{{ navCurrentPage }}" hint-size="100%,80px"></dc-import>
+
+  <div style="{{ crumbWrapStyle }}">
+    <a href="index.dc.html" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">Naslovna</a>
+    <span style="{{ crumbSepStyle }}">/</span>
+    <a href="{{ parentCrumbHref }}" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">{{ parentCrumbLabel }}</a>
+    <span style="{{ crumbSepStyle }}">/</span>
+    <a href="Project%20Page.dc.html" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">{{ projectName }}</a>
+    <span style="{{ crumbSepStyle }}">/</span>
+    <span style="{{ crumbActiveStyle }}">Galerija</span>
+  </div>
+
+  <div id="rv-head" style="{{ headWrapStyle }}">
+    <div style="{{ eyebrowStyle }}">{{ projectName }}</div>
+    <h1 style="{{ titleStyle }}">Galerija</h1>
+    <div style="{{ dividerStyle }}"></div>
+    <p style="{{ leadStyle }}">Fotografije objekta, okoline i eksterijera projekta {{ projectName }}.</p>
+  </div>
+
+  <div id="rv-grid" style="{{ gridWrapStyle }}">
+    <div style="{{ galGridStyle }}">
+      <sc-for list="{{ galleryImages }}" as="img" hint-placeholder-count="9">
+        <div onClick="{{ img.open }}" style="{{ img.itemStyle }}" style-hover="{{ galItemHoverStyle }}">
+          <image-slot id="{{ img.slotId }}" placeholder="{{ img.placeholder }}" shape="rect" style="{{ galImgStyle }}"></image-slot>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="{{ bottomSpacerStyle }}"></div>
+
+  <dc-import name="Footer" accent-color="{{ accent }}" hint-size="100%,400px"></dc-import>
+
+  <sc-if value="{{ lightboxOpen }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeLightbox }}" style="{{ lightboxOverlayStyle }}">
+      <button onClick="{{ closeLightbox }}" style="{{ lightboxCloseStyle }}">&times;</button>
+      <button onClick="{{ prevImage }}" style="{{ lightboxNavStyle }}">&#8249;</button>
+      <button onClick="{{ nextImage }}" style="{{ lightboxNavRightStyle }}">&#8250;</button>
+      <div onClick="{{ stopClick }}" onTouchStart="{{ onTouchStart }}" onTouchEnd="{{ onTouchEnd }}" style="{{ lightboxImgWrapStyle }}">
+        <image-slot id="{{ lightboxImage.slotId }}" placeholder="{{ lightboxImage.placeholder }}" shape="rect" fit="contain" style="width:100%;height:100%;"></image-slot>
+      </div>
+    </div>
+  </sc-if>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#9C7A4A&quot;,&quot;options&quot;:[&quot;#9C7A4A&quot;,&quot;#B8934F&quot;,&quot;#7A8A78&quot;,&quot;#8C7A6B&quot;],&quot;tsType&quot;:&quot;string&quot;},&quot;projectName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Central Line&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;isArchived&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+class Component extends DCLogic {
+  state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440, lightboxIndex: null, revealed: {} };
+
+  revealIds = ['rv-head', 'rv-grid'];
+
+  galleryImages = [
+    { slotId: 'gal-1', placeholder: 'Glavna fasada' },
+    { slotId: 'gal-2', placeholder: 'Ulazni plato' },
+    { slotId: 'gal-3', placeholder: 'Bo\u010dna fasada' },
+    { slotId: 'gal-4', placeholder: '\u0160iri plan' },
+    { slotId: 'gal-5', placeholder: 'Okolina' },
+    { slotId: 'gal-6', placeholder: 'Pristupni put' },
+    { slotId: 'gal-7', placeholder: 'Dvori\u0161na fasada' },
+    { slotId: 'gal-8', placeholder: 'No\u0107ni prikaz' },
+    { slotId: 'gal-9', placeholder: 'Ugaoni plan' }
+  ];
+
+  componentDidMount() {
+    this._onResize = () => this.setState({ width: window.innerWidth });
+    window.addEventListener('resize', this._onResize);
+    this._observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          this.setState(s => ({ revealed: { ...s.revealed, [id]: true } }));
+          this._observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    this.revealIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        this.setState(s => ({ revealed: { ...s.revealed, [id]: true } }));
+      } else {
+        this._observer.observe(el);
+      }
+    });
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize);
+    if (this._observer) this._observer.disconnect();
+  }
+
+  handleTouchStart(e) { this._touchStartX = e.touches[0].clientX; }
+  handleTouchEnd(e) {
+    if (this._touchStartX == null) return;
+    const dx = e.changedTouches[0].clientX - this._touchStartX;
+    this._touchStartX = null;
+    if (Math.abs(dx) < 40) return;
+    if (dx > 0) this.setState(s => ({ lightboxIndex: (s.lightboxIndex - 1 + this.galleryImages.length) % this.galleryImages.length }));
+    else this.setState(s => ({ lightboxIndex: (s.lightboxIndex + 1) % this.galleryImages.length }));
+  }
+
+  renderVals() {
+    const w = this.state.width || 1440;
+    const isMobile = w < 640;
+    const isTablet = w >= 640 && w < 1024;
+    const projectName = this.props.projectName || 'Central Line';
+    const isArchived = !!this.props.isArchived;
+    const navCurrentPage = isArchived ? 'reference' : 'ponuda-stanova';
+    const parentCrumbLabel = isArchived ? 'Reference' : 'Ponuda stanova';
+    const parentCrumbHref = isArchived ? './Reference Page.dc.html' : './Ponuda Stanova Page.dc.html';
+
+    const accent = this.props.accentColor || '#9C7A4A';
+    const charcoal = '#1A1A1A';
+    const ivory = '#F7F6F3';
+    const muted = 'rgba(26,26,26,0.58)';
+    const serif = "'Cormorant Garamond', serif";
+    const sans = "'Cormorant Garamond', serif";
+    const easeOut = 'cubic-bezier(0.16,1,0.3,1)';
+    const containerPad = isMobile ? 22 : (isTablet ? 48 : 80);
+    const galCols = isMobile ? 2 : 3;
+    const titleSize = isMobile ? 34 : (isTablet ? 44 : 52);
+
+    const reveal = (id, opts) => {
+      const isRevealed = !!this.state.revealed[id];
+      const delay = (opts && opts.delay) || 0;
+      return { opacity: isRevealed ? 1 : 0, transform: isRevealed ? 'translateY(0)' : 'translateY(28px)', transition: 'opacity 0.9s ' + easeOut + ' ' + delay + 's, transform 0.9s ' + easeOut + ' ' + delay + 's' };
+    };
+
+    const galItemStyleBase = { position: 'relative', overflow: 'hidden', cursor: 'pointer', aspectRatio: '4/3', transition: 'transform 0.4s ' + easeOut + ', box-shadow 0.4s ease' };
+    const galleryImages = this.galleryImages.map((img, i) => ({ ...img, open: () => this.setState({ lightboxIndex: i }), itemStyle: { ...galItemStyleBase, ...reveal('rv-grid', { delay: Math.min(i, 6) * 0.06 }) } }));
+
+    return {
+      accent,
+      pageStyle: { background: ivory, color: charcoal, fontFamily: sans, minHeight: '100vh', position: 'relative', paddingTop: (isMobile ? 64 : 80) + 'px' },
+      crumbWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px ' + containerPad + 'px 0', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', fontSize: '13px', color: muted, fontFamily: sans },
+      crumbLinkStyle: { color: muted, transition: 'color 0.25s ease' },
+      crumbLinkHoverStyle: { color: accent },
+      crumbSepStyle: { color: muted },
+      crumbActiveStyle: { color: charcoal, fontWeight: 600 },
+
+      headWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px ' + containerPad + 'px ' + (isMobile ? 32 : 48) + 'px', ...reveal('rv-head') },
+      eyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '12px', color: accent, fontWeight: 600, marginBottom: '10px' },
+      titleStyle: { fontFamily: serif, fontWeight: 600, fontSize: titleSize + 'px', color: charcoal, margin: '0 0 14px', lineHeight: 1.15 },
+      dividerStyle: { width: '48px', height: '2px', margin: '0 0 18px', backgroundImage: 'linear-gradient(90deg, ' + accent + ' 0%, #E8D9BE 25%, ' + accent + ' 50%, #E8D9BE 75%, ' + accent + ' 100%)', backgroundSize: '200% 100%', animation: 'shimmerMove 5s linear infinite' },
+      leadStyle: { fontFamily: sans, color: muted, fontSize: '16px', lineHeight: 1.7, maxWidth: '640px', margin: 0, fontWeight: 400 },
+
+      gridWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '0 ' + containerPad + 'px ' + (isMobile ? 70 : 150) + 'px', ...reveal('rv-grid') },
+      galGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + galCols + ', 1fr)', gap: isMobile ? '10px' : '16px' },
+      galleryImages,
+      galItemHoverStyle: { transform: 'scale(1.02)', boxShadow: 'inset 0 0 0 1px ' + accent + ', 0 0 26px rgba(156,122,74,0.24)' },
+      galImgStyle: { width: '100%', height: '100%' },
+      bottomSpacerStyle: { height: '1px' },
+
+      projectName, isArchived, parentCrumbLabel, parentCrumbHref, navCurrentPage,
+      lightboxOpen: this.state.lightboxIndex !== null,
+      lightboxImage: this.state.lightboxIndex !== null ? this.galleryImages[this.state.lightboxIndex] : null,
+      closeLightbox: () => this.setState({ lightboxIndex: null }),
+      prevImage: (e) => { e.stopPropagation(); this.setState(s => ({ lightboxIndex: (s.lightboxIndex - 1 + this.galleryImages.length) % this.galleryImages.length })); },
+      nextImage: (e) => { e.stopPropagation(); this.setState(s => ({ lightboxIndex: (s.lightboxIndex + 1) % this.galleryImages.length })); },
+      stopClick: (e) => e.stopPropagation(),
+      onTouchStart: (e) => this.handleTouchStart(e),
+      onTouchEnd: (e) => this.handleTouchEnd(e),
+      lightboxOverlayStyle: { position: 'fixed', inset: 0, background: 'rgba(15,15,15,0.94)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', animation: 'fadeIn 0.2s ease' },
+      lightboxCloseStyle: { position: 'absolute', top: '18px', right: isMobile ? '14px' : '24px', background: 'rgba(0,0,0,0.4)', border: 'none', color: '#FBFBF9', fontSize: '28px', width: '42px', height: '42px', borderRadius: '50%', cursor: 'pointer', lineHeight: 1, zIndex: 5 },
+      lightboxNavStyle: { position: 'absolute', left: isMobile ? '8px' : '24px', top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.45)', border: '1px solid rgba(255,255,255,0.2)', color: '#FBFBF9', fontSize: '22px', width: isMobile ? '40px' : '48px', height: isMobile ? '40px' : '48px', borderRadius: '50%', cursor: 'pointer', zIndex: 5 },
+      lightboxNavRightStyle: { position: 'absolute', right: isMobile ? '8px' : '24px', top: '50%', transform: 'translateY(-50%)', background: 'rgba(0,0,0,0.45)', border: '1px solid rgba(255,255,255,0.2)', color: '#FBFBF9', fontSize: '22px', width: isMobile ? '40px' : '48px', height: isMobile ? '40px' : '48px', borderRadius: '50%', cursor: 'pointer', zIndex: 5 },
+      lightboxImgWrapStyle: { width: isMobile ? 'calc(100vw - 110px)' : 'min(900px,86vw)', height: isMobile ? '70vh' : 'min(600px,80vh)', touchAction: 'pan-y' }
+    };
+  }
+}
+</script>
+</body>
+</html>

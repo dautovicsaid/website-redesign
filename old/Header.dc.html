@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<script src="../support.js"></script>
 </head>
 <body>
 <x-dc>
@@ -17,22 +17,22 @@
 </helmet>
 <div style="position:fixed;top:0;left:0;right:0;z-index:50;background:linear-gradient(135deg,#062A52,#0E4A8C);box-shadow:0 2px 14px rgba(6,42,82,0.22);font-family:'Work Sans',sans-serif;">
   <div style="max-width:1280px;margin:0 auto;padding:14px {{ containerPad }}px;display:flex;align-items:center;justify-content:space-between;gap:24px;">
-    <a href="index.dc.html"><img src="assets/kips-logo-white.png" alt="KIPS Gradnja" style="height:30px;width:auto;flex-shrink:0;display:block;"></a>
+    <a href="index.dc.html"><img src="../assets/kips-logo-white.png" alt="KIPS Gradnja" style="height:30px;width:auto;flex-shrink:0;display:block;"></a>
 
     <sc-if value="{{ showNavLinks }}" hint-placeholder-val="{{ true }}">
       <nav style="display:flex;align-items:center;gap:28px;flex:1;justify-content:center;">
         <div style="position:relative;" onMouseEnter="{{ ponudaMenu.open }}" onMouseLeave="{{ scheduleCloseMenu }}">
-          <a href="./Ponuda Stanova Page.dc.html" style="{{ linkStyles.ponuda }}" style-hover="color:#FAE100;">Ponuda stanova</a>
+          <a href="../Ponuda%20Stanova%20Page.dc.html" style="{{ linkStyles.ponuda }}" style-hover="color:#FAE100;">Ponuda stanova</a>
           <div style="{{ ponudaMenu.panelStyle }}">
             <div style="align-self:stretch;border-right:1px solid #E4E7EC;">
               <sc-for list="{{ ponudaMenu.projects }}" as="proj" hint-placeholder-count="3">
-                <a href="./Project Page.dc.html" onMouseEnter="{{ proj.onEnter }}" style="{{ proj.rowStyle }}" style-active="background:#E8EBF0;">{{ proj.label }}</a>
+                <a href="../Project%20Page.dc.html" onMouseEnter="{{ proj.onEnter }}" style="{{ proj.rowStyle }}" style-active="background:#E8EBF0;">{{ proj.label }}</a>
               </sc-for>
             </div>
             <sc-if value="{{ ponudaMenu.showCategories }}" hint-placeholder-val="{{ false }}">
               <div>
                 <sc-for list="{{ ponudaMenu.categories }}" as="cat" hint-placeholder-count="3">
-                  <a href="./Category Floor Plan Page.dc.html" style="display:block;padding:14px 20px;color:#334155;font-size:14px;font-weight:500;transition:background 0.15s ease,color 0.15s ease;" style-hover="background:#F7F8FA;color:#004FA3;" style-active="background:#EEF2F6;">{{ cat }}</a>
+                  <a href="Category%20Floor%20Plan%20Page.dc.htmlhtml" style="display:block;padding:14px 20px;color:#334155;font-size:14px;font-weight:500;transition:background 0.15s ease,color 0.15s ease;" style-hover="background:#F7F8FA;color:#004FA3;" style-active="background:#EEF2F6;">{{ cat }}</a>
                 </sc-for>
               </div>
             </sc-if>
@@ -40,25 +40,25 @@
         </div>
 
         <div style="position:relative;" onMouseEnter="{{ referenceMenu.open }}" onMouseLeave="{{ scheduleCloseMenu }}">
-          <a href="./Reference Page.dc.html" style="{{ linkStyles.reference }}" style-hover="color:#FAE100;">Reference</a>
+          <a href="../Reference%20Page.dc.html" style="{{ linkStyles.reference }}" style-hover="color:#FAE100;">Reference</a>
           <div style="{{ referenceMenu.panelStyle }}">
             <div style="align-self:stretch;border-right:1px solid #E4E7EC;">
               <sc-for list="{{ referenceMenu.projects }}" as="proj" hint-placeholder-count="1">
-                <a href="./Project Page.dc.html" onMouseEnter="{{ proj.onEnter }}" style="{{ proj.rowStyle }}" style-active="background:#E8EBF0;">{{ proj.label }}</a>
+                <a href="../Project%20Page.dc.html" onMouseEnter="{{ proj.onEnter }}" style="{{ proj.rowStyle }}" style-active="background:#E8EBF0;">{{ proj.label }}</a>
               </sc-for>
             </div>
             <sc-if value="{{ referenceMenu.showCategories }}" hint-placeholder-val="{{ false }}">
               <div>
                 <sc-for list="{{ referenceMenu.categories }}" as="cat" hint-placeholder-count="3">
-                  <a href="./Category Floor Plan Page.dc.html" style="display:block;padding:14px 20px;color:#334155;font-size:14px;font-weight:500;transition:background 0.15s ease,color 0.15s ease;" style-hover="background:#F7F8FA;color:#004FA3;" style-active="background:#EEF2F6;">{{ cat }}</a>
+                  <a href="Category%20Floor%20Plan%20Page.dc.htmlhtml" style="display:block;padding:14px 20px;color:#334155;font-size:14px;font-weight:500;transition:background 0.15s ease,color 0.15s ease;" style-hover="background:#F7F8FA;color:#004FA3;" style-active="background:#EEF2F6;">{{ cat }}</a>
                 </sc-for>
               </div>
             </sc-if>
           </div>
         </div>
 
-        <a href="./Ponuda Zemljista Page.dc.html" style="{{ linkStyles.zemljiste }}" style-hover="color:#FAE100;">Ponuda zemlji&scaron;ta</a>
-        <a href="./About Us Page.dc.html" style="{{ linkStyles.onama }}" style-hover="color:#FAE100;">O nama</a>
+        <a href="../Ponuda%20Zemljista%20Page.dc.html" style="{{ linkStyles.zemljiste }}" style-hover="color:#FAE100;">Ponuda zemlji&scaron;ta</a>
+        <a href="About%20Us%20Page.dc.htmlml" style="{{ linkStyles.onama }}" style-hover="color:#FAE100;">O nama</a>
       </nav>
     </sc-if>
 
@@ -74,7 +74,7 @@
           <span style="padding:5px 10px;border-radius:999px;background:#FAE100;color:#062A52;font-size:12px;font-weight:600;cursor:pointer;">ME</span>
           <span style="padding:5px 10px;border-radius:999px;color:#B9C4D9;font-size:12px;font-weight:600;cursor:pointer;">EN</span>
         </div>
-        <a href="./Contact Page.dc.html" style="background:#FAE100;color:#062A52;padding:10px 20px;border-radius:2px;font-weight:600;font-size:13px;white-space:nowrap;" style-hover="background:#E0C900;">Kontakt</a>
+        <a href="Contact%20Page.dc.html" style="background:#FAE100;color:#062A52;padding:10px 20px;border-radius:2px;font-weight:600;font-size:13px;white-space:nowrap;" style-hover="background:#E0C900;">Kontakt</a>
       </div>
     </sc-if>
 
@@ -99,13 +99,13 @@
             <sc-for list="{{ ponudaMenu.projects }}" as="proj" hint-placeholder-count="3">
               <div>
                 <div onClick="{{ proj.toggleMobileExpand }}" style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;cursor:pointer;">
-                  <a href="./Project Page.dc.html" style="color:#B9C4D9;font-size:14px;">{{ proj.label }}</a>
+                  <a href="../Project%20Page.dc.html" style="color:#B9C4D9;font-size:14px;">{{ proj.label }}</a>
                   <span style="color:#7E8FAA;font-size:10px;">{{ proj.mobileProjectChevron }}</span>
                 </div>
                 <sc-if value="{{ proj.isMobileExpanded }}" hint-placeholder-val="{{ false }}">
                   <div style="display:flex;flex-direction:column;gap:8px;padding:2px 0 10px 14px;">
                     <sc-for list="{{ proj.categories }}" as="cat" hint-placeholder-count="3">
-                      <a href="./Category Floor Plan Page.dc.html" style="color:#7E8FAA;font-size:13px;">{{ cat }}</a>
+                      <a href="Category%20Floor%20Plan%20Page.dc.htmlhtml" style="color:#7E8FAA;font-size:13px;">{{ cat }}</a>
                     </sc-for>
                   </div>
                 </sc-if>
@@ -125,13 +125,13 @@
             <sc-for list="{{ referenceMenu.projects }}" as="proj" hint-placeholder-count="1">
               <div>
                 <div onClick="{{ proj.toggleMobileExpand }}" style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;cursor:pointer;">
-                  <a href="./Project Page.dc.html" style="color:#B9C4D9;font-size:14px;">{{ proj.label }}</a>
+                  <a href="../Project%20Page.dc.html" style="color:#B9C4D9;font-size:14px;">{{ proj.label }}</a>
                   <span style="color:#7E8FAA;font-size:10px;">{{ proj.mobileProjectChevron }}</span>
                 </div>
                 <sc-if value="{{ proj.isMobileExpanded }}" hint-placeholder-val="{{ false }}">
                   <div style="display:flex;flex-direction:column;gap:8px;padding:2px 0 10px 14px;">
                     <sc-for list="{{ proj.categories }}" as="cat" hint-placeholder-count="3">
-                      <a href="./Category Floor Plan Page.dc.html" style="color:#7E8FAA;font-size:13px;">{{ cat }}</a>
+                      <a href="Category%20Floor%20Plan%20Page.dc.htmlhtml" style="color:#7E8FAA;font-size:13px;">{{ cat }}</a>
                     </sc-for>
                   </div>
                 </sc-if>
@@ -141,8 +141,8 @@
         </sc-if>
       </div>
 
-      <a href="./Ponuda Zemljista Page.dc.html" style="color:#DCE3EE;font-size:15px;font-weight:500;">Ponuda zemlji&scaron;ta</a>
-      <a href="./About Us Page.dc.html" style="color:#DCE3EE;font-size:15px;font-weight:500;">O nama</a>
+      <a href="../Ponuda%20Zemljista%20Page.dc.html" style="color:#DCE3EE;font-size:15px;font-weight:500;">Ponuda zemlji&scaron;ta</a>
+      <a href="About%20Us%20Page.dc.htmlml" style="color:#DCE3EE;font-size:15px;font-weight:500;">O nama</a>
       <div style="height:1px;background:rgba(255,255,255,0.12);"></div>
       <a href="tel:+38267134134" style="display:flex;align-items:center;gap:6px;color:#DCE3EE;font-size:14px;" style-hover="color:#FAE100;">
         <div style="width:6px;height:6px;border-radius:50%;background:#FAE100;"></div>
@@ -152,7 +152,7 @@
         <span style="padding:5px 12px;border-radius:999px;background:#FAE100;color:#062A52;font-size:12px;font-weight:600;">ME</span>
         <span style="padding:5px 12px;border-radius:999px;color:#B9C4D9;font-size:12px;font-weight:600;">EN</span>
       </div>
-      <a href="./Contact Page.dc.html" style="background:#FAE100;color:#062A52;padding:12px 20px;border-radius:2px;font-weight:600;font-size:14px;text-align:center;">Kontakt</a>
+      <a href="Contact%20Page.dc.html" style="background:#FAE100;color:#062A52;padding:12px 20px;border-radius:2px;font-weight:600;font-size:14px;text-align:center;">Kontakt</a>
     </div>
   </sc-if>
 </div>

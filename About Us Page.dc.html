@@ -7,161 +7,256 @@
 </head>
 <body>
 <x-dc>
+
 <helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="./image-slot.js"></script>
-<style>
-  body{margin:0;font-family:'Work Sans',sans-serif;background:#F7F8FA;-webkit-font-smoothing:antialiased;}
-  a{color:#004FA3;text-decoration:none;}
-  a:hover{color:#00376E;}
-
-  image-slot {
-    pointer-events: none;
-  }
-</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500&amp;family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,600&amp;family=Jost:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <script src="./image-slot.js"></script>
+  <style>
+    html{scroll-behavior:smooth;}
+    body{margin:0;background:#F7F6F3;-webkit-font-smoothing:antialiased;}
+    a{color:#9C7A4A;text-decoration:none;}
+    a:hover{color:#7E623B;}
+    @keyframes shimmerMove{0%{background-position:0% 50%;}100%{background-position:200% 50%;}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+    image-slot { pointer-events: none; }
+  </style>
 </helmet>
-<div style="min-height:100vh;background:#FFFFFF;padding-top:60px;">
+<div style="{{ pageStyle }}">
 
-  <dc-import name="Header" active="onama" hint-size="100%,80px"></dc-import>
+  <dc-import name="Navigation" accent-color="{{ accent }}" current-page="onama" hint-size="100%,80px"></dc-import>
 
-  <div style="position:relative;height:{{ heroImgHeight }}px;overflow:hidden;">
-    <image-slot id="about-hero-img" src="./uploads/central_line.webp" placeholder="Fasada realizovanog projekta" shape="rect" style="width:100%;height:100%;"></image-slot>
-    <div style="position:absolute;inset:0;background:linear-gradient(100deg, rgba(6,42,82,0.92) 0%, rgba(6,42,82,0.55) 55%, rgba(6,42,82,0.25) 100%);pointer-events:none;"></div>
-    <div style="position:absolute;top:0;left:0;right:0;padding:24px {{ containerPad }}px 0;pointer-events:none;">
-      <div style="max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;color:#DCE3EE;pointer-events:auto;">
-        <a href="index.dc.html" style="color:#DCE3EE;" style-hover="color:#FAE100;">Naslovna</a>
-        <span>/</span>
-        <span style="color:#fff;font-weight:600;">O nama</span>
-      </div>
+  <div style="{{ crumbWrapStyle }}">
+    <a href="index.dc.html" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">Naslovna</a>
+    <span style="{{ crumbSepStyle }}">/</span>
+    <span style="{{ crumbActiveStyle }}">O nama</span>
+  </div>
+
+  <div style="{{ heroWrapStyle }}">
+    <div style="{{ heroTextColStyle }}">
+      <div style="{{ heroEyebrowStyle }}">KIPS Gradnja &mdash; O nama</div>
+      <h1 style="{{ heroTitleStyle }}">Prostori koji traju generacijama</h1>
+      <div style="{{ dividerStyle }}"></div>
+      <p style="{{ heroSubStyle }}">Preko decenije gradimo stambene i stambeno&#8209;poslovne objekte u Podgorici, sa fokusom na kvalitet izrade, pouzdanost i po&scaron;tovanje rokova.</p>
     </div>
-    <div style="position:absolute;inset:0;display:flex;align-items:center;pointer-events:none;">
-      <div style="max-width:1280px;margin:0 auto;width:100%;padding:0 {{ containerPad }}px;">
-        <div style="max-width:560px;">
-          <div style="text-transform:uppercase;letter-spacing:3px;font-size:12px;color:#FAE100;font-weight:600;margin-bottom:14px;">KIPS Gradnja</div>
-          <h1 style="font-family:'Oswald',sans-serif;font-weight:600;color:#fff;font-size:{{ titleSize }}px;line-height:1.15;margin:0;letter-spacing:0.5px;">O nama</h1>
-        </div>
-      </div>
+    <div style="{{ heroImgColStyle }}">
+      <image-slot id="about-hero-img" src="./uploads/central_line.webp" placeholder="Fasada realizovanog projekta" shape="rect" style="{{ heroImgStyle }}"></image-slot>
     </div>
   </div>
 
-  <div style="max-width:820px;margin:0 auto;padding:{{ quoteGap }}px {{ containerPad }}px;text-align:center;">
-    <p style="{{ quoteStyle }}">Preko decenije gradimo stambene i stambeno&#8209;poslovne objekte u Podgorici, sa fokusom na kvalitet izrade, pouzdanost i po&scaron;tovanje rokova &#8212; svaki objekat kao da &#263;emo u njemu &#382;ivjeti sami.</p>
-  </div>
-
-  <div style="max-width:1280px;margin:0 auto;padding:0 {{ containerPad }}px;">
-
-    <div style="{{ rowGridStyle }}">
-      <div style="order:1;min-width:0;">
-        <image-slot id="about-img-float" src="./uploads/napredak_radova_9.jpg" placeholder="Tim na gradili&scaron;tu" shape="rounded" radius="8" style="width:100%;height:{{ rowImgHeight }}px;"></image-slot>
-      </div>
-      <div style="order:2;min-width:0;">
-        <div style="{{ eyebrowSmall }}">Na&scaron;a pri&#269;a</div>
+  <div id="rv-story" style="{{ storyWrapStyle }}">
+    <div style="{{ storyGridStyle }}">
+      <image-slot id="about-img-float" src="./uploads/napredak_radova_9.jpg" placeholder="Gradili&scaron;te u izgradnji" shape="rect" style="{{ storyImgStyle }}" style-hover="{{ storyImgHoverStyle }}"></image-slot>
+      <div>
+        <div style="{{ sectionEyebrowStyle }}">Na&scaron;a pri&#269;a</div>
         <h2 style="{{ h2Style }}">Od prvog temelja do danas</h2>
-        <p style="{{ pStyleLast }}">Po&#269;eli smo sa jednim projektom u naselju Stari Aerodrom i od tada smo izgradili vi&scaron;e stambenih cjelina u razli&#269;itim djelovima grada. Svaki naredni projekat gradimo na iskustvu prethodnog &#8212; unapre&#273;uju&#263;i tehni&#269;ka rje&scaron;enja, izbor materijala i komunikaciju sa kupcima.</p>
+        <div style="{{ dividerStyle }}"></div>
+        <p style="{{ pStyle }}">Po&#269;eli smo sa jednim projektom u naselju Stari Aerodrom i od tada izgradili vi&scaron;e stambenih cjelina u razli&#269;itim djelovima grada.</p>
+        <p style="{{ pStyleLast }}">Svaki naredni projekat gradimo na iskustvu prethodnog &mdash; unapre&#273;uju&#263;i tehni&#269;ka rje&scaron;enja, izbor materijala i komunikaciju sa kupcima.</p>
       </div>
     </div>
-
-    <div style="{{ rowGridStyle }}margin-top:{{ sectionGap }}px;">
-      <div style="{{ row2TextOrder }}min-width:0;">
-        <div style="{{ eyebrowSmall }}">Misija i vrijednosti</div>
-        <h2 style="{{ h2Style }}">Gradimo povjerenje, ne samo objekte</h2>
-        <p style="{{ pStyle }}">Ne pravimo kompromise po pitanju kvaliteta konstrukcije, instalacija i zavr&scaron;nih radova, &#269;ak i kada to zahtijeva vi&scaron;e vremena.</p>
-        <p style="{{ pStyleLast }}">Klijenti u svakom trenutku mogu pratiti napredak radova na svom objektu &#8212; to je na&scaron; na&#269;in da gradimo povjerenje kroz transparentnost.</p>
-      </div>
-      <div style="{{ row2ImgOrder }}min-width:0;">
-        <image-slot id="about-img-centered" src="./uploads/premium_kvart.webp" placeholder="Na&scaron; tim na terenu" shape="rounded" radius="8" style="width:100%;height:{{ rowImgHeight }}px;"></image-slot>
-      </div>
-    </div>
-
-    <div style="border-top:1px solid #E4E7EC;margin-top:{{ sectionGap }}px;padding-top:{{ sectionGap }}px;">
-      <h2 style="{{ h2Style }}margin-bottom:{{ pillarsHeadGap }}px;">Za&scaron;to KIPS Gradnja</h2>
-      <div style="{{ pillarsGridStyle }}">
-        <sc-for list="{{ pillars }}" as="item" hint-placeholder-count="4">
-          <div>
-            <div style="{{ pillarNumStyle }}">{{ item.num }}</div>
-            <p style="{{ pillarTextStyle }}">{{ item.text }}</p>
-          </div>
-        </sc-for>
-      </div>
-    </div>
-
-    <div style="{{ ctaBoxStyle }}">
-      <span style="color:#10233F;font-size:16px;font-weight:500;">Zainteresovani za jedan od na&scaron;ih projekata?</span>
-      <div style="display:flex;gap:24px;flex-wrap:wrap;">
-        <a href="./Ponuda Stanova Page.dc.html" style="color:#004FA3;font-weight:600;font-size:15px;" style-hover="color:#00376E;">Pogledajte trenutnu ponudu stanova &rarr;</a>
-        <a href="mailto:office@kipsgradnja.me" style="color:#004FA3;font-weight:600;font-size:15px;" style-hover="color:#00376E;">Kontaktirajte nas direktno &rarr;</a>
-      </div>
-    </div>
-
   </div>
 
-  <dc-import name="Footer" hint-size="100%,400px"></dc-import>
+  <div id="rv-manifesto" style="{{ manifestoSectionStyle }}">
+    <div style="{{ manifestoGridStyle }}">
+      <div style="{{ manifestoMarkColStyle }}">
+        <div style="{{ quoteGlyphStyle }}">&ldquo;</div>
+        <div style="{{ manifestoAttrStyle }}">&mdash; KIPS Gradnja</div>
+      </div>
+      <div>
+        <div style="{{ manifestoEyebrowStyle }}">Filozofija</div>
+        <p style="{{ manifestoQuoteStyle }}">Ne gradimo samo zgrade &mdash; gradimo povjerenje koje traje du&#382;e od ugovora.</p>
+        <p style="{{ manifestoTextStyle }}">Ne pravimo kompromise po pitanju kvaliteta konstrukcije i zavr&scaron;nih radova, &#269;ak i kada to zahtijeva vi&scaron;e vremena. Klijenti u svakom trenutku mogu pratiti napredak radova na svom objektu &mdash; to je na&scaron; na&#269;in da gradimo transparentnost.</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="rv-values" style="{{ sectionWrapStyle }}">
+    <div style="{{ sectionHeadStyle }}">
+      <div style="{{ sectionEyebrowStyle }}">Na&scaron;e vrijednosti</div>
+      <h2 style="{{ h2Style }}">Za&scaron;to KIPS Gradnja</h2>
+      <div style="{{ dividerStyle }}"></div>
+    </div>
+    <div style="{{ valuesListStyle }}">
+      <sc-for list="{{ values }}" as="item" hint-placeholder-count="4">
+        <div onMouseEnter="{{ item.onMouseEnter }}" onMouseLeave="{{ item.onMouseLeave }}" style="{{ item.rowStyle }}">
+          <div style="{{ item.numStyle }}">{{ item.num }}</div>
+          <div style="{{ item.textColStyle }}">
+            <div style="{{ item.titleStyle }}">{{ item.title }}</div>
+            <div style="{{ valueTextStyle }}">{{ item.desc }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div id="rv-cta" style="{{ ctaSectionStyle }}">
+    <div style="{{ ctaInnerStyle }}">
+      <div style="{{ sectionEyebrowStyle }}">Poziv na akciju</div>
+      <div style="{{ ctaTitleStyle }}">Zainteresovani za saradnju?</div>
+      <p style="{{ ctaTextStyle }}">Pogledajte na&scaron;u trenutnu ponudu stanova ili nas kontaktirajte direktno za vi&scaron;e informacija.</p>
+      <div style="{{ ctaBtnRowStyle }}">
+        <a href="Ponuda%20Stanova%20Page.dc.html" onMouseEnter="{{ ctaBtn.onMouseEnter }}" onMouseLeave="{{ ctaBtn.onMouseLeave }}" style="{{ ctaBtn.style }}">Pogledajte ponudu</a>
+        <a href="./Contact Page.dc.html" onMouseEnter="{{ ctaLink.onMouseEnter }}" onMouseLeave="{{ ctaLink.onMouseLeave }}" style="{{ ctaLink.style }}">Kontaktirajte nas &#8594;</a>
+      </div>
+    </div>
+  </div>
+
+  <dc-import name="Footer" accent-color="{{ accent }}" hint-size="100%,400px"></dc-import>
 
 </div>
+
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#9C7A4A&quot;,&quot;options&quot;:[&quot;#9C7A4A&quot;,&quot;#B8934F&quot;,&quot;#7A8A78&quot;,&quot;#8C7A6B&quot;],&quot;tsType&quot;:&quot;string&quot;}}">
+
 class Component extends DCLogic {
-  state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440 };
+  state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440, hoverKey: null, revealed: {} };
+
+  valuesData = [
+    { num: '01', title: 'Provjereni materijali', desc: 'Vrhunski uvozni materijali i standardi ugra\u0111eni u svaki projekat.' },
+    { num: '02', title: 'Po\u0161tovanje rokova', desc: 'Useljenje u ugovorenom roku, bez iznena\u0111enja i ka\u0161njenja.' },
+    { num: '03', title: 'Transparentnost', desc: 'Redovno a\u017euriranje napretka radova, dostupno u svakom trenutku.' },
+    { num: '04', title: 'Direktna komunikacija', desc: 'Sa timom, bez posrednika, od prve posjete do useljenja.' }
+  ];
+
+  revealIds = ['rv-story', 'rv-manifesto', 'rv-values', 'rv-cta'];
 
   componentDidMount() {
     this._onResize = () => this.setState({ width: window.innerWidth });
     window.addEventListener('resize', this._onResize);
+    this._observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          this.setState(s => ({ revealed: { ...s.revealed, [id]: true } }));
+          this._observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    this.revealIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        this.setState(s => ({ revealed: { ...s.revealed, [id]: true } }));
+      } else {
+        this._observer.observe(el);
+      }
+    });
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this._onResize);
+    if (this._observer) this._observer.disconnect();
   }
 
-  pillars = [
-    { num: '01', text: 'Provjereni materijali i standardi ugra\u0111eni u svaki projekat' },
-    { num: '02', text: 'Po\u0161tovanje ugovorenih rokova useljenja' },
-    { num: '03', text: 'Redovno a\u017euriranje napretka radova za svaki objekat' },
-    { num: '04', text: 'Direktna komunikacija sa timom, bez posrednika' }
-  ];
+  setHoverKey(key) { this.setState({ hoverKey: key }); }
+  clearHoverKey() { this.setState({ hoverKey: null }); }
 
   renderVals() {
     const w = this.state.width || 1440;
     const isMobile = w < 640;
     const isTablet = w >= 640 && w < 1024;
-    const containerPad = isMobile ? 20 : (isTablet ? 40 : 64);
-    const titleSize = isMobile ? 34 : 48;
-    const heroImgHeight = isMobile ? 300 : (isTablet ? 400 : 480);
-    const heroTopGap = isMobile ? 20 : 28;
-    const heroTextPad = isMobile ? 24 : 48;
-    const quoteGap = isMobile ? 40 : 60;
-    const sectionGap = isMobile ? 48 : 88;
-    const pGap = isMobile ? 18 : 22;
-    const pillarsHeadGap = isMobile ? 24 : 36;
 
-    const quoteStyle = { fontFamily: "'Oswald',sans-serif", fontSize: (isMobile ? 21 : 27) + 'px', fontWeight: 500, color: '#10233F', lineHeight: 1.5, margin: 0 };
-    const eyebrowSmall = 'text-transform:uppercase;letter-spacing:2.5px;font-size:12px;color:#004FA3;font-weight:600;margin-bottom:12px;';
-    const pStyle = { color: '#45536B', lineHeight: 1.8, fontSize: '16px', margin: '0 0 ' + pGap + 'px' };
-    const pStyleLast = { ...pStyle, margin: 0 };
-    const h2Style = { fontFamily: "'Oswald',sans-serif", fontSize: (isMobile ? 22 : 28) + 'px', fontWeight: 600, color: '#10233F', margin: '0 0 ' + Math.round(pGap * 0.8) + 'px' };
+    const accent = this.props.accentColor || '#9C7A4A';
+    const charcoal = '#1A1A1A';
+    const ivory = '#F7F6F3';
+    const darkBg = '#0F0F0F';
+    const hairline = 'rgba(26,26,26,0.10)';
+    const muted = 'rgba(26,26,26,0.58)';
+    const serif = "'Cormorant Garamond', serif";
+    const sans = "'Cormorant Garamond', serif";
+    const headFont = "'Playfair Display', serif";
+    const easeOut = 'cubic-bezier(0.16,1,0.3,1)';
+    const hk = this.state.hoverKey;
 
-    const rowImgHeight = isMobile ? 240 : 400;
-    const rowGridStyle = 'display:grid;grid-template-columns:' + (isMobile ? '1fr' : '1fr 1fr') + ';gap:' + (isMobile ? '20px' : '64px') + ';align-items:center;min-width:0;';
-    const row2TextOrder = isMobile ? 'order:2;' : 'order:1;';
-    const row2ImgOrder = isMobile ? 'order:1;' : 'order:2;';
+    const containerPad = isMobile ? 22 : (isTablet ? 48 : 80);
+    const heroTitleSize = isMobile ? 32 : (isTablet ? 42 : 50);
+    const sectionTitleSize = isMobile ? 26 : (isTablet ? 34 : 38);
 
-    const pillarsGridStyle = { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(4,1fr)', columnGap: '32px', rowGap: isMobile ? '28px' : '0' };
-    const pillarNumStyle = { fontFamily: "'Oswald',sans-serif", fontSize: '32px', fontWeight: 600, color: '#B9CFE8', marginBottom: '10px' };
-    const pillarTextStyle = { color: '#334155', lineHeight: 1.6, fontSize: '15px', margin: 0, paddingRight: isMobile ? '0' : '16px' };
-
-    const ctaBoxStyle = {
-      marginTop: sectionGap + 'px', marginBottom: sectionGap + 'px',
-      padding: isMobile ? '24px' : '32px 40px', border: '1px solid #E4E7EC', borderRadius: '8px', background: '#F7F8FA',
-      display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: isMobile ? 'flex-start' : 'center',
-      justifyContent: 'space-between', gap: '16px'
+    const reveal = (id, opts) => {
+      const isRevealed = !!this.state.revealed[id];
+      const delay = (opts && opts.delay) || 0;
+      const distance = (opts && opts.distance) || 26;
+      return { opacity: isRevealed ? 1 : 0, transform: isRevealed ? 'translateY(0)' : 'translateY(' + distance + 'px)', transition: 'opacity 0.9s ' + easeOut + ' ' + delay + 's, transform 0.9s ' + easeOut + ' ' + delay + 's' };
     };
 
+    const values = this.valuesData.map((item, i) => {
+      const vKey = 'value-' + i;
+      const isHov = hk === vKey;
+      return {
+        ...item,
+        onMouseEnter: () => this.setHoverKey(vKey),
+        onMouseLeave: () => this.clearHoverKey(),
+        rowStyle: { display: 'grid', gridTemplateColumns: (isMobile ? '52px' : '76px') + ' 1fr', gap: isMobile ? '18px' : '32px', alignItems: 'start', padding: (isMobile ? '22px' : '30px') + ' 4px', borderTop: i === 0 ? '1px solid ' + hairline : 'none', borderBottom: '1px solid ' + hairline, transform: isHov ? 'translateX(10px)' : 'translateX(0)', transition: 'transform 0.4s ' + easeOut, cursor: 'default', ...reveal('rv-values', { delay: i * 0.08, distance: 16 }) },
+        numStyle: { fontFamily: headFont, fontWeight: 600, fontSize: isMobile ? '30px' : '40px', color: isHov ? accent : 'rgba(26,26,26,0.16)', lineHeight: 1, transition: 'color 0.4s ease' },
+        textColStyle: { paddingTop: isMobile ? '2px' : '6px' },
+        titleStyle: { fontFamily: serif, fontSize: isMobile ? '19px' : '21px', fontWeight: 600, color: isHov ? accent : charcoal, marginBottom: '8px', transition: 'color 0.35s ease' }
+      };
+    });
+
+    const ctaHov = (key, base, hoverExtra) => ({
+      onMouseEnter: () => this.setHoverKey(key),
+      onMouseLeave: () => this.clearHoverKey(),
+      style: hk === key ? { ...base, ...hoverExtra } : base
+    });
+
     return {
-      containerPad, titleSize, heroImgHeight, heroTopGap, heroTextPad, quoteGap, sectionGap, pillarsHeadGap,
-      quoteStyle, eyebrowSmall, pStyle, pStyleLast, h2Style,
-      rowImgHeight, rowGridStyle, row2TextOrder, row2ImgOrder,
-      pillars: this.pillars, pillarsGridStyle, pillarNumStyle, pillarTextStyle,
-      ctaBoxStyle
+      accent,
+      pageStyle: { background: ivory, color: charcoal, fontFamily: sans, minHeight: '100vh', position: 'relative', paddingTop: (isMobile ? 64 : 80) + 'px' },
+      crumbWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px ' + containerPad + 'px 0', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', fontSize: '13px', color: muted, fontFamily: sans },
+      crumbLinkStyle: { color: muted, transition: 'color 0.25s ease' },
+      crumbLinkHoverStyle: { color: accent },
+      crumbSepStyle: { color: muted },
+      crumbActiveStyle: { color: charcoal, fontWeight: 600 },
+
+      heroWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 32 : 50) + 'px ' + containerPad + 'px 0', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '32px' : '64px', alignItems: 'center', animation: 'fadeUp 0.9s ' + easeOut + ' 0.05s both' },
+      heroTextColStyle: { order: isMobile ? 2 : 1 },
+      heroImgColStyle: { order: isMobile ? 1 : 2 },
+      heroEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '4px', fontSize: '12px', color: accent, fontWeight: 600, marginBottom: '18px' },
+      heroTitleStyle: { fontFamily: headFont, fontWeight: 600, color: charcoal, fontSize: heroTitleSize + 'px', lineHeight: 1.15, margin: '0 0 20px' },
+      heroSubStyle: { fontFamily: sans, color: muted, fontSize: (isMobile ? 15 : 16.5) + 'px', lineHeight: 1.75, margin: 0, maxWidth: '460px', fontWeight: 400 },
+      heroImgStyle: { width: '100%', aspectRatio: isMobile ? '4/3' : '4/5', objectFit: 'cover', background: '#EAE8E3' },
+
+      storyWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 56 : 110) + 'px ' + containerPad + 'px 0' },
+      storyGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '32px' : '72px', alignItems: 'center', ...reveal('rv-story') },
+      storyImgStyle: { width: '100%', aspectRatio: isMobile ? '4/3' : '5/4', objectFit: 'cover', background: '#EAE8E3', transition: 'transform 0.7s ' + easeOut },
+      storyImgHoverStyle: { transform: 'scale(1.02)' },
+
+      sectionEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '12px', color: accent, fontWeight: 600, marginBottom: '12px' },
+      h2Style: { fontFamily: headFont, fontWeight: 600, fontSize: sectionTitleSize + 'px', color: charcoal, margin: '0 0 16px', lineHeight: 1.2 },
+      dividerStyle: { width: '48px', height: '2px', margin: '0 0 18px', backgroundImage: 'linear-gradient(90deg, ' + accent + ' 0%, #E8D9BE 25%, ' + accent + ' 50%, #E8D9BE 75%, ' + accent + ' 100%)', backgroundSize: '200% 100%', animation: 'shimmerMove 5s linear infinite' },
+      pStyle: { fontFamily: sans, color: muted, fontSize: '16px', lineHeight: 1.85, margin: '0 0 18px', maxWidth: '480px' },
+      pStyleLast: { fontFamily: sans, color: muted, fontSize: '16px', lineHeight: 1.85, margin: 0, maxWidth: '480px' },
+
+      manifestoSectionStyle: { background: darkBg, padding: (isMobile ? 64 : 120) + 'px ' + containerPad + 'px', marginTop: (isMobile ? 56 : 110) + 'px' },
+      manifestoGridStyle: { maxWidth: '1180px', margin: '0 auto', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '200px 1fr', gap: isMobile ? '24px' : '56px', alignItems: 'start', ...reveal('rv-manifesto') },
+      manifestoMarkColStyle: { display: 'flex', flexDirection: isMobile ? 'row' : 'column', alignItems: isMobile ? 'baseline' : 'flex-start', gap: isMobile ? '16px' : '0' },
+      quoteGlyphStyle: { fontFamily: headFont, fontStyle: 'italic', fontWeight: 700, fontSize: isMobile ? '64px' : '140px', color: accent, lineHeight: 0.7, marginBottom: isMobile ? '0' : '18px' },
+      manifestoEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '11.5px', color: accent, fontWeight: 600, marginBottom: '20px' },
+      manifestoQuoteStyle: { fontFamily: headFont, fontStyle: 'italic', fontWeight: 600, fontSize: isMobile ? '24px' : '32px', color: '#FBFBF9', lineHeight: 1.4, margin: '0 0 24px' },
+      manifestoTextStyle: { fontFamily: sans, color: 'rgba(251,251,249,0.62)', fontSize: (isMobile ? 15.5 : 16.5) + 'px', lineHeight: 1.8, fontWeight: 500, margin: 0, maxWidth: '560px' },
+      manifestoAttrStyle: { fontFamily: sans, fontSize: '12px', color: 'rgba(251,251,249,0.45)', textTransform: 'uppercase', letterSpacing: '2px' },
+
+      sectionWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 56 : 110) + 'px ' + containerPad + 'px 0' },
+      sectionHeadStyle: { maxWidth: '640px', margin: '0 0 ' + (isMobile ? 20 : 30) + 'px' },
+      valuesListStyle: { maxWidth: '880px' },
+      values,
+      valueTextStyle: { fontFamily: sans, fontSize: '15px', color: muted, lineHeight: 1.7, fontWeight: 500, maxWidth: '520px' },
+
+      ctaSectionStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 70 : 130) + 'px ' + containerPad + 'px', textAlign: 'center' },
+      ctaInnerStyle: { maxWidth: '640px', margin: '0 auto', ...reveal('rv-cta') },
+      ctaTitleStyle: { fontFamily: headFont, fontSize: isMobile ? '28px' : '38px', fontWeight: 600, color: charcoal, margin: '0 0 18px', lineHeight: 1.2 },
+      ctaTextStyle: { fontFamily: sans, color: muted, fontSize: (isMobile ? 16 : 17) + 'px', lineHeight: 1.7, margin: '0 0 34px' },
+      ctaBtnRowStyle: { display: 'flex', gap: '24px', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' },
+      ctaBtn: ctaHov('ctaBtn',
+        { fontFamily: sans, border: '1px solid ' + charcoal, background: 'none', color: charcoal, padding: '16px 34px', fontSize: '13px', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', transition: 'all 0.35s ease-out', transform: 'translateY(0)', boxShadow: 'none' },
+        { background: charcoal, color: ivory, transform: 'translateY(-2px)', boxShadow: '0 14px 30px rgba(26,26,26,0.25), 0 0 26px rgba(156,122,74,0.28)' }
+      ),
+      ctaLink: ctaHov('ctaLink',
+        { color: muted, fontSize: '14px', transition: 'color 0.3s ease, transform 0.3s ease', display: 'inline-block', transform: 'translateX(0)' },
+        { color: accent, transform: 'translateX(3px)' }
+      )
     };
   }
 }

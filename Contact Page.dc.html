@@ -7,129 +7,227 @@
 </head>
 <body>
 <x-dc>
-<helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="./image-slot.js"></script>
-<style>
-  body{margin:0;font-family:'Work Sans',sans-serif;background:#F7F8FA;-webkit-font-smoothing:antialiased;}
-  a{color:#004FA3;text-decoration:none;}
-  a:hover{color:#00376E;}
-  input,textarea{font-family:'Work Sans',sans-serif;box-sizing:border-box;}
-  input::placeholder,textarea::placeholder{color:#94A3B8;}
-  input:focus,textarea:focus{outline:none;border-color:#004FA3;}
-</style>
-</helmet>
-<div style="min-height:100vh;background:#F7F8FA;padding-top:60px;">
 
-  <dc-import name="Header" active="kontakt" hint-size="100%,80px"></dc-import>
-  <div style="max-width:1280px;margin:0 auto;padding:20px {{ containerPad }}px 0;">
-    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;color:#63728A;">
-      <a href="index.dc.html" style="color:#63728A;" style-hover="color:#004FA3;">Naslovna</a>
-      <span>/</span>
-      <span style="color:#10233F;font-weight:600;">Kontakt</span>
-    </div>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500&amp;family=Jost:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    html{scroll-behavior:smooth;}
+    body{margin:0;background:#F7F6F3;-webkit-font-smoothing:antialiased;}
+    a{color:#9C7A4A;text-decoration:none;}
+    a:hover{color:#7E623B;}
+    input::placeholder,textarea::placeholder{color:rgba(26,26,26,0.35);}
+    @keyframes shimmerMove{0%{background-position:0% 50%;}100%{background-position:200% 50%;}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+  </style>
+</helmet>
+<div style="{{ pageStyle }}">
+
+  <dc-import name="Navigation" accent-color="{{ accent }}" current-page="kontakt" hint-size="100%,80px"></dc-import>
+
+  <div style="{{ crumbWrapStyle }}">
+    <a href="./Homepage - Luxury Redesign v2.dc.html" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">Naslovna</a>
+    <span style="{{ crumbSepStyle }}">/</span>
+    <span style="{{ crumbActiveStyle }}">Kontakt</span>
   </div>
 
+  <div id="rv-main" style="{{ mainWrapStyle }}">
+    <div style="{{ mainGridStyle }}">
 
-  <div style="max-width:1280px;margin:0 auto;padding:{{ heroPadV }}px {{ containerPad }}px {{ sectionGap }}px;">
-    <div style="text-transform:uppercase;letter-spacing:3px;font-size:12px;color:#004FA3;font-weight:600;margin-bottom:{{ eyebrowGap }}px;">KIPS Gradnja</div>
-    <h1 style="font-family:'Oswald',sans-serif;font-weight:600;color:#10233F;font-size:{{ titleSize }}px;margin:0 0 {{ titleGap }}px;letter-spacing:0.5px;">Kontakt</h1>
-    <p style="color:#63728A;font-size:17px;line-height:1.6;max-width:640px;margin:0;">Javite nam se za sve informacije o ponudi stanova, razgledanju ili saradnji.</p>
+      <div style="{{ introColStyle }}">
+        <div style="{{ eyebrowStyle }}">KIPS Gradnja &mdash; Kontakt</div>
+        <h1 style="{{ titleStyle }}">Razgovarajmo o va&scaron;em sljede&#263;em domu</h1>
+        <div style="{{ dividerStyle }}"></div>
+        <p style="{{ leadStyle }}">Javite nam se za sve informacije o ponudi stanova, razgledanju ili saradnji &mdash; na&scaron; tim odgovara li&#269;no, bez posrednika.</p>
 
-    <div style="{{ infoGridStyle }}">
-      <sc-for list="{{ infoCards }}" as="card" hint-placeholder-count="3">
-        <div style="border-top:2px solid #004FA3;padding-top:14px;">
-          <div style="text-transform:uppercase;letter-spacing:2px;font-size:12px;color:#63728A;font-weight:600;margin-bottom:10px;">{{ card.label }}</div>
-          <sc-for list="{{ card.lines }}" as="line" hint-placeholder-count="1">
-            <a href="{{ line.href }}" style="display:block;color:#10233F;font-size:17px;font-weight:600;margin-bottom:4px;" style-hover="color:#004FA3;">{{ line.text }}</a>
+        <div style="{{ tilesWrapStyle }}">
+          <sc-for list="{{ infoTiles }}" as="tile" hint-placeholder-count="3">
+            <div style="{{ tile.rowStyle }}">
+              <sc-for list="{{ tile.lines }}" as="line" hint-placeholder-count="1">
+                <a href="{{ line.href }}" onMouseEnter="{{ line.onMouseEnter }}" onMouseLeave="{{ clearHoverKey }}" style="{{ line.linkStyle }}">
+                  <span style="{{ tile.iconWrapStyle }}"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="{{ tile.iconPath }}"></path></svg></span>
+                  <span>{{ line.text }}</span>
+                </a>
+              </sc-for>
+            </div>
           </sc-for>
         </div>
-      </sc-for>
-    </div>
-  </div>
+      </div>
 
-  <div style="max-width:1280px;margin:0 auto;padding:0 {{ containerPad }}px 90px;">
-    <div style="{{ formGridStyle }}">
+      <div style="{{ formCardStyle }}">
+        <div style="{{ formTitleStyle }}">Po&scaron;aljite upit</div>
+        <p style="{{ formIntroStyle }}">Odgovaramo u roku od 24 &#269;asa.</p>
 
-      <div>
-        <div style="font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;color:#10233F;margin-bottom:14px;">Kontaktirajte nas</div>
-        <div style="width:40px;height:2px;background:#004FA3;margin-bottom:22px;"></div>
-        <p style="color:#45536B;font-size:15px;line-height:1.7;margin:0 0 28px;"><strong style="color:#10233F;">KIPS Gradnja</strong> je gra&#273;evinska kompanija &#269;ija je osnovna djelatnost izgradnja i investiranje u stambene i stambeno&#8209;poslovne objekte.</p>
-
-        <form onSubmit="{{ handleSubmit }}" style="display:flex;flex-direction:column;gap:14px;">
-          <input type="text" name="name" placeholder="Ime i prezime" required="{{ true }}" style="{{ inputStyle }}"></input>
+        <form onSubmit="{{ handleSubmit }}" style="{{ formStyle }}">
+          <input type="text" name="name" placeholder="Ime i prezime" required="{{ true }}" style="{{ inputStyle.name }}" onFocus="{{ setFocus.name }}" onBlur="{{ clearFocus }}"></input>
           <div style="{{ inlineFieldsStyle }}">
-            <input type="tel" name="phone" placeholder="Telefon" required="{{ true }}" style="{{ inputStyle }}"></input>
-            <input type="email" name="email" placeholder="Email" required="{{ true }}" style="{{ inputStyle }}"></input>
+            <input type="tel" name="phone" placeholder="Telefon" required="{{ true }}" style="{{ inputStyle.phone }}" onFocus="{{ setFocus.phone }}" onBlur="{{ clearFocus }}"></input>
+            <input type="email" name="email" placeholder="Email" required="{{ true }}" style="{{ inputStyle.email }}" onFocus="{{ setFocus.email }}" onBlur="{{ clearFocus }}"></input>
           </div>
-          <input type="text" name="subject" placeholder="Naslov" style="{{ inputStyle }}"></input>
-          <textarea name="message" placeholder="Poruka" rows="5" required="{{ true }}" style="{{ textareaStyle }}"></textarea>
+          <input type="text" name="subject" placeholder="Naslov" style="{{ inputStyle.subject }}" onFocus="{{ setFocus.subject }}" onBlur="{{ clearFocus }}"></input>
+          <textarea name="message" placeholder="Poruka" rows="4" required="{{ true }}" style="{{ inputStyle.message }}" onFocus="{{ setFocus.message }}" onBlur="{{ clearFocus }}"></textarea>
 
-          <p style="color:#94A3B8;font-size:12px;line-height:1.5;margin:6px 0 4px;">Ovaj obrazac je za&scaron;ti&#263;en reCAPTCHA sistemom radi za&scaron;tite od spama.</p>
+          <p style="{{ captchaNoteStyle }}">Ovaj obrazac je za&scaron;ti&#263;en reCAPTCHA sistemom radi za&scaron;tite od spama.</p>
 
-          <button type="submit" style="background:#10233F;color:#fff;border:none;padding:15px;border-radius:2px;font-weight:600;font-size:15px;cursor:pointer;" style-hover="background:#004FA3;">Po&scaron;aljite</button>
+          <button type="submit" onMouseEnter="{{ submitBtn.onMouseEnter }}" onMouseLeave="{{ clearHoverKey }}" style="{{ submitBtn.style }}">Po&scaron;aljite</button>
         </form>
       </div>
 
-      <div style="border-radius:6px;overflow:hidden;height:{{ mapHeight }}px;border:1px solid #E4E7EC;">
-        <iframe title="KIPS Gradnja &mdash; lokacija" src="https://www.google.com/maps?q=Ankarski+bulevar+20,+Podgorica,+Montenegro&output=embed" width="100%" height="100%" style="border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-      </div>
-
     </div>
   </div>
 
-  <dc-import name="Footer" hint-size="100%,400px"></dc-import>
+  <div id="rv-map" style="{{ mapSectionStyle }}">
+    <div style="{{ mapHeadStyle }}">
+      <div style="{{ eyebrowStyle }}">Posjetite nas</div>
+      <div style="{{ mapAddressStyle }}">Ankarski bulevar 20, ulaz C, I sprat, 81000 Podgorica</div>
+    </div>
+    <div style="{{ mapFrameStyle }}">
+      <iframe title="KIPS Gradnja &mdash; lokacija" src="https://www.google.com/maps?q=Ankarski+bulevar+20,+Podgorica,+Montenegro&amp;output=embed" width="100%" height="100%" style="border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+  </div>
+
+  <dc-import name="Footer" accent-color="{{ accent }}" hint-size="100%,400px"></dc-import>
 
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440}}">
-class Component extends DCLogic {
-  state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440 };
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#9C7A4A&quot;,&quot;options&quot;:[&quot;#9C7A4A&quot;,&quot;#B8934F&quot;,&quot;#7A8A78&quot;,&quot;#8C7A6B&quot;],&quot;tsType&quot;:&quot;string&quot;}}">
 
-  infoCardsData = [
-    { label: 'Telefoni', lines: [{ text: '+382 67 134 134', href: 'tel:+38267134134' }, { text: '+382 67 663 662', href: 'tel:+38267663662' }] },
-    { label: 'Email', lines: [{ text: 'office@kipsgradnja.me', href: 'mailto:office@kipsgradnja.me' }] },
-    { label: 'Adresa', lines: [{ text: 'Ankarski bulevar 20, ulaz C, I sprat, 81000 Podgorica', href: 'https://maps.google.com' }] }
+class Component extends DCLogic {
+  state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440, hoverKey: null, focusKey: null, revealed: {} };
+
+  infoTilesData = [
+    { key: 'phones', iconPath: 'M6 3h4l1 5-3 2c1 3 3 5 6 6l2-3 5 1v4c0 1-1 2-2 2C9 21 3 15 3 5c0-1 1-2 2-2Z', lines: [{ text: '+382 67 134 134', href: 'tel:+38267134134' }, { text: '+382 67 663 662', href: 'tel:+38267663662' }] },
+    { key: 'email', iconPath: 'M4 6h16v12H4Z M4 6l8 7 8-7', lines: [{ text: 'office@kipsgradnja.me', href: 'mailto:office@kipsgradnja.me' }] },
+    { key: 'address', iconPath: 'M12 3c-4 0-7 3-7 7 0 5 7 11 7 11s7-6 7-11c0-4-3-7-7-7Z M12 8a2 2 0 1 0 0.01 0Z', lines: [{ text: 'Ankarski bulevar 20, Podgorica', href: 'https://maps.google.com' }] }
   ];
+
+  revealIds = ['rv-main', 'rv-map'];
 
   componentDidMount() {
     this._onResize = () => this.setState({ width: window.innerWidth });
     window.addEventListener('resize', this._onResize);
+    this._observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          this.setState(s => ({ revealed: { ...s.revealed, [id]: true } }));
+          this._observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    this.revealIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        this.setState(s => ({ revealed: { ...s.revealed, [id]: true } }));
+      } else {
+        this._observer.observe(el);
+      }
+    });
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this._onResize);
+    if (this._observer) this._observer.disconnect();
   }
 
+  setHoverKey(key) { this.setState({ hoverKey: key }); }
+  clearHoverKey() { this.setState({ hoverKey: null }); }
+  setFocusKey(key) { this.setState({ focusKey: key }); }
+  clearFocus() { this.setState({ focusKey: null }); }
   handleSubmit(e) { e.preventDefault(); }
 
   renderVals() {
     const w = this.state.width || 1440;
     const isMobile = w < 640;
     const isTablet = w >= 640 && w < 1024;
-    const containerPad = isMobile ? 20 : (w < 1024 ? 40 : 64);
-    const titleSize = isMobile ? 32 : 44;
-    const heroPadV = isMobile ? 28 : 44;
-    const sectionGap = isMobile ? 36 : 52;
-    const eyebrowGap = isMobile ? 10 : 14;
-    const titleGap = isMobile ? 16 : 20;
-    const mapHeight = isMobile ? 280 : 560;
 
-    const inputStyle = {
-      width: '100%', border: '1px solid #E4E7EC', borderRadius: '4px',
-      padding: '14px 16px', fontSize: '15px', color: '#10233F', background: '#fff'
+    const accent = this.props.accentColor || '#9C7A4A';
+    const charcoal = '#1A1A1A';
+    const ivory = '#F7F6F3';
+    const hairline = 'rgba(26,26,26,0.10)';
+    const muted = 'rgba(26,26,26,0.58)';
+    const serif = "'Cormorant Garamond', serif";
+    const sans = "'Cormorant Garamond', serif";
+    const numFont = "'Cormorant Garamond', serif";
+    const easeOut = 'cubic-bezier(0.16,1,0.3,1)';
+    const hk = this.state.hoverKey;
+    const fk = this.state.focusKey;
+
+    const containerPad = isMobile ? 22 : (isTablet ? 48 : 80);
+    const titleSize = isMobile ? 32 : (isTablet ? 42 : 46);
+    const mapHeight = isMobile ? 320 : 460;
+
+    const reveal = (id, opts) => {
+      const isRevealed = !!this.state.revealed[id];
+      const delay = (opts && opts.delay) || 0;
+      return { opacity: isRevealed ? 1 : 0, transform: isRevealed ? 'translateY(0)' : 'translateY(26px)', transition: 'opacity 0.85s ' + easeOut + ' ' + delay + 's, transform 0.85s ' + easeOut + ' ' + delay + 's' };
     };
-    const textareaStyle = { ...inputStyle, resize: 'vertical', fontFamily: "'Work Sans',sans-serif" };
+
+    const infoTiles = this.infoTilesData.map((tile, i) => {
+      const tileFont = numFont;
+      return {
+        ...tile,
+        rowStyle: { marginBottom: i === this.infoTilesData.length - 1 ? 0 : '4px' },
+        iconWrapStyle: { color: accent, display: 'inline-flex', flexShrink: 0 },
+        lines: tile.lines.map((l, li) => {
+          const lineKey = tile.key + '-' + li;
+          const isHov = hk === lineKey;
+          return { ...l, onMouseEnter: () => this.setHoverKey(lineKey), linkStyle: { display: 'flex', alignItems: 'center', gap: '12px', padding: '11px 2px', fontFamily: tileFont, color: isHov ? accent : charcoal, fontSize: '15.5px', fontWeight: 700, whiteSpace: 'nowrap', transform: isHov ? 'translateX(4px)' : 'translateX(0)', transition: 'color 0.3s ease, transform 0.3s ease' } };
+        })
+      };
+    });
+
+    const fieldStyle = (key, extra) => ({
+      width: '100%', border: 'none', borderBottom: '1px solid ' + (fk === key ? accent : hairline),
+      background: 'transparent', padding: '11px 2px', fontFamily: sans, fontSize: '15px', color: charcoal,
+      outline: 'none', transition: 'border-color 0.3s ease',
+      ...(extra || {})
+    });
 
     return {
-      containerPad, titleSize, heroPadV, sectionGap, eyebrowGap, titleGap, mapHeight,
-      infoCards: this.infoCardsData,
-      infoGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3,1fr)', gap: isMobile ? '24px' : '32px', maxWidth: '900px', marginTop: sectionGap + 'px' },
-      formGridStyle: { display: 'grid', gridTemplateColumns: isMobile || isTablet ? '1fr' : '1fr 1fr', gap: isMobile ? '40px' : '56px', alignItems: 'start' },
-      inlineFieldsStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '14px' },
-      inputStyle, textareaStyle,
+      accent,
+      pageStyle: { background: ivory, color: charcoal, fontFamily: sans, minHeight: '100vh', position: 'relative', paddingTop: (isMobile ? 64 : 80) + 'px' },
+      crumbWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px ' + containerPad + 'px 0', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', fontSize: '13px', color: muted, fontFamily: sans },
+      crumbLinkStyle: { color: muted, transition: 'color 0.25s ease' },
+      crumbLinkHoverStyle: { color: accent },
+      crumbSepStyle: { color: muted },
+      crumbActiveStyle: { color: charcoal, fontWeight: 600 },
+
+      mainWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 32 : 54) + 'px ' + containerPad + 'px 0' },
+      mainGridStyle: { display: 'grid', gridTemplateColumns: (isMobile || isTablet) ? '1fr' : '1fr 1fr', gap: isMobile ? '44px' : '80px', alignItems: 'start', ...reveal('rv-main') },
+      introColStyle: { animation: 'fadeUp 0.8s ' + easeOut + ' both' },
+      eyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '12px', color: accent, fontWeight: 600, marginBottom: '14px' },
+      titleStyle: { fontFamily: serif, fontWeight: 600, fontSize: titleSize + 'px', color: charcoal, margin: '0 0 18px', lineHeight: 1.18, maxWidth: '480px' },
+      dividerStyle: { width: '48px', height: '2px', margin: '0 0 22px', backgroundImage: 'linear-gradient(90deg, ' + accent + ' 0%, #E8D9BE 25%, ' + accent + ' 50%, #E8D9BE 75%, ' + accent + ' 100%)', backgroundSize: '200% 100%', animation: 'shimmerMove 5s linear infinite' },
+      leadStyle: { fontFamily: sans, color: muted, fontSize: '16px', lineHeight: 1.75, maxWidth: '460px', margin: '0 0 40px', fontWeight: 400 },
+      tilesWrapStyle: { borderTop: '1px solid ' + hairline, paddingTop: '8px' },
+      infoTiles,
+      clearHoverKey: () => this.clearHoverKey(),
+
+      formCardStyle: { background: '#FFFFFF', border: '1px solid ' + hairline, padding: isMobile ? '26px' : '40px', boxShadow: '0 24px 50px rgba(26,26,26,0.06)' },
+      formTitleStyle: { fontFamily: serif, fontSize: '24px', fontWeight: 600, color: charcoal, marginBottom: '6px' },
+      formIntroStyle: { fontFamily: sans, color: muted, fontSize: '14px', margin: '0 0 26px' },
+      formStyle: { display: 'flex', flexDirection: 'column', gap: '18px' },
+      inlineFieldsStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '18px' },
+      inputStyle: {
+        name: fieldStyle('name'), phone: fieldStyle('phone'), email: fieldStyle('email'),
+        subject: fieldStyle('subject'), message: fieldStyle('message', { resize: 'vertical', fontFamily: sans })
+      },
+      setFocus: { name: () => this.setFocusKey('name'), phone: () => this.setFocusKey('phone'), email: () => this.setFocusKey('email'), subject: () => this.setFocusKey('subject'), message: () => this.setFocusKey('message') },
+      clearFocus: () => this.clearFocus(),
+      captchaNoteStyle: { color: muted, fontSize: '12px', lineHeight: 1.5, margin: '2px 0 0', fontFamily: sans },
+      submitBtn: {
+        onMouseEnter: () => this.setHoverKey('submit'),
+        style: { background: hk === 'submit' ? accent : charcoal, color: ivory, border: 'none', padding: '16px', fontFamily: sans, fontWeight: 600, fontSize: '13px', letterSpacing: '1.5px', textTransform: 'uppercase', cursor: 'pointer', marginTop: '4px', transform: hk === 'submit' ? 'translateY(-2px)' : 'translateY(0)', boxShadow: hk === 'submit' ? '0 14px 30px rgba(26,26,26,0.25), 0 0 26px rgba(156,122,74,0.3)' : 'none', transition: 'all 0.35s ' + easeOut }
+      },
+
+      mapSectionStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 56 : 100) + 'px ' + containerPad + 'px ' + (isMobile ? 70 : 130) + 'px', ...reveal('rv-map') },
+      mapHeadStyle: { display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', marginBottom: '20px' },
+      mapAddressStyle: { fontFamily: sans, color: muted, fontSize: '14px' },
+      mapFrameStyle: { overflow: 'hidden', height: mapHeight + 'px', border: '1px solid ' + hairline },
       handleSubmit: (e) => this.handleSubmit(e)
     };
   }

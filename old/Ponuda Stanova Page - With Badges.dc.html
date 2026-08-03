@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<script src="./support.js"></script>
+<script src="../support.js"></script>
 </head>
 <body>
 <x-dc>
@@ -11,28 +11,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="./image-slot.js"></script>
+<script src="../image-slot.js"></script>
 <style>
   body{margin:0;font-family:'Work Sans',sans-serif;background:#F7F8FA;-webkit-font-smoothing:antialiased;}
   a{color:#004FA3;text-decoration:none;}
   a:hover{color:#00376E;}
-
-  image-slot {
-    pointer-events: none;
-  }
 </style>
 </helmet>
 <div style="min-height:100vh;background:#F7F8FA;padding-top:60px;">
 
-  <dc-import name="Header" active="reference" hint-size="100%,80px"></dc-import>
-  <div style="max-width:1280px;margin:0 auto;padding:20px {{ containerPad }}px 0;">
-    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;color:#63728A;">
-      <a href="index.dc.html" style="color:#63728A;" style-hover="color:#004FA3;">Naslovna</a>
-      <span>/</span>
-      <span style="color:#10233F;font-weight:600;">{{ pageTitle }}</span>
-    </div>
-  </div>
-
+  <dc-import name="Header" active="ponuda" hint-size="100%,80px"></dc-import>
 
   <div style="max-width:1280px;margin:0 auto;padding:{{ heroPadV }}px {{ containerPad }}px {{ sectionGap }}px;">
     <div style="text-transform:uppercase;letter-spacing:3px;font-size:12px;color:#004FA3;font-weight:600;margin-bottom:{{ eyebrowGap }}px;">KIPS Gradnja</div>
@@ -42,10 +30,15 @@
 
   <div style="max-width:1280px;margin:0 auto;padding:0 {{ containerPad }}px 90px;">
     <div style="{{ projectGridStyle }}">
-      <sc-for list="{{ projects }}" as="proj" hint-placeholder-count="1">
+      <sc-for list="{{ projects }}" as="proj" hint-placeholder-count="3">
         <a href="{{ proj.href }}" style="position:relative;display:block;border-radius:4px;overflow:hidden;aspect-ratio:4/3;transition:transform 0.2s ease, box-shadow 0.2s ease;" style-hover="transform:translateY(-4px);box-shadow:0 14px 28px rgba(16,35,63,0.2);">
           <image-slot id="{{ proj.slotId }}" src="{{ proj.slotSrc }}" placeholder="{{ proj.placeholder }}" shape="rect" style="width:100%;height:100%;"></image-slot>
           <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(11,31,58,0.9) 0%, rgba(11,31,58,0.1) 48%, transparent 72%);pointer-events:none;"></div>
+          <div style="position:absolute;top:14px;left:14px;display:flex;align-items:center;gap:6px;background:rgba(6,42,82,0.65);padding:6px 12px;border-radius:999px;pointer-events:none;">
+            <div style="width:6px;height:6px;border-radius:50%;background:#FAE100;"></div>
+            <span style="color:#fff;font-size:12px;font-weight:600;">{{ proj.location }}</span>
+          </div>
+          <div style="position:absolute;top:14px;right:14px;background:#fff;color:#062A52;padding:6px 12px;border-radius:999px;font-size:12px;font-weight:700;pointer-events:none;">{{ proj.status }}</div>
           <div style="position:absolute;left:20px;right:20px;bottom:18px;pointer-events:none;">
             <div style="font-family:'Oswald',sans-serif;font-size:22px;font-weight:600;color:#fff;letter-spacing:0.5px;">{{ proj.name }}</div>
           </div>
@@ -64,8 +57,9 @@ class Component extends DCLogic {
   state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440 };
 
   projectsData = [
-    { name: 'Premium Kvart', location: 'City Kvart', status: 'Zavr\u0161eno 2023.', slotId: 'ref-pk', placeholder: 'Premium Kvart', slotSrc: './uploads/premium_kvart.webp', href: './Project Page.dc.html' },
-    { name: 'Family Residence', location: 'Podgorica', status: 'Zavr\u0161eno 2022.', slotId: 'ref-fr', placeholder: 'Family Residence', slotSrc: './uploads/family_residence.webp', href: './Project Page.dc.html' }
+    { name: 'Central Line', location: 'Stari Aerodrom', status: 'U izgradnji', slotId: 'ponuda-cl', placeholder: 'Central Line', slotSrc: './uploads/central_line.webp', href: './Project Page.dc.html' },
+    { name: 'Premium Kvart II', location: 'City Kvart', status: 'U izgradnji', slotId: 'ponuda-pk2', placeholder: 'Premium Kvart II', slotSrc: './uploads/premium_kvart_2.webp', href: './Project Page.dc.html' },
+    { name: 'Premium Kvart', location: 'City Kvart', status: 'Useljivo', slotId: 'ponuda-pk', placeholder: 'Premium Kvart', slotSrc: './uploads/premium_kvart.webp', href: './Project Page.dc.html' }
   ];
 
   componentDidMount() {
@@ -89,8 +83,8 @@ class Component extends DCLogic {
 
     return {
       containerPad, titleSize, heroPadV, sectionGap, eyebrowGap, titleGap,
-      pageTitle: 'Reference',
-      pageLead: 'Pogledajte na\u0161e zavr\u0161ene projekte i uvjerite se u kvalitet na\u0161eg rada.',
+      pageTitle: 'Ponuda stanova',
+      pageLead: 'Pregledajte trenutno aktivne projekte u ponudi i prona\u0111ite stan koji odgovara va\u0161im potrebama.',
       projects: this.projectsData,
       projectGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + cols + ',1fr)', gap: isMobile ? '16px' : '28px' }
     };

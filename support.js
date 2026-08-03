@@ -17,7 +17,7 @@
     return RD;
   }
   var h = ((...args) => getReact().createElement(
-    ...args
+      ...args
   ));
 
   // src/parse.ts
@@ -26,7 +26,7 @@
     if (!dc) return null;
     const scriptEl = doc.querySelector("script[data-dc-script]");
     const { props, preview } = parseDataProps(
-      scriptEl?.getAttribute("data-props") ?? null
+        scriptEl?.getAttribute("data-props") ?? null
     );
     return {
       template: dc.innerHTML,
@@ -44,7 +44,7 @@
     const doc = new DOMParser().parseFromString(src, "text/html");
     const scriptEl = doc.querySelector("script[data-dc-script]");
     const { props, preview } = parseDataProps(
-      scriptEl?.getAttribute("data-props") ?? null
+        scriptEl?.getAttribute("data-props") ?? null
     );
     return {
       template,
@@ -296,9 +296,9 @@
   // src/encode.ts
   var CAMEL_ATTR = "sc-camel-";
   var INLINE_TEXT_TAGS = new Set(
-    "a abbr b bdi bdo br cite code del dfn em i ins kbd mark q s samp small span strike strong sub sup u var wbr".split(
-      " "
-    )
+      "a abbr b bdi bdo br cite code del dfn em i ins kbd mark q s samp small span strike strong sub sup u var wbr".split(
+          " "
+      )
   );
   var RAW_WRAP = {
     select: "sc-raw-select",
@@ -312,7 +312,7 @@
     caption: "sc-raw-caption"
   };
   var RAW_UNWRAP = Object.fromEntries(
-    Object.entries(RAW_WRAP).map(([k, v]) => [v, k])
+      Object.entries(RAW_WRAP).map(([k, v]) => [v, k])
   );
   var EVENT_MAP = {
     onclick: "onClick",
@@ -359,28 +359,28 @@
   };
   var ATTRS = `(?:[^>"']|"[^"]*"|'[^']*')*`;
   var IMPORT_SELF_CLOSE_RE = new RegExp(
-    "<(x-import|dc-import)(" + ATTRS + ")/>",
-    "gi"
+      "<(x-import|dc-import)(" + ATTRS + ")/>",
+      "gi"
   );
   var CAMEL_ATTR_RE = /(\s)([a-z]+[A-Z][A-Za-z0-9]*)(\s*=)/g;
   function encodeCamelAttrs(html) {
     return html.replace(
-      CAMEL_ATTR_RE,
-      (_, sp, name, eq) => sp + CAMEL_ATTR + name.replace(/[A-Z]/g, (c) => "-" + c.toLowerCase()) + eq
+        CAMEL_ATTR_RE,
+        (_, sp, name, eq) => sp + CAMEL_ATTR + name.replace(/[A-Z]/g, (c) => "-" + c.toLowerCase()) + eq
     );
   }
   function encodeCase(html) {
     html = html.replace(
-      IMPORT_SELF_CLOSE_RE,
-      (_, t, a) => "<" + t + a + "></" + t + ">"
+        IMPORT_SELF_CLOSE_RE,
+        (_, t, a) => "<" + t + a + "></" + t + ">"
     );
     html = html.replace(/<helmet(\s|>)/gi, "<sc-helmet$1");
     html = html.replace(/<\/helmet\s*>/gi, "</sc-helmet>");
     html = encodeCamelAttrs(html);
     for (const [real, alias] of Object.entries(RAW_WRAP)) {
       html = html.replace(
-        new RegExp("(</?)" + real + "(?=[\\s>])", "gi"),
-        "$1" + alias
+          new RegExp("(</?)" + real + "(?=[\\s>])", "gi"),
+          "$1" + alias
       );
     }
     return html;
@@ -574,38 +574,38 @@
     }
     const parts = txt.split(/\{\{([\s\S]+?)\}\}/g);
     return (vals, ctx, key) => h(
-      getReact().Fragment,
-      { key },
-      ...parts.map((p, i) => {
-        if (!(i & 1)) return p;
-        const v = resolve(vals, p);
-        if (v === void 0) {
-          if (!ctx?.__streamingNow) {
-            if (document.body?.hasAttribute("data-dc-editor-on")) {
-              return h(
-                "span",
-                { key: i, className: "sc-interp sc-unresolved" },
-                "{{ " + p.trim() + " }}"
+        getReact().Fragment,
+        { key },
+        ...parts.map((p, i) => {
+          if (!(i & 1)) return p;
+          const v = resolve(vals, p);
+          if (v === void 0) {
+            if (!ctx?.__streamingNow) {
+              if (document.body?.hasAttribute("data-dc-editor-on")) {
+                return h(
+                    "span",
+                    { key: i, className: "sc-interp sc-unresolved" },
+                    "{{ " + p.trim() + " }}"
+                );
+              }
+              warnUnresolved(
+                  ctx,
+                  "{{ " + p.trim() + " }} never resolved \u2014 rendered as empty"
               );
+              return null;
             }
-            warnUnresolved(
-              ctx,
-              "{{ " + p.trim() + " }} never resolved \u2014 rendered as empty"
+            return h(
+                "span",
+                { key: i, className: "sc-interp sc-missing" },
+                p.trim()
             );
-            return null;
           }
-          return h(
-            "span",
-            { key: i, className: "sc-interp sc-missing" },
-            p.trim()
-          );
-        }
-        if (getReact().isValidElement(v) || Array.isArray(v)) {
-          return h(getReact().Fragment, { key: i }, v);
-        }
-        if (v === null || typeof v === "boolean") return null;
-        return h("span", { key: i, className: "sc-interp" }, String(v));
-      })
+          if (getReact().isValidElement(v) || Array.isArray(v)) {
+            return h(getReact().Fragment, { key: i }, v);
+          }
+          if (v === null || typeof v === "boolean") return null;
+          return h("span", { key: i, className: "sc-interp" }, String(v));
+        })
     );
   }
   function walkFor(el, host) {
@@ -620,8 +620,8 @@
         if (!ctx?.__streamingNow) {
           if (list !== void 0 && list !== null) {
             warnUnresolved(
-              ctx,
-              'sc-for list="' + listSrc + '" is not an array (' + typeof list + ")"
+                ctx,
+                'sc-for list="' + listSrc + '" is not an array (' + typeof list + ")"
             );
           }
           list = [];
@@ -630,16 +630,16 @@
         }
       }
       return h(
-        getReact().Fragment,
-        { key },
-        list.map((item, i) => {
-          const sub = { ...vals, [asName]: item, $index: i };
-          return h(
-            getReact().Fragment,
-            { key: i },
-            kids.map((b, j) => b(sub, ctx, j))
-          );
-        })
+          getReact().Fragment,
+          { key },
+          list.map((item, i) => {
+            const sub = { ...vals, [asName]: item, $index: i };
+            return h(
+                getReact().Fragment,
+                { key: i },
+                kids.map((b, j) => b(sub, ctx, j))
+            );
+          })
       );
     };
   }
@@ -652,9 +652,9 @@
       let v = valGet(vals);
       if (v === void 0 && hintGet && ctx?.__streamingNow) v = hintGet(vals);
       return v ? h(
-        getReact().Fragment,
-        { key },
-        kids.map((b, j) => b(vals, ctx, j))
+          getReact().Fragment,
+          { key },
+          kids.map((b, j) => b(vals, ctx, j))
       ) : null;
     };
   }
@@ -689,10 +689,10 @@
   }
   function walkXImport(el, host) {
     const globalNameGet = compileAttr(
-      el.getAttribute("component-from-global-scope") || ""
+        el.getAttribute("component-from-global-scope") || ""
     );
     const exportNameGet = compileAttr(
-      el.getAttribute("component") || el.getAttribute("name") || ""
+        el.getAttribute("component") || el.getAttribute("name") || ""
     );
     const fromRaw = el.getAttribute("from") || (el.getAttribute("component-from-global-scope") ? "" : el.getAttribute("src") || el.getAttribute("import") || "");
     const urls = fromRaw.trim() ? fromRaw.trim().split(/\s+/) : [];
@@ -779,9 +779,9 @@
     return s.length + "." + (h2 >>> 0).toString(36);
   }
   var NEVER_CONTENT_KEYED = new Set(
-    "script style textarea option title select canvas iframe video audio".split(
-      " "
-    )
+      "script style textarea option title select canvas iframe video audio".split(
+          " "
+      )
   );
   var NOT_INLINE_SELECTOR = ":not(" + [...INLINE_TEXT_TAGS].join(",") + ")";
   function walkElement(el, host) {
@@ -842,10 +842,10 @@
   function evalDcLogic(src) {
     //! nosemgrep: eval-and-function-constructor
     const fn = new Function(
-      "DCLogic",
-      "StreamableLogic",
-      "React",
-      src + '\n;return (typeof Component!=="undefined"&&Component)||undefined;'
+        "DCLogic",
+        "StreamableLogic",
+        "React",
+        src + '\n;return (typeof Component!=="undefined"&&Component)||undefined;'
     );
     return fn(StreamableLogic, StreamableLogic, getReact());
   }
@@ -860,24 +860,24 @@
     return true;
   }
   function Placeholder({
-    name,
-    hintSize,
-    streaming,
-    error
-  }) {
+                         name,
+                         hintSize,
+                         streaming,
+                         error
+                       }) {
     const [w, hgt] = (hintSize || "100%,60px").split(",");
     return h(
-      "div",
-      {
-        className: "sc-placeholder" + (streaming ? " sc-streaming" : ""),
-        style: { width: w.trim(), height: hgt && hgt.trim() },
-        title: name
-      },
-      error ? h(
         "div",
-        { className: "sc-placeholder-error" },
-        (name ? name + ": " : "") + error
-      ) : null
+        {
+          className: "sc-placeholder" + (streaming ? " sc-streaming" : ""),
+          style: { width: w.trim(), height: hgt && hgt.trim() },
+          title: name
+        },
+        error ? h(
+            "div",
+            { className: "sc-placeholder-error" },
+            (name ? name + ": " : "") + error
+        ) : null
     );
   }
   function hintToMin(hint) {
@@ -930,9 +930,9 @@
       }
       componentDidCatch(e, info) {
         console.error(
-          "[dc-runtime] render error in <" + this.__name + ">:",
-          e,
-          info?.componentStack || ""
+            "[dc-runtime] render error in <" + this.__name + ">:",
+            e,
+            info?.componentStack || ""
         );
       }
       /** Instantiate the logic class (or the no-op base) and adopt `prevState`
@@ -951,7 +951,7 @@
           this.__failedVer = registry.get(this.__name).ver;
           this.__ctorError = this.__name + ": " + (e instanceof Error && e.message ? e.message : String(e));
           this.logic = new StreamableLogic(
-            this.__userProps()
+              this.__userProps()
           );
         }
         this.logic.__host = this;
@@ -1044,37 +1044,37 @@
             this.__name
           ].join(" \u2192 ");
           return h(
-            "div",
-            { ...hostBase, className: cls + " sc-has-error" },
-            h(Placeholder, {
-              name: this.__name,
-              hintSize: this.props.__hintSize,
-              error: "circular import: " + cycle
-            })
+              "div",
+              { ...hostBase, className: cls + " sc-has-error" },
+              h(Placeholder, {
+                name: this.__name,
+                hintSize: this.props.__hintSize,
+                error: "circular import: " + cycle
+              })
           );
         }
         if (this.state.__err) {
           return h(
-            "div",
-            { ...hostBase, className: cls + " sc-has-error" },
-            h(
               "div",
-              { className: "sc-logic-error", "data-omelette-chrome": "" },
-              this.__name + ": " + this.state.__err
-            ),
-            h(Placeholder, {
-              name: this.__name,
-              hintSize: this.props.__hintSize,
-              error: this.state.__err
-            })
+              { ...hostBase, className: cls + " sc-has-error" },
+              h(
+                  "div",
+                  { className: "sc-logic-error", "data-omelette-chrome": "" },
+                  this.__name + ": " + this.state.__err
+              ),
+              h(Placeholder, {
+                name: this.__name,
+                hintSize: this.props.__hintSize,
+                error: this.state.__err
+              })
           );
         }
         this.__reconcileLogic();
         if (!r.tpl) {
           return h(
-            "div",
-            hostBase,
-            h(Placeholder, { name: this.__name, hintSize: this.props.__hintSize })
+              "div",
+              hostBase,
+              h(Placeholder, { name: this.__name, hintSize: this.props.__hintSize })
           );
         }
         const userProps = this.__userProps();
@@ -1090,18 +1090,18 @@
         this.__streamingNow = !!(r.htmlStreaming || r.jsStreaming);
         this.__htmlStreamingNow = !!r.htmlStreaming;
         return h(
-          "div",
-          { ...hostBase, className: cls + (renderErr ? " sc-has-error" : "") },
-          renderErr && h(
             "div",
-            { className: "sc-logic-error", "data-omelette-chrome": "" },
-            renderErr
-          ),
-          h(
-            AncestorContext.Provider,
-            { value: [...chain, this.__name] },
-            r.tpl(vals, this)
-          )
+            { ...hostBase, className: cls + (renderErr ? " sc-has-error" : "") },
+            renderErr && h(
+                "div",
+                { className: "sc-logic-error", "data-omelette-chrome": "" },
+                renderErr
+            ),
+            h(
+                AncestorContext.Provider,
+                { value: [...chain, this.__name] },
+                r.tpl(vals, this)
+            )
         );
       }
     }
@@ -1216,10 +1216,10 @@
         const before = new Set(Object.keys(window));
         //! nosemgrep: eval-and-function-constructor
         new Function("React", "module", "exports", "require", code)(
-          getReact(),
-          module,
-          module.exports,
-          () => ({})
+            getReact(),
+            module,
+            module.exports,
+            () => ({})
         );
         const globals = {};
         for (const k of Object.keys(window)) {
@@ -1229,12 +1229,12 @@
         }
         cache.set(url, { mod: module.exports, globals });
         console.info(
-          "[dc-runtime] x-import: loaded",
-          url,
-          "\u2014 exports:",
-          Object.keys(module.exports),
-          "window globals:",
-          Object.keys(globals)
+            "[dc-runtime] x-import: loaded",
+            url,
+            "\u2014 exports:",
+            Object.keys(module.exports),
+            "window globals:",
+            Object.keys(globals)
         );
         onResolved();
       }).catch((e) => {
@@ -1244,10 +1244,10 @@
           error: "failed to load: " + (e instanceof Error && e.message ? e.message : String(e))
         });
         console.error(
-          "[dc-runtime] x-import: FAILED to load",
-          url,
-          "(" + kind + ")",
-          e
+            "[dc-runtime] x-import: FAILED to load",
+            url,
+            "(" + kind + ")",
+            e
         );
         onResolved();
       });
@@ -1263,19 +1263,19 @@
       const key = url + "\0" + name;
       if (!reportedMissing.has(key)) {
         reportedMissing.set(
-          key,
-          entry.error || 'no export named "' + name + '" (has: ' + Object.keys(mod).join(", ") + ")"
+            key,
+            entry.error || 'no export named "' + name + '" (has: ' + Object.keys(mod).join(", ") + ")"
         );
         console.error(
-          "[dc-runtime] x-import: module",
-          url,
-          "loaded but has no component named",
-          JSON.stringify(name),
-          "\u2014 available exports:",
-          Object.keys(mod),
-          "window globals:",
-          Object.keys(globals),
-          ". The module must `module.exports = {" + name + "}` or set `window." + name + "`."
+            "[dc-runtime] x-import: module",
+            url,
+            "loaded but has no component named",
+            JSON.stringify(name),
+            "\u2014 available exports:",
+            Object.keys(mod),
+            "window globals:",
+            Object.keys(globals),
+            ". The module must `module.exports = {" + name + "}` or set `window." + name + "`."
         );
       }
       return null;
@@ -1294,9 +1294,9 @@
         }
         if (Date.now() - started >= GLOBAL_POLL_TIMEOUT_MS) {
           console.warn(
-            "[dc-runtime] x-import: global",
-            JSON.stringify(name),
-            "never appeared on window after " + GLOBAL_POLL_TIMEOUT_MS + "ms"
+              "[dc-runtime] x-import: global",
+              JSON.stringify(name),
+              "never appeared on window after " + GLOBAL_POLL_TIMEOUT_MS + "ms"
           );
           return;
         }
@@ -1328,11 +1328,11 @@
         reportedMissing.set(key, null);
         if (isCE && !customElements.get(name)) {
           console.warn(
-            "[dc-runtime] x-import:",
-            url,
-            "loaded but no custom element",
-            JSON.stringify(name),
-            "is registered and window." + name + " is not a function \u2014 rendering <" + name + "> as an unknown element."
+              "[dc-runtime] x-import:",
+              url,
+              "loaded but no custom element",
+              JSON.stringify(name),
+              "is registered and window." + name + " is not a function \u2014 rendering <" + name + "> as an unknown element."
           );
         }
       }
@@ -1355,8 +1355,8 @@
 
   // src/atomics.ts
   var ATOMIC_CSS = (
-    // layout
-    ".fx{display:flex}.col{display:flex;flex-direction:column}.grid{display:grid}.ac{align-items:center}.jc{justify-content:center}.jb{justify-content:space-between}.f1{flex:1}.noshrink{flex-shrink:0}.wrap{flex-wrap:wrap}.fw5{font-weight:500}.fw6{font-weight:600}.fw7{font-weight:700}.fw8{font-weight:800}.fs11{font-size:11px}.fs12{font-size:12px}.fs13{font-size:13px}.fs14{font-size:14px}.fs15{font-size:15px}.fs16{font-size:16px}.fs20{font-size:20px}.fs22{font-size:22px}.upper{text-transform:uppercase}.tc{text-align:center}.nowrap{white-space:nowrap}.gap8{gap:8px}.gap10{gap:10px}.gap12{gap:12px}.gap16{gap:16px}.gap24{gap:24px}.m0{margin:0}.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mb8{margin-bottom:8px}.mb12{margin-bottom:12px}.mb16{margin-bottom:16px}.posrel{position:relative}.posabs{position:absolute}.round{border-radius:50%}.ohide{overflow:hidden}.bbox{box-sizing:border-box}.pointer{cursor:pointer}.w100{width:100%}.b0{border:none}"
+      // layout
+      ".fx{display:flex}.col{display:flex;flex-direction:column}.grid{display:grid}.ac{align-items:center}.jc{justify-content:center}.jb{justify-content:space-between}.f1{flex:1}.noshrink{flex-shrink:0}.wrap{flex-wrap:wrap}.fw5{font-weight:500}.fw6{font-weight:600}.fw7{font-weight:700}.fw8{font-weight:800}.fs11{font-size:11px}.fs12{font-size:12px}.fs13{font-size:13px}.fs14{font-size:14px}.fs15{font-size:15px}.fs16{font-size:16px}.fs20{font-size:20px}.fs22{font-size:22px}.upper{text-transform:uppercase}.tc{text-align:center}.nowrap{white-space:nowrap}.gap8{gap:8px}.gap10{gap:10px}.gap12{gap:12px}.gap16{gap:16px}.gap24{gap:24px}.m0{margin:0}.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mb8{margin-bottom:8px}.mb12{margin-bottom:12px}.mb16{margin-bottom:16px}.posrel{position:relative}.posabs{position:absolute}.round{border-radius:50%}.ohide{overflow:hidden}.bbox{box-sizing:border-box}.pointer{cursor:pointer}.w100{width:100%}.b0{border:none}"
   );
 
   // src/helmet.ts
@@ -1372,7 +1372,7 @@
     try {
       const ds = doc.documentElement.dataset.theme;
       appTheme = ds === "dark" || ds === "light" ? ds : new URLSearchParams(doc.defaultView?.location.search ?? "").get(
-        "theme"
+          "theme"
       ) === "dark" ? "dark" : "light";
     } catch {
     }
@@ -1580,8 +1580,8 @@
       const isPseudoElement = pseudo === "before" || pseudo === "after";
       const sel = isPseudoElement ? "." + cls + "::" + pseudo : "." + cls + ":" + pseudo;
       el.sheet.insertRule(
-        sel + "{" + (isPseudoElement ? css : importantify(css)) + "}",
-        el.sheet.cssRules.length
+          sel + "{" + (isPseudoElement ? css : importantify(css)) + "}",
+          el.sheet.cssRules.length
       );
       cache.set(k, cls);
       return cls;
@@ -1624,8 +1624,8 @@
     const registry = createRegistry();
     const pseudoClass = createPseudoSheet(doc);
     const helmet = createHelmetManager(
-      doc,
-      (name) => registry.get(name).htmlStreaming
+        doc,
+        (name) => registry.get(name).htmlStreaming
     );
     const external = createExternalModules(() => registry.bumpAll());
     const factory = createComponentFactory(registry, ensureFetched);
@@ -1651,11 +1651,11 @@
       (blob ? blob.text() : fetch(target).then((res2) => {
         if (!res2.ok) {
           console.error(
-            '[dc-runtime] sibling fetch for "' + name + '" failed:',
-            url,
-            "returned",
-            res2.status,
-            "\u2014 the reference renders as an empty placeholder."
+              '[dc-runtime] sibling fetch for "' + name + '" failed:',
+              url,
+              "returned",
+              res2.status,
+              "\u2014 the reference renders as an empty placeholder."
           );
           return "";
         }
@@ -1665,9 +1665,9 @@
         const parsed = parseDcText(t);
         if (!parsed) {
           console.error(
-            '[dc-runtime] sibling fetch for "' + name + '":',
-            url,
-            "has no <x-dc> block \u2014 not a Design Component."
+              '[dc-runtime] sibling fetch for "' + name + '":',
+              url,
+              "has no <x-dc> block \u2014 not a Design Component."
           );
           return;
         }
@@ -1676,11 +1676,11 @@
         if (parsed.template && !r.html) updateHtml(name, parsed.template);
         if (parsed.js && !r.Logic) updateJs(name, parsed.js);
       }).catch(
-        (e) => console.error(
-          '[dc-runtime] sibling fetch for "' + name + '" threw:',
-          url,
-          e
-        )
+          (e) => console.error(
+              '[dc-runtime] sibling fetch for "' + name + '" threw:',
+              url,
+              e
+          )
       );
     }
     let rootName = null;
@@ -1713,10 +1713,10 @@
       } catch (e) {
         if (r.jsSeq !== seq) return;
         console.error(
-          "[dc-runtime] logic class eval FAILED for",
-          name,
-          "\u2014 the template renders with props only.",
-          e
+            "[dc-runtime] logic class eval FAILED for",
+            name,
+            "\u2014 the template renders with props only.",
+            e
         );
         r.logicError = name + ": " + (e instanceof Error && e.message ? e.message : String(e));
       }
@@ -1856,13 +1856,13 @@
       const r = runtime.registry.entries[rootName];
       try {
         window.parent.postMessage(
-          {
-            type: "__dc_booted",
-            rootName,
-            propsMeta: r && r.propsMeta || null,
-            preview: r && r.preview || null
-          },
-          "*"
+            {
+              type: "__dc_booted",
+              rootName,
+              propsMeta: r && r.propsMeta || null,
+              preview: r && r.preview || null
+            },
+            "*"
         );
       } catch {
       }

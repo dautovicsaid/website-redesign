@@ -7,89 +7,106 @@
 </head>
 <body>
 <x-dc>
-<helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  a{text-decoration:none;}
-</style>
-</helmet>
-<div style="background:#062A52;padding:64px {{ containerPad }}px 40px;font-family:'Work Sans',sans-serif;">
-  <div style="max-width:1280px;margin:0 auto;display:grid;grid-template-columns:{{ footerColumns }};gap:40px;">
-    <div>
-      <img src="assets/kips-logo-white.png" alt="KIPS Gradnja" style="height:26px;width:auto;margin-bottom:16px;">
-      <p style="color:#9FB6D3;font-size:14px;line-height:1.6;margin:0 0 20px;max-width:280px;">Gra&#273;evinska kompanija posve&#263;ena kvalitetu, izgradnji i investiranju u stambene i stambeno-poslovne objekte.</p>
-      <div style="display:flex;gap:10px;">
-        <a href="#" aria-label="Facebook" style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.1);color:#fff;display:flex;align-items:center;justify-content:center;" style-hover="background:#FAE100;color:#062A52;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12.06C22 6.505 17.523 2 12 2S2 6.505 2 12.06c0 5.02 3.657 9.184 8.438 9.94v-7.03H7.898v-2.91h2.54V9.845c0-2.507 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.242 0-1.63.771-1.63 1.562v1.878h2.773l-.443 2.91h-2.33V22c4.78-.756 8.437-4.92 8.437-9.94z"/></svg>
-        </a>
-        <a href="#" aria-label="Instagram" style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.1);color:#fff;display:flex;align-items:center;justify-content:center;" style-hover="background:#FAE100;color:#062A52;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.256 1.216.6 1.772 1.153a4.9 4.9 0 0 1 1.153 1.772c.247.637.415 1.363.465 2.428.05 1.066.06 1.405.06 4.122s-.01 3.056-.06 4.122c-.05 1.065-.218 1.79-.465 2.428a4.9 4.9 0 0 1-1.153 1.772 4.9 4.9 0 0 1-1.772 1.153c-.638.247-1.363.415-2.428.465-1.066.05-1.405.06-4.122.06s-3.056-.01-4.122-.06c-1.065-.05-1.79-.218-2.428-.465a4.9 4.9 0 0 1-1.772-1.153 4.9 4.9 0 0 1-1.153-1.772c-.247-.637-.415-1.363-.465-2.428C2.01 15.056 2 14.717 2 12s.01-3.056.06-4.122c.05-1.065.218-1.79.465-2.428A4.9 4.9 0 0 1 3.678 3.678 4.9 4.9 0 0 1 5.45 2.525c.637-.247 1.363-.415 2.428-.465C8.944 2.01 9.283 2 12 2zm0 1.802c-2.67 0-2.986.01-4.04.059-.976.045-1.505.207-1.858.344-.467.182-.8.399-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.05 1.055-.06 1.372-.06 4.04s.01 2.986.06 4.04c.045.976.207 1.505.344 1.858.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.05 1.37.06 4.04.06s2.987-.01 4.04-.06c.976-.045 1.505-.207 1.858-.344.467-.182.8-.399 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.05-1.055.06-1.372.06-4.04s-.01-2.986-.06-4.04c-.045-.976-.207-1.505-.344-1.858a3.1 3.1 0 0 0-.748-1.15 3.1 3.1 0 0 0-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.055-.05-1.372-.06-4.04-.06zm0 4.594a5.604 5.604 0 1 1 0 11.208 5.604 5.604 0 0 1 0-11.208zM12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5.838-8.406a1.31 1.31 0 1 1 0-2.62 1.31 1.31 0 0 1 0 2.62z"/></svg>
-        </a>
-        <a href="#" aria-label="LinkedIn" style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.1);color:#fff;display:flex;align-items:center;justify-content:center;" style-hover="background:#FAE100;color:#062A52;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.048c.476-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1 0-4.124 2.062 2.062 0 0 1 0 4.124zM7.114 20.452H3.558V9h3.556v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-        </a>
-        <a href="#" aria-label="YouTube" style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.1);color:#fff;display:flex;align-items:center;justify-content:center;" style-hover="background:#FAE100;color:#062A52;">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.02 3.02 0 0 0-2.126-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.372.505A3.02 3.02 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.02 3.02 0 0 0 2.126 2.136c1.867.505 9.372.505 9.372.505s7.505 0 9.372-.505a3.02 3.02 0 0 0 2.126-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-        </a>
+
+<div style="{{ footerStyle }}">
+  <div style="{{ footerInnerStyle }}">
+    <div style="{{ footerTopGridStyle }}">
+      <div>
+        <img src="assets/kips-logo-white.png" alt="KIPS Gradnja" style="{{ footerLogoImgStyle }}">
+        <p style="{{ footerBlurbStyle }}">Gradimo prostore po najvi&scaron;im standardima kvaliteta.</p>
+      </div>
+      <div>
+        <div style="{{ footerColTitleStyle }}">Navigacija</div>
+        <div style="{{ footerLinkColStyle }}">
+          <sc-for list="{{ footerNavLinks }}" as="link" hint-placeholder-count="4">
+            <a href="{{ link.href }}" onMouseEnter="{{ link.onMouseEnter }}" onMouseLeave="{{ link.onMouseLeave }}" style="{{ link.style }}">{{ link.label }}</a>
+          </sc-for>
+        </div>
+      </div>
+      <div>
+        <div style="{{ footerColTitleStyle }}">Kontakt</div>
+        <div style="{{ footerLinkColStyle }}">
+          <a href="tel:+38267134134" onMouseEnter="{{ footerPhoneLink.onMouseEnter }}" onMouseLeave="{{ footerPhoneLink.onMouseLeave }}" style="{{ footerPhoneLink.style }}">+382 67 134 134</a>
+          <a href="mailto:office@kipsgradnja.me" onMouseEnter="{{ footerEmailLink.onMouseEnter }}" onMouseLeave="{{ footerEmailLink.onMouseLeave }}" style="{{ footerEmailLink.style }}">office@kipsgradnja.me</a>
+        </div>
       </div>
     </div>
-
-    <div>
-      <div style="color:#fff;font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;letter-spacing:1px;margin-bottom:18px;">NAVIGACIJA</div>
-      <div style="display:flex;flex-direction:column;gap:12px;">
-        <a href="index.dc.html" style="color:#9FB6D3;font-size:14px;" style-hover="color:#FAE100;">Naslovna</a>
-        <a href="./Ponuda Stanova Page.dc.html" style="color:#9FB6D3;font-size:14px;" style-hover="color:#FAE100;">Ponuda stanova</a>
-        <a href="./Reference Page.dc.html" style="color:#9FB6D3;font-size:14px;" style-hover="color:#FAE100;">Reference</a>
-        <a href="./About Us Page.dc.html" style="color:#9FB6D3;font-size:14px;" style-hover="color:#FAE100;">O nama</a>
-        <a href="./Contact Page.dc.html" style="color:#9FB6D3;font-size:14px;" style-hover="color:#FAE100;">Kontakt</a>
-      </div>
-    </div>
-
-    <div>
-      <div style="color:#fff;font-family:'Oswald',sans-serif;font-size:14px;font-weight:600;letter-spacing:1px;margin-bottom:18px;">KONTAKT</div>
-      <div style="display:flex;flex-direction:column;gap:12px;color:#9FB6D3;font-size:14px;line-height:1.6;">
-        <span>Ankarski bulevar 20, ulaz C, I sprat,<br/>81000 Podgorica, Crna Gora</span>
-        <a href="tel:+38267134134" style="color:#9FB6D3;font-size:14px;" style-hover="color:#FAE100;">+382 67 134 134</a>
-        <a href="tel:+38267663662" style="color:#9FB6D3;font-size:14px;" style-hover="color:#FAE100;">+382 67 663 662</a>
-        <a href="mailto:office@kipsgradnja.me" style="color:#9FB6D3;font-size:14px;" style-hover="color:#FAE100;">office@kipsgradnja.me</a>
-      </div>
+    <div style="{{ footerHairlineStyle }}"></div>
+    <div style="{{ footerBottomRowStyle }}">
+      <p style="{{ footerCopyStyle }}">&copy; 2026 KIPS Gradnja d.o.o.</p>
+      <p style="{{ footerCreditStyle }}">Powered by: <a href="https://adlogic.me" target="_blank" rel="noopener" onMouseEnter="{{ footerCreditLink.onMouseEnter }}" onMouseLeave="{{ footerCreditLink.onMouseLeave }}" style="{{ footerCreditLink.style }}">ADLOGIC</a></p>
     </div>
   </div>
-
-  <div style="max-width:1280px;margin:48px auto 0;padding-top:24px;border-top:1px solid rgba(255,255,255,0.1);">
-    <p style="color:#6E88AC;font-size:12px;text-align:center;margin:0 0 16px;">Napomena: Na sajtu su prikazani projektovani materijali. Mogu&#263;e je da stvarno ugra&#273;eni materijali ne budu identi&#269;ni projektovanim.</p>
-    <p style="color:#6E88AC;font-size:12px;text-align:center;margin:0;">&copy; 2026. KIPS Gradnja d.o.o.</p>
-  </div>
-</div>
-
-<div style="background:#051D3B;padding:14px {{ containerPad }}px;">
-  <p style="max-width:1280px;margin:0 auto;color:rgba(255,255,255,0.8);font-size:11.5px;text-align:center;">Powered by: <a href="https://adlogic.me" target="_blank" rel="noopener" style="color:rgba(255,255,255,0.8);" style-hover="color:#FAE100;">ADLOGIC</a></p>
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#9C7A4A&quot;,&quot;options&quot;:[&quot;#9C7A4A&quot;,&quot;#B8934F&quot;,&quot;#7A8A78&quot;,&quot;#8C7A6B&quot;],&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
   state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440 };
+
+  navLinks = [
+    { label: 'Ponuda stanova', href: './Ponuda Stanova Page.dc.html' },
+    { label: 'Reference', href: './Reference Page.dc.html' },
+    { label: 'Ponuda zemlji\u0161ta', href: './Ponuda Zemljista Page.dc.html' },
+    { label: 'O nama', href: './About Us Page.dc.html' }
+  ];
 
   componentDidMount() {
     this._onResize = () => this.setState({ width: window.innerWidth });
     window.addEventListener('resize', this._onResize);
   }
-  componentWillUnmount() {
-    window.removeEventListener('resize', this._onResize);
-  }
+  componentWillUnmount() { window.removeEventListener('resize', this._onResize); }
+  setHoverKey(key) { this.setState({ hoverKey: key }); }
+  clearHoverKey() { this.setState({ hoverKey: null }); }
 
   renderVals() {
     const w = this.state.width || 1440;
     const isMobile = w < 640;
-    const containerPad = isMobile ? 20 : (w < 1024 ? 40 : 64);
-    const footerColumns = isMobile ? '1fr' : (w < 900 ? '1fr 1fr' : '1.2fr 1fr 1.2fr');
-    return { containerPad, footerColumns };
+    const isTablet = w >= 640 && w < 1024;
+    const accent = this.props.accentColor || '#9C7A4A';
+    const containerPad = isMobile ? 22 : (isTablet ? 48 : 80);
+    const serif = "'Cormorant Garamond', serif";
+    const sans = "'Cormorant Garamond', serif";
+    const numFont = "'Cormorant Garamond', serif";
+    const hk = this.state.hoverKey;
+    const hoverProps = (key) => ({ onMouseEnter: () => this.setHoverKey(key), onMouseLeave: () => this.clearHoverKey() });
+    const mergeHover = (base, hoverStyle, key) => (hk === key ? { ...base, ...hoverStyle } : base);
+
+    return {
+      footerStyle: { background: '#141412', padding: (isMobile ? 60 : 90) + 'px ' + containerPad + 'px 32px' },
+      footerInnerStyle: { maxWidth: '1320px', margin: '0 auto' },
+      footerTopGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : (isTablet ? '1.4fr 1fr 1fr' : '1.6fr 1fr 1fr'), gap: isMobile ? '40px' : '56px', marginBottom: '52px' },
+      footerLogoImgStyle: { height: '30px', width: 'auto', display: 'block', marginBottom: '18px' },
+      footerBlurbStyle: { fontFamily: sans, fontSize: '15px', color: 'rgba(247,246,243,0.55)', lineHeight: 1.7, maxWidth: '320px', fontWeight: 500 },
+      footerColTitleStyle: { fontFamily: sans, fontSize: '11px', color: 'rgba(247,246,243,0.4)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '20px' },
+      footerLinkColStyle: { display: 'flex', flexDirection: 'column', gap: '13px' },
+      footerNavLinks: this.navLinks.map((l, i) => ({ ...l, ...hoverProps('footerNav' + i), style: mergeHover(
+        { fontFamily: sans, fontSize: '14px', color: 'rgba(247,246,243,0.75)', fontWeight: 400, display: 'inline-block', transition: 'color 0.3s ease-out, transform 0.3s ease-out' },
+        { color: accent, transform: 'translateX(3px)' },
+        'footerNav' + i
+      ) })),
+      footerPhoneLink: { ...hoverProps('footerPhone'), style: mergeHover(
+        { fontFamily: numFont, fontSize: '14px', color: 'rgba(247,246,243,0.75)', fontWeight: 700, display: 'inline-block', transition: 'color 0.3s ease-out, transform 0.3s ease-out' },
+        { color: accent, transform: 'translateX(3px)' },
+        'footerPhone'
+      ) },
+      footerEmailLink: { ...hoverProps('footerEmail'), style: mergeHover(
+        { fontFamily: sans, fontSize: '14px', color: 'rgba(247,246,243,0.75)', fontWeight: 400, display: 'inline-block', transition: 'color 0.3s ease-out, transform 0.3s ease-out' },
+        { color: accent, transform: 'translateX(3px)' },
+        'footerEmail'
+      ) },
+      footerHairlineStyle: { height: '1px', background: 'rgba(247,246,243,0.1)', margin: '0 0 26px' },
+      footerBottomRowStyle: { display: 'flex', flexWrap: 'wrap', gap: '10px', alignItems: 'center', justifyContent: 'space-between' },
+      footerCopyStyle: { fontFamily: numFont, fontWeight: 700, color: 'rgba(247,246,243,0.4)', fontSize: '12px', margin: 0 },
+      footerCreditStyle: { color: 'rgba(247,246,243,0.4)', fontSize: '12px', margin: 0 },
+      footerCreditLink: { ...hoverProps('footerCredit'), style: mergeHover(
+        { color: 'rgba(247,246,243,0.65)', display: 'inline-block', transition: 'color 0.3s ease-out, transform 0.3s ease-out' },
+        { color: accent, transform: 'translateX(2px)' },
+        'footerCredit'
+      ) }
+    };
   }
 }
-
 </script>
 </body>
 </html>

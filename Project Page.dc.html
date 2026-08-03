@@ -7,199 +7,155 @@
 </head>
 <body>
 <x-dc>
+
 <helmet>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="./image-slot.js"></script>
-<style>
-  body{margin:0;font-family:'Work Sans',sans-serif;background:#F7F8FA;-webkit-font-smoothing:antialiased;}
-  a{color:#004FA3;text-decoration:none;}
-  a:hover{color:#00376E;}
-  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-  #tabScroll::-webkit-scrollbar{display:none}
-  .progScroll::-webkit-scrollbar{display:none}
-
-  image-slot {
-    pointer-events: none;
-  }
-</style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,500&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="./image-slot.js"></script>
+  <style>
+    html{scroll-behavior:smooth;}
+    body{margin:0;background:#F7F6F3;-webkit-font-smoothing:antialiased;}
+    a{color:#9C7A4A;text-decoration:none;}
+    a:hover{color:#7E623B;}
+    @keyframes shimmerMove{0%{background-position:0% 50%;}100%{background-position:200% 50%;}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+    image-slot { pointer-events: none; }
+  </style>
 </helmet>
-<div style="min-height:100vh;background:#F7F8FA;padding-top:60px;">
+<div style="{{ pageStyle }}">
 
-  <dc-import name="Header" active="ponuda" hint-size="100%,80px"></dc-import>
+  <dc-import name="Navigation" accent-color="{{ accent }}" current-page="{{ navCurrentPage }}" hint-size="100%,80px"></dc-import>
 
-  <div style="max-width:1280px;margin:0 auto;padding:20px {{ containerPad }}px 0;">
-    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;color:#63728A;">
-      <a href="index.dc.html" style="color:#63728A;" style-hover="color:#004FA3;">Naslovna</a>
-      <span>/</span>
-      <a href="{{ parentCrumbHref }}" style="color:#63728A;" style-hover="color:#004FA3;">{{ parentCrumbLabel }}</a>
-      <span>/</span>
-      <span style="color:#10233F;font-weight:600;">{{ projectName }}</span>
-    </div>
+  <div style="{{ crumbWrapStyle }}">
+    <a href="index.dc.html" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">Naslovna</a>
+    <span style="{{ crumbSepStyle }}">/</span>
+    <a href="{{ parentCrumbHref }}" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">{{ parentCrumbLabel }}</a>
+    <span style="{{ crumbSepStyle }}">/</span>
+    <span style="{{ crumbActiveStyle }}">{{ projectName }}</span>
   </div>
 
-  <div style="max-width:1280px;margin:0 auto;padding:{{ heroPadV }}px {{ containerPad }}px 0;">
-    <div style="text-transform:uppercase;letter-spacing:3px;font-size:12px;color:#004FA3;font-weight:600;">KIPS Gradnja &mdash; Projekat</div>
-    <h1 style="font-family:'Oswald',sans-serif;font-weight:600;color:#10233F;font-size:{{ heroTitleSize }}px;margin:8px 0 14px;letter-spacing:0.5px;">{{ projectName }}</h1>
-    <div style="display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
-      <div style="display:flex;align-items:center;gap:8px;color:#63728A;font-size:15px;">
-        <div style="width:8px;height:8px;border-radius:50%;background:#004FA3;flex-shrink:0;"></div>
+  <div style="{{ headerWrapStyle }}">
+    <div style="{{ headerEyebrowStyle }}">KIPS Gradnja &mdash; Projekat</div>
+    <h1 style="{{ headerTitleStyle }}">{{ projectName }}</h1>
+    <div style="{{ headerMetaRowStyle }}">
+      <div style="{{ locationRowStyle }}">
+        <span style="{{ locationDotStyle }}"></span>
         <span>{{ locationTag }}</span>
       </div>
-      <a href="mailto:office@kipsgradnja.me?subject=Razgledanje - {{ projectName }}" style="color:#10233F;font-weight:600;font-size:14px;border-bottom:1px solid #004FA3;padding-bottom:2px;" style-hover="color:#004FA3;">Zaka&#382;ite razgledanje &#8594;</a>
+      <a href="mailto:office@kipsgradnja.me?subject=Razgledanje - {{ projectName }}" onMouseEnter="{{ scheduleLink.onMouseEnter }}" onMouseLeave="{{ scheduleLink.onMouseLeave }}" style="{{ scheduleLink.style }}">Zaka&#382;ite razgledanje &#8594;</a>
     </div>
   </div>
 
-  <div id="pregled-section" style="max-width:1280px;margin:0 auto;padding:30px {{ containerPad }}px 0;">
-    <div style="font-family:'Oswald',sans-serif;font-size:26px;font-weight:600;color:#10233F;margin-bottom:6px;">Ponuda u ovom projektu</div>
-    <p style="color:#63728A;font-size:15px;margin:0 0 28px;">Izaberite kategoriju za detaljan pregled jedinica i tlocrta.</p>
-    <div style="{{ catGridStyle }}">
-      <sc-for list="{{ categories }}" as="cat" hint-placeholder-count="3">
-        <a href="./Category Floor Plan Page.dc.html" style="display:block;position:relative;border-radius:4px;overflow:hidden;cursor:pointer;aspect-ratio:4/3;transition:transform 0.2s ease, box-shadow 0.2s ease;" style-hover="transform:translateY(-4px);box-shadow:0 14px 28px rgba(16,35,63,0.2);">
-          <image-slot id="{{ cat.slotId }}" src="{{ cat.slotSrc }}" placeholder="{{ cat.placeholder }}" shape="rect" style="width:100%;height:100%;"></image-slot>
-          <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(11,31,58,0.9) 0%, rgba(11,31,58,0.1) 48%, transparent 72%);pointer-events:none;"></div>
-          <div style="position:absolute;left:20px;right:20px;bottom:18px;pointer-events:none;">
-            <div style="font-family:'Oswald',sans-serif;font-size:22px;font-weight:600;color:#fff;letter-spacing:0.5px;">{{ cat.label }}</div>
-            <div style="font-size:13px;color:#C9D3E0;margin-top:2px;">{{ cat.sub }}</div>
+  <div id="rv-primary" style="{{ primaryWrapStyle }}">
+    <div style="{{ primaryGridStyle }}">
+      <sc-for list="{{ primaryLinks }}" as="item" hint-placeholder-count="3">
+        <a href="{{ item.href }}" onMouseEnter="{{ item.onEnter }}" onMouseLeave="{{ onLeavePrimary }}" style="{{ item.cardStyle }}" style-hover="{{ primaryCardHoverStyle }}">
+          <div style="{{ primaryImgFrameStyle }}">
+            <image-slot id="{{ item.slotId }}" src="{{ item.slotSrc }}" placeholder="{{ item.placeholder }}" shape="rect" style="{{ primaryImgStyle }}" style-hover="{{ primaryImgHoverStyle }}"></image-slot>
+          </div>
+          <div style="{{ item.primaryCaptionRowStyle }}">
+            <div>
+              <div style="{{ item.primaryLabelStyle }}">{{ item.label }}</div>
+              <div style="{{ primarySubStyle }}">{{ item.sub }}</div>
+            </div>
+            <span style="{{ item.arrowStyle }}">&#8594;</span>
           </div>
         </a>
       </sc-for>
     </div>
   </div>
 
-  <div style="max-width:1280px;margin:0 auto;padding:64px {{ containerPad }}px 90px;">
-    <div id="tabScroll" style="display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;margin-bottom:36px;">
-      <sc-for list="{{ tabs }}" as="tab" hint-placeholder-count="3">
-        <button onClick="{{ tab.select }}" style="{{ tab.style }}">{{ tab.label }}</button>
+  <div id="rv-secondary" style="{{ secondaryWrapStyle }}">
+    <div style="{{ sectionEyebrowStyle }}">Vi&scaron;e o projektu</div>
+    <div style="{{ secondaryGridStyle }}">
+      <sc-for list="{{ secondaryLinks }}" as="item" hint-placeholder-count="2">
+        <a href="{{ item.href }}" onMouseEnter="{{ item.onEnter }}" onMouseLeave="{{ onLeaveSecondary }}" style="{{ item.rowStyle }}" style-hover="{{ secondaryRowHoverStyle }}">
+          <div style="{{ secondaryImgWrapStyle }}">
+            <image-slot id="{{ item.slotId }}" src="{{ item.slotSrc }}" placeholder="{{ item.placeholder }}" shape="rect" style="{{ primaryImgStyle }}" style-hover="{{ primaryImgHoverStyle }}"></image-slot>
+          </div>
+          <div style="{{ item.secondaryTextWrapStyle }}">
+            <div style="{{ item.secondaryTitleStyle }}">{{ item.label }}</div>
+            <div style="{{ secondaryDescStyle }}">{{ item.desc }}</div>
+            <span style="{{ item.linkStyle }}">Pogledajte &#8594;</span>
+          </div>
+        </a>
       </sc-for>
     </div>
-
-    <sc-if value="{{ isProjekat }}" hint-placeholder-val="{{ true }}">
-      <div>
-        <div style="display:grid;grid-template-columns:{{ twoColumns }};gap:48px;align-items:start;margin-bottom:56px;">
-          <div>
-            <div style="font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;color:#10233F;">Za&scaron;to &bdquo;{{ projectName }}&ldquo;?</div>
-            <div style="width:40px;height:2px;background:#004FA3;margin:14px 0 22px;"></div>
-            <sc-for list="{{ whyBullets }}" as="item" hint-placeholder-count="3">
-              <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:16px;">
-                <div style="width:20px;height:20px;border-radius:50%;background:#004FA3;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px;">
-                  <div style="width:7px;height:7px;background:#fff;border-radius:50%;"></div>
-                </div>
-                <div style="font-size:16px;color:#334155;line-height:1.5;">{{ item }}</div>
-              </div>
-            </sc-for>
-          </div>
-          <div>
-            <div style="font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;color:#10233F;">Lokacija</div>
-            <div style="width:40px;height:2px;background:#004FA3;margin:14px 0 16px;"></div>
-            <div style="border-radius:8px;overflow:hidden;height:260px;border:1px solid #E4E7EC;">
-              <iframe title="{{ projectName }} &mdash; lokacija" src="{{ mapEmbedSrc }}" width="100%" height="100%" style="border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
-          </div>
-        </div>
-
-        <div style="height:1px;background:#E4E7EC;margin-bottom:48px;"></div>
-
-        <div style="font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;color:#10233F;margin-bottom:6px;">Kvalitet gradnje</div>
-        <p style="color:#63728A;font-size:15px;margin:0 0 32px;">Materijali i standardi ugra&#273;eni u {{ projectName }}.</p>
-
-        <sc-for list="{{ features }}" as="feat" hint-placeholder-count="4">
-          <div style="display:grid;grid-template-columns:{{ featureColumns }};gap:28px;align-items:stretch;margin-bottom:28px;">
-            <div style="order:{{ feat.imgOrder }};">
-              <image-slot id="{{ feat.slotId }}" src="{{ feat.slotSrc }}" placeholder="{{ feat.placeholder }}" shape="rounded" radius="8" style="width:100%;height:100%;min-height:{{ featureImgHeight }}px;"></image-slot>
-            </div>
-            <div style="order:{{ feat.textOrder }};background:#10233F;padding:30px;border-radius:8px;display:flex;flex-direction:column;justify-content:center;">
-              <div style="width:32px;height:2px;background:#FAE100;margin-bottom:14px;"></div>
-              <div style="font-family:'Oswald',sans-serif;font-size:19px;font-weight:600;color:#fff;margin-bottom:10px;">{{ feat.title }}</div>
-              <div style="font-size:14px;color:#B9C4D9;line-height:1.6;">{{ feat.text }}</div>
-            </div>
-          </div>
-        </sc-for>
-      </div>
-    </sc-if>
-
-    <sc-if value="{{ isGalerija }}" hint-placeholder-val="{{ false }}">
-      <div style="{{ galGridStyle }}">
-        <sc-for list="{{ galleryImages }}" as="img" hint-placeholder-count="9">
-          <div onClick="{{ img.open }}" style="position:relative;border-radius:4px;overflow:hidden;cursor:pointer;aspect-ratio:4/3;transition:transform 0.2s ease;" style-hover="transform:scale(1.02);">
-            <image-slot id="{{ img.slotId }}" src="{{ img.slotSrc }}" placeholder="{{ img.placeholder }}" shape="rect" style="width:100%;height:100%;"></image-slot>
-          </div>
-        </sc-for>
-      </div>
-    </sc-if>
-
-    <sc-if value="{{ isNapredak }}" hint-placeholder-val="{{ false }}">
-      <div>
-        <sc-for list="{{ progressMonths }}" as="month" hint-placeholder-count="5">
-          <div style="border-bottom:1px solid #E4E7EC;">
-            <div onClick="{{ month.toggle }}" style="display:flex;align-items:center;justify-content:space-between;padding:18px 4px;cursor:pointer;">
-              <div style="font-family:'Oswald',sans-serif;font-size:17px;font-weight:600;color:#10233F;">{{ month.label }}</div>
-              <div style="{{ month.chevronStyle }}">&#9662;</div>
-            </div>
-            <div style="{{ month.collapseStyle }}">
-              <div style="overflow:hidden;">
-                <sc-if value="{{ month.hasPhotos }}" hint-placeholder-val="{{ false }}">
-                  <div class="progScroll" style="display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;padding:4px 4px 24px;">
-                    <sc-for list="{{ month.photos }}" as="photo" hint-placeholder-count="4">
-                      <div onClick="{{ photo.open }}" style="cursor:pointer;width:220px;height:160px;flex-shrink:0;border-radius:6px;overflow:hidden;">
-                        <image-slot id="{{ photo.slotId }}" src="{{ photo.slotSrc }}" placeholder="{{ photo.placeholder }}" shape="rect" style="width:100%;height:100%;"></image-slot>
-                      </div>
-                    </sc-for>
-                  </div>
-                </sc-if>
-                <sc-if value="{{ month.noPhotos }}" hint-placeholder-val="{{ false }}">
-                  <div style="padding:4px 4px 24px;color:#94A3B8;font-size:14px;">Fotografije uskoro.</div>
-                </sc-if>
-              </div>
-            </div>
-          </div>
-        </sc-for>
-      </div>
-    </sc-if>
   </div>
 
-  <dc-import name="Footer" hint-size="100%,400px"></dc-import>
-
-  <sc-if value="{{ progLightboxOpen }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ closeProgLightbox }}" style="position:fixed;inset:0;background:rgba(6,42,82,0.94);z-index:1000;display:flex;align-items:center;justify-content:center;animation:fadeIn 0.2s ease;">
-      <button onClick="{{ closeProgLightbox }}" style="position:absolute;top:24px;right:24px;background:none;border:none;color:#fff;font-size:32px;cursor:pointer;line-height:1;">&times;</button>
-      <button onClick="{{ prevProgImage }}" style="position:absolute;left:24px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.1);border:none;color:#fff;font-size:24px;width:48px;height:48px;border-radius:50%;cursor:pointer;">&#8249;</button>
-      <button onClick="{{ nextProgImage }}" style="position:absolute;right:24px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.1);border:none;color:#fff;font-size:24px;width:48px;height:48px;border-radius:50%;cursor:pointer;">&#8250;</button>
-      <div onClick="{{ stopClick }}" style="width:min(900px,86vw);height:min(600px,80vh);">
-        <image-slot id="{{ progLightboxImage.slotId }}" src="{{ progLightboxImage.slotSrc }}" placeholder="{{ progLightboxImage.placeholder }}" shape="rect" fit="contain" style="width:100%;height:100%;"></image-slot>
+  <div id="rv-why" style="{{ whyWrapStyle }}">
+    <div style="{{ whyMapGridStyle }}">
+      <div>
+        <div style="{{ sectionEyebrowStyle }}">Prednosti lokacije</div>
+        <div style="{{ whyTitleStyle }}">Za&scaron;to &bdquo;{{ projectName }}&ldquo;?</div>
+        <div style="{{ sectionDividerStyle }}"></div>
+        <sc-for list="{{ whyBullets }}" as="item" hint-placeholder-count="3">
+          <div style="{{ bulletRowStyle }}">
+            <div style="{{ bulletDotOuterStyle }}">
+              <div style="{{ bulletDotInnerStyle }}"></div>
+            </div>
+            <div style="{{ bulletTextStyle }}">{{ item }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div>
+        <div style="{{ mapFrameStyle }}">
+          <iframe title="{{ projectName }} &mdash; lokacija" src="{{ mapEmbedSrc }}" width="100%" height="100%" style="border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div style="{{ mapCaptionStyle }}">{{ locationTag }}</div>
       </div>
     </div>
-  </sc-if>
+  </div>
 
-  <sc-if value="{{ lightboxOpen }}" hint-placeholder-val="{{ false }}">
-    <div onClick="{{ closeLightbox }}" style="position:fixed;inset:0;background:rgba(6,42,82,0.94);z-index:1000;display:flex;align-items:center;justify-content:center;animation:fadeIn 0.2s ease;">
-      <button onClick="{{ closeLightbox }}" style="position:absolute;top:24px;right:24px;background:none;border:none;color:#fff;font-size:32px;cursor:pointer;line-height:1;">&times;</button>
-      <button onClick="{{ prevImage }}" style="position:absolute;left:24px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.1);border:none;color:#fff;font-size:24px;width:48px;height:48px;border-radius:50%;cursor:pointer;">&#8249;</button>
-      <button onClick="{{ nextImage }}" style="position:absolute;right:24px;top:50%;transform:translateY(-50%);background:rgba(255,255,255,0.1);border:none;color:#fff;font-size:24px;width:48px;height:48px;border-radius:50%;cursor:pointer;">&#8250;</button>
-      <div onClick="{{ stopClick }}" style="width:min(900px,86vw);height:min(600px,80vh);">
-        <image-slot id="{{ lightboxImage.slotId }}" src="{{ lightboxImage.slotSrc }}" placeholder="{{ lightboxImage.placeholder }}" shape="rect" fit="contain" style="width:100%;height:100%;"></image-slot>
+  <div style="{{ qualityHeadWrapStyle }}">
+    <div style="{{ sectionEyebrowStyle }}">Standardi izrade</div>
+    <div style="{{ sectionTitleStyle }}">Kvalitet gradnje</div>
+    <div style="{{ sectionDividerStyle }}"></div>
+    <p style="{{ sectionSubStyle }}">Materijali i standardi ugra&#273;eni u {{ projectName }}.</p>
+  </div>
+  <sc-for list="{{ features }}" as="feat" hint-placeholder-count="4">
+    <div id="{{ feat.rowId }}" style="{{ feat.rowStyle }}">
+      <div style="{{ feat.imgWrapStyle }}">
+        <image-slot id="{{ feat.slotId }}" placeholder="{{ feat.placeholder }}" shape="rect" style="{{ featureImgStyle }}"></image-slot>
+      </div>
+      <div style="{{ feat.textWrapStyle }}">
+        <div style="{{ featureAccentLineStyle }}"></div>
+        <div style="{{ featureTitleStyle }}">{{ feat.title }}</div>
+        <div style="{{ featureTextStyle }}">{{ feat.text }}</div>
       </div>
     </div>
-  </sc-if>
+  </sc-for>
+
+  <div id="rv-cta" style="{{ ctaSectionStyle }}">
+    <div style="{{ ctaInnerStyle }}">
+      <div style="{{ ctaTitleStyle }}">Zainteresovani za {{ projectName }}?</div>
+      <p style="{{ ctaTextStyle }}">Zaka&#382;ite razgledanje ili nas kontaktirajte za dodatne informacije o ponudi, cijenama i dinamici pla&#263;anja.</p>
+      <div style="{{ ctaBtnRowStyle }}">
+        <a href="mailto:office@kipsgradnja.me?subject=Razgledanje - {{ projectName }}" onMouseEnter="{{ ctaBtn.onMouseEnter }}" onMouseLeave="{{ ctaBtn.onMouseLeave }}" style="{{ ctaBtn.style }}">Zaka&#382;ite razgledanje</a>
+        <a href="./Contact Page.dc.html" onMouseEnter="{{ ctaLink.onMouseEnter }}" onMouseLeave="{{ ctaLink.onMouseLeave }}" style="{{ ctaLink.style }}">Kontaktirajte nas &#8594;</a>
+      </div>
+    </div>
+  </div>
+
+  <dc-import name="Footer" accent-color="{{ accent }}" hint-size="100%,400px"></dc-import>
 
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440},&quot;projectName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Central Line&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;locationTag&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Stari Aerodrom \u2013 kod Katoli\u010dke crkve&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;locationQuery&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Stari Aerodrom, Podgorica, Montenegro&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;initialTab&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;projekat&quot;,&quot;options&quot;:[&quot;projekat&quot;,&quot;galerija&quot;,&quot;napredak&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Behavior&quot;},&quot;isArchived&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#9C7A4A&quot;,&quot;options&quot;:[&quot;#9C7A4A&quot;,&quot;#B8934F&quot;,&quot;#7A8A78&quot;,&quot;#8C7A6B&quot;],&quot;tsType&quot;:&quot;string&quot;},&quot;projectName&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Central Line&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;locationTag&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Stari Aerodrom \u2013 kod Katoli\u010dke crkve&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;locationQuery&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Stari Aerodrom, Podgorica, Montenegro&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Content&quot;},&quot;isArchived&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Behavior&quot;}}">
 class Component extends DCLogic {
-  state = {
-    activeTab: null,
-    openMonths: { 'Januar 2026.': true, 'Septembar 2025.': true },
-    lightboxIndex: null,
-    progLightbox: null,
-    width: typeof window !== 'undefined' ? window.innerWidth : 1440
-  };
+  state = { hoverKey: null, hoveredPrimary: null, hoveredSecondary: null, width: typeof window !== 'undefined' ? window.innerWidth : 1440, revealed: { 'rv-primary': true } };
 
-  categories = [
-    { key: 'stanovi', label: 'Stanovi', sub: 'Stambene jedinice', slotId: 'cat-stanovi-v2', placeholder: 'Render \u2014 stanovi', slotSrc: './uploads/stanovi.webp' },
-    { key: 'poslovni', label: 'Poslovni prostori', sub: 'Komercijalni prostori', slotId: 'cat-poslovni', placeholder: 'Render \u2014 poslovni', slotSrc: './uploads/poslovni_prostori.webp' },
-    { key: 'garaze', label: 'Gara\u017ee', sub: 'Parking mjesta', slotId: 'cat-garaze', placeholder: 'Render \u2014 gara\u017ee', slotSrc: './uploads/garaze.webp' }
+  primaryLinksData = [
+    { key: 'stanovi', label: 'Stanovi', sub: 'Stambene jedinice', slotId: 'cat-stanovi-v3', placeholder: 'Render \u2014 stanovi', slotSrc: './uploads/stanovi.webp', href: './Category Floor Plan Page.dc.html' },
+    { key: 'poslovni', label: 'Poslovni prostori', sub: 'Komercijalni prostori', slotId: 'cat-poslovni-v3', placeholder: 'Render \u2014 poslovni', slotSrc: './uploads/poslovni_prostori.webp', href: './Category Floor Plan Page.dc.html' },
+    { key: 'garaze', label: 'Gara\u017ee', sub: 'Parking mjesta', slotId: 'cat-garaze-v3', placeholder: 'Render \u2014 gara\u017ee', slotSrc: './uploads/garaze.webp', href: './Category Floor Plan Page.dc.html' }
+  ];
+
+  secondaryLinksData = [
+    { key: 'gallery', label: 'Galerija', desc: 'Fotografije objekta, eksterijera i okoline projekta.', slotId: 'gal-1', slotSrc: '', placeholder: 'Galerija projekta', href: './Project Gallery Page.dc.html' },
+    { key: 'progress', label: 'Napredak radova', desc: 'Pratite dinamiku izgradnje iz mjeseca u mjesec.', slotId: 'sec-progress-img', slotSrc: './uploads/napredak_radova_6.jpg', placeholder: 'Napredak radova', href: './Project Progress Page.dc.html' }
   ];
 
   whyBullets = [
@@ -209,175 +165,184 @@ class Component extends DCLogic {
   ];
 
   featuresData = [
-    { title: 'Troslojni jednolamelni parket', text: 'Prednosti ovog parketa su stabilnost i ga\u017ei\u0161te, otklonjena je svaka neprijatnost poput pukotina ili razdvajanja poda.', slotId: 'feat-1', placeholder: 'Parket detalj', pos: 'left', slotSrc: './uploads/why_2.webp' },
-    { title: 'Sanitarije vode\u0107ih evropskih proizvo\u0111a\u010da', text: 'Kupatila opremljena provjerenim evropskim brendovima sanitarija, uz pa\u017eljivo biranu zavr\u0161nu obradu.', slotId: 'feat-2', placeholder: 'Sanitarije', pos: 'right', slotSrc: './uploads/why_3.webp' },
-    { title: 'Bravarija REHAU', text: '6-komorni profil okvira sa 3 gume na \u0161toku, ugradne dubine profila 80mm.', slotId: 'feat-3', placeholder: 'REHAU prozor', pos: 'left', slotSrc: './uploads/why_4.webp' },
-    { title: 'Laserski rezana keramika', text: 'Plo\u010dice velikih formata, italijanska i \u0161panska keramika i klase.', slotId: 'feat-4', placeholder: 'Keramika', pos: 'right', slotSrc: './uploads/why_5.webp' }
+    { title: 'Troslojni jednolamelni parket', text: 'Prednosti ovog parketa su stabilnost i ga\u017ei\u0161te, otklonjena je svaka neprijatnost poput pukotina ili razdvajanja poda.', slotId: 'feat-1', placeholder: 'Parket detalj', pos: 'left' },
+    { title: 'Sanitarije vode\u0107ih evropskih proizvo\u0111a\u010da', text: 'Kupatila opremljena provjerenim evropskim brendovima sanitarija, uz pa\u017eljivo biranu zavr\u0161nu obradu.', slotId: 'feat-2', placeholder: 'Sanitarije', pos: 'right' },
+    { title: 'Bravarija REHAU', text: '6-komorni profil okvira sa 3 gume na \u0161toku, ugradne dubine profila 80mm.', slotId: 'feat-3', placeholder: 'REHAU prozor', pos: 'left' },
+    { title: 'Laserski rezana keramika', text: 'Plo\u010dice velikih formata, italijanska i \u0161panska keramika i klase.', slotId: 'feat-4', placeholder: 'Keramika', pos: 'right' }
   ];
 
- galleryImages = [
-  { slotId: 'gal-1', placeholder: 'Glavna fasada', slotSrc: './uploads/central_line.webp' },
-  { slotId: 'gal-2', placeholder: 'Ulazni plato', slotSrc: './uploads/central_line_2.webp' },
-  { slotId: 'gal-3', placeholder: 'Bočna fasada', slotSrc: './uploads/central_line_3.webp' },
-  { slotId: 'gal-4', placeholder: 'Širi plan', slotSrc: './uploads/central_line_4.webp' },
-  { slotId: 'gal-5', placeholder: 'Okolina', slotSrc: './uploads/central_line_5.webp' },
-  { slotId: 'gal-6', placeholder: 'Pristupni put', slotSrc: './uploads/central_line_6.webp' },
-  { slotId: 'gal-7', placeholder: 'Dvorišna fasada', slotSrc: './uploads/central_line_7.webp' },
-  { slotId: 'gal-8', placeholder: 'Noćni prikaz', slotSrc: './uploads/central_line_8.webp' },
-  { slotId: 'gal-9', placeholder: 'Ugaoni plan', slotSrc: './uploads/central_line_9.webp' }
-];
+  revealIds = ['rv-secondary', 'rv-why', 'feat-row-0', 'feat-row-1', 'feat-row-2', 'feat-row-3', 'rv-cta'];
 
-  progressMonths = [
-    { label: 'Januar 2026.', photos: [
-      { slotId: 'prog-jan-1', placeholder: 'Krov detalj', slotSrc: './uploads/napredak_radova_6.webp' },
-      { slotId: 'prog-jan-2', placeholder: 'Enterijer \u2014 soba', slotSrc: './uploads/napredak_radova_5.webp' },
-      { slotId: 'prog-jan-3', placeholder: 'Enterijer \u2014 hodnik', slotSrc: './uploads/napredak_radova_4.webp' },
-      { slotId: 'prog-jan-4', placeholder: 'Enterijer \u2014 instalacije', slotSrc: './uploads/napredak_radova_3.webp' },
-      { slotId: 'prog-jan-5', placeholder: 'Fasada \u2014 skela', slotSrc: './uploads/napredak_radova_2.webp' },
-      { slotId: 'prog-jan-6', placeholder: 'Fasada \u2014 detalj', slotSrc: './uploads/napredak_radova.webp' }
-    ]},
-    { label: 'Septembar 2025.', photos: [
-      { slotId: 'prog-sep-1', placeholder: 'Konstrukcija', slotSrc: './uploads/napredak_radova_10.webp' },
-      { slotId: 'prog-sep-2', placeholder: 'Konstrukcija \u2014 kran', slotSrc: './uploads/napredak_radova_9.webp' },
-      { slotId: 'prog-sep-3', placeholder: 'Konstrukcija \u2014 skelet', slotSrc: './uploads/napredak_radova_8.webp' },
-      { slotId: 'prog-sep-4', placeholder: 'Konstrukcija \u2014 opeka', slotSrc: './uploads/napredak_radova_7.webp' }
-    ]},
-    { label: 'Jul 2025.', photos: [] },
-    { label: 'Jun 2025.', photos: [] },
-    { label: 'Po\u010detak radova - Maj 2025.', photos: [] }
-  ];
+  checkReveal() {
+    const vh = window.innerHeight;
+    if (vh > 1600) return;
+    this.revealIds.forEach(id => {
+      if (this.state.revealed[id]) return;
+      const el = document.getElementById(id);
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < vh - 40 && r.bottom > 0) {
+        this.setState(s => ({ revealed: { ...s.revealed, [id]: true } }));
+      }
+    });
+  }
 
   componentDidMount() {
     this._onResize = () => this.setState({ width: window.innerWidth });
+    this._onScroll = () => this.checkReveal();
     window.addEventListener('resize', this._onResize);
+    window.addEventListener('scroll', this._onScroll, { passive: true });
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this._onResize);
+    window.removeEventListener('scroll', this._onScroll);
   }
 
-  setTab(key) { this.setState({ activeTab: key }); }
-  toggleMonth(label) { this.setState(s => ({ openMonths: { ...s.openMonths, [label]: !s.openMonths[label] } })); }
-  openProgImage(monthIdx, photoIdx) { this.setState({ progLightbox: { monthIdx, photoIdx } }); }
-  closeProgLightbox() { this.setState({ progLightbox: null }); }
-  stepProgImage(delta) {
-    this.setState(s => {
-      if (!s.progLightbox) return s;
-      const photos = this.progressMonths[s.progLightbox.monthIdx].photos;
-      const photoIdx = (s.progLightbox.photoIdx + delta + photos.length) % photos.length;
-      return { progLightbox: { monthIdx: s.progLightbox.monthIdx, photoIdx } };
-    });
-  }
+  setHoverKey(key) { this.setState({ hoverKey: key }); }
+  clearHoverKey() { this.setState({ hoverKey: null }); }
+  setHoveredPrimary(key) { this.setState({ hoveredPrimary: key }); }
+  setHoveredSecondary(key) { this.setState({ hoveredSecondary: key }); }
 
   renderVals() {
     const w = this.state.width || 1440;
     const isMobile = w < 640;
-    const activeTab = this.state.activeTab || this.props.initialTab || 'projekat';
+    const isTablet = w >= 640 && w < 1024;
     const projectName = this.props.projectName || 'Central Line';
     const isArchived = !!this.props.isArchived;
+    const navCurrentPage = isArchived ? 'reference' : 'ponuda-stanova';
     const parentCrumbLabel = isArchived ? 'Reference' : 'Ponuda stanova';
     const parentCrumbHref = isArchived ? './Reference Page.dc.html' : './Ponuda Stanova Page.dc.html';
     const locationTag = this.props.locationTag || 'Stari Aerodrom \u2013 kod Katoli\u010dke crkve';
     const locationQuery = this.props.locationQuery || 'Stari Aerodrom, Podgorica, Montenegro';
     const mapEmbedSrc = 'https://www.google.com/maps?q=' + encodeURIComponent(locationQuery) + '&output=embed';
 
-    const containerPad = isMobile ? 20 : (w < 1024 ? 40 : 64);
-    const heroTitleSize = isMobile ? 34 : (w < 1024 ? 46 : 54);
-    const heroPadV = isMobile ? 22 : 34;
-    const catCols = isMobile ? 1 : (w < 1024 ? 2 : 3);
-    const galCols = isMobile ? 2 : 3;
+    const accent = this.props.accentColor || '#9C7A4A';
+    const charcoal = '#1A1A1A';
+    const ivory = '#F7F6F3';
+    const hairline = 'rgba(26,26,26,0.10)';
+    const muted = 'rgba(26,26,26,0.58)';
+    const darkBg = '#0F0F0F';
+    const serif = "'Cormorant Garamond', serif";
+    const sans = "'Cormorant Garamond', serif";
+    const easeOut = 'cubic-bezier(0.16,1,0.3,1)';
+    const hk = this.state.hoverKey;
 
-    const baseTabs = [
-      { key: 'projekat', label: 'O projektu' },
-      { key: 'galerija', label: 'Galerija' },
-      { key: 'napredak', label: 'Napredak radova' }
-    ];
-    const tabs = baseTabs.map(t => ({
-      key: t.key,
-      label: t.label,
-      select: () => this.setTab(t.key),
-      style: {
-        padding: isMobile ? '10px 16px' : '12px 24px',
-        borderRadius: '999px',
-        border: t.key === activeTab ? '1px solid #10233F' : '1px solid #E4E7EC',
-        background: t.key === activeTab ? '#10233F' : '#FFFFFF',
-        color: t.key === activeTab ? '#FFFFFF' : '#45536B',
-        fontWeight: 600,
-        fontSize: isMobile ? '14px' : '15px',
-        whiteSpace: 'nowrap',
-        cursor: 'pointer',
-        flexShrink: 0,
-        transition: 'all 0.15s ease'
-      }
-    }));
+    const containerPad = isMobile ? 22 : (isTablet ? 48 : 80);
+    const titleSize = isMobile ? 36 : (isTablet ? 52 : 62);
 
-    const features = this.featuresData.map(f => ({
-      ...f,
-      imgOrder: isMobile ? 0 : (f.pos === 'left' ? 0 : 1),
-      textOrder: isMobile ? 1 : (f.pos === 'left' ? 1 : 0)
-    }));
+    const reveal = (id, opts) => {
+      const isRevealed = !!this.state.revealed[id];
+      const delay = (opts && opts.delay) || 0;
+      const distance = (opts && opts.distance) || 28;
+      return { opacity: isRevealed ? 1 : 0, transform: isRevealed ? 'translateY(0)' : 'translateY(' + distance + 'px)', transition: 'opacity 0.9s ' + easeOut + ' ' + delay + 's, transform 0.9s ' + easeOut + ' ' + delay + 's' };
+    };
 
-    const galleryImages = this.galleryImages.map((img, i) => ({
-      ...img,
-      open: () => this.setState({ lightboxIndex: i })
-    }));
-
-    const progressMonths = this.progressMonths.map((m, mi) => {
-      const isOpen = !!this.state.openMonths[m.label];
-      const photos = m.photos.map((p, pi) => ({ ...p, open: () => this.openProgImage(mi, pi) }));
+    const hoveredPrimary = this.state.hoveredPrimary;
+    const primaryLinks = this.primaryLinksData.map((c, i) => {
+      const isHov = hoveredPrimary === c.key;
       return {
-        ...m,
-        photos,
-        isOpen,
-        hasPhotos: m.photos.length > 0,
-        noPhotos: m.photos.length === 0,
-        toggle: () => this.toggleMonth(m.label),
-        chevronStyle: {
-          color: '#63728A',
-          fontSize: '16px',
-          transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
-          transition: 'transform 0.2s ease'
-        },
-        collapseStyle: {
-          display: 'grid',
-          gridTemplateRows: isOpen ? '1fr' : '0fr',
-          transition: 'grid-template-rows 0.25s ease'
-        }
+        ...c,
+        onEnter: () => this.setHoveredPrimary(c.key),
+        cardStyle: { display: 'block', minWidth: 0, transition: 'transform 0.5s ' + easeOut + ', box-shadow 0.5s ease', ...reveal('rv-primary', { delay: i * 0.1 }) },
+        primaryCaptionRowStyle: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 2px 0', borderTop: '1px solid ' + (isHov ? accent : hairline), marginTop: '18px', transition: 'border-color 0.35s ease' },
+        primaryLabelStyle: { fontFamily: serif, fontWeight: 600, fontSize: '22px', color: isHov ? accent : charcoal, marginBottom: '4px', transition: 'color 0.35s ease' },
+        arrowStyle: { fontSize: '20px', color: accent, display: 'inline-block', transform: isHov ? 'translateX(4px)' : 'translateX(0)', transition: 'transform 0.35s ' + easeOut }
       };
     });
 
+    const hoveredSecondary = this.state.hoveredSecondary;
+    const secondaryLinks = this.secondaryLinksData.map((s, i) => {
+      const isHov = hoveredSecondary === s.key;
+      return {
+        ...s,
+        onEnter: () => this.setHoveredSecondary(s.key),
+        rowStyle: { display: 'flex', flexDirection: isMobile ? 'column' : 'row', overflow: 'hidden', border: '1px solid ' + hairline, transition: 'transform 0.4s ' + easeOut + ', box-shadow 0.4s ease', ...reveal('rv-secondary', { delay: i * 0.12 }) },
+        secondaryTextWrapStyle: { padding: isMobile ? '24px' : '30px 32px', display: 'flex', flexDirection: 'column', justifyContent: 'center', background: ivory, borderLeft: '3px solid ' + (isHov ? accent : 'transparent'), transition: 'border-color 0.35s ease' },
+        secondaryTitleStyle: { fontFamily: serif, fontSize: '24px', fontWeight: 600, color: isHov ? accent : charcoal, marginBottom: '8px', transition: 'color 0.35s ease' },
+        linkStyle: { fontFamily: sans, fontSize: '13px', color: accent, fontWeight: 600, letterSpacing: '0.5px', display: 'inline-block', marginTop: '16px', transform: isHov ? 'translateX(4px)' : 'translateX(0)', transition: 'transform 0.35s ' + easeOut }
+      };
+    });
+
+    const features = this.featuresData.map((f, i) => ({
+      ...f,
+      rowId: 'feat-row-' + i,
+      rowStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', minHeight: isMobile ? 'auto' : '420px' },
+      imgWrapStyle: { order: isMobile ? 0 : (f.pos === 'left' ? 0 : 1), overflow: 'hidden', ...reveal('feat-row-' + i, { distance: 22 }) },
+      textWrapStyle: { order: isMobile ? 1 : (f.pos === 'left' ? 1 : 0), background: darkBg, padding: isMobile ? '40px ' + containerPad + 'px' : '0 80px', display: 'flex', flexDirection: 'column', justifyContent: 'center', ...reveal('feat-row-' + i, { delay: 0.25, distance: 18 }) }
+    }));
+
     return {
-      containerPad, heroPadV, heroTitleSize,
-      projectName, locationTag, mapEmbedSrc,
-      isArchived, parentCrumbLabel, parentCrumbHref,
-      tabs,
-      isProjekat: activeTab === 'projekat',
-      isGalerija: activeTab === 'galerija',
-      isNapredak: activeTab === 'napredak',
-      categories: this.categories,
-      catGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + catCols + ', 1fr)', gap: isMobile ? '16px' : '28px' },
+      accent,
+      pageStyle: { background: ivory, color: charcoal, fontFamily: sans, minHeight: '100vh', position: 'relative', paddingTop: (isMobile ? 64 : 80) + 'px' },
+      crumbWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px ' + containerPad + 'px 0', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', fontSize: '13px', color: muted, fontFamily: sans },
+      crumbLinkStyle: { color: muted, transition: 'color 0.25s ease' },
+      crumbLinkHoverStyle: { color: accent },
+      crumbSepStyle: { color: muted },
+      crumbActiveStyle: { color: charcoal, fontWeight: 600 },
+
+      headerWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 20 : 30) + 'px ' + containerPad + 'px ' + (isMobile ? 40 : 56) + 'px', animation: 'fadeUp 0.8s ' + easeOut + ' 0.05s both' },
+      headerEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '4px', fontSize: '12px', color: accent, fontWeight: 600, marginBottom: '14px' },
+      headerTitleStyle: { fontFamily: serif, fontWeight: 600, color: charcoal, fontSize: titleSize + 'px', margin: '0 0 20px', lineHeight: 1.1, maxWidth: '820px' },
+      headerMetaRowStyle: { display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' },
+      locationRowStyle: { display: 'flex', alignItems: 'center', gap: '9px', color: muted, fontSize: '15px', fontFamily: sans },
+      locationDotStyle: { width: '6px', height: '6px', borderRadius: '50%', background: accent, flexShrink: 0, display: 'inline-block' },
+      scheduleLink: { onMouseEnter: () => this.setHoverKey('schedule'), onMouseLeave: () => this.clearHoverKey(), style: { color: hk === 'schedule' ? accent : charcoal, fontFamily: sans, fontWeight: 600, fontSize: '14px', borderBottom: '1px solid ' + (hk === 'schedule' ? accent : charcoal), paddingBottom: '2px', transition: 'color 0.25s ease, border-color 0.25s ease' } },
+
+      primaryWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '0 ' + containerPad + 'px' },
+      primaryLinks,
+      primaryGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + (isMobile ? 1 : 3) + ', 1fr)', gap: isMobile ? '30px' : '40px' },
+      primaryImgFrameStyle: { position: 'relative', overflow: 'hidden', width: '100%', aspectRatio: '1/1', background: '#EAE8E3' },
+      primaryImgStyle: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', maxWidth: '100%', objectFit: 'cover', transition: 'transform 0.7s ' + easeOut },
+      primaryImgHoverStyle: { transform: 'scale(1.06)' },
+      primaryCardHoverStyle: { transform: 'translateY(-10px)', boxShadow: '0 34px 64px rgba(26,26,26,0.16), 0 0 36px rgba(156,122,74,0.16)' },
+      primarySubStyle: { fontFamily: sans, fontSize: '12px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px' },
+      onLeavePrimary: () => this.setHoveredPrimary(null),
+
+      secondaryWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 40 : 56) + 'px ' + containerPad + 'px 0' },
+      secondaryLinks,
+      secondaryGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '16px' : '26px' },
+      secondaryRowHoverStyle: { transform: 'translateY(-4px)', boxShadow: '0 20px 40px rgba(26,26,26,0.14), 0 0 28px rgba(156,122,74,0.14)' },
+      secondaryImgWrapStyle: { position: 'relative', width: isMobile ? '100%' : '42%', aspectRatio: isMobile ? '16/9' : 'auto', flexShrink: 0, overflow: 'hidden' },
+      secondaryDescStyle: { fontFamily: sans, fontSize: '14px', color: muted, lineHeight: 1.6 },
+      onLeaveSecondary: () => this.setHoveredSecondary(null),
+
+      sectionEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '12px', color: accent, fontWeight: 600, marginBottom: '10px' },
+      sectionTitleStyle: { fontFamily: serif, fontWeight: 600, fontSize: (isMobile ? 28 : 40) + 'px', color: charcoal, margin: '0 0 14px', lineHeight: 1.15 },
+      sectionDividerStyle: { width: '48px', height: '2px', margin: '0 0 16px', backgroundImage: 'linear-gradient(90deg, ' + accent + ' 0%, #E8D9BE 25%, ' + accent + ' 50%, #E8D9BE 75%, ' + accent + ' 100%)', backgroundSize: '200% 100%', animation: 'shimmerMove 5s linear infinite' },
+      sectionSubStyle: { fontFamily: sans, color: muted, fontSize: '15px', lineHeight: 1.7, margin: 0, maxWidth: '640px', fontWeight: 400 },
+
+      whyWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 56 : 100) + 'px ' + containerPad + 'px 0' },
+      whyMapGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '36px' : '70px', alignItems: 'start', ...reveal('rv-why') },
+      whyTitleStyle: { fontFamily: serif, fontWeight: 600, fontSize: (isMobile ? 26 : 34) + 'px', color: charcoal, margin: '0 0 14px', lineHeight: 1.15 },
+      bulletRowStyle: { display: 'flex', gap: '14px', alignItems: 'flex-start', marginBottom: '18px' },
+      bulletDotOuterStyle: { width: '22px', height: '22px', borderRadius: '50%', border: '1px solid ' + accent, flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: '2px' },
+      bulletDotInnerStyle: { width: '6px', height: '6px', background: accent, borderRadius: '50%' },
+      bulletTextStyle: { fontFamily: sans, fontSize: '17px', color: muted, lineHeight: 1.6 },
       whyBullets: this.whyBullets,
-      twoColumns: isMobile ? '1fr' : '1.05fr 0.95fr',
-      featureColumns: isMobile ? '1fr' : '1.35fr 1fr',
-      featureImgHeight: isMobile ? 240 : 360,
+      mapFrameStyle: { borderRadius: '2px', overflow: 'hidden', height: '340px', border: '1px solid ' + hairline },
+      mapCaptionStyle: { fontFamily: sans, fontSize: '13px', color: muted, marginTop: '14px', textTransform: 'uppercase', letterSpacing: '1px' },
+      mapEmbedSrc,
+
+      qualityHeadWrapStyle: { maxWidth: '1320px', margin: (isMobile ? '70px' : '120px') + ' auto 0', padding: '0 ' + containerPad + 'px', marginBottom: isMobile ? '36px' : '56px' },
+      featureImgStyle: { width: '100%', height: '100%', objectFit: 'cover', minHeight: isMobile ? '260px' : '420px', transition: 'transform 0.7s ' + easeOut },
+      featureAccentLineStyle: { width: '32px', height: '2px', background: accent, marginBottom: '18px' },
+      featureTitleStyle: { fontFamily: serif, fontSize: isMobile ? '22px' : '26px', fontWeight: 600, color: '#FBFBF9', marginBottom: '14px' },
+      featureTextStyle: { fontFamily: sans, fontSize: '15px', color: 'rgba(251,251,249,0.58)', lineHeight: 1.75, maxWidth: '420px' },
       features,
-      galleryImages,
-      galGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + galCols + ', 1fr)', gap: isMobile ? '8px' : '14px' },
-      lightboxOpen: this.state.lightboxIndex !== null,
-      lightboxImage: this.state.lightboxIndex !== null ? this.galleryImages[this.state.lightboxIndex] : null,
-      closeLightbox: () => this.setState({ lightboxIndex: null }),
-      prevImage: (e) => { e.stopPropagation(); this.setState(s => ({ lightboxIndex: (s.lightboxIndex - 1 + this.galleryImages.length) % this.galleryImages.length })); },
-      nextImage: (e) => { e.stopPropagation(); this.setState(s => ({ lightboxIndex: (s.lightboxIndex + 1) % this.galleryImages.length })); },
-      stopClick: (e) => e.stopPropagation(),
-      progLightboxOpen: !!this.state.progLightbox,
-      progLightboxImage: this.state.progLightbox ? this.progressMonths[this.state.progLightbox.monthIdx].photos[this.state.progLightbox.photoIdx] : null,
-      closeProgLightbox: () => this.closeProgLightbox(),
-      prevProgImage: (e) => { e.stopPropagation(); this.stepProgImage(-1); },
-      nextProgImage: (e) => { e.stopPropagation(); this.stepProgImage(1); },
-      progressMonths
+
+      ctaSectionStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 70 : 130) + 'px ' + containerPad + 'px', textAlign: 'center', ...reveal('rv-cta') },
+      ctaInnerStyle: { maxWidth: '640px', margin: '0 auto' },
+      ctaTitleStyle: { fontFamily: serif, fontSize: isMobile ? '28px' : '38px', fontWeight: 600, color: charcoal, margin: '0 0 18px', lineHeight: 1.2 },
+      ctaTextStyle: { fontFamily: sans, color: muted, fontSize: (isMobile ? 16 : 17) + 'px', lineHeight: 1.7, margin: '0 0 34px' },
+      ctaBtnRowStyle: { display: 'flex', gap: '24px', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' },
+      ctaBtn: { onMouseEnter: () => this.setHoverKey('ctaBtn'), onMouseLeave: () => this.clearHoverKey(), style: { fontFamily: sans, border: '1px solid ' + charcoal, background: hk === 'ctaBtn' ? charcoal : 'none', color: hk === 'ctaBtn' ? ivory : charcoal, padding: '16px 34px', fontSize: '13px', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', transition: 'all 0.35s ease-out', transform: hk === 'ctaBtn' ? 'translateY(-2px)' : 'translateY(0)', boxShadow: hk === 'ctaBtn' ? '0 14px 30px rgba(26,26,26,0.25), 0 0 26px rgba(156,122,74,0.22)' : 'none' } },
+      ctaLink: { onMouseEnter: () => this.setHoverKey('ctaLink'), onMouseLeave: () => this.clearHoverKey(), style: { color: hk === 'ctaLink' ? accent : muted, fontSize: '14px', transition: 'color 0.3s ease, transform 0.3s ease', display: 'inline-block', transform: hk === 'ctaLink' ? 'translateX(3px)' : 'translateX(0)' } },
+
+      projectName, locationTag,
+      isArchived, parentCrumbLabel, parentCrumbHref, navCurrentPage
     };
   }
 }
-
 </script>
 </body>
 </html>
