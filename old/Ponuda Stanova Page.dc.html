@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="../image-slot.js"></script>
+<style>
+  body{margin:0;font-family:'Work Sans',sans-serif;background:#F7F8FA;-webkit-font-smoothing:antialiased;}
+  a{color:#004FA3;text-decoration:none;}
+  a:hover{color:#00376E;}
+
+  image-slot {
+    pointer-events: none;
+  }
+</style>
+</helmet>
+<div style="min-height:100vh;background:#F7F8FA;padding-top:60px;">
+
+  <dc-import name="Header" active="ponuda" hint-size="100%,80px"></dc-import>
+  <div style="max-width:1280px;margin:0 auto;padding:20px {{ containerPad }}px 0;">
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;color:#63728A;">
+      <a href="index.dc.html" style="color:#63728A;" style-hover="color:#004FA3;">Naslovna</a>
+      <span>/</span>
+      <span style="color:#10233F;font-weight:600;">{{ pageTitle }}</span>
+    </div>
+  </div>
+
+
+  <div style="max-width:1280px;margin:0 auto;padding:{{ heroPadV }}px {{ containerPad }}px {{ sectionGap }}px;">
+    <div style="text-transform:uppercase;letter-spacing:3px;font-size:12px;color:#004FA3;font-weight:600;margin-bottom:{{ eyebrowGap }}px;">KIPS Gradnja</div>
+    <h1 style="font-family:'Oswald',sans-serif;font-weight:600;color:#10233F;font-size:{{ titleSize }}px;margin:0 0 {{ titleGap }}px;letter-spacing:0.5px;">{{ pageTitle }}</h1>
+    <p style="color:#63728A;font-size:17px;line-height:1.6;max-width:640px;margin:0;">{{ pageLead }}</p>
+  </div>
+
+  <div style="max-width:1280px;margin:0 auto;padding:0 {{ containerPad }}px 90px;">
+    <div style="{{ projectGridStyle }}">
+      <sc-for list="{{ projects }}" as="proj" hint-placeholder-count="3">
+        <a href="{{ proj.href }}" style="position:relative;display:block;border-radius:4px;overflow:hidden;aspect-ratio:4/3;transition:transform 0.2s ease, box-shadow 0.2s ease;" style-hover="transform:translateY(-4px);box-shadow:0 14px 28px rgba(16,35,63,0.2);">
+          <image-slot id="{{ proj.slotId }}" src="{{ proj.slotSrc }}" placeholder="{{ proj.placeholder }}" shape="rect" style="width:100%;height:100%;"></image-slot>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(11,31,58,0.9) 0%, rgba(11,31,58,0.1) 48%, transparent 72%);pointer-events:none;"></div>
+          <div style="position:absolute;left:20px;right:20px;bottom:18px;pointer-events:none;">
+            <div style="font-family:'Oswald',sans-serif;font-size:22px;font-weight:600;color:#fff;letter-spacing:0.5px;">{{ proj.name }}</div>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+
+  <dc-import name="Footer" hint-size="100%,400px"></dc-import>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440}}">
+class Component extends DCLogic {
+  state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440 };
+
+  projectsData = [
+    { name: 'Central Line', location: 'Stari Aerodrom', status: 'U izgradnji', slotId: 'ponuda-cl', placeholder: 'Central Line', slotSrc: './uploads/central_line.webp', href: './Project Page.dc.html' },
+    { name: 'Premium Kvart II', location: 'City Kvart', status: 'U izgradnji', slotId: 'ponuda-pk2', placeholder: 'Premium Kvart II', slotSrc: './uploads/premium_kvart_2.webp', href: './Project Page.dc.html' },
+    { name: 'Premium Kvart', location: 'City Kvart', status: 'Useljivo', slotId: 'ponuda-pk', placeholder: 'Premium Kvart', slotSrc: './uploads/premium_kvart.webp', href: './Project Page.dc.html' }
+  ];
+
+  componentDidMount() {
+    this._onResize = () => this.setState({ width: window.innerWidth });
+    window.addEventListener('resize', this._onResize);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize);
+  }
+
+  renderVals() {
+    const w = this.state.width || 1440;
+    const isMobile = w < 640;
+    const containerPad = isMobile ? 20 : (w < 1024 ? 40 : 64);
+    const titleSize = isMobile ? 32 : 44;
+    const heroPadV = isMobile ? 28 : 44;
+    const sectionGap = isMobile ? 36 : 52;
+    const eyebrowGap = isMobile ? 10 : 14;
+    const titleGap = isMobile ? 16 : 20;
+    const cols = isMobile ? 1 : (w < 1024 ? 2 : 3);
+
+    return {
+      containerPad, titleSize, heroPadV, sectionGap, eyebrowGap, titleGap,
+      pageTitle: 'Ponuda stanova',
+      pageLead: 'Pregledajte trenutno aktivne projekte u ponudi i prona\u0111ite stan koji odgovara va\u0161im potrebama.',
+      projects: this.projectsData,
+      projectGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + cols + ',1fr)', gap: isMobile ? '16px' : '28px' }
+    };
+  }
+}
+
+</script>
+</body>
+</html>

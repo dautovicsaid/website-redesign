@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="../image-slot.js"></script>
+<style>
+  body{margin:0;font-family:'Work Sans',sans-serif;background:#F7F8FA;-webkit-font-smoothing:antialiased;}
+  a{color:#004FA3;text-decoration:none;}
+  a:hover{color:#00376E;}
+
+  image-slot {
+    pointer-events: none;
+  }
+</style>
+</helmet>
+<div style="min-height:100vh;background:#F7F8FA;padding-top:60px;">
+
+  <dc-import name="Header" active="naslovna" hint-size="100%,80px"></dc-import>
+
+  <div style="position:relative;height:{{ heroHeight }}px;overflow:hidden;">
+    <image-slot id="home-hero" src="https://images.pexels.com/photos/33619255/pexels-photo-33619255.png?auto=compress&cs=tinysrgb&w=1920" credit="summe &#21016;" credit-href="https://www.pexels.com/@summe-2155240589/" placeholder="Hero &mdash; fasada projekta" shape="rect" style="width:100%;height:100%;"></image-slot>
+    <div style="position:absolute;inset:0;background:linear-gradient(100deg, rgba(6,42,82,0.92) 0%, rgba(6,42,82,0.55) 55%, rgba(6,42,82,0.25) 100%);pointer-events:none;"></div>
+    <div style="position:absolute;inset:0;display:flex;align-items:center;pointer-events:none;">
+      <div style="max-width:1280px;margin:0 auto;width:100%;padding:0 {{ containerPad }}px;">
+        <div style="max-width:560px;">
+          <div style="text-transform:uppercase;letter-spacing:3px;font-size:12px;color:#FAE100;font-weight:600;margin-bottom:14px;">KIPS Gradnja</div>
+          <h1 style="font-family:'Oswald',sans-serif;font-weight:600;color:#fff;font-size:{{ heroTitleSize }}px;line-height:1.15;margin:0 0 18px;letter-spacing:0.5px;">Gradimo prostore po najvi&scaron;im standardima kvaliteta</h1>
+          <p style="color:#DCE3EE;font-size:16px;line-height:1.6;margin:0 0 28px;max-width:480px;">Stambeni i stambeno-poslovni objekti gra&#273;eni sa pa&#382;njom na detalj, pouzdanost i dosljednost u rokovima.</p>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;pointer-events:auto;">
+            <a href="#projekti" style="background:#FAE100;color:#062A52;padding:14px 28px;border-radius:2px;font-weight:600;font-size:15px;" style-hover="background:#E0C900;">Pogledajte ponudu stanova</a>
+            <a href="Contact%20Page.dc.html" style="border:1px solid #fff;color:#fff;padding:14px 28px;border-radius:2px;font-weight:600;font-size:15px;" style-hover="background:#fff;color:#062A52;">Kontaktirajte nas</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="projekti" style="max-width:1280px;margin:0 auto;padding:72px {{ containerPad }}px 0;">
+    <div style="font-family:'Oswald',sans-serif;font-size:30px;font-weight:600;color:#10233F;margin-bottom:6px;">Aktivni projekti</div>
+    <p style="color:#63728A;font-size:15px;margin:0 0 32px;">Izaberite projekat za detaljan pregled ponude i tlocrta.</p>
+    <div style="{{ projectGridStyle }}">
+      <sc-for list="{{ projects }}" as="proj" hint-placeholder-count="3">
+        <a href="{{ proj.href }}" style="position:relative;display:block;border-radius:4px;overflow:hidden;aspect-ratio:4/3;transition:transform 0.2s ease, box-shadow 0.2s ease;" style-hover="transform:translateY(-4px);box-shadow:0 14px 28px rgba(16,35,63,0.2);">
+          <image-slot id="{{ proj.slotId }}" src="{{ proj.slotSrc }}" placeholder="{{ proj.placeholder }}" shape="rect" style="width:100%;height:100%;"></image-slot>
+          <div style="position:absolute;inset:0;background:linear-gradient(to top, rgba(11,31,58,0.9) 0%, rgba(11,31,58,0.1) 48%, transparent 72%);pointer-events:none;"></div>
+          <div style="position:absolute;left:20px;right:20px;bottom:18px;pointer-events:none;">
+            <div style="font-family:'Oswald',sans-serif;font-size:22px;font-weight:600;color:#fff;letter-spacing:0.5px;">{{ proj.name }}</div>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="max-width:1280px;margin:0 auto;padding:96px {{ containerPad }}px 90px;">
+    <div style="font-family:'Oswald',sans-serif;font-size:30px;font-weight:600;color:#10233F;margin-bottom:6px;">Za&scaron;to KIPS Gradnja</div>
+    <p style="color:#63728A;font-size:15px;margin:0 0 40px;">Na &#269;emu se temelji na&scaron;e poslovanje.</p>
+    <div style="{{ whyGridStyle }}">
+      <sc-for list="{{ whyUs }}" as="item" hint-placeholder-count="4">
+        <div>
+          <div style="font-family:'Oswald',sans-serif;font-size:15px;font-weight:600;color:#004FA3;margin-bottom:12px;">{{ item.index }}</div>
+          <div style="width:32px;height:2px;background:#004FA3;margin-bottom:16px;"></div>
+          <div style="font-family:'Oswald',sans-serif;font-size:19px;font-weight:600;color:#10233F;margin-bottom:10px;">{{ item.title }}</div>
+          <div style="font-size:14px;color:#63728A;line-height:1.6;">{{ item.text }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="background:#004FA3;padding:80px {{ containerPad }}px;text-align:center;">
+    <div style="max-width:640px;margin:0 auto;">
+      <div style="font-family:'Oswald',sans-serif;font-size:{{ ctaTitleSize }}px;font-weight:600;color:#fff;margin-bottom:16px;">Zainteresovani za stan u jednom od na&scaron;ih projekata?</div>
+      <p style="color:#D6E6F7;font-size:15px;line-height:1.6;margin:0 0 28px;">Javite nam se i zaka&#382;ite razgledanje ili konsultacije sa na&scaron;im timom.</p>
+      <a href="Contact%20Page.dc.html" style="display:inline-block;background:#fff;color:#004FA3;padding:14px 32px;border-radius:2px;font-weight:600;font-size:15px;" style-hover="background:#EAF1F9;">Kontaktirajte nas</a>
+    </div>
+  </div>
+
+  <dc-import name="Footer" hint-size="100%,400px"></dc-import>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440}}">
+class Component extends DCLogic {
+  state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440 };
+
+  projects = [
+    { key: 'central-line', name: 'Central Line', location: 'Stari Aerodrom', status: null, slotId: 'home-cl', placeholder: 'Central Line', slotSrc: './uploads/central_line.webp', href: './Project Page.dc.html' },
+    { key: 'premium-kvart-2', name: 'Premium Kvart II', location: 'City Kvart', status: null, slotId: 'home-pk2', placeholder: 'Premium Kvart II', slotSrc: './uploads/premium_kvart_2.webp', href: './Project Page.dc.html' },
+    { key: 'premium-kvart', name: 'Premium Kvart', location: 'City Kvart', status: 'Useljivo', slotId: 'home-pk', placeholder: 'Premium Kvart', slotSrc: './uploads/premium_kvart.webp', href: './Project Page.dc.html' }
+  ];
+
+  whyUsData = [
+    { title: 'Kvalitet gradnje', text: 'Provjereni materijali i standardi ugra\u0111eni u svaki projekat, od temelja do zavr\u0161ne obrade.' },
+    { title: 'Po\u0161tovanje rokova', text: 'Gradimo i predajemo objekte u planiranim terminima, bez neizvjesnosti za kupce.' },
+    { title: 'Premium lokacije', text: 'Birane lokacije u centralnim i perspektivnim djelovima grada, blizu svih sadr\u017eaja.' },
+    { title: 'Energetska efikasnost', text: 'Objekti projektovani sa fokusom na u\u0161tedu energije i dugoro\u010dnu odr\u017eivost.' }
+  ];
+
+  componentDidMount() {
+    this._onResize = () => this.setState({ width: window.innerWidth });
+    window.addEventListener('resize', this._onResize);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize);
+  }
+
+  renderVals() {
+    const w = this.state.width || 1440;
+    const isMobile = w < 640;
+    const containerPad = isMobile ? 20 : (w < 1024 ? 40 : 64);
+    const heroHeight = isMobile ? 460 : (w < 1024 ? 520 : 620);
+    const heroTitleSize = isMobile ? 32 : (w < 1024 ? 42 : 50);
+    const ctaTitleSize = isMobile ? 24 : 30;
+    const catCols = isMobile ? 1 : (w < 1024 ? 2 : 3);
+    const whyCols = isMobile ? 1 : (w < 1024 ? 2 : 4);
+
+    const projects = this.projects.map(p => ({ ...p, hasStatus: !!p.status }));
+    const whyUs = this.whyUsData.map((item, i) => ({ ...item, index: '0' + (i + 1) }));
+
+    return {
+      containerPad, heroHeight, heroTitleSize, ctaTitleSize,
+      projects,
+      projectGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + catCols + ', 1fr)', gap: isMobile ? '16px' : '28px' },
+      whyUs,
+      whyGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + whyCols + ', 1fr)', gap: isMobile ? '32px' : '28px' }
+    };
+  }
+}
+
+</script>
+</body>
+</html>

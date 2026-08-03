@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;font-family:'Work Sans',sans-serif;background:#F7F8FA;-webkit-font-smoothing:antialiased;}
+  a{color:#004FA3;text-decoration:none;}
+  a:hover{color:#00376E;}
+  input,select,textarea{font-family:'Work Sans',sans-serif;box-sizing:border-box;}
+  input::placeholder,textarea::placeholder{color:#94A3B8;}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:#004FA3;}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#F7F8FA;padding-top:60px;">
+
+  <dc-import name="Header" active="zemljiste" hint-size="100%,80px"></dc-import>
+  <div style="max-width:1280px;margin:0 auto;padding:20px {{ containerPad }}px 0;">
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;color:#63728A;">
+      <a href="index.dc.html" style="color:#63728A;" style-hover="color:#004FA3;">Naslovna</a>
+      <span>/</span>
+      <span style="color:#10233F;font-weight:600;">Ponuda zemljišta</span>
+    </div>
+  </div>
+
+
+  <div style="max-width:1280px;margin:0 auto;padding:{{ heroPadV }}px {{ containerPad }}px {{ sectionGap }}px;">
+    <div style="text-transform:uppercase;letter-spacing:3px;font-size:12px;color:#004FA3;font-weight:600;margin-bottom:{{ eyebrowGap }}px;">KIPS Gradnja</div>
+    <h1 style="font-family:'Oswald',sans-serif;font-weight:600;color:#10233F;font-size:{{ titleSize }}px;margin:0 0 {{ titleGap }}px;letter-spacing:0.5px;max-width:720px;">Ponuda zemlji&scaron;ta</h1>
+    <p style="color:#63728A;font-size:17px;line-height:1.6;max-width:640px;margin:0;">Posjedujete zemlji&scaron;te pogodno za izgradnju? Po&scaron;aljite nam osnovne podatke i na&scaron; tim &#263;e vam se javiti sa ponudom u najkra&#263;em roku.</p>
+
+    <div style="{{ stepsGridStyle }}">
+      <sc-for list="{{ steps }}" as="step" hint-placeholder-count="3">
+        <div style="border-top:2px solid #004FA3;padding-top:14px;">
+          <div style="font-family:'Oswald',sans-serif;font-weight:600;color:#004FA3;font-size:13px;margin-bottom:8px;">{{ step.index }}</div>
+          <div style="color:#10233F;font-size:16px;font-weight:600;margin-bottom:6px;">{{ step.title }}</div>
+          <div style="color:#63728A;font-size:14px;line-height:1.6;">{{ step.text }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="max-width:1280px;margin:0 auto;padding:0 {{ containerPad }}px 90px;">
+    <div style="{{ formGridStyle }}">
+
+      <div style="min-width:0;">
+        <div style="font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;color:#10233F;margin-bottom:14px;">Za&scaron;to ponuditi zemlji&scaron;te KIPS Gradnji</div>
+        <div style="width:40px;height:2px;background:#004FA3;margin-bottom:22px;"></div>
+        <sc-for list="{{ benefits }}" as="item" hint-placeholder-count="4">
+          <div style="display:flex;gap:12px;align-items:flex-start;margin-bottom:18px;">
+            <div style="width:20px;height:20px;border-radius:50%;background:#004FA3;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:2px;">
+              <div style="width:7px;height:7px;background:#fff;border-radius:50%;"></div>
+            </div>
+            <div style="font-size:15px;color:#334155;line-height:1.6;">{{ item }}</div>
+          </div>
+        </sc-for>
+        <p style="color:#63728A;font-size:14px;line-height:1.6;margin-top:28px;overflow-wrap:break-word;word-break:break-word;">Za sva dodatna pitanja mo&#382;ete nas kontaktirati i direktno na <a href="mailto:office@kipsgradnja.me">office@kipsgradnja.me</a> ili <a href="tel:+38267134134">+382 67 134 134</a>.</p>
+      </div>
+
+      <div style="background:#fff;border:1px solid #E4E7EC;border-radius:8px;padding:{{ formPad }}px;min-width:0;">
+        <form onSubmit="{{ handleSubmit }}" style="display:flex;flex-direction:column;gap:14px;">
+          <input type="text" name="name" placeholder="Ime i prezime podnosioca" required="{{ true }}" style="{{ inputStyle }}"></input>
+          <div style="{{ inlineFieldsStyle }}">
+            <input type="email" name="email" placeholder="Email adresa" required="{{ true }}" style="{{ inputStyle }}"></input>
+            <input type="tel" name="phone" placeholder="Kontakt telefon" required="{{ true }}" style="{{ inputStyle }}"></input>
+          </div>
+          <input type="url" name="mapsLink" placeholder="Link ka Google Maps lokaciji parcele" required="{{ true }}" style="{{ inputStyle }}"></input>
+          <textarea name="description" placeholder="Opis parcele" rows="4" required="{{ true }}" style="{{ textareaStyle }}"></textarea>
+
+          <div>
+            <label style="display:block;color:#45536B;font-size:13px;margin-bottom:8px;">Upload PDF dokumenata</label>
+            <input ref="{{ fileInputRef }}" type="file" name="documents" accept="application/pdf" multiple="{{ true }}" onChange="{{ handleFileChange }}" style="display:none;"></input>
+            <div onClick="{{ triggerFileSelect }}" style="{{ uploadBoxStyle }}">
+              <span style="{{ uploadBoxTextStyle }}">{{ uploadBoxLabel }}</span>
+              <span style="{{ uploadBoxButtonStyle }}">Izaberite fajlove</span>
+            </div>
+            <sc-if value="{{ hasFiles }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px;">
+                <sc-for list="{{ selectedFiles }}" as="file" hint-placeholder-count="2">
+                  <div style="display:flex;align-items:center;justify-content:space-between;background:#F1F3F6;border-radius:4px;padding:9px 12px;">
+                    <span style="font-size:13px;color:#334155;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ file.name }}</span>
+                    <button type="button" onClick="{{ file.remove }}" style="background:none;border:none;color:#94A3B8;cursor:pointer;font-size:16px;line-height:1;padding:0 0 0 10px;flex-shrink:0;">&times;</button>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+          </div>
+
+          <p style="color:#94A3B8;font-size:12px;line-height:1.5;margin:6px 0 4px;">Ovaj obrazac je za&scaron;ti&#263;en reCAPTCHA sistemom radi za&scaron;tite od spama.</p>
+
+          <button type="submit" style="background:#10233F;color:#fff;border:none;padding:15px;border-radius:2px;font-weight:600;font-size:15px;cursor:pointer;" style-hover="background:#004FA3;">Po&scaron;aljite ponudu</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+  <dc-import name="Footer" hint-size="100%,400px"></dc-import>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440}}">
+class Component extends DCLogic {
+  state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440, selectedFiles: [] };
+  fileInputRef = React.createRef();
+
+  stepsData = [
+    { title: 'Po\u0161aljite podatke', text: 'Popunite formular sa osnovnim informacijama o zemlji\u0161tu.' },
+    { title: 'Analiza tima', text: 'Na\u0161 tim analizira lokaciju, urbanisti\u010dke uslove i potencijal za gradnju.' },
+    { title: 'Ponuda i dogovor', text: 'Kontaktiramo vas sa ponudom i dogovaramo dalje korake.' }
+  ];
+
+  benefitsData = [
+    'Brza procjena i odgovor u kratkom roku',
+    'Fer i transparentna ponuda za va\u0161e zemlji\u0161te',
+    'Mogu\u0107nost partnerstva kroz zamjenu za stanove',
+    'Diskrecija i profesionalan pristup u svakom koraku'
+  ];
+
+  componentDidMount() {
+    this._onResize = () => this.setState({ width: window.innerWidth });
+    window.addEventListener('resize', this._onResize);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize);
+  }
+
+  handleSubmit(e) { e.preventDefault(); }
+  triggerFileSelect() { if (this.fileInputRef.current) this.fileInputRef.current.click(); }
+  handleFileChange(e) { this.setState({ selectedFiles: Array.from(e.target.files || []) }); }
+  removeFile(idx) {
+    const dt = new DataTransfer();
+    this.state.selectedFiles.forEach((f, i) => { if (i !== idx) dt.items.add(f); });
+    if (this.fileInputRef.current) this.fileInputRef.current.files = dt.files;
+    this.setState({ selectedFiles: Array.from(dt.files) });
+  }
+
+  renderVals() {
+    const w = this.state.width || 1440;
+    const isMobile = w < 640;
+    const isTablet = w >= 640 && w < 1024;
+    const containerPad = isMobile ? 20 : (w < 1024 ? 40 : 64);
+    const titleSize = isMobile ? 32 : 44;
+    const heroPadV = isMobile ? 28 : 44;
+    const sectionGap = isMobile ? 36 : 52;
+    const eyebrowGap = isMobile ? 10 : 14;
+    const titleGap = isMobile ? 16 : 20;
+    const formPad = isMobile ? 20 : 32;
+
+    const steps = this.stepsData.map((s, i) => ({ ...s, index: '0' + (i + 1) }));
+
+    const inputStyle = {
+      width: '100%', border: '1px solid #E4E7EC', borderRadius: '4px',
+      padding: '14px 16px', fontSize: '15px', color: '#10233F', background: '#fff'
+    };
+    const textareaStyle = { ...inputStyle, resize: 'vertical', fontFamily: "'Work Sans',sans-serif" };
+
+    const selectedFiles = this.state.selectedFiles.map((f, i) => ({
+      name: f.name, remove: () => this.removeFile(i)
+    }));
+    const uploadBoxStyle = {
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+      border: '1px solid #E4E7EC', borderRadius: '4px', padding: '12px 12px 12px 16px',
+      background: '#FAFBFC', cursor: 'pointer', gap: '12px'
+    };
+    const uploadBoxTextStyle = { fontSize: '14px', color: '#63728A', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' };
+    const uploadBoxButtonStyle = {
+      border: '1px solid #004FA3', color: '#004FA3', borderRadius: '4px',
+      padding: '8px 14px', fontSize: '13px', fontWeight: 600, whiteSpace: 'nowrap', flexShrink: 0
+    };
+    const uploadBoxLabel = selectedFiles.length === 0 ? 'Nijedan fajl nije izabran' : selectedFiles.length + ' fajl(ova) izabrano';
+
+    return {
+      containerPad, titleSize, heroPadV, sectionGap, eyebrowGap, titleGap, formPad,
+      steps,
+      stepsGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3,1fr)', gap: isMobile ? '24px' : '32px', maxWidth: '900px', marginTop: sectionGap + 'px' },
+      benefits: this.benefitsData,
+      formGridStyle: { display: 'grid', gridTemplateColumns: isMobile || isTablet ? '1fr' : '0.9fr 1.1fr', gap: isMobile ? '40px' : '56px', alignItems: 'start', minWidth: 0 },
+      inlineFieldsStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '14px' },
+      inputStyle, textareaStyle,
+      fileInputRef: this.fileInputRef,
+      triggerFileSelect: () => this.triggerFileSelect(),
+      handleFileChange: (e) => this.handleFileChange(e),
+      hasFiles: selectedFiles.length > 0,
+      selectedFiles,
+      uploadBoxStyle, uploadBoxTextStyle, uploadBoxButtonStyle, uploadBoxLabel,
+      handleSubmit: (e) => this.handleSubmit(e)
+    };
+  }
+}
+
+</script>
+</body>
+</html>

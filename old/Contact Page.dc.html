@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="../support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="../image-slot.js"></script>
+<style>
+  body{margin:0;font-family:'Work Sans',sans-serif;background:#F7F8FA;-webkit-font-smoothing:antialiased;}
+  a{color:#004FA3;text-decoration:none;}
+  a:hover{color:#00376E;}
+  input,textarea{font-family:'Work Sans',sans-serif;box-sizing:border-box;}
+  input::placeholder,textarea::placeholder{color:#94A3B8;}
+  input:focus,textarea:focus{outline:none;border-color:#004FA3;}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#F7F8FA;padding-top:60px;">
+
+  <dc-import name="Header" active="kontakt" hint-size="100%,80px"></dc-import>
+  <div style="max-width:1280px;margin:0 auto;padding:20px {{ containerPad }}px 0;">
+    <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:13px;color:#63728A;">
+      <a href="index.dc.html" style="color:#63728A;" style-hover="color:#004FA3;">Naslovna</a>
+      <span>/</span>
+      <span style="color:#10233F;font-weight:600;">Kontakt</span>
+    </div>
+  </div>
+
+
+  <div style="max-width:1280px;margin:0 auto;padding:{{ heroPadV }}px {{ containerPad }}px {{ sectionGap }}px;">
+    <div style="text-transform:uppercase;letter-spacing:3px;font-size:12px;color:#004FA3;font-weight:600;margin-bottom:{{ eyebrowGap }}px;">KIPS Gradnja</div>
+    <h1 style="font-family:'Oswald',sans-serif;font-weight:600;color:#10233F;font-size:{{ titleSize }}px;margin:0 0 {{ titleGap }}px;letter-spacing:0.5px;">Kontakt</h1>
+    <p style="color:#63728A;font-size:17px;line-height:1.6;max-width:640px;margin:0;">Javite nam se za sve informacije o ponudi stanova, razgledanju ili saradnji.</p>
+
+    <div style="{{ infoGridStyle }}">
+      <sc-for list="{{ infoCards }}" as="card" hint-placeholder-count="3">
+        <div style="border-top:2px solid #004FA3;padding-top:14px;">
+          <div style="text-transform:uppercase;letter-spacing:2px;font-size:12px;color:#63728A;font-weight:600;margin-bottom:10px;">{{ card.label }}</div>
+          <sc-for list="{{ card.lines }}" as="line" hint-placeholder-count="1">
+            <a href="{{ line.href }}" style="display:block;color:#10233F;font-size:17px;font-weight:600;margin-bottom:4px;" style-hover="color:#004FA3;">{{ line.text }}</a>
+          </sc-for>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+
+  <div style="max-width:1280px;margin:0 auto;padding:0 {{ containerPad }}px 90px;">
+    <div style="{{ formGridStyle }}">
+
+      <div>
+        <div style="font-family:'Oswald',sans-serif;font-size:24px;font-weight:600;color:#10233F;margin-bottom:14px;">Kontaktirajte nas</div>
+        <div style="width:40px;height:2px;background:#004FA3;margin-bottom:22px;"></div>
+        <p style="color:#45536B;font-size:15px;line-height:1.7;margin:0 0 28px;"><strong style="color:#10233F;">KIPS Gradnja</strong> je gra&#273;evinska kompanija &#269;ija je osnovna djelatnost izgradnja i investiranje u stambene i stambeno&#8209;poslovne objekte.</p>
+
+        <form onSubmit="{{ handleSubmit }}" style="display:flex;flex-direction:column;gap:14px;">
+          <input type="text" name="name" placeholder="Ime i prezime" required="{{ true }}" style="{{ inputStyle }}"></input>
+          <div style="{{ inlineFieldsStyle }}">
+            <input type="tel" name="phone" placeholder="Telefon" required="{{ true }}" style="{{ inputStyle }}"></input>
+            <input type="email" name="email" placeholder="Email" required="{{ true }}" style="{{ inputStyle }}"></input>
+          </div>
+          <input type="text" name="subject" placeholder="Naslov" style="{{ inputStyle }}"></input>
+          <textarea name="message" placeholder="Poruka" rows="5" required="{{ true }}" style="{{ textareaStyle }}"></textarea>
+
+          <p style="color:#94A3B8;font-size:12px;line-height:1.5;margin:6px 0 4px;">Ovaj obrazac je za&scaron;ti&#263;en reCAPTCHA sistemom radi za&scaron;tite od spama.</p>
+
+          <button type="submit" style="background:#10233F;color:#fff;border:none;padding:15px;border-radius:2px;font-weight:600;font-size:15px;cursor:pointer;" style-hover="background:#004FA3;">Po&scaron;aljite</button>
+        </form>
+      </div>
+
+      <div style="border-radius:6px;overflow:hidden;height:{{ mapHeight }}px;border:1px solid #E4E7EC;">
+        <iframe title="KIPS Gradnja &mdash; lokacija" src="https://www.google.com/maps?q=Ankarski+bulevar+20,+Podgorica,+Montenegro&output=embed" width="100%" height="100%" style="border:0;display:block;" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+
+    </div>
+  </div>
+
+  <dc-import name="Footer" hint-size="100%,400px"></dc-import>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440}}">
+class Component extends DCLogic {
+  state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440 };
+
+  infoCardsData = [
+    { label: 'Telefoni', lines: [{ text: '+382 67 134 134', href: 'tel:+38267134134' }, { text: '+382 67 663 662', href: 'tel:+38267663662' }] },
+    { label: 'Email', lines: [{ text: 'office@kipsgradnja.me', href: 'mailto:office@kipsgradnja.me' }] },
+    { label: 'Adresa', lines: [{ text: 'Ankarski bulevar 20, ulaz C, I sprat, 81000 Podgorica', href: 'https://maps.google.com' }] }
+  ];
+
+  componentDidMount() {
+    this._onResize = () => this.setState({ width: window.innerWidth });
+    window.addEventListener('resize', this._onResize);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('resize', this._onResize);
+  }
+
+  handleSubmit(e) { e.preventDefault(); }
+
+  renderVals() {
+    const w = this.state.width || 1440;
+    const isMobile = w < 640;
+    const isTablet = w >= 640 && w < 1024;
+    const containerPad = isMobile ? 20 : (w < 1024 ? 40 : 64);
+    const titleSize = isMobile ? 32 : 44;
+    const heroPadV = isMobile ? 28 : 44;
+    const sectionGap = isMobile ? 36 : 52;
+    const eyebrowGap = isMobile ? 10 : 14;
+    const titleGap = isMobile ? 16 : 20;
+    const mapHeight = isMobile ? 280 : 560;
+
+    const inputStyle = {
+      width: '100%', border: '1px solid #E4E7EC', borderRadius: '4px',
+      padding: '14px 16px', fontSize: '15px', color: '#10233F', background: '#fff'
+    };
+    const textareaStyle = { ...inputStyle, resize: 'vertical', fontFamily: "'Work Sans',sans-serif" };
+
+    return {
+      containerPad, titleSize, heroPadV, sectionGap, eyebrowGap, titleGap, mapHeight,
+      infoCards: this.infoCardsData,
+      infoGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3,1fr)', gap: isMobile ? '24px' : '32px', maxWidth: '900px', marginTop: sectionGap + 'px' },
+      formGridStyle: { display: 'grid', gridTemplateColumns: isMobile || isTablet ? '1fr' : '1fr 1fr', gap: isMobile ? '40px' : '56px', alignItems: 'start' },
+      inlineFieldsStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '14px' },
+      inputStyle, textareaStyle,
+      handleSubmit: (e) => this.handleSubmit(e)
+    };
+  }
+}
+
+</script>
+</body>
+</html>
