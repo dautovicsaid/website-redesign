@@ -118,7 +118,7 @@
     <div id="{{ feat.rowId }}" style="{{ feat.rowStyle }}">
       <div style="{{ feat.imgWrapStyle }}">
         <a href="{{ feat.href }}" style="display:block;width:100%;height:100%;">
-          <image-slot id="{{ feat.slotId }}" placeholder="{{ feat.placeholder }}" shape="rect" style="{{ featureImgStyle }}"></image-slot>
+          <image-slot id="{{ feat.slotId }}" src="{{ feat.slotSrc }}" placeholder="{{ feat.placeholder }}" shape="rect" style="{{ featureImgStyle }}"></image-slot>
         </a>
       </div>
       <div style="{{ feat.textWrapStyle }}">
@@ -170,10 +170,10 @@ class Component extends DCLogic {
   ];
 
   featuresData = [
-    { title: 'Troslojni jednolamelni parket', text: 'Prednosti ovog parketa su stabilnost i ga\u017ei\u0161te, otklonjena je svaka neprijatnost poput pukotina ili razdvajanja poda.', slotId: 'feat-1', placeholder: 'Parket detalj', pos: 'left', href: './Parket Details Page.dc.html' },
-    { title: 'Sanitarije vode\u0107ih evropskih proizvo\u0111a\u010da', text: 'Kupatila opremljena provjerenim evropskim brendovima sanitarija, uz pa\u017eljivo biranu zavr\u0161nu obradu.', slotId: 'feat-2', placeholder: 'Sanitarije', pos: 'right', href: './Sanitarije Details Page.dc.html' },
-    { title: 'Bravarija REHAU', text: '6-komorni profil okvira sa 3 gume na \u0161toku, ugradne dubine profila 80mm.', slotId: 'feat-3', placeholder: 'REHAU prozor', pos: 'left', href: './Bravarija Details Page.dc.html' },
-    { title: 'Laserski rezana keramika', text: 'Plo\u010dice velikih formata, italijanska i \u0161panska keramika i klase.', slotId: 'feat-4', placeholder: 'Keramika', pos: 'right', href: './Keramika Details Page.dc.html' }
+    { title: 'Troslojni jednolamelni parket', text: 'Prednosti ovog parketa su stabilnost i ga\u017ei\u0161te, otklonjena je svaka neprijatnost poput pukotina ili razdvajanja poda.', slotId: 'feat-1', placeholder: 'Parket detalj', pos: 'left', slotSrc: './uploads/why_2.webp', href: './Parket Details Page.dc.html' },
+    { title: 'Sanitarije vode\u0107ih evropskih proizvo\u0111a\u010da', text: 'Kupatila opremljena provjerenim evropskim brendovima sanitarija, uz pa\u017eljivo biranu zavr\u0161nu obradu.', slotId: 'feat-2', placeholder: 'Sanitarije', pos: 'right', slotSrc: './uploads/why_3.webp', href: './Sanitarije Details Page.dc.html' },
+    { title: 'Bravarija REHAU', text: '6-komorni profil okvira sa 3 gume na \u0161toku, ugradne dubine profila 80mm.', slotId: 'feat-3', placeholder: 'REHAU prozor', pos: 'left', slotSrc: './uploads/why_4.webp', href: './Bravarija Details Page.dc.html' },
+    { title: 'Laserski rezana keramika', text: 'Plo\u010dice velikih formata, italijanska i \u0161panska keramika i klase.', slotId: 'feat-4', placeholder: 'Keramika', pos: 'right', slotSrc: './uploads/why_5.webp', href: './Keramika Details Page.dc.html' }
   ];
 
   revealIds = ['rv-secondary', 'rv-why', 'feat-row-0', 'feat-row-1', 'feat-row-2', 'feat-row-3', 'rv-cta'];
