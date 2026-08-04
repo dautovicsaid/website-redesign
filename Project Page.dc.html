@@ -117,7 +117,7 @@
   <sc-for list="{{ features }}" as="feat" hint-placeholder-count="4">
     <div id="{{ feat.rowId }}" style="{{ feat.rowStyle }}">
       <div style="{{ feat.imgWrapStyle }}">
-        <image-slot id="{{ feat.slotId }}" placeholder="{{ feat.placeholder }}" shape="rect" style="{{ featureImgStyle }}"></image-slot>
+        <image-slot id="{{ feat.slotId }}" src="{{ feat.slotSrc }}" placeholder="{{ feat.placeholder }}" shape="rect" style="{{ featureImgStyle }}"></image-slot>
       </div>
       <div style="{{ feat.textWrapStyle }}">
         <div style="{{ featureAccentLineStyle }}"></div>
