@@ -48,7 +48,7 @@
     <div style="{{ galGridStyle }}">
       <sc-for list="{{ galleryImages }}" as="img" hint-placeholder-count="9">
         <div onClick="{{ img.open }}" style="{{ img.itemStyle }}" style-hover="{{ galItemHoverStyle }}">
-          <image-slot id="{{ img.slotId }}" placeholder="{{ img.placeholder }}" shape="rect" style="{{ galImgStyle }}"></image-slot>
+          <image-slot id="{{ img.slotId }}" src="{{ img.slotSrc }}" placeholder="{{ img.placeholder }}" shape="rect" style="{{ galImgStyle }}"></image-slot>
         </div>
       </sc-for>
     </div>
@@ -64,7 +64,7 @@
       <button onClick="{{ prevImage }}" style="{{ lightboxNavStyle }}">&#8249;</button>
       <button onClick="{{ nextImage }}" style="{{ lightboxNavRightStyle }}">&#8250;</button>
       <div onClick="{{ stopClick }}" onTouchStart="{{ onTouchStart }}" onTouchEnd="{{ onTouchEnd }}" style="{{ lightboxImgWrapStyle }}">
-        <image-slot id="{{ lightboxImage.slotId }}" placeholder="{{ lightboxImage.placeholder }}" shape="rect" fit="contain" style="width:100%;height:100%;"></image-slot>
+        <image-slot id="{{ lightboxImage.slotId }}" src="{{ lightboxImage.slotSrc }}" placeholder="{{ lightboxImage.placeholder }}" shape="rect" fit="contain" style="width:100%;height:100%;"></image-slot>
       </div>
     </div>
   </sc-if>
@@ -79,15 +79,15 @@ class Component extends DCLogic {
   revealIds = ['rv-head', 'rv-grid'];
 
   galleryImages = [
-    { slotId: 'gal-1', placeholder: 'Glavna fasada' },
-    { slotId: 'gal-2', placeholder: 'Ulazni plato' },
-    { slotId: 'gal-3', placeholder: 'Bo\u010dna fasada' },
-    { slotId: 'gal-4', placeholder: '\u0160iri plan' },
-    { slotId: 'gal-5', placeholder: 'Okolina' },
-    { slotId: 'gal-6', placeholder: 'Pristupni put' },
-    { slotId: 'gal-7', placeholder: 'Dvori\u0161na fasada' },
-    { slotId: 'gal-8', placeholder: 'No\u0107ni prikaz' },
-    { slotId: 'gal-9', placeholder: 'Ugaoni plan' }
+    { slotId: 'gal-1', placeholder: 'Glavna fasada', slotSrc: './uploads/central_line.webp' },
+    { slotId: 'gal-2', placeholder: 'Ulazni plato', slotSrc: './uploads/central_line_2.webp' },
+    { slotId: 'gal-3', placeholder: 'Bo\u010dna fasada', slotSrc: './uploads/central_line_3.webp' },
+    { slotId: 'gal-4', placeholder: '\u0160iri plan', slotSrc: './uploads/central_line_4.webp' },
+    { slotId: 'gal-5', placeholder: 'Okolina', slotSrc: './uploads/central_line_5.webp' },
+    { slotId: 'gal-6', placeholder: 'Pristupni put', slotSrc: './uploads/central_line_6.webp' },
+    { slotId: 'gal-7', placeholder: 'Dvori\u0161na fasada', slotSrc: './uploads/central_line_7.webp' },
+    { slotId: 'gal-8', placeholder: 'No\u0107ni prikaz', slotSrc: './uploads/central_line_8.webp' },
+    { slotId: 'gal-9', placeholder: 'Ugaoni plan', slotSrc: './uploads/central_line_9.webp' }
   ];
 
   componentDidMount() {

@@ -286,36 +286,7 @@
     </div>
   </div>
 
-  <div id="lux-footer" style="{{ footerStyle }}">
-    <div style="{{ footerInnerStyle }}">
-      <div style="{{ footerTopGridStyle }}">
-        <div>
-          <div style="{{ footerLogoStyle }}">KIPS <span style="{{ footerLogoAccentStyle }}">GRADNJA</span></div>
-          <p style="{{ footerBlurbStyle }}">Gradimo prostore po najvi&scaron;im standardima kvaliteta.</p>
-        </div>
-        <div>
-          <div style="{{ footerColTitleStyle }}">Navigacija</div>
-          <div style="{{ footerLinkColStyle }}">
-            <sc-for list="{{ footerNavLinks }}" as="link" hint-placeholder-count="4">
-              <a href="{{ link.href }}" onMouseEnter="{{ link.onMouseEnter }}" onMouseLeave="{{ link.onMouseLeave }}" style="{{ link.style }}">{{ link.label }}</a>
-            </sc-for>
-          </div>
-        </div>
-        <div>
-          <div style="{{ footerColTitleStyle }}">Kontakt</div>
-          <div style="{{ footerLinkColStyle }}">
-            <a href="tel:+38267134134" onMouseEnter="{{ footerPhoneLink.onMouseEnter }}" onMouseLeave="{{ footerPhoneLink.onMouseLeave }}" style="{{ footerPhoneLink.style }}">+382 67 134 134</a>
-            <a href="mailto:office@kipsgradnja.me" onMouseEnter="{{ footerEmailLink.onMouseEnter }}" onMouseLeave="{{ footerEmailLink.onMouseLeave }}" style="{{ footerEmailLink.style }}">office@kipsgradnja.me</a>
-          </div>
-        </div>
-      </div>
-      <div style="{{ footerHairlineStyle }}"></div>
-      <div style="{{ footerBottomRowStyle }}">
-        <p style="{{ footerCopyStyle }}">&copy; 2026 KIPS Gradnja d.o.o.</p>
-        <p style="{{ footerCreditStyle }}">Powered by: <a href="https://adlogic.me" target="_blank" rel="noopener" onMouseEnter="{{ footerCreditLink.onMouseEnter }}" onMouseLeave="{{ footerCreditLink.onMouseLeave }}" style="{{ footerCreditLink.style }}">ADLOGIC</a></p>
-      </div>
-    </div>
-  </div>
+  <dc-import name="Footer" accent-color="{{ accent }}" hint-size="100%,400px"></dc-import>
 
   <button onClick="{{ openModal }}" onMouseEnter="{{ floatingBtn.onMouseEnter }}" onMouseLeave="{{ floatingBtn.onMouseLeave }}" style="{{ floatingBtn.style }}">VIP katalog</button>
 
