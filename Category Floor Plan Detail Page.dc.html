@@ -303,7 +303,7 @@ class Component extends DCLogic {
           borderBottom: (isActive || isHov) ? '2px solid ' + accent : '2px solid transparent',
           color: isActive ? charcoal : (isHov ? accent : muted),
           transform: isHov ? 'translateY(-1px)' : 'translateY(0)',
-          fontFamily: sans, fontWeight: isActive ? 700 : 500, fontSize: '14px', textTransform: 'uppercase', letterSpacing: '1px',
+          fontFamily: sans, fontWeight: isActive ? 700 : 500, fontSize: '15.5px', textTransform: 'uppercase', letterSpacing: '1px',
           whiteSpace: 'nowrap', cursor: 'pointer', flexShrink: 0, transition: 'color 0.25s ease, border-color 0.25s ease, transform 0.25s ease'
         }
       };
@@ -358,23 +358,23 @@ class Component extends DCLogic {
     return {
       accent,
       pageStyle: { background: ivory, color: charcoal, fontFamily: sans, minHeight: '100vh', position: 'relative', paddingTop: (isMobile ? 64 : 80) + 'px' },
-      crumbWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px ' + containerPad + 'px 0', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', fontSize: '13px', color: muted, fontFamily: sans },
+      crumbWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px ' + containerPad + 'px 0', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', fontSize: '14.5px', color: muted, fontFamily: sans },
       crumbLinkStyle: { color: muted, transition: 'color 0.25s ease' },
       crumbLinkHoverStyle: { color: accent },
       crumbSepStyle: { color: muted },
       crumbActiveStyle: { color: charcoal, fontWeight: 600 },
-      categoryHref: './Category Floor Plan Page.dc.html',
+      categoryHref: './Category Floor Plan Page - Luxury Redesign.dc.html',
 
       headWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px ' + containerPad + 'px ' + (isMobile ? 26 : 36) + 'px' },
-      eyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '12px', color: accent, fontWeight: 600, marginBottom: '10px' },
+      eyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '13.5px', color: accent, fontWeight: 600, marginBottom: '10px' },
       titleStyle: { fontFamily: serif, fontWeight: 600, fontSize: titleSize + 'px', color: charcoal, margin: '0 0 12px', lineHeight: 1.15 },
-      leadStyle: { fontFamily: sans, color: muted, fontSize: '15px', lineHeight: 1.7, maxWidth: '640px', margin: 0, fontWeight: 400 },
+      leadStyle: { fontFamily: sans, color: muted, fontSize: '16.5px', lineHeight: 1.7, maxWidth: '640px', margin: 0, fontWeight: 400 },
 
       bodyWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '0 ' + containerPad + 'px ' + (isMobile ? 70 : 130) + 'px' },
       floorTabRowStyle: { display: 'flex', gap: '10px', overflowX: 'auto', scrollbarWidth: 'none', marginBottom: '28px' },
       floorTabs,
       legendRowStyle: { display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '20px', flexWrap: 'wrap', marginBottom: '20px' },
-      legendItemStyle: { display: 'flex', alignItems: 'center', gap: '8px', fontFamily: sans, fontSize: '13px', color: muted },
+      legendItemStyle: { display: 'flex', alignItems: 'center', gap: '8px', fontFamily: sans, fontSize: '14.5px', color: muted },
       statusLegend: Object.values(this.statusMeta).map(m => ({ label: m.label, dotStyle: { width: '8px', height: '8px', borderRadius: '50%', background: m.color, flexShrink: 0 } })),
 
       planFrameStyle: { position: 'relative', width: '100%', aspectRatio: currentFloor.aspectRatio, border: '1px solid ' + hairline, overflow: 'visible', background: '#FFFFFF', marginBottom: isMobile ? '32px' : '44px', ...reveal() },
@@ -387,12 +387,12 @@ class Component extends DCLogic {
       tooltipThumbWrapStyle,
       tooltipBodyStyle,
       tooltipCodeStyle: { fontFamily: serif, fontWeight: 600, color: charcoal, fontSize: '14px', marginBottom: '4px', whiteSpace: 'nowrap' },
-      tooltipSizeStyle: { color: muted, fontSize: '12px', marginBottom: '6px', whiteSpace: 'nowrap', fontFamily: numFont, fontWeight: 700 },
+      tooltipSizeStyle: { color: muted, fontSize: '15px', marginBottom: '6px', whiteSpace: 'nowrap', fontFamily: numFont, fontWeight: 700 },
 
-      unitsHeadStyle: { fontFamily: serif, fontSize: '19px', fontWeight: 600, color: charcoal, marginBottom: '16px', ...reveal({ delay: 0.1 }) },
+      unitsHeadStyle: { fontFamily: serif, fontSize: '20.5px', fontWeight: 600, color: charcoal, marginBottom: '16px', ...reveal({ delay: 0.1 }) },
       chipGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + chipCols + ', 1fr)', gap: '12px', ...reveal({ delay: 0.16 }) },
-      chipCodeStyle: { fontFamily: serif, fontWeight: 600, color: charcoal, fontSize: '15px' },
-      chipSizeStyle: { color: muted, fontSize: '12px', fontFamily: numFont, fontWeight: 700 },
+      chipCodeStyle: { fontFamily: serif, fontWeight: 600, color: charcoal, fontSize: '16.5px' },
+      chipSizeStyle: { color: muted, fontSize: '15px', fontFamily: numFont, fontWeight: 700 },
       bottomSpacerStyle: { height: '1px' },
 
       projectName, categoryLabel, activeLamela, isArchived, parentCrumbLabel, parentCrumbHref, navCurrentPage

@@ -524,9 +524,9 @@ class Component extends DCLogic {
         ...p,
         onEnter: () => this.setHoveredProject(p.key),
         cardStyle: { display: 'block', minWidth: 0, maxWidth: '100%', transition: 'transform 0.5s ' + easeOut + ', box-shadow 0.5s ease', ...reveal('rv-projects-grid', { delay: i * 0.12 }) },
-        statusTagStyle: { fontFamily: numFont, position: 'absolute', top: '16px', left: '16px', background: isHovered ? accent : 'rgba(251,251,249,0.92)', color: isHovered ? '#FBFBF9' : charcoal, fontSize: '10.5px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', padding: '6px 12px', whiteSpace: 'nowrap', transition: 'background 0.35s ease, color 0.35s ease' },
+        statusTagStyle: { fontFamily: numFont, position: 'absolute', top: '16px', left: '16px', background: isHovered ? accent : 'rgba(251,251,249,0.92)', color: isHovered ? '#FBFBF9' : charcoal, fontSize: '12px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', padding: '6px 12px', whiteSpace: 'nowrap', transition: 'background 0.35s ease, color 0.35s ease' },
         arrowStyle: { fontSize: '20px', color: accent, display: 'inline-block', transform: isHovered ? 'translateX(4px)' : 'translateX(0)', transition: 'transform 0.35s ' + easeOut },
-        unitsDetailStyle: { fontFamily: numFont, fontSize: '12px', color: accent, marginTop: '8px', fontWeight: 700, opacity: isHovered ? 1 : 0, visibility: isHovered ? 'visible' : 'hidden', transition: 'opacity 0.35s ease' }
+        unitsDetailStyle: { fontFamily: numFont, fontSize: '13.5px', color: accent, marginTop: '8px', fontWeight: 700, opacity: isHovered ? 1 : 0, visibility: isHovered ? 'visible' : 'hidden', transition: 'opacity 0.35s ease' }
       };
     });
 
@@ -540,7 +540,7 @@ class Component extends DCLogic {
         onClick: () => this.setLocation(t.value),
         onMouseEnter: () => this.setHoverKey(tabKey),
         onMouseLeave: () => this.clearHoverKey(),
-        tabStyle: { background: 'none', border: 'none', borderBottom: (isActive || isHov) ? '2px solid ' + accent : '2px solid transparent', padding: '9px 4px', marginRight: isMobile ? '20px' : '32px', fontFamily: sans, fontSize: '13px', fontWeight: isActive ? 700 : 500, color: isActive ? charcoal : (isHov ? accent : muted), cursor: 'pointer', whiteSpace: 'nowrap', transform: isHov ? 'translateY(-1px)' : 'translateY(0)', transition: 'color 0.3s ease-out, border-color 0.3s ease-out, transform 0.3s ease-out' }
+        tabStyle: { background: 'none', border: 'none', borderBottom: (isActive || isHov) ? '2px solid ' + accent : '2px solid transparent', padding: '9px 4px', marginRight: isMobile ? '20px' : '32px', fontFamily: sans, fontSize: '15px', fontWeight: isActive ? 700 : 500, color: isActive ? charcoal : (isHov ? accent : muted), cursor: 'pointer', whiteSpace: 'nowrap', transform: isHov ? 'translateY(-1px)' : 'translateY(0)', transition: 'color 0.3s ease-out, border-color 0.3s ease-out, transform 0.3s ease-out' }
       };
     });
 
@@ -710,7 +710,7 @@ class Component extends DCLogic {
       heroContentInnerStyle: isHeroMobile
         ? { width: '100%', padding: '0 ' + containerPad + 'px', paddingBottom: '20px', ...heroReveal }
         : { maxWidth: '1320px', margin: '0 auto', width: '100%', padding: '0 ' + containerPad + 'px', paddingBottom: '130px', ...heroReveal },
-      heroEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '4px', fontSize: '12px', color: accent, fontWeight: 600, marginBottom: '20px' },
+      heroEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '4px', fontSize: '13.5px', color: accent, fontWeight: 600, marginBottom: '20px' },
       heroTitleStyle: { fontFamily: serif, fontWeight: 600, color: '#FBFBF9', fontSize: (isHeroMobile ? 34 : heroTitleSize) + 'px', lineHeight: 1.15, margin: 0, maxWidth: '780px' },
       showHeroSubtext: !isHeroMobile,
       heroSubStyle: { fontFamily: sans, color: 'rgba(251,251,249,0.82)', fontSize: (isHeroMobile ? 14 : 16) + 'px', lineHeight: 1.7, margin: '0 0 34px', maxWidth: '480px', fontWeight: 400 },
@@ -735,16 +735,16 @@ class Component extends DCLogic {
       statItemStyle: { textAlign: 'center' },
       statNumberStyle: { fontFamily: numFont, fontWeight: 700, fontSize: isMobile ? '46px' : '58px', color: accent, lineHeight: 1, transform: 'scale(' + (0.9 + progress * 0.1) + ')', display: 'inline-block', transition: 'text-shadow 0.4s ease' },
       statNumberHoverStyle: { textShadow: '0 0 22px rgba(156,122,74,0.55)' },
-      statLabelStyle: { fontFamily: sans, fontSize: '12px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px', marginTop: '10px' },
+      statLabelStyle: { fontFamily: sans, fontSize: '13.5px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px', marginTop: '10px' },
 
       sectionWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: sectionPadV + 'px ' + containerPad + 'px ' + sectionPadV + 'px' },
       section2WrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px'  + ' ' + containerPad + 'px 0' },
       sectionHeadRevealStyle: reveal('rv-projects-head'),
       sectionHeadStyle: { maxWidth: '640px', margin: '0 0 ' + (isMobile ? 18 : 24) + 'px' },
-      sectionEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '12px', color: accent, fontWeight: 600, marginBottom: '10px' },
+      sectionEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '13.5px', color: accent, fontWeight: 600, marginBottom: '10px' },
       sectionTitleStyle: { fontFamily: serif, fontWeight: 600, fontSize: sectionTitleSize + 'px', color: charcoal, margin: '0 0 14px', lineHeight: 1.15 },
       sectionDividerStyle: { width: '48px', height: '2px', margin: '0 0 14px', backgroundImage: 'linear-gradient(90deg, ' + accent + ' 0%, #E8D9BE 25%, ' + accent + ' 50%, #E8D9BE 75%, ' + accent + ' 100%)', backgroundSize: '200% 100%', animation: 'shimmerMove 5s linear infinite' },
-      sectionSubStyle: { fontFamily: sans, color: muted, fontSize: '15px', lineHeight: 1.7, margin: 0, fontWeight: 400 },
+      sectionSubStyle: { fontFamily: sans, color: muted, fontSize: '16.5px', lineHeight: 1.7, margin: 0, fontWeight: 400 },
 
       locationTabRowStyle: { display: 'flex', overflowX: 'auto', borderBottom: '1px solid ' + hairline, marginBottom: isMobile ? '18px' : '28px' },
       locationTabs,
@@ -760,13 +760,13 @@ class Component extends DCLogic {
       cardImgHoverStyle: { transform: 'scale(1.06)' },
       captionRowStyle: { display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', padding: '20px 2px 0', borderTop: '1px solid ' + hairline, marginTop: '18px' },
       cardNameStyle: { fontFamily: serif, fontWeight: 600, fontSize: '22px', color: charcoal, marginBottom: '4px' },
-      cardLocStyle: { fontFamily: sans, fontSize: '12px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px' },
+      cardLocStyle: { fontFamily: sans, fontSize: '13.5px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px' },
 
       manifestoTransitionStyle: { height: (isMobile ? 70 : 120) + 'px', background: 'linear-gradient(to bottom, ' + ivory + ' 0%, ' + darkBg + ' 100%)' },
       manifestoSectionStyle: { background: darkBg, padding: (isMobile ? 80 : 140) + 'px ' + containerPad + 'px' },
       manifestoGridStyle: { maxWidth: '1320px', margin: '0 auto', display: 'grid', gridTemplateColumns: isMobile ? 'minmax(0,1fr)' : 'minmax(0,1fr) minmax(0,1.2fr)', gap: isMobile ? '36px' : '80px', alignItems: 'center' },
       manifestoImgStyle: { width: '100%', aspectRatio: isMobile ? '4/3' : '4/5', background: '#1E1E1E', ...reveal('rv-manifesto', { distance: 20 }) },
-      manifestoEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '11.5px', color: accent, fontWeight: 600, marginBottom: '20px', ...reveal('rv-manifesto', { distance: 14 }) },
+      manifestoEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '13px', color: accent, fontWeight: 600, marginBottom: '20px', ...reveal('rv-manifesto', { distance: 14 }) },
       manifestoQuoteStyle: { fontFamily: serif, fontStyle: 'italic', fontWeight: 600, fontSize: isMobile ? '26px' : '36px', color: '#FBFBF9', lineHeight: 1.35, margin: '0 0 26px' },
       manifestoLine1Style: { ...reveal('rv-manifesto', { delay: 0.15, distance: 16 }) },
       manifestoLine2Style: { ...reveal('rv-manifesto', { delay: 0.4, distance: 16 }) },
@@ -777,8 +777,8 @@ class Component extends DCLogic {
       craftItems,
       craftCardHoverStyle: { background: 'color-mix(in srgb, ' + accent + ' 4%, ' + ivory + ')' },
       craftIconHoverStyle: { transform: 'scale(1.08)', borderColor: accent },
-      craftTitleStyle: { fontFamily: serif, fontSize: '19px', fontWeight: 600, color: charcoal, marginBottom: '10px' },
-      craftTextStyle: { fontFamily: sans, fontSize: '15px', color: muted, lineHeight: 1.7, fontWeight: 500 },
+      craftTitleStyle: { fontFamily: serif, fontSize: '21px', fontWeight: 600, color: charcoal, marginBottom: '10px' },
+      craftTextStyle: { fontFamily: sans, fontSize: '16.5px', color: muted, lineHeight: 1.7, fontWeight: 500 },
 
       vipSectionStyle: { borderTop: '1px solid ' + hairline, padding: (isMobile ? 80 : 130) + 'px ' + containerPad + 'px', textAlign: 'center' },
       vipInnerStyle: { maxWidth: '640px', margin: '0 auto', ...reveal('rv-vip') },
@@ -786,12 +786,12 @@ class Component extends DCLogic {
       vipTextStyle: { fontFamily: sans, color: muted, fontSize: (isMobile ? 16 : 18) + 'px', lineHeight: 1.7, margin: '0 0 34px', fontWeight: 500 },
       vipBtnRowStyle: { display: 'flex', gap: '24px', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' },
       vipBtn: { ...hoverProps('vipBtn'), style: mergeHover(
-        { fontFamily: sans, border: '1px solid ' + charcoal, background: 'none', color: charcoal, padding: '16px 34px', fontSize: '13px', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', cursor: 'pointer', transition: 'background 0.35s ease-out, color 0.35s ease-out, transform 0.35s ease-out, box-shadow 0.35s ease-out', borderRadius: '2px' },
+        { fontFamily: sans, border: '1px solid ' + charcoal, background: 'none', color: charcoal, padding: '16px 34px', fontSize: '14.5px', fontWeight: 600, letterSpacing: '1.5px', whiteSpace: 'nowrap', textTransform: 'uppercase', cursor: 'pointer', transition: 'background 0.35s ease-out, color 0.35s ease-out, transform 0.35s ease-out, box-shadow 0.35s ease-out', borderRadius: '2px' },
         { background: charcoal, color: ivory, transform: 'translateY(-2px) scale(1.01)', boxShadow: '0 14px 30px rgba(26,26,26,0.25)' },
         'vipBtn'
       ) },
       vipSecondaryLink: { ...hoverProps('vipSecondary'), style: mergeHover(
-        { color: muted, fontSize: '13px', letterSpacing: '0.5px', transition: 'color 0.3s ease-out, transform 0.3s ease-out', display: 'inline-block' },
+        { color: muted, fontSize: '15.5px', letterSpacing: '0.5px', whiteSpace: 'nowrap', transition: 'color 0.3s ease-out, transform 0.3s ease-out', display: 'inline-block' },
         { color: accent, transform: 'translateX(3px)' },
         'vipSecondary'
       ) },
@@ -801,21 +801,21 @@ class Component extends DCLogic {
       footerTopGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : (isTablet ? '1.4fr 1fr 1fr' : '1.6fr 1fr 1fr'), gap: isMobile ? '40px' : '56px', marginBottom: '52px' },
       footerLogoStyle: { fontFamily: serif, fontSize: '24px', fontWeight: 600, color: '#F7F6F3', marginBottom: '16px' },
       footerLogoAccentStyle: { color: accent },
-      footerBlurbStyle: { fontFamily: sans, fontSize: '15px', color: 'rgba(247,246,243,0.55)', lineHeight: 1.7, maxWidth: '320px', fontWeight: 500 },
-      footerColTitleStyle: { fontFamily: sans, fontSize: '11px', color: 'rgba(247,246,243,0.4)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '20px' },
+      footerBlurbStyle: { fontFamily: sans, fontSize: '16.5px', color: 'rgba(247,246,243,0.55)', lineHeight: 1.7, maxWidth: '320px', fontWeight: 500 },
+      footerColTitleStyle: { fontFamily: sans, fontSize: '12.5px', color: 'rgba(247,246,243,0.4)', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '20px' },
       footerLinkColStyle: { display: 'flex', flexDirection: 'column', gap: '13px' },
       footerNavLinks: this.navLinks.map((l, i) => ({ ...l, ...hoverProps('footerNav' + i), style: mergeHover(
-        { fontFamily: sans, fontSize: '14px', color: 'rgba(247,246,243,0.75)', fontWeight: 400, display: 'inline-block', transition: 'color 0.3s ease-out, transform 0.3s ease-out' },
+        { fontFamily: sans, fontSize: '15.5px', color: 'rgba(247,246,243,0.75)', fontWeight: 400, display: 'inline-block', transition: 'color 0.3s ease-out, transform 0.3s ease-out' },
         { color: accent, transform: 'translateX(3px)' },
         'footerNav' + i
       ) })),
       footerPhoneLink: { ...hoverProps('footerPhone'), style: mergeHover(
-        { fontFamily: numFont, fontSize: '14px', color: 'rgba(247,246,243,0.75)', fontWeight: 700, display: 'inline-block', transition: 'color 0.3s ease-out, transform 0.3s ease-out' },
+        { fontFamily: numFont, fontSize: '15.5px', color: 'rgba(247,246,243,0.75)', fontWeight: 700, display: 'inline-block', transition: 'color 0.3s ease-out, transform 0.3s ease-out' },
         { color: accent, transform: 'translateX(3px)' },
         'footerPhone'
       ) },
       footerEmailLink: { ...hoverProps('footerEmail'), style: mergeHover(
-        { fontFamily: sans, fontSize: '14px', color: 'rgba(247,246,243,0.75)', fontWeight: 400, display: 'inline-block', transition: 'color 0.3s ease-out, transform 0.3s ease-out' },
+        { fontFamily: sans, fontSize: '15.5px', color: 'rgba(247,246,243,0.75)', fontWeight: 400, display: 'inline-block', transition: 'color 0.3s ease-out, transform 0.3s ease-out' },
         { color: accent, transform: 'translateX(3px)' },
         'footerEmail'
       ) },

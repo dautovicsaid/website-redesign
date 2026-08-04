@@ -36,7 +36,7 @@
   <dc-import name="Navigation" accent-color="{{ accent }}" current-page="{{ navCurrentPage }}" hint-size="100%,80px"></dc-import>
 
   <div style="{{ crumbWrapStyle }}">
-    <a href="./Homepage - Luxury Redesign v2.dc.html" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">Naslovna</a>
+    <a href="./index.dc.html" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">Naslovna</a>
     <span style="{{ crumbSepStyle }}">/</span>
     <a href="{{ parentCrumbHref }}" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">{{ parentCrumbLabel }}</a>
     <span style="{{ crumbSepStyle }}">/</span>
@@ -155,10 +155,6 @@
   </div>
 
   <dc-import name="Footer" accent-color="{{ accent }}" hint-size="100%,400px"></dc-import>
-
-  <sc-if value="{{ showFloatingBtn }}" hint-placeholder-val="{{ false }}">
-    <a href="mailto:office@kipsgradnja.me?subject=Upit%20za%20{{ unitCode }}" style="{{ floatingBtnStyle }}" style-hover="{{ floatingBtnHoverStyle }}">Zaka&#382;ite razgledanje</a>
-  </sc-if>
 
   <sc-if value="{{ galleryOpen }}" hint-placeholder-val="{{ false }}">
     <div ref="{{ lightboxRef }}" onClick="{{ closeGallery }}" style="{{ lightboxOverlayStyle }}">
@@ -365,7 +361,7 @@ class Component extends DCLogic {
     return {
       accent,
       pageStyle: { background: ivory, color: charcoal, fontFamily: sans, minHeight: '100vh', position: 'relative', paddingTop: (isMobile ? 64 : 80) + 'px' },
-      crumbWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px ' + containerPad + 'px 0', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', fontSize: '13px', color: muted, fontFamily: sans },
+      crumbWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px ' + containerPad + 'px 0', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', fontSize: '14.5px', color: muted, fontFamily: sans },
       crumbLinkStyle: { color: muted, transition: 'color 0.25s ease' },
       crumbLinkHoverStyle: { color: accent },
       crumbSepStyle: { color: muted },
@@ -375,7 +371,7 @@ class Component extends DCLogic {
 
       headWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px ' + containerPad + 'px ' + (isMobile ? 26 : 34) + 'px', animation: 'fadeUp 0.7s ' + easeOut + ' both' },
       headMetaRowStyle: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap', marginBottom: '14px' },
-      eyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '12px', color: accent, fontWeight: 600 },
+      eyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '13.5px', color: accent, fontWeight: 600 },
       statusChipStyle: { display: 'flex', alignItems: 'center', gap: '9px', border: '1px solid ' + hairline, padding: '6px 15px', fontFamily: numFont, fontSize: '12px', fontWeight: 700, color: muted, textTransform: 'uppercase', letterSpacing: '0.5px', borderRadius: '999px' },
       statusDotStyle: { width: '7px', height: '7px', borderRadius: '50%', background: meta.color, flexShrink: 0, animation: status === 'available' ? 'availPulse 2.2s infinite' : 'none' },
       titleStyle: { fontFamily: nameFont, fontWeight: 600, color: charcoal, fontSize: titleSize + 'px', margin: '0 0 16px', lineHeight: 1.15, letterSpacing: '0.5px' },
@@ -392,7 +388,7 @@ class Component extends DCLogic {
       statItemStyle: { textAlign: 'center' },
       statValueStyle: { fontFamily: numFont, fontWeight: 700, fontSize: isMobile ? '30px' : '38px', color: accent, lineHeight: 1, display: 'inline-block', transition: 'text-shadow 0.4s ease' },
       statValueHoverStyle: { textShadow: '0 0 22px rgba(156,122,74,0.55)' },
-      statLabelStyle: { fontFamily: sans, fontSize: '12px', color: muted, textTransform: 'uppercase', letterSpacing: '1.8px', marginTop: '10px' },
+      statLabelStyle: { fontFamily: sans, fontSize: '13.5px', color: muted, textTransform: 'uppercase', letterSpacing: '1.8px', marginTop: '10px' },
       specs,
 
       bodyWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 46 : 72) + 'px ' + containerPad + 'px ' + (isMobile ? 60 : 90) + 'px', ...reveal('rv-body') },
@@ -401,18 +397,18 @@ class Component extends DCLogic {
       cellSidebar: {},
 
       descHeadStyle: { fontFamily: serif, fontSize: '22px', fontWeight: 600, color: charcoal, marginBottom: '16px' },
-      descTextStyle: { fontFamily: sans, color: muted, fontSize: '16px', lineHeight: 1.85, margin: 0, maxWidth: '560px' },
+      descTextStyle: { fontFamily: sans, color: muted, fontSize: '17.5px', lineHeight: 1.85, margin: 0, maxWidth: '560px' },
 
       sidebarCardStyle: { border: '1px solid ' + hairline, background: '#FFFFFF', padding: isMobile ? '28px' : '36px', height: '100%', boxSizing: 'border-box', boxShadow: '0 24px 50px rgba(26,26,26,0.06)' },
       sidebarTitleStyle: { fontFamily: serif, fontSize: '22px', fontWeight: 600, color: charcoal, marginBottom: '10px' },
-      sidebarTextStyle: { fontFamily: sans, color: muted, fontSize: '14.5px', lineHeight: 1.7, margin: '0 0 24px' },
+      sidebarTextStyle: { fontFamily: sans, color: muted, fontSize: '16px', lineHeight: 1.7, margin: '0 0 24px' },
       clearHoverKey: () => this.clearHoverKey(),
       scheduleBtn: {
         onMouseEnter: () => this.setHoverKey('schedule'),
         style: {
           display: 'block', textAlign: 'center', border: '1px solid ' + charcoal,
           background: hk === 'schedule' ? charcoal : 'none', color: hk === 'schedule' ? ivory : charcoal,
-          padding: '15px', fontFamily: sans, fontWeight: 600, fontSize: '13px', letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: '12px',
+          padding: '15px', fontFamily: sans, fontWeight: 600, fontSize: '14.5px', letterSpacing: '1.5px', textTransform: 'uppercase', marginBottom: '12px',
           transform: hk === 'schedule' ? 'translateY(-2px)' : 'translateY(0)',
           boxShadow: hk === 'schedule' ? '0 14px 30px rgba(26,26,26,0.25), 0 0 26px rgba(156,122,74,0.28)' : 'none',
           transition: 'all 0.35s ' + easeOut
@@ -422,7 +418,7 @@ class Component extends DCLogic {
         onMouseEnter: () => this.setHoverKey('phone'),
         style: {
           display: 'block', textAlign: 'center', border: '1px solid', borderColor: hk === 'phone' ? accent : hairline,
-          color: hk === 'phone' ? accent : muted, padding: '14px', fontFamily: numFont, fontWeight: 700, fontSize: '13px', letterSpacing: '1px', marginBottom: '24px',
+          color: hk === 'phone' ? accent : muted, padding: '14px', fontFamily: numFont, fontWeight: 700, fontSize: '14.5px', letterSpacing: '1px', marginBottom: '24px',
           boxShadow: hk === 'phone' ? '0 0 18px rgba(156,122,74,0.18)' : 'none',
           transition: 'all 0.3s ease'
         }
@@ -430,18 +426,18 @@ class Component extends DCLogic {
       disabledNoticeStyle: { textAlign: 'center', background: 'rgba(26,26,26,0.04)', color: muted, padding: '14px', fontFamily: sans, fontWeight: 600, fontSize: '13px', marginBottom: '24px' },
       sidebarHairlineStyle: { height: '1px', background: hairline, margin: '0 0 18px' },
       sidebarRowStyle: { display: 'flex', alignItems: 'center', justifyContent: 'space-between' },
-      sidebarRowLabelStyle: { color: muted, fontSize: '13px', fontFamily: sans },
-      sidebarRowValueStyle: { color: charcoal, fontSize: '13px', fontWeight: 600, fontFamily: sans },
+      sidebarRowLabelStyle: { color: muted, fontSize: '16px', fontFamily: sans },
+      sidebarRowValueStyle: { color: charcoal, fontSize: '16px', fontWeight: 600, fontFamily: sans },
 
       otherSectionStyle: { borderTop: '1px solid ' + hairline, padding: (isMobile ? 56 : 90) + 'px ' + containerPad + 'px ' + (isMobile ? 70 : 110) + 'px' },
       otherInnerStyle: { maxWidth: '1320px', margin: '0 auto', ...reveal('rv-other') },
-      otherEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '11.5px', color: accent, fontWeight: 600, marginBottom: '14px' },
+      otherEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '13px', color: accent, fontWeight: 600, marginBottom: '14px' },
       otherHeadStyle: { fontFamily: serif, fontSize: isMobile ? '24px' : '30px', fontWeight: 600, color: charcoal, marginBottom: (isMobile ? 26 : 34) + 'px' },
       otherListStyle: { display: 'flex', flexDirection: 'column', gap: '14px' },
-      otherCodeStyle: { fontFamily: nameFont, color: charcoal, fontSize: isMobile ? '16px' : '18px', fontWeight: 600 },
+      otherCodeStyle: { fontFamily: nameFont, color: charcoal, fontSize: isMobile ? '17.5px' : '19.5px', fontWeight: 600 },
       otherRightStyle: { display: 'flex', alignItems: 'center', gap: '18px' },
-      otherSizeStyle: { color: muted, fontSize: '13px', fontFamily: numFont, fontWeight: 700 },
-      otherArrowStyle: { color: accent, fontSize: '17px' },
+      otherSizeStyle: { color: muted, fontSize: '16px', fontFamily: numFont, fontWeight: 700 },
+      otherArrowStyle: { color: accent, fontSize: '18.5px' },
       otherUnits: this.otherUnitsData.map(u => {
         const isOtherHov = this.state.hoveredOther === u.code;
         return {
@@ -458,7 +454,7 @@ class Component extends DCLogic {
         };
       }),
 
-      floatingBtnStyle: { position: 'fixed', bottom: (isMobile ? 18 : 28) + 'px', right: (isMobile ? 18 : 28) + 'px', zIndex: 90, background: charcoal, color: ivory, border: 'none', padding: isMobile ? '14px 20px' : '16px 26px', borderRadius: '999px', fontFamily: sans, fontSize: isMobile ? '11.5px' : '12.5px', fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase', cursor: 'pointer', boxShadow: '0 16px 32px rgba(26,26,26,0.28)', opacity: showFloatingBtn ? 1 : 0, pointerEvents: showFloatingBtn ? 'auto' : 'none', transition: 'transform 0.35s ease-out, box-shadow 0.35s ease-out, background 0.35s ease-out, color 0.35s ease-out, opacity 0.3s ease' },
+      floatingBtnStyle: { position: 'fixed', bottom: (isMobile ? 18 : 28) + 'px', right: (isMobile ? 18 : 28) + 'px', zIndex: 90, background: charcoal, color: ivory, border: 'none', padding: isMobile ? '14px 20px' : '16px 26px', borderRadius: '999px', fontFamily: sans, fontSize: isMobile ? '13px' : '14px', fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase', cursor: 'pointer', boxShadow: '0 16px 32px rgba(26,26,26,0.28)', opacity: showFloatingBtn ? 1 : 0, pointerEvents: showFloatingBtn ? 'auto' : 'none', transition: 'transform 0.35s ease-out, box-shadow 0.35s ease-out, background 0.35s ease-out, color 0.35s ease-out, opacity 0.3s ease' },
       floatingBtnHoverStyle: { transform: 'translateY(-3px) scale(1.02)', boxShadow: '0 22px 44px rgba(26,26,26,0.32), 0 0 30px rgba(156,122,74,0.4)', background: accent, color: '#FBFBF9' },
       showFloatingBtn,
 

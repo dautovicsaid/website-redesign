@@ -27,7 +27,7 @@
   <dc-import name="Navigation" accent-color="{{ accent }}" current-page="kontakt" hint-size="100%,80px"></dc-import>
 
   <div style="{{ crumbWrapStyle }}">
-    <a href="./Homepage - Luxury Redesign v2.dc.html" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">Naslovna</a>
+    <a href="./index.dc.html" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">Naslovna</a>
     <span style="{{ crumbSepStyle }}">/</span>
     <span style="{{ crumbActiveStyle }}">Kontakt</span>
   </div>
@@ -175,7 +175,7 @@ class Component extends DCLogic {
         lines: tile.lines.map((l, li) => {
           const lineKey = tile.key + '-' + li;
           const isHov = hk === lineKey;
-          return { ...l, onMouseEnter: () => this.setHoverKey(lineKey), linkStyle: { display: 'flex', alignItems: 'center', gap: '12px', padding: '11px 2px', fontFamily: tileFont, color: isHov ? accent : charcoal, fontSize: '15.5px', fontWeight: 700, whiteSpace: 'nowrap', transform: isHov ? 'translateX(4px)' : 'translateX(0)', transition: 'color 0.3s ease, transform 0.3s ease' } };
+          return { ...l, onMouseEnter: () => this.setHoverKey(lineKey), linkStyle: { display: 'flex', alignItems: 'center', gap: '12px', padding: '11px 2px', fontFamily: tileFont, color: isHov ? accent : charcoal, fontSize: '17px', fontWeight: 700, whiteSpace: 'nowrap', transform: isHov ? 'translateX(4px)' : 'translateX(0)', transition: 'color 0.3s ease, transform 0.3s ease' } };
         })
       };
     });
@@ -190,7 +190,7 @@ class Component extends DCLogic {
     return {
       accent,
       pageStyle: { background: ivory, color: charcoal, fontFamily: sans, minHeight: '100vh', position: 'relative', paddingTop: (isMobile ? 64 : 80) + 'px' },
-      crumbWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px ' + containerPad + 'px 0', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', fontSize: '13px', color: muted, fontFamily: sans },
+      crumbWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px ' + containerPad + 'px 0', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', fontSize: '14.5px', color: muted, fontFamily: sans },
       crumbLinkStyle: { color: muted, transition: 'color 0.25s ease' },
       crumbLinkHoverStyle: { color: accent },
       crumbSepStyle: { color: muted },
@@ -199,17 +199,17 @@ class Component extends DCLogic {
       mainWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 32 : 54) + 'px ' + containerPad + 'px 0' },
       mainGridStyle: { display: 'grid', gridTemplateColumns: (isMobile || isTablet) ? '1fr' : '1fr 1fr', gap: isMobile ? '44px' : '80px', alignItems: 'start', ...reveal('rv-main') },
       introColStyle: { animation: 'fadeUp 0.8s ' + easeOut + ' both' },
-      eyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '12px', color: accent, fontWeight: 600, marginBottom: '14px' },
+      eyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '13.5px', color: accent, fontWeight: 600, marginBottom: '14px' },
       titleStyle: { fontFamily: serif, fontWeight: 600, fontSize: titleSize + 'px', color: charcoal, margin: '0 0 18px', lineHeight: 1.18, maxWidth: '480px' },
       dividerStyle: { width: '48px', height: '2px', margin: '0 0 22px', backgroundImage: 'linear-gradient(90deg, ' + accent + ' 0%, #E8D9BE 25%, ' + accent + ' 50%, #E8D9BE 75%, ' + accent + ' 100%)', backgroundSize: '200% 100%', animation: 'shimmerMove 5s linear infinite' },
-      leadStyle: { fontFamily: sans, color: muted, fontSize: '16px', lineHeight: 1.75, maxWidth: '460px', margin: '0 0 40px', fontWeight: 400 },
+      leadStyle: { fontFamily: sans, color: muted, fontSize: '17.5px', lineHeight: 1.75, maxWidth: '460px', margin: '0 0 40px', fontWeight: 400 },
       tilesWrapStyle: { borderTop: '1px solid ' + hairline, paddingTop: '8px' },
       infoTiles,
       clearHoverKey: () => this.clearHoverKey(),
 
       formCardStyle: { background: '#FFFFFF', border: '1px solid ' + hairline, padding: isMobile ? '26px' : '40px', boxShadow: '0 24px 50px rgba(26,26,26,0.06)' },
       formTitleStyle: { fontFamily: serif, fontSize: '24px', fontWeight: 600, color: charcoal, marginBottom: '6px' },
-      formIntroStyle: { fontFamily: sans, color: muted, fontSize: '14px', margin: '0 0 26px' },
+      formIntroStyle: { fontFamily: sans, color: muted, fontSize: '15.5px', margin: '0 0 26px' },
       formStyle: { display: 'flex', flexDirection: 'column', gap: '18px' },
       inlineFieldsStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '18px' },
       inputStyle: {
@@ -218,7 +218,7 @@ class Component extends DCLogic {
       },
       setFocus: { name: () => this.setFocusKey('name'), phone: () => this.setFocusKey('phone'), email: () => this.setFocusKey('email'), subject: () => this.setFocusKey('subject'), message: () => this.setFocusKey('message') },
       clearFocus: () => this.clearFocus(),
-      captchaNoteStyle: { color: muted, fontSize: '12px', lineHeight: 1.5, margin: '2px 0 0', fontFamily: sans },
+      captchaNoteStyle: { color: muted, fontSize: '13.5px', lineHeight: 1.5, margin: '2px 0 0', fontFamily: sans },
       submitBtn: {
         onMouseEnter: () => this.setHoverKey('submit'),
         style: { background: hk === 'submit' ? accent : charcoal, color: ivory, border: 'none', padding: '16px', fontFamily: sans, fontWeight: 600, fontSize: '13px', letterSpacing: '1.5px', textTransform: 'uppercase', cursor: 'pointer', marginTop: '4px', transform: hk === 'submit' ? 'translateY(-2px)' : 'translateY(0)', boxShadow: hk === 'submit' ? '0 14px 30px rgba(26,26,26,0.25), 0 0 26px rgba(156,122,74,0.3)' : 'none', transition: 'all 0.35s ' + easeOut }
@@ -226,7 +226,7 @@ class Component extends DCLogic {
 
       mapSectionStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 56 : 100) + 'px ' + containerPad + 'px ' + (isMobile ? 70 : 130) + 'px', ...reveal('rv-map') },
       mapHeadStyle: { display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', marginBottom: '20px' },
-      mapAddressStyle: { fontFamily: sans, color: muted, fontSize: '14px' },
+      mapAddressStyle: { fontFamily: sans, color: muted, fontSize: '15.5px' },
       mapFrameStyle: { overflow: 'hidden', height: mapHeight + 'px', border: '1px solid ' + hairline },
       handleSubmit: (e) => this.handleSubmit(e)
     };

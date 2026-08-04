@@ -117,17 +117,12 @@
   <sc-for list="{{ features }}" as="feat" hint-placeholder-count="4">
     <div id="{{ feat.rowId }}" style="{{ feat.rowStyle }}">
       <div style="{{ feat.imgWrapStyle }}">
-        <a href="{{ feat.href }}" style="display:block;width:100%;height:100%;">
-          <image-slot id="{{ feat.slotId }}" src="{{ feat.slotSrc }}" placeholder="{{ feat.placeholder }}" shape="rect" style="{{ featureImgStyle }}"></image-slot>
-        </a>
+        <image-slot id="{{ feat.slotId }}" placeholder="{{ feat.placeholder }}" shape="rect" style="{{ featureImgStyle }}"></image-slot>
       </div>
       <div style="{{ feat.textWrapStyle }}">
         <div style="{{ featureAccentLineStyle }}"></div>
-        <a href="{{ feat.href }}" style="text-decoration:none;">
-          <div style="{{ featureTitleStyle }}">{{ feat.title }}</div>
-        </a>
+        <div style="{{ featureTitleStyle }}">{{ feat.title }}</div>
         <div style="{{ featureTextStyle }}">{{ feat.text }}</div>
-        <a href="{{ feat.href }}" style="color:{{ accent }};font-size:14px;margin-top:16px;display:inline-block;font-weight:600;">Pogledajte detalje &#8594;</a>
       </div>
     </div>
   </sc-for>
@@ -170,10 +165,10 @@ class Component extends DCLogic {
   ];
 
   featuresData = [
-    { title: 'Troslojni jednolamelni parket', text: 'Prednosti ovog parketa su stabilnost i ga\u017ei\u0161te, otklonjena je svaka neprijatnost poput pukotina ili razdvajanja poda.', slotId: 'feat-1', placeholder: 'Parket detalj', pos: 'left', slotSrc: './uploads/why_2.webp', href: './Parket Details Page.dc.html' },
-    { title: 'Sanitarije vode\u0107ih evropskih proizvo\u0111a\u010da', text: 'Kupatila opremljena provjerenim evropskim brendovima sanitarija, uz pa\u017eljivo biranu zavr\u0161nu obradu.', slotId: 'feat-2', placeholder: 'Sanitarije', pos: 'right', slotSrc: './uploads/why_3.webp', href: './Sanitarije Details Page.dc.html' },
-    { title: 'Bravarija REHAU', text: '6-komorni profil okvira sa 3 gume na \u0161toku, ugradne dubine profila 80mm.', slotId: 'feat-3', placeholder: 'REHAU prozor', pos: 'left', slotSrc: './uploads/why_4.webp', href: './Bravarija Details Page.dc.html' },
-    { title: 'Laserski rezana keramika', text: 'Plo\u010dice velikih formata, italijanska i \u0161panska keramika i klase.', slotId: 'feat-4', placeholder: 'Keramika', pos: 'right', slotSrc: './uploads/why_5.webp', href: './Keramika Details Page.dc.html' }
+    { title: 'Troslojni jednolamelni parket', text: 'Prednosti ovog parketa su stabilnost i ga\u017ei\u0161te, otklonjena je svaka neprijatnost poput pukotina ili razdvajanja poda.', slotId: 'feat-1', placeholder: 'Parket detalj', pos: 'left' },
+    { title: 'Sanitarije vode\u0107ih evropskih proizvo\u0111a\u010da', text: 'Kupatila opremljena provjerenim evropskim brendovima sanitarija, uz pa\u017eljivo biranu zavr\u0161nu obradu.', slotId: 'feat-2', placeholder: 'Sanitarije', pos: 'right' },
+    { title: 'Bravarija REHAU', text: '6-komorni profil okvira sa 3 gume na \u0161toku, ugradne dubine profila 80mm.', slotId: 'feat-3', placeholder: 'REHAU prozor', pos: 'left' },
+    { title: 'Laserski rezana keramika', text: 'Plo\u010dice velikih formata, italijanska i \u0161panska keramika i klase.', slotId: 'feat-4', placeholder: 'Keramika', pos: 'right' }
   ];
 
   revealIds = ['rv-secondary', 'rv-why', 'feat-row-0', 'feat-row-1', 'feat-row-2', 'feat-row-3', 'rv-cta'];
@@ -264,14 +259,13 @@ class Component extends DCLogic {
         rowStyle: { display: 'flex', flexDirection: isMobile ? 'column' : 'row', overflow: 'hidden', border: '1px solid ' + hairline, transition: 'transform 0.4s ' + easeOut + ', box-shadow 0.4s ease', ...reveal('rv-secondary', { delay: i * 0.12 }) },
         secondaryTextWrapStyle: { padding: isMobile ? '24px' : '30px 32px', display: 'flex', flexDirection: 'column', justifyContent: 'center', background: ivory, borderLeft: '3px solid ' + (isHov ? accent : 'transparent'), transition: 'border-color 0.35s ease' },
         secondaryTitleStyle: { fontFamily: serif, fontSize: '24px', fontWeight: 600, color: isHov ? accent : charcoal, marginBottom: '8px', transition: 'color 0.35s ease' },
-        linkStyle: { fontFamily: sans, fontSize: '13px', color: accent, fontWeight: 600, letterSpacing: '0.5px', display: 'inline-block', marginTop: '16px', transform: isHov ? 'translateX(4px)' : 'translateX(0)', transition: 'transform 0.35s ' + easeOut }
+        linkStyle: { fontFamily: sans, fontSize: '14.5px', color: accent, fontWeight: 600, letterSpacing: '0.5px', display: 'inline-block', marginTop: '16px', transform: isHov ? 'translateX(4px)' : 'translateX(0)', transition: 'transform 0.35s ' + easeOut }
       };
     });
 
     const features = this.featuresData.map((f, i) => ({
       ...f,
       rowId: 'feat-row-' + i,
-      href: f.href || '#',
       rowStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', minHeight: isMobile ? 'auto' : '420px' },
       imgWrapStyle: { order: isMobile ? 0 : (f.pos === 'left' ? 0 : 1), overflow: 'hidden', ...reveal('feat-row-' + i, { distance: 22 }) },
       textWrapStyle: { order: isMobile ? 1 : (f.pos === 'left' ? 1 : 0), background: darkBg, padding: isMobile ? '40px ' + containerPad + 'px' : '0 80px', display: 'flex', flexDirection: 'column', justifyContent: 'center', ...reveal('feat-row-' + i, { delay: 0.25, distance: 18 }) }
@@ -280,19 +274,19 @@ class Component extends DCLogic {
     return {
       accent,
       pageStyle: { background: ivory, color: charcoal, fontFamily: sans, minHeight: '100vh', position: 'relative', paddingTop: (isMobile ? 64 : 80) + 'px' },
-      crumbWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px ' + containerPad + 'px 0', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', fontSize: '13px', color: muted, fontFamily: sans },
-      crumbLinkStyle: { color: muted, transition: 'color 0.25s ease' },
+      crumbWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px ' + containerPad + 'px 0', display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', fontSize: '14.5px', color: muted, fontFamily: sans },
+      crumbLinkStyle: { color: muted, transition: 'color 0.25s ease', whiteSpace: 'nowrap' },
       crumbLinkHoverStyle: { color: accent },
       crumbSepStyle: { color: muted },
-      crumbActiveStyle: { color: charcoal, fontWeight: 600 },
+      crumbActiveStyle: { color: charcoal, fontWeight: 600, whiteSpace: 'nowrap' },
 
       headerWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 20 : 30) + 'px ' + containerPad + 'px ' + (isMobile ? 40 : 56) + 'px', animation: 'fadeUp 0.8s ' + easeOut + ' 0.05s both' },
-      headerEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '4px', fontSize: '12px', color: accent, fontWeight: 600, marginBottom: '14px' },
+      headerEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '4px', fontSize: '13.5px', color: accent, fontWeight: 600, marginBottom: '14px' },
       headerTitleStyle: { fontFamily: serif, fontWeight: 600, color: charcoal, fontSize: titleSize + 'px', margin: '0 0 20px', lineHeight: 1.1, maxWidth: '820px' },
       headerMetaRowStyle: { display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' },
-      locationRowStyle: { display: 'flex', alignItems: 'center', gap: '9px', color: muted, fontSize: '15px', fontFamily: sans },
+      locationRowStyle: { display: 'flex', alignItems: 'center', gap: '9px', color: muted, fontSize: '16.5px', fontFamily: sans, whiteSpace: 'nowrap' },
       locationDotStyle: { width: '6px', height: '6px', borderRadius: '50%', background: accent, flexShrink: 0, display: 'inline-block' },
-      scheduleLink: { onMouseEnter: () => this.setHoverKey('schedule'), onMouseLeave: () => this.clearHoverKey(), style: { color: hk === 'schedule' ? accent : charcoal, fontFamily: sans, fontWeight: 600, fontSize: '14px', borderBottom: '1px solid ' + (hk === 'schedule' ? accent : charcoal), paddingBottom: '2px', transition: 'color 0.25s ease, border-color 0.25s ease' } },
+      scheduleLink: { onMouseEnter: () => this.setHoverKey('schedule'), onMouseLeave: () => this.clearHoverKey(), style: { color: hk === 'schedule' ? accent : charcoal, fontFamily: sans, fontWeight: 600, fontSize: '15.5px', borderBottom: '1px solid ' + (hk === 'schedule' ? accent : charcoal), paddingBottom: '2px', whiteSpace: 'nowrap', transition: 'color 0.25s ease, border-color 0.25s ease' } },
 
       primaryWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '0 ' + containerPad + 'px' },
       primaryLinks,
@@ -301,7 +295,7 @@ class Component extends DCLogic {
       primaryImgStyle: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', maxWidth: '100%', objectFit: 'cover', transition: 'transform 0.7s ' + easeOut },
       primaryImgHoverStyle: { transform: 'scale(1.06)' },
       primaryCardHoverStyle: { transform: 'translateY(-10px)', boxShadow: '0 34px 64px rgba(26,26,26,0.16), 0 0 36px rgba(156,122,74,0.16)' },
-      primarySubStyle: { fontFamily: sans, fontSize: '12px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px' },
+      primarySubStyle: { fontFamily: sans, fontSize: '13.5px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px' },
       onLeavePrimary: () => this.setHoveredPrimary(null),
 
       secondaryWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 40 : 56) + 'px ' + containerPad + 'px 0' },
@@ -309,13 +303,13 @@ class Component extends DCLogic {
       secondaryGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '16px' : '26px' },
       secondaryRowHoverStyle: { transform: 'translateY(-4px)', boxShadow: '0 20px 40px rgba(26,26,26,0.14), 0 0 28px rgba(156,122,74,0.14)' },
       secondaryImgWrapStyle: { position: 'relative', width: isMobile ? '100%' : '42%', aspectRatio: isMobile ? '16/9' : 'auto', flexShrink: 0, overflow: 'hidden' },
-      secondaryDescStyle: { fontFamily: sans, fontSize: '14px', color: muted, lineHeight: 1.6 },
+      secondaryDescStyle: { fontFamily: sans, fontSize: '15.5px', color: muted, lineHeight: 1.6 },
       onLeaveSecondary: () => this.setHoveredSecondary(null),
 
-      sectionEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '12px', color: accent, fontWeight: 600, marginBottom: '10px' },
+      sectionEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '13.5px', color: accent, fontWeight: 600, marginBottom: '10px' },
       sectionTitleStyle: { fontFamily: serif, fontWeight: 600, fontSize: (isMobile ? 28 : 40) + 'px', color: charcoal, margin: '0 0 14px', lineHeight: 1.15 },
       sectionDividerStyle: { width: '48px', height: '2px', margin: '0 0 16px', backgroundImage: 'linear-gradient(90deg, ' + accent + ' 0%, #E8D9BE 25%, ' + accent + ' 50%, #E8D9BE 75%, ' + accent + ' 100%)', backgroundSize: '200% 100%', animation: 'shimmerMove 5s linear infinite' },
-      sectionSubStyle: { fontFamily: sans, color: muted, fontSize: '15px', lineHeight: 1.7, margin: 0, maxWidth: '640px', fontWeight: 400 },
+      sectionSubStyle: { fontFamily: sans, color: muted, fontSize: '16.5px', lineHeight: 1.7, margin: 0, maxWidth: '640px', fontWeight: 400 },
 
       whyWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 56 : 100) + 'px ' + containerPad + 'px 0' },
       whyMapGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '36px' : '70px', alignItems: 'start', ...reveal('rv-why') },
@@ -333,16 +327,16 @@ class Component extends DCLogic {
       featureImgStyle: { width: '100%', height: '100%', objectFit: 'cover', minHeight: isMobile ? '260px' : '420px', transition: 'transform 0.7s ' + easeOut },
       featureAccentLineStyle: { width: '32px', height: '2px', background: accent, marginBottom: '18px' },
       featureTitleStyle: { fontFamily: serif, fontSize: isMobile ? '22px' : '26px', fontWeight: 600, color: '#FBFBF9', marginBottom: '14px' },
-      featureTextStyle: { fontFamily: sans, fontSize: '15px', color: 'rgba(251,251,249,0.58)', lineHeight: 1.75, maxWidth: '420px' },
+      featureTextStyle: { fontFamily: sans, fontSize: '16.5px', color: 'rgba(251,251,249,0.58)', lineHeight: 1.75, maxWidth: '420px' },
       features,
 
       ctaSectionStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 70 : 130) + 'px ' + containerPad + 'px', textAlign: 'center', ...reveal('rv-cta') },
       ctaInnerStyle: { maxWidth: '640px', margin: '0 auto' },
       ctaTitleStyle: { fontFamily: serif, fontSize: isMobile ? '28px' : '38px', fontWeight: 600, color: charcoal, margin: '0 0 18px', lineHeight: 1.2 },
-      ctaTextStyle: { fontFamily: sans, color: muted, fontSize: (isMobile ? 16 : 17) + 'px', lineHeight: 1.7, margin: '0 0 34px' },
+      ctaTextStyle: { fontFamily: sans, color: muted, fontSize: (isMobile ? 17.5 : 18.5) + 'px', lineHeight: 1.7, margin: '0 0 34px' },
       ctaBtnRowStyle: { display: 'flex', gap: '24px', flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' },
-      ctaBtn: { onMouseEnter: () => this.setHoverKey('ctaBtn'), onMouseLeave: () => this.clearHoverKey(), style: { fontFamily: sans, border: '1px solid ' + charcoal, background: hk === 'ctaBtn' ? charcoal : 'none', color: hk === 'ctaBtn' ? ivory : charcoal, padding: '16px 34px', fontSize: '13px', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', transition: 'all 0.35s ease-out', transform: hk === 'ctaBtn' ? 'translateY(-2px)' : 'translateY(0)', boxShadow: hk === 'ctaBtn' ? '0 14px 30px rgba(26,26,26,0.25), 0 0 26px rgba(156,122,74,0.22)' : 'none' } },
-      ctaLink: { onMouseEnter: () => this.setHoverKey('ctaLink'), onMouseLeave: () => this.clearHoverKey(), style: { color: hk === 'ctaLink' ? accent : muted, fontSize: '14px', transition: 'color 0.3s ease, transform 0.3s ease', display: 'inline-block', transform: hk === 'ctaLink' ? 'translateX(3px)' : 'translateX(0)' } },
+      ctaBtn: { onMouseEnter: () => this.setHoverKey('ctaBtn'), onMouseLeave: () => this.clearHoverKey(), style: { fontFamily: sans, border: '1px solid ' + charcoal, background: hk === 'ctaBtn' ? charcoal : 'none', color: hk === 'ctaBtn' ? ivory : charcoal, padding: '16px 34px', fontSize: '14.5px', fontWeight: 600, letterSpacing: '1.5px', textTransform: 'uppercase', transition: 'all 0.35s ease-out', transform: hk === 'ctaBtn' ? 'translateY(-2px)' : 'translateY(0)', boxShadow: hk === 'ctaBtn' ? '0 14px 30px rgba(26,26,26,0.25), 0 0 26px rgba(156,122,74,0.22)' : 'none' } },
+      ctaLink: { onMouseEnter: () => this.setHoverKey('ctaLink'), onMouseLeave: () => this.clearHoverKey(), style: { color: hk === 'ctaLink' ? accent : muted, fontSize: '15.5px', transition: 'color 0.3s ease, transform 0.3s ease', display: 'inline-block', transform: hk === 'ctaLink' ? 'translateX(3px)' : 'translateX(0)' } },
 
       projectName, locationTag,
       isArchived, parentCrumbLabel, parentCrumbHref, navCurrentPage
