@@ -41,7 +41,7 @@
   <div style="{{ headWrapStyle }}">
     <div style="{{ eyebrowStyle }}">{{ categoryLabel }} &mdash; {{ projectName }}</div>
     <h1 style="{{ titleStyle }}">{{ activeLamela.label }}</h1>
-    <p style="{{ leadStyle }}">Pomjerite kursor preko oznake na tlocrtu za pregled jedinice, ili izaberite iz liste ispod.</p>
+    <p style="{{ leadStyle }}">Dodirnite ili kliknite oznaku na tlocrtu za pregled jedinice (tastaturom: Tab + Enter), ili izaberite iz liste ispod.</p>
   </div>
 
   <div id="rv-body" style="{{ bodyWrapStyle }}">
@@ -60,13 +60,13 @@
       </sc-for>
     </div>
 
-    <div style="{{ planFrameStyle }}">
+    <div style="{{ planFrameStyle }}" onClick="{{ unpinAll }}">
       <image-slot id="{{ currentFloor.slotId }}" src="{{ currentFloor.slotSrc }}" placeholder="{{ currentFloor.placeholder }}" shape="rect" fit="contain" style="width:100%;height:100%;"></image-slot>
       <sc-for list="{{ currentFloor.units }}" as="unit" hint-placeholder-count="5">
-        <a href="Unit%20Detail%20Page.dc.html" onMouseEnter="{{ unit.onEnter }}" onMouseLeave="{{ clearHover }}" style="{{ unit.pinStyle }}"></a>
+        <button type="button" onClick="{{ unit.onToggle }}" onMouseEnter="{{ unit.onEnter }}" onMouseLeave="{{ clearHover }}" onFocus="{{ unit.onEnter }}" onBlur="{{ clearHover }}" aria-label="{{ unit.ariaLabel }}" style="{{ unit.pinStyle }}" style-focus="{{ pinFocusStyle }}"></button>
       </sc-for>
       <sc-if value="{{ hasDisplayedUnit }}" hint-placeholder-val="{{ false }}">
-        <div onMouseEnter="{{ keepTooltip }}" onMouseLeave="{{ clearHover }}" style="{{ tooltipStyle }}">
+        <div onMouseEnter="{{ keepTooltip }}" onMouseLeave="{{ clearHover }}" onClick="{{ stopPropagation }}" style="{{ tooltipStyle }}">
           <div style="{{ tooltipThumbWrapStyle }}">
             <image-slot id="{{ hoveredUnit.thumbSlotId }}" placeholder="{{ hoveredUnit.thumbPlaceholder }}" shape="rect" style="width:100%;height:100%;"></image-slot>
           </div>
@@ -77,6 +77,7 @@
               <div style="{{ hoveredUnit.dotStyle }}"></div>
               <span>{{ hoveredUnit.statusLabel }}</span>
             </div>
+            <a href="./Unit Detail Page.dc.html" style="{{ tooltipLinkStyle }}" style-hover="{{ tooltipLinkHoverStyle }}" style-focus="{{ pinFocusStyle }}">Pogledajte stan &#8594;</a>
           </div>
         </div>
       </sc-if>
@@ -113,6 +114,7 @@ class Component extends DCLogic {
     activeLamela: null,
     activeFloor: null,
     hoveredKey: null,
+    pinnedKey: null,
     revealed: {}
   };
 
@@ -211,6 +213,8 @@ class Component extends DCLogic {
   componentDidMount() {
     this._onResize = () => this.setState({ width: window.innerWidth });
     window.addEventListener('resize', this._onResize);
+    this._onKeyDown = (e) => { if (e.key === 'Escape') this.setState({ pinnedKey: null }); };
+    document.addEventListener('keydown', this._onKeyDown);
     if (typeof window !== 'undefined') {
       const q = new URLSearchParams(window.location.search).get('lamela');
       if (q && this.lamelas.some(l => l.key === q)) this.setState({ activeLamela: q });
@@ -234,6 +238,8 @@ class Component extends DCLogic {
         this._observer.observe(el);
       }
     });
+    this._onKeyDown = (e) => { if (e.key === 'Escape') this.setState({ pinnedKey: null }); };
+    document.addEventListener('keydown', this._onKeyDown);
   }
   componentWillUnmount() {
     window.removeEventListener('resize', this._onResize);
@@ -290,6 +296,7 @@ class Component extends DCLogic {
     const activeFloor = activeLamela.floors.find(f => f.key === activeFloorKey) || activeLamela.floors[0];
 
     const hk = this.state.hoveredKey;
+    const pinnedKey = this.state.pinnedKey;
     const floorTabs = activeLamela.floors.map(f => {
       const isActive = f.key === activeFloorKey;
       const isHov = hk === 'tab-' + f.key;
@@ -313,22 +320,24 @@ class Component extends DCLogic {
     const chipBaseStyle = { border: '1px solid', borderColor: hairline, padding: '14px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', background: '#FFFFFF', transform: 'translateY(0)', boxShadow: 'none', transition: 'border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease' };
     const units = activeFloor.units.map((u, ui) => {
       const meta = this.statusMeta[u.status];
-      const isHovered = hk === u.code;
+      const isHovered = hk === u.code || pinnedKey === u.code;
       const isChipHov = hk === 'chip-' + u.code;
       return {
         ...u,
         statusLabel: meta.label,
+        ariaLabel: 'Stan ' + u.code + ', ' + u.size + ', ' + meta.label,
         thumbSlotId: unitThumbIds[ui % unitThumbIds.length],
         thumbPlaceholder: 'Stan ' + u.code,
         dotStyle: { width: '8px', height: '8px', borderRadius: '50%', background: meta.color, flexShrink: 0 },
         onEnter: () => this.setHover(u.code),
         onChipEnter: () => this.setHover('chip-' + u.code),
+        onToggle: (e) => { e.stopPropagation(); this.togglePin(u.code); },
         chipStyle: isChipHov
           ? { ...chipBaseStyle, borderColor: accent, boxShadow: '0 8px 20px rgba(26,26,26,0.08), 0 0 20px rgba(156,122,74,0.16)', transform: 'translateY(-2px)' }
           : chipBaseStyle,
         pinStyle: {
           position: 'absolute', left: u.x + '%', top: u.y + '%', width: '8%', aspectRatio: '1 / 1',
-          transform: 'translate(-50%,-50%)', borderRadius: '6px',
+          transform: 'translate(-50%,-50%)', borderRadius: '6px', padding: 0,
           background: isHovered ? 'rgba(156,122,74,0.4)' : 'rgba(156,122,74,0.22)',
           border: (isHovered ? '2.5px' : '2px') + ' solid ' + (isHovered ? accent : charcoal),
           boxShadow: isHovered ? '0 10px 22px rgba(26,26,26,0.32), 0 0 20px rgba(156,122,74,0.45)' : '0 3px 10px rgba(26,26,26,0.14)',
@@ -352,6 +361,9 @@ class Component extends DCLogic {
     } : {};
     const tooltipThumbWrapStyle = { width: '100%', height: '110px', overflow: 'hidden', background: '#EAE8E3', flexShrink: 0 };
     const tooltipBodyStyle = { padding: '10px 14px', display: 'flex', flexDirection: 'column', gap: '6px' };
+    const tooltipLinkStyle = { fontFamily: sans, fontSize: '13px', fontWeight: 700, letterSpacing: '0.5px', textTransform: 'uppercase', color: accent, marginTop: '4px' };
+    const tooltipLinkHoverStyle = { color: charcoal };
+    const pinFocusStyle = { outline: '2px solid ' + accent, outlineOffset: '2px' };
 
     const chipCols = isMobile ? 1 : (isTablet ? 2 : 3);
 
@@ -386,6 +398,11 @@ class Component extends DCLogic {
       tooltipStyle,
       tooltipThumbWrapStyle,
       tooltipBodyStyle,
+      tooltipLinkStyle,
+      tooltipLinkHoverStyle,
+      pinFocusStyle,
+      unpinAll: () => this.unpinAll(),
+      stopPropagation: (e) => this.stopPropagation(e),
       tooltipCodeStyle: { fontFamily: serif, fontWeight: 600, color: charcoal, fontSize: '14px', marginBottom: '4px', whiteSpace: 'nowrap' },
       tooltipSizeStyle: { color: muted, fontSize: '15px', marginBottom: '6px', whiteSpace: 'nowrap', fontFamily: numFont, fontWeight: 700 },
 

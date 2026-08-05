@@ -56,12 +56,12 @@
               <div style="{{ proj.statusTagStyle }}">{{ proj.statusLabel }}</div>
             </div>
             <div style="{{ captionRowStyle }}">
-              <div>
-                <div style="{{ cardNameStyle }}">{{ proj.name }}</div>
-                <div style="{{ cardLocStyle }}">{{ proj.locationLabel }}</div>
-                <div style="{{ proj.unitsDetailStyle }}">{{ proj.unitsLabel }}</div>
+              <div style="{{ cardNameStyle }}">{{ proj.name }}</div>
+              <div style="{{ cardLocStyle }}">{{ proj.locationLabel }}</div>
+              <div style="{{ proj.unitsDetailStyle }}">{{ proj.unitsLabel }}</div>
+              <div style="{{ proj.ctaRowStyle }}">
+                <span style="{{ proj.ctaStyle }}">Pogledajte ponudu <span style="{{ proj.ctaArrowStyle }}">&#8594;</span></span>
               </div>
-              <span style="{{ proj.arrowStyle }}">&#8594;</span>
             </div>
           </a>
         </sc-for>
@@ -85,8 +85,8 @@ class Component extends DCLogic {
   state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440, hoverKey: null, hoveredProjectKey: null, activeLocation: 'all', revealed: {} };
 
   projectsData = [
-    { key: 'premium-kvart', name: 'Premium Kvart', locationSlug: 'city-kvart', locationLabel: 'City Kvart, Podgorica', statusSlug: 'zavrseno', statusLabel: 'Zavr\u0161eno 2023.', unitsLabel: 'Objekat u potpunosti realizovan', slotId: 'ref-pk', placeholder: 'Premium Kvart', slotSrc: './uploads/premium_kvart.webp', href: './Project Page - Luxury Redesign.dc.html' },
-    { key: 'family-residence', name: 'Family Residence', locationSlug: 'podgorica', locationLabel: 'Podgorica', statusSlug: 'zavrseno', statusLabel: 'Zavr\u0161eno 2022.', unitsLabel: 'Objekat u potpunosti realizovan', slotId: 'ref-fr', placeholder: 'Family Residence', slotSrc: './uploads/family_residence.webp', href: './Project Page - Luxury Redesign.dc.html' }
+    { key: 'premium-kvart', name: 'Premium Kvart', locationSlug: 'city-kvart', locationLabel: 'City Kvart, Podgorica', statusSlug: 'zavrseno', statusLabel: 'Zavr\u0161eno 2023.', unitsLabel: 'Objekat u potpunosti realizovan', slotId: 'ref-pk', placeholder: 'Premium Kvart', slotSrc: './uploads/premium_kvart.webp', href: './Project Page.dc.html' },
+    { key: 'family-residence', name: 'Family Residence', locationSlug: 'podgorica', locationLabel: 'Podgorica', statusSlug: 'zavrseno', statusLabel: 'Zavr\u0161eno 2022.', unitsLabel: 'Objekat u potpunosti realizovan', slotId: 'ref-fr', placeholder: 'Family Residence', slotSrc: './uploads/family_residence.webp', href: './Project Page.dc.html' }
   ];
 
   revealIds = ['rv-head', 'rv-grid'];
@@ -159,8 +159,10 @@ class Component extends DCLogic {
         onEnter: () => this.setHoveredProject(p.key),
         cardStyle: { display: 'block', minWidth: 0, maxWidth: '100%', transition: 'transform 0.5s ' + easeOut + ', box-shadow 0.5s ease', ...reveal('rv-grid', { delay: i * 0.12 }) },
         statusTagStyle: { fontFamily: numFont, position: 'absolute', top: '16px', left: '16px', background: isHovered ? accent : 'rgba(251,251,249,0.92)', color: isHovered ? '#FBFBF9' : charcoal, fontSize: '12px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', padding: '6px 12px', whiteSpace: 'nowrap', transition: 'background 0.35s ease, color 0.35s ease' },
-        arrowStyle: { fontSize: '20px', color: accent, display: 'inline-block', transform: isHovered ? 'translateX(4px)' : 'translateX(0)', transition: 'transform 0.35s ' + easeOut },
-        unitsDetailStyle: { fontFamily: numFont, fontSize: '13.5px', color: accent, marginTop: '8px', fontWeight: 700, opacity: isHovered ? 1 : 0, transform: isHovered ? 'translateY(0)' : 'translateY(7px)', transition: 'opacity 0.4s ' + easeOut + ', transform 0.4s ' + easeOut }
+        ctaRowStyle: { display: 'flex', justifyContent: 'flex-end', marginTop: '16px', paddingTop: '14px', borderTop: '1px solid ' + hairline },
+        ctaStyle: { display: 'inline-flex', alignItems: 'center', gap: '6px', fontFamily: sans, fontSize: '12.5px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', color: isHovered ? accent : charcoal, whiteSpace: 'nowrap', transition: 'color 0.35s ease' },
+        ctaArrowStyle: { fontSize: '16px', display: 'inline-block', transform: isHovered ? 'translateX(4px)' : 'translateX(0)', transition: 'transform 0.35s ' + easeOut },
+        unitsDetailStyle: { fontFamily: numFont, fontSize: '13.5px', color: accent, fontWeight: 700, marginTop: '6px' }
       };
     });
 
@@ -203,13 +205,13 @@ class Component extends DCLogic {
       onLeaveProject: () => this.setHoveredProject(null),
       gridOuterStyle: { maxWidth: '1320px', margin: '0 auto', padding: '0 ' + containerPad + 'px' },
       projectGridStyle: { display: 'grid', gridTemplateColumns: 'repeat(' + projectCols + ', minmax(0, 1fr))', gap: isMobile ? '30px' : '48px' },
-      cardHoverStyle: { transform: 'translateY(-10px)', boxShadow: '0 34px 64px rgba(26,26,26,0.16), 0 0 36px rgba(156,122,74,0.16)' },
-      imgFrameStyle: { position: 'relative', overflow: 'hidden', width: '100%', aspectRatio: '1/1', background: '#EAE8E3' },
+      cardHoverStyle: { transform: 'translateY(-6px)', boxShadow: '0 18px 36px rgba(26,26,26,0.12)' },
+      imgFrameStyle: { position: 'relative', overflow: 'hidden', width: '100%', aspectRatio: '4/3', background: '#EAE8E3' },
       cardImgStyle: { position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', maxWidth: '100%', objectFit: 'cover', transition: 'transform 0.7s ' + easeOut },
       cardImgHoverStyle: { transform: 'scale(1.06)' },
       shineOverlayStyle: { position: 'absolute', top: 0, left: '-60%', width: '40%', height: '100%', background: 'linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.28) 50%, transparent 100%)', transform: 'skewX(-18deg)', pointerEvents: 'none', transition: 'left 0.85s ' + easeOut, zIndex: 2 },
       shineOverlayHoverStyle: { left: '130%' },
-      captionRowStyle: { display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', padding: '20px 2px 0', borderTop: '1px solid ' + hairline, marginTop: '18px' },
+      captionRowStyle: { display: 'block', padding: '20px 2px 0', borderTop: '1px solid ' + hairline, marginTop: '18px' },
       cardNameStyle: { fontFamily: serif, fontWeight: 600, fontSize: '22px', color: charcoal, marginBottom: '4px' },
       cardLocStyle: { fontFamily: sans, fontSize: '13.5px', color: muted, textTransform: 'uppercase', letterSpacing: '1.5px' },
       bottomSpacerStyle: { height: (isMobile ? 70 : 130) + 'px' }

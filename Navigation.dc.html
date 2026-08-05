@@ -19,10 +19,10 @@
           <div style="{{ ponudaMenu.panelStyle }}">
             <sc-for list="{{ ponudaMenu.items }}" as="lvl2" hint-placeholder-count="3">
               <div style="{{ megaWrapStyle }}" onMouseEnter="{{ lvl2.onEnter }}">
-                <div style="{{ lvl2.rowStyle }}" style-hover="{{ megaRowHoverStyle }}">
+                <a href="{{ lvl2.href }}" style="{{ lvl2.rowStyle }}" style-hover="{{ megaRowHoverStyle }}">
                   <span>{{ lvl2.label }}</span>
                   <span style="{{ lvl2.chevronStyle }}">&#8250;</span>
-                </div>
+                </a>
                 <sc-if value="{{ lvl2.showFlyout }}" hint-placeholder-val="{{ false }}">
                   <div style="{{ lvl2.flyoutStyle }}">
                     <sc-for list="{{ lvl2.children }}" as="leaf" hint-placeholder-count="3">
@@ -35,14 +35,14 @@
           </div>
         </div>
         <div style="{{ navMegaWrapStyle }}" onMouseEnter="{{ referenceMenu.open }}" onMouseLeave="{{ scheduleCloseMenu }}">
-          <a href="./Reference Page.dc.html" onMouseEnter="{{ navReference.onMouseEnter }}" onMouseLeave="{{ navReference.onMouseLeave }}" style="{{ navReference.style }}">Reference</a>
+          <a href="Reference Page.dc.html" onMouseEnter="{{ navReference.onMouseEnter }}" onMouseLeave="{{ navReference.onMouseLeave }}" style="{{ navReference.style }}">Reference</a>
           <div style="{{ referenceMenu.panelStyle }}">
             <sc-for list="{{ referenceMenu.items }}" as="lvl2" hint-placeholder-count="1">
               <div style="{{ megaWrapStyle }}" onMouseEnter="{{ lvl2.onEnter }}">
-                <div style="{{ lvl2.rowStyle }}" style-hover="{{ megaRowHoverStyle }}">
+                <a href="{{ lvl2.href }}" style="{{ lvl2.rowStyle }}" style-hover="{{ megaRowHoverStyle }}">
                   <span>{{ lvl2.label }}</span>
                   <span style="{{ lvl2.chevronStyle }}">&#8250;</span>
-                </div>
+                </a>
                 <sc-if value="{{ lvl2.showFlyout }}" hint-placeholder-val="{{ false }}">
                   <div style="{{ lvl2.flyoutStyle }}">
                     <sc-for list="{{ lvl2.children }}" as="leaf" hint-placeholder-count="3">
@@ -61,6 +61,11 @@
     </sc-if>
     <sc-if value="{{ showNavLinks }}" hint-placeholder-val="{{ true }}">
       <div style="{{ navRightStyle }}">
+        <div style="{{ langToggleStyle }}">
+          <span onClick="{{ setLangME }}" style="{{ langMEStyle }}" style-hover="{{ langHoverStyle }}">ME</span>
+          <span style="{{ langDividerStyle }}"></span>
+          <span onClick="{{ setLangEN }}" style="{{ langENStyle }}" style-hover="{{ langHoverStyle }}">EN</span>
+        </div>
         <sc-if value="{{ showPhone }}" hint-placeholder-val="{{ true }}">
           <a href="tel:+38267134134" onMouseEnter="{{ navPhone.onMouseEnter }}" onMouseLeave="{{ navPhone.onMouseLeave }}" style="{{ navPhone.style }}">
             <span style="{{ phoneDotStyle }}"></span><span>+382 67 134 134</span>
@@ -126,6 +131,11 @@
       </sc-for>
       <div style="{{ mobileItemReveal4 }}">
         <div style="{{ mobileHairlineStyle }}"></div>
+        <div style="{{ mobileLangRowStyle }}">
+          <span onClick="{{ setLangME }}" style="{{ langMEStyle }}">ME</span>
+          <span style="{{ langDividerStyle }}"></span>
+          <span onClick="{{ setLangEN }}" style="{{ langENStyle }}">EN</span>
+        </div>
         <div style="{{ mobileBottomRowStyle }}">
           <a href="tel:+38267134134" style="{{ mobilePhoneStyle }}" style-active="{{ touchActiveStyle }}">+382 67 134 134</a>
           <a href="./Contact Page.dc.html" style="{{ mobileCtaStyle }}" style-active="{{ touchActiveStyle }}">Kontakt</a>
@@ -138,35 +148,24 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#9C7A4A&quot;,&quot;options&quot;:[&quot;#9C7A4A&quot;,&quot;#B8934F&quot;,&quot;#7A8A78&quot;,&quot;#8C7A6B&quot;],&quot;tsType&quot;:&quot;string&quot;}}">
 class Component extends DCLogic {
-  state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440, mobileOpen: false, scrolled: false, openDropdown: null, hoverLevel2: { ponuda: null, reference: null }, mobileExpanded: { ponuda: false, reference: false }, mobileExpandedLevel2: { ponuda: null, reference: null } };
+  state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440, mobileOpen: false, scrolled: false, openDropdown: null, hoverLevel2: { ponuda: null, reference: null }, mobileExpanded: { ponuda: false, reference: false }, mobileExpandedLevel2: { ponuda: null, reference: null }, lang: 'ME' };
 
   secondaryNavLinksData = [
     { key: 'zemljiste', label: 'Ponuda zemlji\u0161ta', href: './Ponuda Zemljista Page.dc.html' },
     { key: 'onama', label: 'O nama', href: './About Us Page.dc.html' }
   ];
+  categoryChildren = [
+    { label: 'Stanovi', href: './Category Floor Plan Page.dc.html' },
+    { label: 'Poslovni prostori', href: './Category Floor Plan Page.dc.html' },
+    { label: 'Gara\u017ea', href: './Category Floor Plan Page.dc.html' }
+  ];
   ponudaItems = [
-    { key: 'stambeni', label: 'Stambeni kompleksi', children: [
-      { label: 'Central Line', href: './Project Page.dc.html' },
-      { label: 'Premium Kvart II', href: './Project Page.dc.html' },
-      { label: 'Premium Kvart', href: './Project Page.dc.html' }
-    ] },
-    { key: 'poslovni', label: 'Poslovni prostori', children: [
-      { label: 'Central Line', href: './Category Floor Plan Page.dc.html' },
-      { label: 'Premium Kvart II', href: './Category Floor Plan Page.dc.html' },
-      { label: 'Premium Kvart', href: './Category Floor Plan Page.dc.html' }
-    ] },
-    { key: 'garaze', label: 'Gara\u017ee', children: [
-      { label: 'Central Line', href: './Category Floor Plan Page.dc.html' },
-      { label: 'Premium Kvart II', href: './Category Floor Plan Page.dc.html' },
-      { label: 'Premium Kvart', href: './Category Floor Plan Page.dc.html' }
-    ] }
+    { key: 'central-line', label: 'Central Line', href: './Project Page.dc.html', children: this.categoryChildren },
+    { key: 'premium-kvart-2', label: 'Premium Kvart II', href: './Project Page.dc.html', children: this.categoryChildren },
+    { key: 'premium-kvart', label: 'Premium Kvart', href: './Project Page.dc.html', children: this.categoryChildren }
   ];
   referenceItems = [
-    { key: 'portfolio', label: 'Izgra\u0111eni objekti', children: [
-      { label: 'Rezidencijalni kompleksi', href: './Reference Page.dc.html' },
-      { label: 'Poslovni objekti', href: './Reference Page.dc.html' },
-      { label: 'Arhitektonske nagrade', href: './About Us Page.dc.html' }
-    ] }
+    { key: 'family-residence', label: 'Family Residence', href: './Reference Page.dc.html', children: this.categoryChildren }
   ];
 
   componentDidMount() {
@@ -182,6 +181,7 @@ class Component extends DCLogic {
   }
 
   toggleMobile() { this.setState(s => ({ mobileOpen: !s.mobileOpen })); }
+  setLang(lang) { this.setState({ lang }); }
   openDropdown(name) {
     if (this._closeTimer) { clearTimeout(this._closeTimer); this._closeTimer = null; }
     this.setState({ openDropdown: name });
@@ -200,11 +200,12 @@ class Component extends DCLogic {
     const w = this.state.width || 1440;
     const isMobile = w < 640;
     const isTablet = w >= 640 && w < 1024;
-    const isCompactNav = w < 900;
+    const isCompactNav = w < 1140;
     const scrolled = this.state.scrolled;
 
     const accent = this.props.accentColor || '#9C7A4A';
     const charcoal = '#1A1A1A';
+    const navDark = '#141412';
 
     const containerPad = isMobile ? 22 : (isTablet ? 48 : 80);
     const navPadV = scrolled ? (isMobile ? 10 : 12) : (isMobile ? 16 : 22);
@@ -217,7 +218,7 @@ class Component extends DCLogic {
     const mobileIsOpen = this.state.mobileOpen;
     const mobileItemRevealFn = (i) => ({ opacity: mobileIsOpen ? 1 : 0, transform: mobileIsOpen ? 'translateY(0)' : 'translateY(8px)', transition: 'opacity 0.35s ease-out ' + (mobileIsOpen ? i * 0.05 : 0) + 's, transform 0.35s ease-out ' + (mobileIsOpen ? i * 0.05 : 0) + 's' });
 
-    const glassPanel = { background: 'rgba(251,251,249,0.86)', backdropFilter: 'blur(22px)', WebkitBackdropFilter: 'blur(22px)', border: '1px solid rgba(26,26,26,0.08)', boxShadow: '0 30px 60px rgba(26,26,26,0.18)', borderRadius: '8px' };
+    const glassPanel = { background: 'rgba(20,20,18,0.98)', backdropFilter: 'blur(22px)', WebkitBackdropFilter: 'blur(22px)', border: '1px solid rgba(255,255,255,0.1)', boxShadow: '0 30px 60px rgba(0,0,0,0.45)', borderRadius: '8px' };
 
     const currentPage = this.props.currentPage || '';
     const hoveredNav = this.state.hoveredNav;
@@ -226,14 +227,14 @@ class Component extends DCLogic {
       return {
         onMouseEnter: () => this.setState({ hoveredNav: key }),
         onMouseLeave: () => this.setState({ hoveredNav: null }),
-        style: { fontFamily: key === 'phone' ? numFont : sans, fontSize: '14px', fontWeight: 700, color: (hoveredNav === key || isActive) ? '#FFFFFF' : 'rgba(255,255,255,0.82)', textTransform: 'uppercase', letterSpacing: '1.5px', paddingBottom: '4px', borderBottom: (hoveredNav === key || isActive) ? '1px solid #FFFFFF' : '1px solid transparent', transition: 'color 0.3s ease-out, border-color 0.3s ease-out', ...(extra || {}) }
+        style: { fontFamily: key === 'phone' ? numFont : sans, fontSize: '14px', fontWeight: 700, color: (hoveredNav === key || isActive) ? accent : 'rgba(255,255,255,0.88)', textTransform: 'uppercase', letterSpacing: '1.5px', paddingBottom: '4px', borderBottom: (hoveredNav === key || isActive) ? '1px solid ' + accent : '1px solid transparent', whiteSpace: 'nowrap', transition: 'color 0.3s ease-out, border-color 0.3s ease-out', ...(extra || {}) }
       };
     };
     const secondaryNavLinks = this.secondaryNavLinksData.map((l, i) => ({ ...l, ...navHover(l.key) }));
     const navKontakt = {
       onMouseEnter: () => this.setState({ hoveredNav: 'kontakt' }),
       onMouseLeave: () => this.setState({ hoveredNav: null }),
-      style: { border: '1px solid rgba(255,255,255,0.7)', color: hoveredNav === 'kontakt' ? charcoal : '#FFFFFF', background: hoveredNav === 'kontakt' ? '#FBFBF9' : (currentPage === 'kontakt' ? 'rgba(255,255,255,0.14)' : 'none'), padding: '10px 24px', fontSize: '14px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', whiteSpace: 'nowrap', transform: hoveredNav === 'kontakt' ? 'translateY(-1px)' : 'translateY(0)', boxShadow: hoveredNav === 'kontakt' ? '0 10px 22px rgba(0,0,0,0.28)' : 'none', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out' }
+      style: { border: '1px solid ' + accent, color: '#FFFFFF', background: hoveredNav === 'kontakt' ? 'color-mix(in srgb, ' + accent + ' 85%, white)' : accent, padding: '10px 24px', fontSize: '14px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', whiteSpace: 'nowrap', transform: hoveredNav === 'kontakt' ? 'translateY(-1px)' : 'translateY(0)', boxShadow: hoveredNav === 'kontakt' ? '0 10px 22px rgba(0,0,0,0.28)' : 'none', transition: 'background 0.35s ease-out, color 0.35s ease-out, box-shadow 0.35s ease-out, transform 0.35s ease-out' }
     };
 
     const makeMegaMenu = (name, list) => {
@@ -263,13 +264,13 @@ class Component extends DCLogic {
               display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '14px',
               padding: '13px 16px', borderRadius: '5px', cursor: 'pointer',
               fontFamily: serif, fontSize: '16px', fontWeight: 600,
-              color: showFlyout ? accent : charcoal,
-              background: showFlyout ? 'rgba(156,122,74,0.07)' : 'transparent',
+              color: showFlyout ? accent : '#FBFBF9',
+              background: showFlyout ? 'rgba(156,122,74,0.14)' : 'transparent',
               borderLeft: showFlyout ? '2px solid ' + accent : '2px solid transparent',
               transition: 'background 0.3s ease, color 0.3s ease, transform 0.3s ease, border-color 0.3s ease'
             },
             showFlyout,
-            chevronStyle: { color: showFlyout ? accent : 'rgba(26,26,26,0.4)', fontSize: '15px', lineHeight: 1, marginLeft: '8px', opacity: showFlyout ? 1 : 0.5, transform: showFlyout ? 'translateX(3px)' : 'translateX(0)', transition: 'transform 0.3s ease, opacity 0.3s ease, color 0.3s ease' },
+            chevronStyle: { color: showFlyout ? accent : 'rgba(255,255,255,0.4)', fontSize: '15px', lineHeight: 1, marginLeft: '8px', opacity: showFlyout ? 1 : 0.5, transform: showFlyout ? 'translateX(3px)' : 'translateX(0)', transition: 'transform 0.3s ease, opacity 0.3s ease, color 0.3s ease' },
             flyoutStyle: {
               position: 'absolute', top: '0', left: 'calc(100% + 12px)', width: '230px', padding: '8px', zIndex: 61,
               ...glassPanel,
@@ -286,7 +287,7 @@ class Component extends DCLogic {
                 ...leaf,
                 onMouseEnter: () => this.setHoverKey(leafKey),
                 onMouseLeave: () => this.clearHoverKey(),
-                rowStyle: { display: 'block', padding: '11px 16px', borderRadius: '5px', color: leafHov ? accent : charcoal, background: leafHov ? 'rgba(156,122,74,0.12)' : 'transparent', fontFamily: sans, fontSize: '13.5px', fontWeight: 500, borderLeft: leafHov ? '2px solid ' + accent : '2px solid transparent', transform: leafHov ? 'translateX(4px)' : 'translateX(0)', transition: 'background 0.25s ease-out, color 0.25s ease-out, transform 0.25s ease-out, border-color 0.25s ease-out' }
+                rowStyle: { display: 'block', padding: '11px 16px', borderRadius: '5px', color: leafHov ? accent : '#FBFBF9', background: leafHov ? 'rgba(156,122,74,0.16)' : 'transparent', fontFamily: sans, fontSize: '13.5px', fontWeight: 500, borderLeft: leafHov ? '2px solid ' + accent : '2px solid transparent', transform: leafHov ? 'translateX(4px)' : 'translateX(0)', transition: 'background 0.25s ease-out, color 0.25s ease-out, transform 0.25s ease-out, border-color 0.25s ease-out' }
               };
             }),
             isMobileExpanded: expandedLevel2Key === item.key,
@@ -309,13 +310,13 @@ class Component extends DCLogic {
     };
 
     return {
-      navBarStyle: { position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: scrolled ? accent : 'color-mix(in srgb, ' + accent + ' 94%, transparent)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', borderBottom: '1px solid rgba(255,255,255,0.18)', boxShadow: scrolled ? '0 8px 24px rgba(0,0,0,0.18)' : 'none', transition: 'background 0.35s ease, box-shadow 0.35s ease' },
+      navBarStyle: { position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, background: navDark, backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)', borderBottom: '1px solid rgba(255,255,255,0.1)', boxShadow: scrolled ? '0 8px 24px rgba(0,0,0,0.22)' : 'none', transition: 'box-shadow 0.35s ease' },
       navInnerStyle: { maxWidth: '1320px', margin: '0 auto', padding: navPadV + 'px ' + containerPad + 'px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '32px', transition: 'padding 0.35s ease' },
       showNavLinks: !isCompactNav,
       isCompactNav,
       navLinksRowStyle: { display: 'flex', alignItems: 'center', gap: '36px', flex: 1, justifyContent: 'center' },
       navRightStyle: { display: 'flex', alignItems: 'center', gap: '22px', flexShrink: 0 },
-      showPhone: w >= 1180,
+      showPhone: w >= 1360,
       navPhone: navHover('phone', { display: 'flex', alignItems: 'center', gap: '8px', paddingBottom: '4px' }),
       phoneDotStyle: { width: '5px', height: '5px', borderRadius: '50%', background: '#FFFFFF', display: 'inline-block' },
       hamburgerBtnStyle: { background: 'none', border: 'none', width: '30px', height: '22px', position: 'relative', cursor: 'pointer', padding: 0, flexShrink: 0 },
@@ -347,7 +348,16 @@ class Component extends DCLogic {
       mobileHairlineStyle: { height: '1px', background: 'rgba(251,251,249,0.14)', margin: '4px 0' },
       mobileBottomRowStyle: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', padding: '4px' },
       mobilePhoneStyle: { fontFamily: numFont, fontSize: '15px', color: 'rgba(251,251,249,0.75)', fontWeight: 700, borderRadius: '4px', transition: 'transform 0.2s ease, color 0.2s ease', whiteSpace: 'nowrap' },
-      mobileCtaStyle: { border: '1px solid rgba(251,251,249,0.6)', color: '#FBFBF9', padding: '11px 22px', textAlign: 'center', fontSize: '14px', fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease', flexShrink: 0 },
+      mobileCtaStyle: { border: '1px solid ' + accent, background: accent, color: '#FFFFFF', padding: '11px 22px', textAlign: 'center', fontSize: '14px', fontWeight: 600, letterSpacing: '1px', textTransform: 'uppercase', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease', flexShrink: 0 },
+
+      langToggleStyle: { display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 },
+      langDividerStyle: { width: '1px', height: '11px', background: 'rgba(255,255,255,0.25)' },
+      langMEStyle: { fontFamily: sans, fontSize: '13px', fontWeight: 700, letterSpacing: '1px', color: this.state.lang === 'ME' ? accent : 'rgba(255,255,255,0.5)', cursor: 'pointer', transition: 'color 0.25s ease' },
+      langENStyle: { fontFamily: sans, fontSize: '13px', fontWeight: 700, letterSpacing: '1px', color: this.state.lang === 'EN' ? accent : 'rgba(255,255,255,0.5)', cursor: 'pointer', transition: 'color 0.25s ease' },
+      langHoverStyle: { color: accent },
+      setLangME: () => this.setLang('ME'),
+      setLangEN: () => this.setLang('EN'),
+      mobileLangRowStyle: { display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' },
 
       secondaryNavLinks,
       navPonuda: navHover('ponuda-stanova'),
@@ -355,13 +365,13 @@ class Component extends DCLogic {
       navKontakt,
       megaWrapStyle: { position: 'relative' },
       navMegaWrapStyle: { position: 'relative', display: 'inline-flex', alignItems: 'center' },
-      megaRowHoverStyle: { background: 'rgba(156,122,74,0.09)', color: accent, transform: 'translateX(4px)' },
+      megaRowHoverStyle: { background: 'rgba(156,122,74,0.14)', color: accent, transform: 'translateX(4px)' },
       scheduleCloseMenu: () => this.scheduleCloseMenu(),
       ponudaMenu: makeMegaMenu('ponuda', this.ponudaItems),
       referenceMenu: makeMegaMenu('reference', this.referenceItems),
       mobileAccordionHeadStyle: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', fontFamily: sans, fontSize: '15px', fontWeight: 600, color: '#FBFBF9', textTransform: 'uppercase', letterSpacing: '1px', padding: '10px 4px', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease' },
       mobileLevel2HeadStyle: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '9px 4px', borderRadius: '4px', cursor: 'pointer', fontFamily: serif, fontSize: '15px', fontWeight: 600, transition: 'transform 0.2s ease, background 0.2s ease', color: '#FBFBF9' },
-      mobileLevel3LinkStyle: { color: 'rgba(251,251,249,0.55)', fontSize: '13.5px', fontFamily: sans, display: 'block', padding: '4px', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease' }
+      mobileLevel3LinkStyle: { color: 'rgba(251,251,249,0.55)', fontSize: '15px', fontFamily: sans, display: 'block', padding: '4px', borderRadius: '4px', transition: 'transform 0.2s ease, background 0.2s ease' }
     };
   }
 }
