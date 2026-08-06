@@ -62,11 +62,6 @@
         <div style="{{ sectionDividerStyle }}"></div>
         <p style="{{ sectionSubStyle }}">Pregledajte na&scaron;e aktivne projekte po lokaciji i statusu izgradnje.</p>
       </div>
-      <div style="{{ locationTabRowStyle }}">
-        <sc-for list="{{ locationTabs }}" as="tab" hint-placeholder-count="3">
-          <button onClick="{{ tab.onClick }}" onMouseEnter="{{ tab.onMouseEnter }}" onMouseLeave="{{ tab.onMouseLeave }}" style="{{ tab.tabStyle }}">{{ tab.label }}</button>
-        </sc-for>
-      </div>
     </div>
     <sc-if value="{{ hasProjects }}" hint-placeholder-val="{{ true }}">
       <div id="rv-projects-grid" style="{{ projectGridStyle }}">
@@ -155,7 +150,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#9C7A4A&quot;,&quot;options&quot;:[&quot;#9C7A4A&quot;,&quot;#B8934F&quot;,&quot;#7A8A78&quot;,&quot;#8C7A6B&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Theme&quot;}}">
 class Component extends DCLogic {
-  state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440, mobileOpen: false, scrolled: false, pastHero: false, heroRevealed: true, revealed: {}, statProgress: 0, modalOpen: false, formSubmitted: false, activeLocation: 'all', hoveredProjectKey: null, openDropdown: null, hoverLevel2: { ponuda: null, reference: null }, mobileExpanded: { ponuda: false, reference: false }, mobileExpandedLevel2: { ponuda: null, reference: null } };
+  state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440, mobileOpen: false, scrolled: false, pastHero: false, heroRevealed: true, revealed: {}, statProgress: 0, modalOpen: false, formSubmitted: false, hoveredProjectKey: null, openDropdown: null, hoverLevel2: { ponuda: null, reference: null }, mobileExpanded: { ponuda: false, reference: false }, mobileExpandedLevel2: { ponuda: null, reference: null } };
 
   navLinks = [
     { label: 'Ponuda stanova', href: './Ponuda Stanova Page.dc.html' },
@@ -235,18 +230,26 @@ class Component extends DCLogic {
       });
     };
     window.addEventListener('scroll', this._onScroll, { passive: true });
-    requestAnimationFrame(() => {
-      this._observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const id = entry.target.id;
-            this.setState(s => ({ revealed: { ...s.revealed, [id]: true } }));
-            if (id === 'rv-about') this.startStatsCount();
-            this._observer.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
-      this.revealIds.forEach(id => { const el = document.getElementById(id); if (el) this._observer.observe(el); });
+    this._observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const id = entry.target.id;
+          this.setState(s => ({ revealed: { ...s.revealed, [id]: true } }));
+          if (id === 'rv-about') this.startStatsCount();
+          this._observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    this.revealIds.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight && r.bottom > 0) {
+        this.setState(s => ({ revealed: { ...s.revealed, [id]: true } }));
+        if (id === 'rv-about') this.startStatsCount();
+      } else {
+        this._observer.observe(el);
+      }
     });
 
   }
@@ -262,7 +265,6 @@ class Component extends DCLogic {
   }
 
   toggleMobile() { this.setState(s => ({ mobileOpen: !s.mobileOpen })); }
-  setLocation(slug) { this.setState({ activeLocation: slug }); }
   openDropdown(name) {
     if (this._closeTimer) { clearTimeout(this._closeTimer); this._closeTimer = null; }
     this.setState({ openDropdown: name });
@@ -320,8 +322,8 @@ class Component extends DCLogic {
     const craftCols = isMobile ? 1 : (isTablet ? 2 : 4);
 
     const serif = "'Cormorant Garamond', serif";
-    const sans = "'Cormorant Garamond', serif";
-    const numFont = "'Cormorant Garamond', serif";
+    const sans = "'Jost', sans-serif";
+    const numFont = "'Jost', sans-serif";
     const easeOut = 'cubic-bezier(0.16,1,0.3,1)';
     const hk = this.state.hoverKey;
     const hoverProps = (key) => ({ onMouseEnter: () => this.setHoverKey(key), onMouseLeave: () => this.clearHoverKey() });
@@ -340,10 +342,8 @@ class Component extends DCLogic {
     const progress = this.state.statProgress || 0;
     const displayedStats = this.statsData.map(s => ({ ...s, display: Math.round(s.target * progress) }));
 
-    const activeLocation = this.state.activeLocation;
-    const filteredProjects = this.projectsData.filter(p => activeLocation === 'all' || p.locationSlug === activeLocation);
     const hoveredKey = this.state.hoveredProjectKey;
-    const projects = filteredProjects.map((p, i) => {
+    const projects = this.projectsData.map((p, i) => {
       const isHovered = hoveredKey === p.key;
       return {
         ...p,
@@ -354,20 +354,6 @@ class Component extends DCLogic {
         ctaStyle: { display: 'inline-flex', alignItems: 'center', gap: '6px', fontFamily: sans, fontSize: '12.5px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', color: isHovered ? accent : charcoal, whiteSpace: 'nowrap', transition: 'color 0.35s ease' },
         ctaArrowStyle: { fontSize: '16px', display: 'inline-block', transform: isHovered ? 'translateX(4px)' : 'translateX(0)', transition: 'transform 0.35s ' + easeOut },
         unitsDetailStyle: { fontFamily: numFont, fontSize: '13.5px', color: accent, fontWeight: 700, marginTop: '6px' }
-      };
-    });
-
-    const locationTabDefs = [{ value: 'all', label: 'Svi projekti' }, { value: 'stari-aerodrom', label: 'Stari Aerodrom' }, { value: 'city-kvart', label: 'City Kvart' }];
-    const locationTabs = locationTabDefs.map(t => {
-      const tabKey = 'tab-' + t.value;
-      const isHov = hk === tabKey;
-      const isActive = activeLocation === t.value;
-      return {
-        label: t.label,
-        onClick: () => this.setLocation(t.value),
-        onMouseEnter: () => this.setHoverKey(tabKey),
-        onMouseLeave: () => this.clearHoverKey(),
-        tabStyle: { background: 'none', border: 'none', borderBottom: (isActive || isHov) ? '2px solid ' + accent : '2px solid transparent', padding: '9px 4px', marginRight: isMobile ? '20px' : '32px', fontFamily: sans, fontSize: '15px', fontWeight: isActive ? 700 : 500, color: isActive ? charcoal : (isHov ? accent : muted), cursor: 'pointer', whiteSpace: 'nowrap', transform: isHov ? 'translateY(-1px)' : 'translateY(0)', transition: 'color 0.3s ease-out, border-color 0.3s ease-out, transform 0.3s ease-out' }
       };
     });
 
@@ -574,8 +560,6 @@ class Component extends DCLogic {
       sectionDividerStyle: { width: '48px', height: '2px', margin: '0 0 14px', backgroundImage: 'linear-gradient(90deg, ' + accent + ' 0%, #E8D9BE 25%, ' + accent + ' 50%, #E8D9BE 75%, ' + accent + ' 100%)', backgroundSize: '200% 100%', animation: 'shimmerMove 5s linear infinite' },
       sectionSubStyle: { fontFamily: sans, color: muted, fontSize: '16.5px', lineHeight: 1.7, margin: 0, fontWeight: 400 },
 
-      locationTabRowStyle: { display: 'flex', overflowX: 'auto', borderBottom: '1px solid ' + hairline, marginBottom: isMobile ? '18px' : '28px' },
-      locationTabs,
       hasProjects: projects.length > 0,
       showEmptyState: projects.length === 0,
       emptyStateStyle: { fontFamily: sans, color: muted, fontSize: '15px', padding: '40px 0', textAlign: 'center' },

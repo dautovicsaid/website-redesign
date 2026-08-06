@@ -51,15 +51,6 @@
       </sc-for>
     </div>
 
-    <div style="{{ legendRowStyle }}">
-      <sc-for list="{{ statusLegend }}" as="item" hint-placeholder-count="3">
-        <div style="{{ legendItemStyle }}">
-          <div style="{{ item.dotStyle }}"></div>
-          <span>{{ item.label }}</span>
-        </div>
-      </sc-for>
-    </div>
-
     <div style="{{ planFrameStyle }}" onClick="{{ unpinAll }}">
       <image-slot id="{{ currentFloor.slotId }}" src="{{ currentFloor.slotSrc }}" placeholder="{{ currentFloor.placeholder }}" shape="rect" fit="contain" style="width:100%;height:100%;"></image-slot>
       <sc-for list="{{ currentFloor.units }}" as="unit" hint-placeholder-count="5">
@@ -73,10 +64,6 @@
           <div style="{{ tooltipBodyStyle }}">
             <div style="{{ tooltipCodeStyle }}">{{ hoveredUnit.code }}</div>
             <div style="{{ tooltipSizeStyle }}">{{ hoveredUnit.size }}</div>
-            <div style="{{ legendItemStyle }}">
-              <div style="{{ hoveredUnit.dotStyle }}"></div>
-              <span>{{ hoveredUnit.statusLabel }}</span>
-            </div>
             <a href="./Unit Detail Page.dc.html" style="{{ tooltipLinkStyle }}" style-hover="{{ tooltipLinkHoverStyle }}" style-focus="{{ pinFocusStyle }}">Pogledajte stan &#8594;</a>
           </div>
         </div>
@@ -86,15 +73,9 @@
     <div style="{{ unitsHeadStyle }}">Jedinice na ovom spratu</div>
     <div style="{{ chipGridStyle }}">
       <sc-for list="{{ currentFloor.units }}" as="unit" hint-placeholder-count="5">
-        <a href="Unit%20Detail%20Page.dc.html" onMouseEnter="{{ unit.onChipEnter }}" onMouseLeave="{{ clearHover }}" style="{{ unit.chipStyle }}">
-          <div>
-            <div style="{{ chipCodeStyle }}">{{ unit.code }}</div>
-            <div style="{{ chipSizeStyle }}">{{ unit.size }}</div>
-          </div>
-          <div style="{{ legendItemStyle }}">
-            <div style="{{ unit.dotStyle }}"></div>
-            <span>{{ unit.statusLabel }}</span>
-          </div>
+        <a href="./Unit Detail Page.dc.html" onMouseEnter="{{ unit.onChipEnter }}" onMouseLeave="{{ clearHover }}" onFocus="{{ unit.onChipEnter }}" onBlur="{{ clearHover }}" style="{{ unit.chipStyle }}" style-focus="{{ pinFocusStyle }}">
+          <span style="{{ chipCodeStyle }}">{{ unit.code }}</span>
+          <span style="{{ chipSizeStyle }}">{{ unit.size }}</span>
         </a>
       </sc-for>
     </div>
@@ -119,12 +100,6 @@ class Component extends DCLogic {
   };
 
   revealIds = ['rv-body'];
-
-  statusMeta = {
-    available: { label: 'Dostupno', color: '#4C8B5F' },
-    reserved: { label: 'Rezervisano', color: '#B8934F' },
-    sold: { label: 'Prodato', color: '#9C4A45' }
-  };
 
   buildLamelaOneFloors() {
     const layout = [
@@ -278,8 +253,8 @@ class Component extends DCLogic {
     const hairline = 'rgba(26,26,26,0.10)';
     const muted = 'rgba(26,26,26,0.58)';
     const serif = "'Cormorant Garamond', serif";
-    const sans = "'Cormorant Garamond', serif";
-    const numFont = "'Cormorant Garamond', serif";
+    const sans = "'Jost', sans-serif";
+    const numFont = "'Jost', sans-serif";
     const easeOut = 'cubic-bezier(0.16,1,0.3,1)';
 
     const containerPad = isMobile ? 22 : (isTablet ? 48 : 80);
@@ -319,16 +294,13 @@ class Component extends DCLogic {
     const unitThumbIds = ['unit-img-1-tile', 'unit-img-2-tile', 'unit-img-3-tile', 'unit-img-4-tile'];
     const chipBaseStyle = { border: '1px solid', borderColor: hairline, padding: '14px 16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '10px', background: '#FFFFFF', transform: 'translateY(0)', boxShadow: 'none', transition: 'border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease' };
     const units = activeFloor.units.map((u, ui) => {
-      const meta = this.statusMeta[u.status];
       const isHovered = hk === u.code || pinnedKey === u.code;
       const isChipHov = hk === 'chip-' + u.code;
       return {
         ...u,
-        statusLabel: meta.label,
-        ariaLabel: 'Stan ' + u.code + ', ' + u.size + ', ' + meta.label,
+        ariaLabel: 'Stan ' + u.code + ', ' + u.size,
         thumbSlotId: unitThumbIds[ui % unitThumbIds.length],
         thumbPlaceholder: 'Stan ' + u.code,
-        dotStyle: { width: '8px', height: '8px', borderRadius: '50%', background: meta.color, flexShrink: 0 },
         onEnter: () => this.setHover(u.code),
         onChipEnter: () => this.setHover('chip-' + u.code),
         onToggle: (e) => { e.stopPropagation(); this.togglePin(u.code); },
@@ -383,12 +355,8 @@ class Component extends DCLogic {
       leadStyle: { fontFamily: sans, color: muted, fontSize: '16.5px', lineHeight: 1.7, maxWidth: '640px', margin: 0, fontWeight: 400 },
 
       bodyWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '0 ' + containerPad + 'px ' + (isMobile ? 70 : 130) + 'px' },
-      floorTabRowStyle: { display: 'flex', gap: '10px', overflowX: 'auto', scrollbarWidth: 'none', marginBottom: '28px' },
+      floorTabRowStyle: { display: 'flex', gap: '10px', overflowX: 'auto', scrollbarWidth: 'none', borderBottom: '1px solid ' + hairline, marginBottom: '28px' },
       floorTabs,
-      legendRowStyle: { display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '20px', flexWrap: 'wrap', marginBottom: '20px' },
-      legendItemStyle: { display: 'flex', alignItems: 'center', gap: '8px', fontFamily: sans, fontSize: '14.5px', color: muted },
-      statusLegend: Object.values(this.statusMeta).map(m => ({ label: m.label, dotStyle: { width: '8px', height: '8px', borderRadius: '50%', background: m.color, flexShrink: 0 } })),
-
       planFrameStyle: { position: 'relative', width: '100%', aspectRatio: currentFloor.aspectRatio, border: '1px solid ' + hairline, overflow: 'visible', background: '#FFFFFF', marginBottom: isMobile ? '32px' : '44px', ...reveal() },
       currentFloor,
       clearHover: () => this.clearHover(),

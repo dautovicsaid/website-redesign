@@ -39,38 +39,28 @@
       <div style="{{ sectionDividerStyle }}"></div>
       <p style="{{ sectionSubStyle }}">Pogledajte na&scaron;e realizovane objekte i uvjerite se u kvalitet izrade i pouzdanost isporuke.</p>
     </div>
-    <div style="{{ locationTabRowStyle }}">
-      <sc-for list="{{ locationTabs }}" as="tab" hint-placeholder-count="3">
-        <button onClick="{{ tab.onClick }}" onMouseEnter="{{ tab.onMouseEnter }}" onMouseLeave="{{ tab.onMouseLeave }}" style="{{ tab.tabStyle }}">{{ tab.label }}</button>
+  </div>
+  <div id="rv-grid" style="{{ gridOuterStyle }}">
+    <div style="{{ projectGridStyle }}">
+      <sc-for list="{{ projects }}" as="proj" hint-placeholder-count="2">
+        <a href="{{ proj.href }}" onMouseEnter="{{ proj.onEnter }}" onMouseLeave="{{ onLeaveProject }}" style="{{ proj.cardStyle }}" style-hover="{{ cardHoverStyle }}">
+          <div style="{{ imgFrameStyle }}">
+            <image-slot id="{{ proj.slotId }}" src="{{ proj.slotSrc }}" placeholder="{{ proj.placeholder }}" shape="rect" style="{{ cardImgStyle }}" style-hover="{{ cardImgHoverStyle }}"></image-slot>
+            <div style="{{ shineOverlayStyle }}" style-hover="{{ shineOverlayHoverStyle }}"></div>
+            <div style="{{ proj.statusTagStyle }}">{{ proj.statusLabel }}</div>
+          </div>
+          <div style="{{ captionRowStyle }}">
+            <div style="{{ cardNameStyle }}">{{ proj.name }}</div>
+            <div style="{{ cardLocStyle }}">{{ proj.locationLabel }}</div>
+            <div style="{{ proj.unitsDetailStyle }}">{{ proj.unitsLabel }}</div>
+            <div style="{{ proj.ctaRowStyle }}">
+              <span style="{{ proj.ctaStyle }}">Pogledajte ponudu <span style="{{ proj.ctaArrowStyle }}">&#8594;</span></span>
+            </div>
+          </div>
+        </a>
       </sc-for>
     </div>
   </div>
-  <sc-if value="{{ hasProjects }}" hint-placeholder-val="{{ true }}">
-    <div id="rv-grid" style="{{ gridOuterStyle }}">
-      <div style="{{ projectGridStyle }}">
-        <sc-for list="{{ projects }}" as="proj" hint-placeholder-count="2">
-          <a href="{{ proj.href }}" onMouseEnter="{{ proj.onEnter }}" onMouseLeave="{{ onLeaveProject }}" style="{{ proj.cardStyle }}" style-hover="{{ cardHoverStyle }}">
-            <div style="{{ imgFrameStyle }}">
-              <image-slot id="{{ proj.slotId }}" src="{{ proj.slotSrc }}" placeholder="{{ proj.placeholder }}" shape="rect" style="{{ cardImgStyle }}" style-hover="{{ cardImgHoverStyle }}"></image-slot>
-              <div style="{{ shineOverlayStyle }}" style-hover="{{ shineOverlayHoverStyle }}"></div>
-              <div style="{{ proj.statusTagStyle }}">{{ proj.statusLabel }}</div>
-            </div>
-            <div style="{{ captionRowStyle }}">
-              <div style="{{ cardNameStyle }}">{{ proj.name }}</div>
-              <div style="{{ cardLocStyle }}">{{ proj.locationLabel }}</div>
-              <div style="{{ proj.unitsDetailStyle }}">{{ proj.unitsLabel }}</div>
-              <div style="{{ proj.ctaRowStyle }}">
-                <span style="{{ proj.ctaStyle }}">Pogledajte ponudu <span style="{{ proj.ctaArrowStyle }}">&#8594;</span></span>
-              </div>
-            </div>
-          </a>
-        </sc-for>
-      </div>
-    </div>
-  </sc-if>
-  <sc-if value="{{ showEmptyState }}" hint-placeholder-val="{{ false }}">
-    <div style="{{ emptyStateStyle }}">Nema projekata koji odgovaraju izabranom filteru.</div>
-  </sc-if>
 
   <div style="{{ bottomSpacerStyle }}"></div>
 
@@ -82,7 +72,7 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440},&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#9C7A4A&quot;,&quot;options&quot;:[&quot;#9C7A4A&quot;,&quot;#B8934F&quot;,&quot;#7A8A78&quot;,&quot;#8C7A6B&quot;],&quot;tsType&quot;:&quot;string&quot;}}">
 
 class Component extends DCLogic {
-  state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440, hoverKey: null, hoveredProjectKey: null, activeLocation: 'all', revealed: {} };
+  state = { width: typeof window !== 'undefined' ? window.innerWidth : 1440, hoverKey: null, hoveredProjectKey: null, revealed: {} };
 
   projectsData = [
     { key: 'premium-kvart', name: 'Premium Kvart', locationSlug: 'city-kvart', locationLabel: 'City Kvart, Podgorica', statusSlug: 'zavrseno', statusLabel: 'Zavr\u0161eno 2023.', unitsLabel: 'Objekat u potpunosti realizovan', slotId: 'ref-pk', placeholder: 'Premium Kvart', slotSrc: './uploads/premium_kvart.webp', href: './Project Page.dc.html' },
@@ -122,7 +112,6 @@ class Component extends DCLogic {
   setHoverKey(key) { this.setState({ hoverKey: key }); }
   clearHoverKey() { this.setState({ hoverKey: null }); }
   setHoveredProject(key) { this.setState({ hoveredProjectKey: key }); }
-  setLocation(slug) { this.setState({ activeLocation: slug }); }
 
   renderVals() {
     const w = this.state.width || 1440;
@@ -137,8 +126,8 @@ class Component extends DCLogic {
     const sectionTitleSize = isMobile ? 28 : (isTablet ? 40 : 44);
     const projectCols = isMobile ? 1 : (isTablet ? 2 : 3);
     const serif = "'Cormorant Garamond', serif";
-    const sans = "'Cormorant Garamond', serif";
-    const numFont = "'Cormorant Garamond', serif";
+    const sans = "'Jost', sans-serif";
+    const numFont = "'Jost', sans-serif";
     const easeOut = 'cubic-bezier(0.16,1,0.3,1)';
     const hk = this.state.hoverKey;
 
@@ -149,10 +138,8 @@ class Component extends DCLogic {
       return { opacity: isRevealed ? 1 : 0, transform: isRevealed ? 'translateY(0)' : 'translateY(' + distance + 'px)', transition: 'opacity 0.9s ' + easeOut + ' ' + delay + 's, transform 0.9s ' + easeOut + ' ' + delay + 's' };
     };
 
-    const activeLocation = this.state.activeLocation;
-    const filteredProjects = this.projectsData.filter(p => activeLocation === 'all' || p.locationSlug === activeLocation);
     const hoveredKey = this.state.hoveredProjectKey;
-    const projects = filteredProjects.map((p, i) => {
+    const projects = this.projectsData.map((p, i) => {
       const isHovered = hoveredKey === p.key;
       return {
         ...p,
@@ -163,20 +150,6 @@ class Component extends DCLogic {
         ctaStyle: { display: 'inline-flex', alignItems: 'center', gap: '6px', fontFamily: sans, fontSize: '12.5px', fontWeight: 700, letterSpacing: '1px', textTransform: 'uppercase', color: isHovered ? accent : charcoal, whiteSpace: 'nowrap', transition: 'color 0.35s ease' },
         ctaArrowStyle: { fontSize: '16px', display: 'inline-block', transform: isHovered ? 'translateX(4px)' : 'translateX(0)', transition: 'transform 0.35s ' + easeOut },
         unitsDetailStyle: { fontFamily: numFont, fontSize: '13.5px', color: accent, fontWeight: 700, marginTop: '6px' }
-      };
-    });
-
-    const locationTabDefs = [{ value: 'all', label: 'Svi projekti' }, { value: 'city-kvart', label: 'City Kvart' }, { value: 'podgorica', label: 'Podgorica' }];
-    const locationTabs = locationTabDefs.map(t => {
-      const tabKey = 'tab-' + t.value;
-      const isHov = hk === tabKey;
-      const isActive = activeLocation === t.value;
-      return {
-        label: t.label,
-        onClick: () => this.setLocation(t.value),
-        onMouseEnter: () => this.setHoverKey(tabKey),
-        onMouseLeave: () => this.clearHoverKey(),
-        tabStyle: { background: 'none', border: 'none', borderBottom: (isActive || isHov) ? '2px solid ' + accent : '2px solid transparent', padding: '9px 4px', marginRight: isMobile ? '20px' : '32px', fontFamily: sans, fontSize: '15px', fontWeight: isActive ? 700 : 500, color: isActive ? charcoal : (isHov ? accent : muted), cursor: 'pointer', whiteSpace: 'nowrap', transform: isHov ? 'translateY(-1px)' : 'translateY(0)', transition: 'color 0.3s ease-out, border-color 0.3s ease-out, transform 0.3s ease-out' }
       };
     });
 
@@ -196,11 +169,6 @@ class Component extends DCLogic {
       sectionDividerStyle: { width: '48px', height: '2px', margin: '0 0 14px', backgroundImage: 'linear-gradient(90deg, ' + accent + ' 0%, #E8D9BE 25%, ' + accent + ' 50%, #E8D9BE 75%, ' + accent + ' 100%)', backgroundSize: '200% 100%', animation: 'shimmerMove 5s linear infinite' },
       sectionSubStyle: { fontFamily: sans, color: muted, fontSize: '16.5px', lineHeight: 1.7, margin: 0, fontWeight: 400 },
 
-      locationTabRowStyle: { display: 'flex', overflowX: 'auto', borderBottom: '1px solid ' + hairline, marginBottom: isMobile ? '18px' : '28px' },
-      locationTabs,
-      hasProjects: projects.length > 0,
-      showEmptyState: projects.length === 0,
-      emptyStateStyle: { fontFamily: sans, color: muted, fontSize: '15px', padding: '40px 0', textAlign: 'center', maxWidth: '1320px', margin: '0 auto' },
       projects,
       onLeaveProject: () => this.setHoveredProject(null),
       gridOuterStyle: { maxWidth: '1320px', margin: '0 auto', padding: '0 ' + containerPad + 'px' },

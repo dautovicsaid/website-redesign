@@ -66,8 +66,8 @@ class Component extends DCLogic {
     const accent = this.props.accentColor || '#9C7A4A';
     const containerPad = isMobile ? 22 : (isTablet ? 48 : 80);
     const serif = "'Cormorant Garamond', serif";
-    const sans = "'Cormorant Garamond', serif";
-    const numFont = "'Cormorant Garamond', serif";
+    const sans = "'Jost', sans-serif";
+    const numFont = "'Jost', sans-serif";
     const hk = this.state.hoverKey;
     const hoverProps = (key) => ({ onMouseEnter: () => this.setHoverKey(key), onMouseLeave: () => this.clearHoverKey() });
     const mergeHover = (base, hoverStyle, key) => (hk === key ? { ...base, ...hoverStyle } : base);

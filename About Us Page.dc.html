@@ -45,33 +45,6 @@
     </div>
   </div>
 
-  <div id="rv-story" style="{{ storyWrapStyle }}">
-    <div style="{{ storyGridStyle }}">
-      <image-slot id="about-img-float" src="./uploads/napredak_radova_9.jpg" placeholder="Gradili&scaron;te u izgradnji" shape="rect" style="{{ storyImgStyle }}" style-hover="{{ storyImgHoverStyle }}"></image-slot>
-      <div>
-        <div style="{{ sectionEyebrowStyle }}">Na&scaron;a pri&#269;a</div>
-        <h2 style="{{ h2Style }}">Od prvog temelja do danas</h2>
-        <div style="{{ dividerStyle }}"></div>
-        <p style="{{ pStyle }}">Po&#269;eli smo sa jednim projektom u naselju Stari Aerodrom i od tada izgradili vi&scaron;e stambenih cjelina u razli&#269;itim djelovima grada.</p>
-        <p style="{{ pStyleLast }}">Svaki naredni projekat gradimo na iskustvu prethodnog &mdash; unapre&#273;uju&#263;i tehni&#269;ka rje&scaron;enja, izbor materijala i komunikaciju sa kupcima.</p>
-      </div>
-    </div>
-  </div>
-
-  <div id="rv-manifesto" style="{{ manifestoSectionStyle }}">
-    <div style="{{ manifestoGridStyle }}">
-      <div style="{{ manifestoMarkColStyle }}">
-        <div style="{{ quoteGlyphStyle }}">&ldquo;</div>
-        <div style="{{ manifestoAttrStyle }}">&mdash; KIPS Gradnja</div>
-      </div>
-      <div>
-        <div style="{{ manifestoEyebrowStyle }}">Filozofija</div>
-        <p style="{{ manifestoQuoteStyle }}">Ne gradimo samo zgrade &mdash; gradimo povjerenje koje traje du&#382;e od ugovora.</p>
-        <p style="{{ manifestoTextStyle }}">Ne pravimo kompromise po pitanju kvaliteta konstrukcije i zavr&scaron;nih radova, &#269;ak i kada to zahtijeva vi&scaron;e vremena. Klijenti u svakom trenutku mogu pratiti napredak radova na svom objektu &mdash; to je na&scaron; na&#269;in da gradimo transparentnost.</p>
-      </div>
-    </div>
-  </div>
-
   <div id="rv-values" style="{{ sectionWrapStyle }}">
     <div style="{{ sectionHeadStyle }}">
       <div style="{{ sectionEyebrowStyle }}">Na&scaron;e vrijednosti</div>
@@ -120,7 +93,7 @@ class Component extends DCLogic {
     { num: '04', title: 'Direktna komunikacija', desc: 'Sa timom, bez posrednika, od prve posjete do useljenja.' }
   ];
 
-  revealIds = ['rv-story', 'rv-manifesto', 'rv-values', 'rv-cta'];
+  revealIds = ['rv-values', 'rv-cta'];
 
   componentDidMount() {
     this._onResize = () => this.setState({ width: window.innerWidth });
@@ -161,11 +134,10 @@ class Component extends DCLogic {
     const accent = this.props.accentColor || '#9C7A4A';
     const charcoal = '#1A1A1A';
     const ivory = '#F7F6F3';
-    const darkBg = '#0F0F0F';
     const hairline = 'rgba(26,26,26,0.10)';
     const muted = 'rgba(26,26,26,0.58)';
     const serif = "'Cormorant Garamond', serif";
-    const sans = "'Cormorant Garamond', serif";
+    const sans = "'Jost', sans-serif";
     const headFont = "'Playfair Display', serif";
     const easeOut = 'cubic-bezier(0.16,1,0.3,1)';
     const hk = this.state.hoverKey;
@@ -218,25 +190,10 @@ class Component extends DCLogic {
       heroSubStyle: { fontFamily: sans, color: muted, fontSize: (isMobile ? 16.5 : 18) + 'px', lineHeight: 1.75, margin: 0, maxWidth: '460px', fontWeight: 400 },
       heroImgStyle: { width: '100%', aspectRatio: isMobile ? '4/3' : '4/5', objectFit: 'cover', background: '#EAE8E3' },
 
-      storyWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 56 : 110) + 'px ' + containerPad + 'px 0' },
-      storyGridStyle: { display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? '32px' : '72px', alignItems: 'center', ...reveal('rv-story') },
-      storyImgStyle: { width: '100%', aspectRatio: isMobile ? '4/3' : '5/4', objectFit: 'cover', background: '#EAE8E3', transition: 'transform 0.7s ' + easeOut },
-      storyImgHoverStyle: { transform: 'scale(1.02)' },
-
       sectionEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '13.5px', color: accent, fontWeight: 600, marginBottom: '12px' },
       h2Style: { fontFamily: headFont, fontWeight: 600, fontSize: sectionTitleSize + 'px', color: charcoal, margin: '0 0 16px', lineHeight: 1.2 },
       dividerStyle: { width: '48px', height: '2px', margin: '0 0 18px', backgroundImage: 'linear-gradient(90deg, ' + accent + ' 0%, #E8D9BE 25%, ' + accent + ' 50%, #E8D9BE 75%, ' + accent + ' 100%)', backgroundSize: '200% 100%', animation: 'shimmerMove 5s linear infinite' },
       pStyle: { fontFamily: sans, color: muted, fontSize: '17.5px', lineHeight: 1.85, margin: '0 0 18px', maxWidth: '480px' },
-      pStyleLast: { fontFamily: sans, color: muted, fontSize: '17.5px', lineHeight: 1.85, margin: 0, maxWidth: '480px' },
-
-      manifestoSectionStyle: { background: darkBg, padding: (isMobile ? 64 : 120) + 'px ' + containerPad + 'px', marginTop: (isMobile ? 56 : 110) + 'px' },
-      manifestoGridStyle: { maxWidth: '1180px', margin: '0 auto', display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '200px 1fr', gap: isMobile ? '24px' : '56px', alignItems: 'start', ...reveal('rv-manifesto') },
-      manifestoMarkColStyle: { display: 'flex', flexDirection: isMobile ? 'row' : 'column', alignItems: isMobile ? 'baseline' : 'flex-start', gap: isMobile ? '16px' : '0' },
-      quoteGlyphStyle: { fontFamily: headFont, fontStyle: 'italic', fontWeight: 700, fontSize: isMobile ? '64px' : '140px', color: accent, lineHeight: 0.7, marginBottom: isMobile ? '0' : '18px' },
-      manifestoEyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '13px', color: accent, fontWeight: 600, marginBottom: '20px' },
-      manifestoQuoteStyle: { fontFamily: headFont, fontStyle: 'italic', fontWeight: 600, fontSize: isMobile ? '24px' : '32px', color: '#FBFBF9', lineHeight: 1.4, margin: '0 0 24px' },
-      manifestoTextStyle: { fontFamily: sans, color: 'rgba(251,251,249,0.62)', fontSize: (isMobile ? 17 : 18) + 'px', lineHeight: 1.8, fontWeight: 500, margin: 0, maxWidth: '560px' },
-      manifestoAttrStyle: { fontFamily: sans, fontSize: '12px', color: 'rgba(251,251,249,0.45)', textTransform: 'uppercase', letterSpacing: '2px' },
 
       sectionWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: (isMobile ? 56 : 110) + 'px ' + containerPad + 'px 0' },
       sectionHeadStyle: { maxWidth: '640px', margin: '0 0 ' + (isMobile ? 20 : 30) + 'px' },

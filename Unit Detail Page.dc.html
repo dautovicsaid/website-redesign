@@ -40,9 +40,9 @@
     <span style="{{ crumbSepStyle }}">/</span>
     <a href="{{ parentCrumbHref }}" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">{{ parentCrumbLabel }}</a>
     <span style="{{ crumbSepStyle }}">/</span>
-    <a href="./Project Page - Luxury Redesign.dc.html" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">{{ projectName }}</a>
+    <a href="./Project Page.dc.html" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">{{ projectName }}</a>
     <span style="{{ crumbSepStyle }}">/</span>
-    <a href="./Category Floor Plan Page - Luxury Redesign.dc.html" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">{{ categoryLabel }}</a>
+    <a href="./Category Floor Plan Page.dc.html" style="{{ crumbLinkStyle }}" style-hover="{{ crumbLinkHoverStyle }}">{{ categoryLabel }}</a>
     <span style="{{ crumbSepStyle }}">/</span>
     <span style="{{ crumbMutedStyle }}">{{ lamelaLabel }}</span>
     <span style="{{ crumbSepStyle }}">/</span>
@@ -52,10 +52,6 @@
   <div style="{{ headWrapStyle }}">
     <div style="{{ headMetaRowStyle }}">
       <div style="{{ eyebrowStyle }}">{{ categoryLabel }} &mdash; {{ lamelaLabel }}</div>
-      <div style="{{ statusChipStyle }}">
-        <div style="{{ statusDotStyle }}"></div>
-        <span>{{ statusLabel }}</span>
-      </div>
     </div>
     <h1 style="{{ titleStyle }}">Stan {{ unitCode }}</h1>
     <div style="{{ headDividerStyle }}"></div>
@@ -310,9 +306,9 @@ class Component extends DCLogic {
     const hairline = 'rgba(26,26,26,0.10)';
     const muted = 'rgba(26,26,26,0.58)';
     const serif = "'Cormorant Garamond', serif";
-    const sans = "'Cormorant Garamond', serif";
+    const sans = "'Jost', sans-serif";
     const nameFont = "'Cormorant Garamond', serif";
-    const numFont = "'Cormorant Garamond', serif";
+    const numFont = "'Jost', sans-serif";
     const easeOut = 'cubic-bezier(0.16,1,0.3,1)';
     const hk = this.state.hoverKey;
 
@@ -372,8 +368,6 @@ class Component extends DCLogic {
       headWrapStyle: { maxWidth: '1320px', margin: '0 auto', padding: '20px ' + containerPad + 'px ' + (isMobile ? 26 : 34) + 'px', animation: 'fadeUp 0.7s ' + easeOut + ' both' },
       headMetaRowStyle: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '16px', flexWrap: 'wrap', marginBottom: '14px' },
       eyebrowStyle: { fontFamily: sans, textTransform: 'uppercase', letterSpacing: '3px', fontSize: '13.5px', color: accent, fontWeight: 600 },
-      statusChipStyle: { display: 'flex', alignItems: 'center', gap: '9px', border: '1px solid ' + hairline, padding: '6px 15px', fontFamily: numFont, fontSize: '12px', fontWeight: 700, color: muted, textTransform: 'uppercase', letterSpacing: '0.5px', borderRadius: '999px' },
-      statusDotStyle: { width: '7px', height: '7px', borderRadius: '50%', background: meta.color, flexShrink: 0, animation: status === 'available' ? 'availPulse 2.2s infinite' : 'none' },
       titleStyle: { fontFamily: nameFont, fontWeight: 600, color: charcoal, fontSize: titleSize + 'px', margin: '0 0 16px', lineHeight: 1.15, letterSpacing: '0.5px' },
       headDividerStyle: { width: '56px', height: '2px', backgroundImage: 'linear-gradient(90deg, ' + accent + ' 0%, #E8D9BE 25%, ' + accent + ' 50%, #E8D9BE 75%, ' + accent + ' 100%)', backgroundSize: '200% 100%', animation: 'shimmerMove 5s linear infinite' },
 
@@ -460,7 +454,6 @@ class Component extends DCLogic {
 
       containerPad, titleSize,
       projectName, categoryLabel, unitCode, lamelaLabel, isArchived, parentCrumbLabel, parentCrumbHref, navCurrentPage,
-      statusLabel: meta.label,
       mainImgHeight,
       isSingle: gallery.mode === 'single',
       isDouble: gallery.mode === 'double',
